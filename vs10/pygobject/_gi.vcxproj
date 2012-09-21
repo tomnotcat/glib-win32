@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="gimodule-vs10.c" />
+    <ClCompile Include="pygi-cache-vs10.c" />
+    <ClCompile Include="pygi-callbacks-vs10.c" />
+    <ClCompile Include="pygi-info-vs10.c" />
+    <ClCompile Include="pygi-invoke-vs10.c" />
+    <ClCompile Include="pygi-marshal-cleanup-vs10.c" />
+    <ClCompile Include="pygi-marshal-from-py-vs10.c" />
+    <ClCompile Include="pygi-property-vs10.c" />
+    <ClCompile Include="pygi-repository-vs10.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\pygi-argument.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\pygi-boxed.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\pygi-closure.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\pygi-foreign-gvariant.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\pygi-foreign.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\pygi-marshal-to-py.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\pygi-signal-closure.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\pygi-struct.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\pygi-type.c" />
+    <ClCompile Include="pygobject-3.0.4\gi\_glib\pyglib.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-argument.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-boxed.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-cache.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-callbacks.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-closure.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-foreign-gvariant.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-foreign.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-info.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-invoke-state-struct.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-invoke.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-marshal-cleanup.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-marshal-from-py.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-marshal-to-py.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-private.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-property.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-repository.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-signal-closure.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-struct.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi-type.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygi.h" />
+    <ClInclude Include="pygobject-3.0.4\gi\pygobject-external.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="_gi.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1BE9F193-C81C-4D8D-A34C-BD36FECD05A1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>_gi</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetExt>.pyd</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+    <TargetExt>.pyd</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_GI_EXPORTS;Py_ENABLE_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.0.4\gi;pygobject-3.0.4\gi\_glib;pygobject-3.0.4\gi\_gobject;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Python27\libs;..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;gthread-2.0.lib;gio-2.0.lib;libffi-6.lib;girepository.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy "..\debug\$(TargetName)$(TargetExt)"  "..\..\python27\Lib\gi\$(TargetName)$(TargetExt)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_GI_EXPORTS;Py_ENABLE_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.0.4\gi;pygobject-3.0.4\gi\_glib;pygobject-3.0.4\gi\_gobject</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Python27\libs;..\..\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;gthread-2.0.lib;gio-2.0.lib;libffi-6.lib;girepository.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy "..\release\$(TargetName)$(TargetExt)"  "..\..\python27\Lib\gi\$(TargetName)$(TargetExt)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="libgjs.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gjs-1.33.14\gi\arg.h" />
+    <ClInclude Include="gjs-1.33.14\gi\boxed.h" />
+    <ClInclude Include="gjs-1.33.14\gi\closure.h" />
+    <ClInclude Include="gjs-1.33.14\gi\enumeration.h" />
+    <ClInclude Include="gjs-1.33.14\gi\foreign.h" />
+    <ClInclude Include="gjs-1.33.14\gi\function.h" />
+    <ClInclude Include="gjs-1.33.14\gi\gerror.h" />
+    <ClInclude Include="gjs-1.33.14\gi\gjs_gi_trace.h" />
+    <ClInclude Include="gjs-1.33.14\gi\gtype.h" />
+    <ClInclude Include="gjs-1.33.14\gi\interface.h" />
+    <ClInclude Include="gjs-1.33.14\gi\keep-alive.h" />
+    <ClInclude Include="gjs-1.33.14\gi\ns.h" />
+    <ClInclude Include="gjs-1.33.14\gi\object.h" />
+    <ClInclude Include="gjs-1.33.14\gi\param.h" />
+    <ClInclude Include="gjs-1.33.14\gi\repo.h" />
+    <ClInclude Include="gjs-1.33.14\gi\union.h" />
+    <ClInclude Include="gjs-1.33.14\gi\value.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\byteArray.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\compat.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\context.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\gi.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\gjs-module.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\gjs.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\importer.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\jsapi-private.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\jsapi-util.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\mem.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\native.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\profiler.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\type-module.h" />
+    <ClInclude Include="gjs-1.33.14\gjs\unit-test-utils.h" />
+    <ClInclude Include="gjs-1.33.14\util\crash.h" />
+    <ClInclude Include="gjs-1.33.14\util\error.h" />
+    <ClInclude Include="gjs-1.33.14\util\glib.h" />
+    <ClInclude Include="gjs-1.33.14\util\log.h" />
+    <ClInclude Include="gjs-1.33.14\util\misc.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="arg-vs10.c" />
+    <ClCompile Include="byteArray-vs10.c" />
+    <ClCompile Include="crash-vs10.c" />
+    <ClCompile Include="function-vs10.c" />
+    <ClCompile Include="gjs-1.33.14\gi\boxed.c" />
+    <ClCompile Include="gjs-1.33.14\gi\closure.c" />
+    <ClCompile Include="gjs-1.33.14\gi\enumeration.c" />
+    <ClCompile Include="gjs-1.33.14\gi\foreign.c" />
+    <ClCompile Include="gjs-1.33.14\gi\gerror.c" />
+    <ClCompile Include="gjs-1.33.14\gi\gtype.c" />
+    <ClCompile Include="gjs-1.33.14\gi\interface.c" />
+    <ClCompile Include="gjs-1.33.14\gi\keep-alive.c" />
+    <ClCompile Include="gjs-1.33.14\gi\ns.c" />
+    <ClCompile Include="gjs-1.33.14\gi\object.c" />
+    <ClCompile Include="gjs-1.33.14\gi\repo.c" />
+    <ClCompile Include="gjs-1.33.14\gi\union.c" />
+    <ClCompile Include="gjs-1.33.14\gi\value.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\context.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\gi.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\jsapi-private.cpp" />
+    <ClCompile Include="gjs-1.33.14\gjs\jsapi-util-array.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\jsapi-util-error.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\jsapi-util-string.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\mem.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\native.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\stack.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\type-module.c" />
+    <ClCompile Include="gjs-1.33.14\gjs\unit-test-utils.c" />
+    <ClCompile Include="gjs-1.33.14\util\error.c" />
+    <ClCompile Include="gjs-1.33.14\util\glib.c" />
+    <ClCompile Include="gjs-1.33.14\util\misc.c" />
+    <ClCompile Include="importer-vs10.c" />
+    <ClCompile Include="jsapi-util-vs10.c" />
+    <ClCompile Include="log-vs10.c" />
+    <ClCompile Include="param-vs10.c" />
+    <ClCompile Include="profiler-vs10.c" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9D646593-BAB3-4D77-A32D-BBBC743C7A3E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libgjs</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBGJS_EXPORTS;XP_WIN;GJS_COMPILATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);gjs-1.33.14;gjs-1.33.14\gi;gjs-1.33.14\gjs;gjs-1.33.14\util;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;..\..\include\js-1.8.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>libgjs.def</ModuleDefinitionFile>
+      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;libffi-6.lib;girepository.lib;mozjs185-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy "..\debug\$(TargetName)$(TargetExt)"  "..\..\bin\$(TargetName)$(TargetExt)"
+Copy "..\debug\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
+Copy "gjs-1.33.14\gjs\gjs.h"  "..\..\include\gjs\gjs.h"
+Copy "gjs-1.33.14\gjs\context.h"  "..\..\include\gjs\context.h"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBGJS_EXPORTS;XP_WIN;GJS_COMPILATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);gjs-1.33.14;gjs-1.33.14\gi;gjs-1.33.14\gjs;gjs-1.33.14\util;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;..\..\include\js-1.8.5</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>libgjs.def</ModuleDefinitionFile>
+      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;libffi-6.lib;girepository.lib;mozjs185-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy "..\release\$(TargetName)$(TargetExt)"  "..\..\bin\$(TargetName)$(TargetExt)"
+Copy "..\release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
+Copy "gjs-1.33.14\gjs\gjs.h"  "..\..\include\gjs\gjs.h"
+Copy "gjs-1.33.14\gjs\context.h"  "..\..\include\gjs\context.h"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -19,6 +19,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_giscanner", "gobject-intro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pkg-config", "pkg-config\pkg-config.vcxproj", "{343ABE00-E5F6-48D9-AEAC-FA4B3C5903E8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgjs", "gjs\libgjs.vcxproj", "{9D646593-BAB3-4D77-A32D-BBBC743C7A3E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gjs-console", "gjs\gjs-console.vcxproj", "{F6F4803E-DDD1-4898-92F9-22B2447C28CB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gjs-module-console", "gjs\gjs-module-console.vcxproj", "{83E1A0AC-E209-4921-AE37-CFF8050D3404}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -61,6 +67,18 @@ Global
 		{343ABE00-E5F6-48D9-AEAC-FA4B3C5903E8}.Debug|Win32.Build.0 = Debug|Win32
 		{343ABE00-E5F6-48D9-AEAC-FA4B3C5903E8}.Release|Win32.ActiveCfg = Release|Win32
 		{343ABE00-E5F6-48D9-AEAC-FA4B3C5903E8}.Release|Win32.Build.0 = Release|Win32
+		{9D646593-BAB3-4D77-A32D-BBBC743C7A3E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9D646593-BAB3-4D77-A32D-BBBC743C7A3E}.Debug|Win32.Build.0 = Debug|Win32
+		{9D646593-BAB3-4D77-A32D-BBBC743C7A3E}.Release|Win32.ActiveCfg = Release|Win32
+		{9D646593-BAB3-4D77-A32D-BBBC743C7A3E}.Release|Win32.Build.0 = Release|Win32
+		{F6F4803E-DDD1-4898-92F9-22B2447C28CB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F6F4803E-DDD1-4898-92F9-22B2447C28CB}.Debug|Win32.Build.0 = Debug|Win32
+		{F6F4803E-DDD1-4898-92F9-22B2447C28CB}.Release|Win32.ActiveCfg = Release|Win32
+		{F6F4803E-DDD1-4898-92F9-22B2447C28CB}.Release|Win32.Build.0 = Release|Win32
+		{83E1A0AC-E209-4921-AE37-CFF8050D3404}.Debug|Win32.ActiveCfg = Debug|Win32
+		{83E1A0AC-E209-4921-AE37-CFF8050D3404}.Debug|Win32.Build.0 = Debug|Win32
+		{83E1A0AC-E209-4921-AE37-CFF8050D3404}.Release|Win32.ActiveCfg = Release|Win32
+		{83E1A0AC-E209-4921-AE37-CFF8050D3404}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

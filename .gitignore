@@ -17,3 +17,6 @@ vs10/pkg-config/Release/*
 vs10/pygobject/pygobject-3.0.4/*
 vs10/pygobject/Debug/*
 vs10/pygobject/Release/*
+vs10/gjs/gjs-1.33.14/*
+vs10/gjs/Debug/*
+vs10/gjs/Release/*

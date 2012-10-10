@@ -6756,20 +6756,6 @@ source address of the received packet.
         </return-value>
       </method>
     </record>
-    <function name="create_dcfactory"
-              c:identifier="oren_create_dcfactory"
-              introspectable="0">
-      <doc xml:whitespace="preserve">Create a DCFactory, this function is used for dynamic load.</doc>
-      <return-value>
-        <type name="DCFactory" c:type="OrenDCFactory*"/>
-      </return-value>
-      <parameters>
-        <parameter name="arg" transfer-ownership="none">
-          <doc xml:whitespace="preserve">the argument</doc>
-          <type name="utf8" c:type="const gchar*"/>
-        </parameter>
-      </parameters>
-    </function>
     <function name="dclogin_result_to_string"
               c:identifier="oren_dclogin_result_to_string"
               moved-to="DCLoginResult.to_string">

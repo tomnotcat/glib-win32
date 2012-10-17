@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gjs-module-console", "gjs\g
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libintl", "gettext\libintl.vcxproj", "{92CF60D0-0860-4DD0-8903-560ED7D4013D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gjs-module-langNative", "gjs\gjs-module-langNative.vcxproj", "{84AE50E0-24EB-43E9-B023-E22D0904D67E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -85,6 +87,10 @@ Global
 		{92CF60D0-0860-4DD0-8903-560ED7D4013D}.Debug|Win32.Build.0 = Debug|Win32
 		{92CF60D0-0860-4DD0-8903-560ED7D4013D}.Release|Win32.ActiveCfg = Release|Win32
 		{92CF60D0-0860-4DD0-8903-560ED7D4013D}.Release|Win32.Build.0 = Release|Win32
+		{84AE50E0-24EB-43E9-B023-E22D0904D67E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{84AE50E0-24EB-43E9-B023-E22D0904D67E}.Debug|Win32.Build.0 = Debug|Win32
+		{84AE50E0-24EB-43E9-B023-E22D0904D67E}.Release|Win32.ActiveCfg = Release|Win32
+		{84AE50E0-24EB-43E9-B023-E22D0904D67E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,7 +11,7 @@ and/or use gtk-doc annotations.  -->
   <c:include name="gmodule.h"/>
   <namespace name="GModule"
              version="2.0"
-             shared-library="libgmodule-2.0.so.0"
+             shared-library="gmodule-2-vs10.dll"
              c:identifier-prefixes="G"
              c:symbol-prefixes="g">
     <record name="Module" c:type="GModule" disguised="1">

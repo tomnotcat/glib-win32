@@ -79,3 +79,9 @@ EXPORTS
 	gjs_register_native_module
 	gjs_is_registered_native_module
 	gjs_import_native_module
+
+	gjs_define_object_class
+	gjs_lookup_object_prototype
+	gjs_object_from_g_object
+	gjs_g_object_from_object
+	gjs_typecheck_object

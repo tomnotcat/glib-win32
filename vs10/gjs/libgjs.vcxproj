@@ -143,9 +143,7 @@
     </Link>
     <PostBuildEvent>
       <Command>Copy "..\debug\$(TargetName)$(TargetExt)"  "..\..\bin\$(TargetName)$(TargetExt)"
-Copy "..\debug\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
-Copy "gjs-1.33.14\gjs\gjs.h"  "..\..\include\gjs\gjs.h"
-Copy "gjs-1.33.14\gjs\context.h"  "..\..\include\gjs\context.h"</Command>
+Copy "..\debug\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -171,8 +169,7 @@ Copy "gjs-1.33.14\gjs\context.h"  "..\..\include\gjs\context.h"</Command>
     <PostBuildEvent>
       <Command>Copy "..\release\$(TargetName)$(TargetExt)"  "..\..\bin\$(TargetName)$(TargetExt)"
 Copy "..\release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
-Copy "gjs-1.33.14\gjs\gjs.h"  "..\..\include\gjs\gjs.h"
-Copy "gjs-1.33.14\gjs\context.h"  "..\..\include\gjs\context.h"</Command>
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

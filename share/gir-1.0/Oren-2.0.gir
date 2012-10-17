@@ -10,7 +10,7 @@ and/or use gtk-doc annotations.  -->
   <include name="GObject" version="2.0"/>
   <namespace name="Oren"
              version="1.0"
-             shared-library="./oren.dll"
+             shared-library="oren.dll"
              c:identifier-prefixes="Oren"
              c:symbol-prefixes="oren">
     <class name="CMClient"
@@ -1291,6 +1291,9 @@ and/or use gtk-doc annotations.  -->
           <parameter name="server" transfer-ownership="none">
             <type name="DCServer" c:type="OrenDCServer*"/>
           </parameter>
+          <parameter name="reactor" transfer-ownership="none">
+            <type name="NCReactor" c:type="OrenNCReactor*"/>
+          </parameter>
           <parameter name="address" transfer-ownership="none">
             <type name="NCInetAddress" c:type="OrenNCInetAddress*"/>
           </parameter>
@@ -2063,6 +2066,31 @@ and/or use gtk-doc annotations.  -->
           <type name="DCFactory" c:type="OrenDCFactory*"/>
         </return-value>
       </constructor>
+      <virtual-method name="channel_made">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="channel" transfer-ownership="none">
+            <type name="DCChannel" c:type="OrenDCChannel*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="client_made">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="client" transfer-ownership="none">
+            <type name="DCClient" c:type="OrenDCClient*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="close">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
       <virtual-method name="make_channel" invoker="make_channel">
         <doc xml:whitespace="preserve">Make a channel with the provided parameters.</doc>
         <return-value transfer-ownership="full">
@@ -2073,6 +2101,10 @@ and/or use gtk-doc annotations.  -->
           <parameter name="server" transfer-ownership="none">
             <doc xml:whitespace="preserve">a #OrenDCServer</doc>
             <type name="DCServer" c:type="OrenDCServer*"/>
+          </parameter>
+          <parameter name="reactor" transfer-ownership="none">
+            <doc xml:whitespace="preserve">a #OrenNCReactor</doc>
+            <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
           <parameter name="address" transfer-ownership="none">
             <doc xml:whitespace="preserve">a #OrenNCInetAddress</doc>
@@ -2162,6 +2194,16 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
+      <virtual-method name="user_made">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="user" transfer-ownership="none">
+            <type name="DCUser" c:type="OrenDCUser*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
       <method name="make_channel" c:identifier="oren_dcfactory_make_channel">
         <doc xml:whitespace="preserve">Make a channel with the provided parameters.</doc>
         <return-value transfer-ownership="full">
@@ -2172,6 +2214,10 @@ and/or use gtk-doc annotations.  -->
           <parameter name="server" transfer-ownership="none">
             <doc xml:whitespace="preserve">a #OrenDCServer</doc>
             <type name="DCServer" c:type="OrenDCServer*"/>
+          </parameter>
+          <parameter name="reactor" transfer-ownership="none">
+            <doc xml:whitespace="preserve">a #OrenNCReactor</doc>
+            <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
           <parameter name="address" transfer-ownership="none">
             <doc xml:whitespace="preserve">a #OrenNCInetAddress</doc>
@@ -2264,6 +2310,41 @@ and/or use gtk-doc annotations.  -->
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>
       </field>
+      <glib:signal name="channel-made" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="DCChannel"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="client-made" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="DCClient"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="close" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="user-made" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="DCUser"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
     </class>
     <record name="DCFactoryClass"
             c:type="OrenDCFactoryClass"
@@ -2284,6 +2365,10 @@ and/or use gtk-doc annotations.  -->
             <parameter name="server" transfer-ownership="none">
               <doc xml:whitespace="preserve">a #OrenDCServer</doc>
               <type name="DCServer" c:type="OrenDCServer*"/>
+            </parameter>
+            <parameter name="reactor" transfer-ownership="none">
+              <doc xml:whitespace="preserve">a #OrenNCReactor</doc>
+              <type name="NCReactor" c:type="OrenNCReactor*"/>
             </parameter>
             <parameter name="address" transfer-ownership="none">
               <doc xml:whitespace="preserve">a #OrenNCInetAddress</doc>
@@ -2378,6 +2463,63 @@ and/or use gtk-doc annotations.  -->
             <parameter name="statistics" transfer-ownership="none">
               <doc xml:whitespace="preserve">do transmission statistics</doc>
               <type name="gboolean" c:type="gboolean"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="channel_made">
+        <callback name="channel_made">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DCFactory" c:type="OrenDCFactory*"/>
+            </parameter>
+            <parameter name="channel" transfer-ownership="none">
+              <type name="DCChannel" c:type="OrenDCChannel*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="user_made">
+        <callback name="user_made">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DCFactory" c:type="OrenDCFactory*"/>
+            </parameter>
+            <parameter name="user" transfer-ownership="none">
+              <type name="DCUser" c:type="OrenDCUser*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="client_made">
+        <callback name="client_made">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DCFactory" c:type="OrenDCFactory*"/>
+            </parameter>
+            <parameter name="client" transfer-ownership="none">
+              <type name="DCClient" c:type="OrenDCClient*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="close">
+        <callback name="close">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DCFactory" c:type="OrenDCFactory*"/>
             </parameter>
           </parameters>
         </callback>
@@ -2947,6 +3089,9 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">the login signature</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
+          <parameter name="max_thread_count" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
           <parameter name="max_channel_count" transfer-ownership="none">
             <type name="gint" c:type="gint"/>
           </parameter>
@@ -3055,6 +3200,19 @@ and/or use gtk-doc annotations.  -->
     </record>
     <record name="DCServerPrivate" c:type="OrenDCServerPrivate" disguised="1">
     </record>
+    <enumeration name="DCSessionID"
+                 glib:type-name="OrenDCSessionID"
+                 glib:get-type="oren_dcsession_id_get_type"
+                 c:type="OrenDCSessionID">
+      <member name="MESSAGE"
+              value="24"
+              c:identifier="OREN_DC_SESS_MSG"
+              glib:nick="MESSAGE"/>
+      <member name="DATA"
+              value="25"
+              c:identifier="OREN_DC_SESS_DATA"
+              glib:nick="DATA"/>
+    </enumeration>
     <record name="DCTransferStatus" c:type="OrenDCTransferStatus">
       <field name="rtt" writable="1">
         <type name="guint32" c:type="guint32"/>
@@ -5197,6 +5355,11 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
       </method>
+      <method name="handler_count" c:identifier="oren_ncreactor_handler_count">
+        <return-value transfer-ownership="none">
+          <type name="guint" c:type="guint"/>
+        </return-value>
+      </method>
       <method name="once" c:identifier="oren_ncreactor_once">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -6343,6 +6506,9 @@ source address of the received packet.
           <parameter name="server" transfer-ownership="none">
             <type name="DCServer" c:type="OrenDCServer*"/>
           </parameter>
+          <parameter name="reactor" transfer-ownership="none">
+            <type name="NCReactor" c:type="OrenNCReactor*"/>
+          </parameter>
           <parameter name="address" transfer-ownership="none">
             <type name="NCInetAddress" c:type="OrenNCInetAddress*"/>
           </parameter>
@@ -6779,6 +6945,14 @@ source address of the received packet.
           <type name="DCLogoutReason" c:type="OrenDCLogoutReason"/>
         </parameter>
       </parameters>
+    </function>
+    <function name="dcutils_create_buffer"
+              c:identifier="oren_dcutils_create_buffer">
+      <doc xml:whitespace="preserve">Make a buffer used for #OrenDCClient and #OrenDCUser</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">a #OrenNCBuffer.</doc>
+        <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+      </return-value>
     </function>
   </namespace>
 </repository>

@@ -16,7 +16,7 @@ and/or use gtk-doc annotations.  -->
     <class name="CMClient"
            c:symbol-prefix="cmclient"
            c:type="OrenCMClient"
-           parent="NCPacketHandler"
+           parent="NCHandler"
            glib:type-name="OrenCMClient"
            glib:get-type="oren_cmclient_get_type"
            glib:type-struct="CMClientClass">
@@ -64,8 +64,11 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="tv" transfer-ownership="none">
-            <type name="gpointer" c:type="const timeval*"/>
+          <parameter name="tv_sec" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="tv_usec" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </virtual-method>
@@ -88,9 +91,6 @@ and/or use gtk-doc annotations.  -->
         <parameters>
           <parameter name="reactor" transfer-ownership="none">
             <type name="NCReactor" c:type="OrenNCReactor*"/>
-          </parameter>
-          <parameter name="socket" transfer-ownership="none">
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
           </parameter>
           <parameter name="signature" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
@@ -139,7 +139,7 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </method>
       <field name="parent_instance">
-        <type name="NCPacketHandler" c:type="OrenNCPacketHandler"/>
+        <type name="NCHandler" c:type="OrenNCHandler"/>
       </field>
       <field name="priv">
         <type name="CMClientPrivate" c:type="OrenCMClientPrivate*"/>
@@ -186,7 +186,10 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="object" transfer-ownership="none">
-            <type name="Timeval"/>
+            <type name="guint"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="guint"/>
           </parameter>
         </parameters>
       </glib:signal>
@@ -195,7 +198,7 @@ and/or use gtk-doc annotations.  -->
             c:type="OrenCMClientClass"
             glib:is-gtype-struct-for="CMClient">
       <field name="parent_class">
-        <type name="NCPacketHandlerClass" c:type="OrenNCPacketHandlerClass"/>
+        <type name="NCHandlerClass" c:type="OrenNCHandlerClass"/>
       </field>
       <field name="time">
         <callback name="time">
@@ -206,8 +209,11 @@ and/or use gtk-doc annotations.  -->
             <parameter name="self" transfer-ownership="none">
               <type name="CMClient" c:type="OrenCMClient*"/>
             </parameter>
-            <parameter name="tv" transfer-ownership="none">
-              <type name="gpointer" c:type="const timeval*"/>
+            <parameter name="tv_sec" transfer-ownership="none">
+              <type name="guint" c:type="guint"/>
+            </parameter>
+            <parameter name="tv_usec" transfer-ownership="none">
+              <type name="guint" c:type="guint"/>
             </parameter>
           </parameters>
         </callback>
@@ -264,9 +270,6 @@ and/or use gtk-doc annotations.  -->
     </record>
     <record name="CMClientPrivate" c:type="OrenCMClientPrivate" disguised="1">
     </record>
-    <constant name="CMGROUP_ALL" value="all" c:type="OREN_CMGROUP_ALL">
-      <type name="utf8" c:type="gchar*"/>
-    </constant>
     <enumeration name="CMLoginResult"
                  glib:type-name="OrenCMLoginResult"
                  glib:get-type="oren_cmlogin_result_get_type"
@@ -365,7 +368,7 @@ and/or use gtk-doc annotations.  -->
               glib:nick="errsver"/>
     </enumeration>
     <constant name="CMSLAVE_SESSION_LOST_DIFF"
-              value="50"
+              value="300"
               c:type="OREN_CMSLAVE_SESSION_LOST_DIFF">
       <type name="gint" c:type="gint"/>
     </constant>
@@ -382,7 +385,7 @@ and/or use gtk-doc annotations.  -->
     <class name="CMServer"
            c:symbol-prefix="cmserver"
            c:type="OrenCMServer"
-           parent="NCPacketHandler"
+           parent="NCHandler"
            glib:type-name="OrenCMServer"
            glib:get-type="oren_cmserver_get_type"
            glib:type-struct="CMServerClass">
@@ -447,11 +450,11 @@ and/or use gtk-doc annotations.  -->
           <parameter name="reactor" transfer-ownership="none">
             <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
-          <parameter name="sock_slave" transfer-ownership="none">
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
+          <parameter name="slave_addr" transfer-ownership="none">
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
           </parameter>
-          <parameter name="sock_client" transfer-ownership="none">
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
+          <parameter name="client_addr" transfer-ownership="none">
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
           </parameter>
           <parameter name="max_req_slaves" transfer-ownership="none">
             <type name="gint" c:type="gint"/>
@@ -470,7 +473,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
       </method>
       <field name="parent_instance">
-        <type name="NCPacketHandler" c:type="OrenNCPacketHandler"/>
+        <type name="NCHandler" c:type="OrenNCHandler"/>
       </field>
       <field name="priv">
         <type name="CMServerPrivate" c:type="OrenCMServerPrivate*"/>
@@ -500,7 +503,7 @@ and/or use gtk-doc annotations.  -->
             c:type="OrenCMServerClass"
             glib:is-gtype-struct-for="CMServer">
       <field name="parent_class">
-        <type name="NCPacketHandlerClass" c:type="OrenNCPacketHandlerClass"/>
+        <type name="NCHandlerClass" c:type="OrenNCHandlerClass"/>
       </field>
       <field name="add_slave">
         <callback name="add_slave">
@@ -538,7 +541,7 @@ and/or use gtk-doc annotations.  -->
     <class name="CMSlave"
            c:symbol-prefix="cmslave"
            c:type="OrenCMSlave"
-           parent="NCPacketHandler"
+           parent="NCHandler"
            glib:type-name="OrenCMSlave"
            glib:get-type="oren_cmslave_get_type"
            glib:type-struct="CMSlaveClass">
@@ -585,12 +588,12 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
       </method>
-      <method name="get_group" c:identifier="oren_cmslave_get_group">
+      <method name="get_name" c:identifier="oren_cmslave_get_name">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
       </method>
-      <method name="get_name" c:identifier="oren_cmslave_get_name">
+      <method name="get_network" c:identifier="oren_cmslave_get_network">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -608,13 +611,10 @@ and/or use gtk-doc annotations.  -->
           <parameter name="address" transfer-ownership="none">
             <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
           </parameter>
-          <parameter name="service" transfer-ownership="none">
-            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-          </parameter>
           <parameter name="slave_name" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="slave_group" transfer-ownership="none">
+          <parameter name="slave_network" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -625,23 +625,38 @@ and/or use gtk-doc annotations.  -->
         </return-value>
       </method>
       <method name="open" c:identifier="oren_cmslave_open">
+        <doc xml:whitespace="preserve">Open the CMSlave with the specified parameters.</doc>
         <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">whether success or not.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <parameter name="reactor" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the reactor</doc>
             <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
-          <parameter name="socket" transfer-ownership="none">
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
+          <parameter name="service_addr"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the service IP addresses</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="NCInetAddress"/>
+            </array>
+          </parameter>
+          <parameter name="service_port" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the service port</doc>
+            <type name="guint16" c:type="guint16"/>
           </parameter>
           <parameter name="signature" transfer-ownership="none">
+            <doc xml:whitespace="preserve">packet signature</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="max_channel_count" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the allowed max channel</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
           <parameter name="max_user_count" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the allowed max user</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
         </parameters>
@@ -683,7 +698,7 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </method>
       <field name="parent_instance">
-        <type name="NCPacketHandler" c:type="OrenNCPacketHandler"/>
+        <type name="NCHandler" c:type="OrenNCHandler"/>
       </field>
       <field name="priv">
         <type name="CMSlavePrivate" c:type="OrenCMSlavePrivate*"/>
@@ -713,7 +728,7 @@ and/or use gtk-doc annotations.  -->
             c:type="OrenCMSlaveClass"
             glib:is-gtype-struct-for="CMSlave">
       <field name="parent_class">
-        <type name="NCPacketHandlerClass" c:type="OrenNCPacketHandlerClass"/>
+        <type name="NCHandlerClass" c:type="OrenNCHandlerClass"/>
       </field>
       <field name="login">
         <callback name="login">
@@ -754,26 +769,44 @@ and/or use gtk-doc annotations.  -->
            glib:get-type="oren_cmslave_info_get_type"
            glib:type-struct="CMSlaveInfoClass">
       <constructor name="new" c:identifier="oren_cmslave_info_new">
+        <doc xml:whitespace="preserve">Create a slave info with the specified parameters.</doc>
         <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">the created slave info object.</doc>
           <type name="CMSlaveInfo" c:type="OrenCMSlaveInfo*"/>
         </return-value>
         <parameters>
-          <parameter name="slave_name" transfer-ownership="none">
+          <parameter name="slave_name"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the slave name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="slave_group" transfer-ownership="none">
+          <parameter name="slave_group"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the slave group</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="channel" transfer-ownership="none">
+          <parameter name="channel" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the channel name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="address" transfer-ownership="none">
-            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          <parameter name="service_addr"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the service IP addresses</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="NCInetAddress"/>
+            </array>
+          </parameter>
+          <parameter name="service_port" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the service port</doc>
+            <type name="guint16" c:type="guint16"/>
           </parameter>
         </parameters>
       </constructor>
       <method name="get_address" c:identifier="oren_cmslave_info_get_address">
-        <doc xml:whitespace="preserve">Get an socket address of the slave info.</doc>
+        <doc xml:whitespace="preserve">Get an service address of the slave info.</doc>
         <return-value transfer-ownership="none">
           <doc xml:whitespace="preserve">a #OrenNCSockaddr or %NULL on error.</doc>
           <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
@@ -793,6 +826,32 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
+      </method>
+      <method name="get_service_addr"
+              c:identifier="oren_cmslave_info_get_service_addr">
+        <doc xml:whitespace="preserve">Get an service address of the slave info.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the service address list</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="NCInetAddress"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="get_service_port"
+              c:identifier="oren_cmslave_info_get_service_port">
+        <return-value transfer-ownership="none">
+          <type name="guint16" c:type="guint16"/>
+        </return-value>
+      </method>
+      <method name="set_address" c:identifier="oren_cmslave_info_set_address">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="address" transfer-ownership="none">
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          </parameter>
+        </parameters>
       </method>
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>
@@ -841,7 +900,7 @@ and/or use gtk-doc annotations.  -->
           <parameter name="slave_name" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="slave_group" transfer-ownership="none">
+          <parameter name="slave_network" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="max_channel_count" transfer-ownership="none">
@@ -859,8 +918,13 @@ and/or use gtk-doc annotations.  -->
           <parameter name="address" transfer-ownership="none">
             <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
           </parameter>
-          <parameter name="service" transfer-ownership="none">
-            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          <parameter name="service_addr" transfer-ownership="none">
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="gpointer" c:type="gpointer"/>
+            </array>
+          </parameter>
+          <parameter name="service_port" transfer-ownership="none">
+            <type name="guint16" c:type="guint16"/>
           </parameter>
           <parameter name="buffer" transfer-ownership="none">
             <type name="NCBuffer" c:type="OrenNCBuffer*"/>
@@ -881,11 +945,6 @@ and/or use gtk-doc annotations.  -->
           <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
         </return-value>
       </method>
-      <method name="get_group" c:identifier="oren_cmslave_session_get_group">
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-      </method>
       <method name="get_id" c:identifier="oren_cmslave_session_get_id">
         <return-value transfer-ownership="none">
           <type name="guint32" c:type="guint32"/>
@@ -902,6 +961,12 @@ and/or use gtk-doc annotations.  -->
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
       </method>
+      <method name="get_network"
+              c:identifier="oren_cmslave_session_get_network">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
       <method name="get_server" c:identifier="oren_cmslave_session_get_server">
         <doc xml:whitespace="preserve">Get the server of the slave.</doc>
         <return-value transfer-ownership="none">
@@ -909,12 +974,20 @@ and/or use gtk-doc annotations.  -->
           <type name="CMServer" c:type="OrenCMServer*"/>
         </return-value>
       </method>
-      <method name="get_service"
-              c:identifier="oren_cmslave_session_get_service">
+      <method name="get_service_addr"
+              c:identifier="oren_cmslave_session_get_service_addr">
         <doc xml:whitespace="preserve">Get the service address of a slave.</doc>
         <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">a #OrenNCSockaddr.</doc>
-          <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          <doc xml:whitespace="preserve">the service address list</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="NCInetAddress"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="get_service_port"
+              c:identifier="oren_cmslave_session_get_service_port">
+        <return-value transfer-ownership="none">
+          <type name="guint16" c:type="guint16"/>
         </return-value>
       </method>
       <method name="get_workload"
@@ -947,12 +1020,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <method name="is_overloaded"
-              c:identifier="oren_cmslave_session_is_overloaded">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-      </method>
       <method name="protocol_version"
               c:identifier="oren_cmslave_session_protocol_version">
         <return-value transfer-ownership="none">
@@ -975,7 +1042,7 @@ and/or use gtk-doc annotations.  -->
       <method name="req_channel"
               c:identifier="oren_cmslave_session_req_channel">
         <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
+          <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <parameter name="channel_name" transfer-ownership="none">
@@ -1114,7 +1181,7 @@ and/or use gtk-doc annotations.  -->
     <class name="DCChannel"
            c:symbol-prefix="dcchannel"
            c:type="OrenDCChannel"
-           parent="NCPacketHandler"
+           parent="NCHandler"
            glib:type-name="OrenDCChannel"
            glib:get-type="oren_dcchannel_get_type"
            glib:type-struct="DCChannelClass">
@@ -1144,6 +1211,11 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </virtual-method>
       <virtual-method name="close" invoker="close">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="open">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -1231,7 +1303,7 @@ and/or use gtk-doc annotations.  -->
       <method name="get_user" c:identifier="oren_dcchannel_get_user">
         <doc xml:whitespace="preserve">Find a user in the channel.</doc>
         <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">the #OrenDCUser with user id @user_id, which must be g_object_ref()'d if it will be stored</doc>
+          <doc xml:whitespace="preserve">the #OrenDCUser with user id @user_id, which must be g_object_ref()'d if it will be stored.</doc>
           <type name="DCUser" c:type="OrenDCUser*"/>
         </return-value>
         <parameters>
@@ -1241,45 +1313,63 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="get_user_count"
+              c:identifier="oren_dcchannel_get_user_count">
+        <return-value transfer-ownership="none">
+          <type name="guint" c:type="guint"/>
+        </return-value>
+      </method>
       <method name="is_frozen" c:identifier="oren_dcchannel_is_frozen">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
       </method>
-      <method name="multicast_data"
-              c:identifier="oren_dcchannel_multicast_data">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
+      <method name="make_data" c:identifier="oren_dcchannel_make_data">
+        <doc xml:whitespace="preserve">Create a data packet;</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer or %NULL on error, Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+        </return-value>
+      </method>
+      <method name="make_message" c:identifier="oren_dcchannel_make_message">
+        <doc xml:whitespace="preserve">Create a message packet;</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer or %NULL on error, Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
         </return-value>
         <parameters>
-          <parameter name="skip" transfer-ownership="none">
-            <type name="DCUser" c:type="OrenDCUser*"/>
-          </parameter>
-          <parameter name="data" transfer-ownership="none">
-            <type name="gpointer" c:type="gconstpointer"/>
-          </parameter>
-          <parameter name="size" transfer-ownership="none">
-            <type name="gsize" c:type="gsize"/>
+          <parameter name="message" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the message</doc>
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </method>
-      <method name="multicast_message"
-              c:identifier="oren_dcchannel_multicast_message">
+      <method name="multicast_packet"
+              c:identifier="oren_dcchannel_multicast_packet">
+        <doc xml:whitespace="preserve">Multicast packet to all the users except @skip and filtered.</doc>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="skip" transfer-ownership="none">
+          <parameter name="skip" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the user to skip</doc>
             <type name="DCUser" c:type="OrenDCUser*"/>
           </parameter>
-          <parameter name="message" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
+          <parameter name="buffer" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the packet to multicast</doc>
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
-            <type name="gpointer" c:type="gconstpointer"/>
+          <parameter name="filter"
+                     transfer-ownership="none"
+                     allow-none="1"
+                     scope="call"
+                     closure="3">
+            <doc xml:whitespace="preserve">the filter function</doc>
+            <type name="MulticastFilter" c:type="OrenMulticastFilter"/>
           </parameter>
-          <parameter name="size" transfer-ownership="none">
-            <type name="gsize" c:type="gsize"/>
+          <parameter name="user_data" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">user data for @filter</doc>
+            <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
       </method>
@@ -1308,39 +1398,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <method name="real_flush" c:identifier="oren_dcchannel_real_flush">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="session_id" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="real_multicast"
-              c:identifier="oren_dcchannel_real_multicast">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="session_id" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-          <parameter name="skip" transfer-ownership="none">
-            <type name="DCUser" c:type="OrenDCUser*"/>
-          </parameter>
-          <parameter name="buffer" transfer-ownership="none">
-            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-          <parameter name="filter" transfer-ownership="none">
-            <type name="gpointer" c:type="gpointer*"/>
-          </parameter>
-          <parameter name="flush" transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
-          </parameter>
-        </parameters>
-      </method>
       <method name="remove_user" c:identifier="oren_dcchannel_remove_user">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -1351,13 +1408,8 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <method name="user_count" c:identifier="oren_dcchannel_user_count">
-        <return-value transfer-ownership="none">
-          <type name="guint" c:type="guint"/>
-        </return-value>
-      </method>
       <field name="parent_instance">
-        <type name="NCPacketHandler" c:type="OrenNCPacketHandler"/>
+        <type name="NCHandler" c:type="OrenNCHandler"/>
       </field>
       <field name="priv">
         <type name="DCChannelPrivate" c:type="OrenDCChannelPrivate*"/>
@@ -1382,11 +1434,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </glib:signal>
-      <glib:signal name="close" when="first">
-        <return-value transfer-ownership="none">
-          <type name="none"/>
-        </return-value>
-      </glib:signal>
       <glib:signal name="remove-user" when="first">
         <return-value transfer-ownership="none">
           <type name="none"/>
@@ -1402,7 +1449,7 @@ and/or use gtk-doc annotations.  -->
             c:type="OrenDCChannelClass"
             glib:is-gtype-struct-for="DCChannel">
       <field name="parent_class">
-        <type name="NCPacketHandlerClass" c:type="OrenNCPacketHandlerClass"/>
+        <type name="NCHandlerClass" c:type="OrenNCHandlerClass"/>
       </field>
       <field name="add_user">
         <callback name="add_user">
@@ -1449,6 +1496,18 @@ and/or use gtk-doc annotations.  -->
           </parameters>
         </callback>
       </field>
+      <field name="open">
+        <callback name="open">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DCChannel" c:type="OrenDCChannel*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
       <field name="close">
         <callback name="close">
           <return-value transfer-ownership="none">
@@ -1469,7 +1528,7 @@ and/or use gtk-doc annotations.  -->
     <class name="DCClient"
            c:symbol-prefix="dcclient"
            c:type="OrenDCClient"
-           parent="NCPacketHandler"
+           parent="NCHandler"
            glib:type-name="OrenDCClient"
            glib:get-type="oren_dcclient_get_type"
            glib:type-struct="DCClientClass">
@@ -1592,13 +1651,6 @@ and/or use gtk-doc annotations.  -->
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
       </method>
-      <method name="get_mtpeer" c:identifier="oren_dcclient_get_mtpeer">
-        <doc xml:whitespace="preserve">Get the multicast tree peer of the client.</doc>
-        <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">a #OrenMTPeer.</doc>
-          <type name="MTPeer" c:type="OrenMTPeer*"/>
-        </return-value>
-      </method>
       <method name="get_signature" c:identifier="oren_dcclient_get_signature">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
@@ -1662,6 +1714,26 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
       </method>
+      <method name="make_data" c:identifier="oren_dcclient_make_data">
+        <doc xml:whitespace="preserve">Create a data packet;</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer or %NULL on error, Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+        </return-value>
+      </method>
+      <method name="make_message" c:identifier="oren_dcclient_make_message">
+        <doc xml:whitespace="preserve">Create a message packet;</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer or %NULL on error, Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+        </return-value>
+        <parameters>
+          <parameter name="message" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the message</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="open" c:identifier="oren_dcclient_open">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
@@ -1669,9 +1741,6 @@ and/or use gtk-doc annotations.  -->
         <parameters>
           <parameter name="reactor" transfer-ownership="none">
             <type name="NCReactor" c:type="OrenNCReactor*"/>
-          </parameter>
-          <parameter name="socket" transfer-ownership="none">
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
           </parameter>
           <parameter name="signature" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
@@ -1694,83 +1763,13 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <method name="real_enable_p2p"
-              c:identifier="oren_dcclient_real_enable_p2p">
+      <method name="send_packet" c:identifier="oren_dcclient_send_packet">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="enable" transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="real_flush" c:identifier="oren_dcclient_real_flush">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="session_id" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="real_send" c:identifier="oren_dcclient_real_send">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="session_id" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
           <parameter name="buffer" transfer-ownership="none">
             <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-          <parameter name="flush" transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="real_set_quality"
-              c:identifier="oren_dcclient_real_set_quality">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="send" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-          <parameter name="receive" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="send_data" c:identifier="oren_dcclient_send_data">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="data" transfer-ownership="none">
-            <type name="gpointer" c:type="gconstpointer"/>
-          </parameter>
-          <parameter name="size" transfer-ownership="none">
-            <type name="gsize" c:type="gsize"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="send_message" c:identifier="oren_dcclient_send_message">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="message" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-          <parameter name="data" transfer-ownership="none">
-            <type name="gpointer" c:type="gconstpointer"/>
-          </parameter>
-          <parameter name="size" transfer-ownership="none">
-            <type name="gsize" c:type="gsize"/>
           </parameter>
         </parameters>
       </method>
@@ -1799,7 +1798,7 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </method>
       <field name="parent_instance">
-        <type name="NCPacketHandler" c:type="OrenNCPacketHandler"/>
+        <type name="NCHandler" c:type="OrenNCHandler"/>
       </field>
       <field name="priv">
         <type name="DCClientPrivate" c:type="OrenDCClientPrivate*"/>
@@ -1813,11 +1812,6 @@ and/or use gtk-doc annotations.  -->
             <type name="gboolean"/>
           </parameter>
         </parameters>
-      </glib:signal>
-      <glib:signal name="close" when="first">
-        <return-value transfer-ownership="none">
-          <type name="none"/>
-        </return-value>
       </glib:signal>
       <glib:signal name="data" when="first">
         <return-value transfer-ownership="none">
@@ -1902,7 +1896,7 @@ and/or use gtk-doc annotations.  -->
             c:type="OrenDCClientClass"
             glib:is-gtype-struct-for="DCClient">
       <field name="parent_class">
-        <type name="NCPacketHandlerClass" c:type="OrenNCPacketHandlerClass"/>
+        <type name="NCHandlerClass" c:type="OrenNCHandlerClass"/>
       </field>
       <field name="ping">
         <callback name="ping">
@@ -2135,10 +2129,6 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">a #OrenNCReactor</doc>
             <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
-          <parameter name="socket" transfer-ownership="none">
-            <doc xml:whitespace="preserve">a #OrenNCSocket</doc>
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
-          </parameter>
           <parameter name="signature" transfer-ownership="none">
             <doc xml:whitespace="preserve">the login signature</doc>
             <type name="utf8" c:type="const gchar*"/>
@@ -2190,7 +2180,7 @@ and/or use gtk-doc annotations.  -->
           </parameter>
           <parameter name="protocol_version" transfer-ownership="none">
             <doc xml:whitespace="preserve">the client protocol version</doc>
-            <type name="guint8" c:type="guint8"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </virtual-method>
@@ -2248,10 +2238,6 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">a #OrenNCReactor</doc>
             <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
-          <parameter name="socket" transfer-ownership="none">
-            <doc xml:whitespace="preserve">a #OrenNCSocket</doc>
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
-          </parameter>
           <parameter name="signature" transfer-ownership="none">
             <doc xml:whitespace="preserve">the login signature</doc>
             <type name="utf8" c:type="const gchar*"/>
@@ -2303,7 +2289,7 @@ and/or use gtk-doc annotations.  -->
           </parameter>
           <parameter name="protocol_version" transfer-ownership="none">
             <doc xml:whitespace="preserve">the client protocol version</doc>
-            <type name="guint8" c:type="guint8"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </method>
@@ -2329,11 +2315,6 @@ and/or use gtk-doc annotations.  -->
             <type name="DCClient"/>
           </parameter>
         </parameters>
-      </glib:signal>
-      <glib:signal name="close" when="first">
-        <return-value transfer-ownership="none">
-          <type name="none"/>
-        </return-value>
       </glib:signal>
       <glib:signal name="user-made" when="first">
         <return-value transfer-ownership="none">
@@ -2433,7 +2414,7 @@ and/or use gtk-doc annotations.  -->
             </parameter>
             <parameter name="protocol_version" transfer-ownership="none">
               <doc xml:whitespace="preserve">the client protocol version</doc>
-              <type name="guint8" c:type="guint8"/>
+              <type name="guint" c:type="guint"/>
             </parameter>
           </parameters>
         </callback>
@@ -2451,10 +2432,6 @@ and/or use gtk-doc annotations.  -->
             <parameter name="reactor" transfer-ownership="none">
               <doc xml:whitespace="preserve">a #OrenNCReactor</doc>
               <type name="NCReactor" c:type="OrenNCReactor*"/>
-            </parameter>
-            <parameter name="socket" transfer-ownership="none">
-              <doc xml:whitespace="preserve">a #OrenNCSocket</doc>
-              <type name="NCSocket" c:type="OrenNCSocket*"/>
             </parameter>
             <parameter name="signature" transfer-ownership="none">
               <doc xml:whitespace="preserve">the login signature</doc>
@@ -2674,7 +2651,7 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </method>
       <field name="parent_instance">
-        <type name="NCPacketHandler" c:type="OrenNCPacketHandler"/>
+        <type name="NCHandler" c:type="OrenNCHandler"/>
       </field>
       <field name="priv">
         <type name="DCLoginPrivate" c:type="OrenDCLoginPrivate*"/>
@@ -2714,7 +2691,7 @@ and/or use gtk-doc annotations.  -->
             c:type="OrenDCLoginClass"
             glib:is-gtype-struct-for="DCLogin">
       <field name="parent_class">
-        <type name="NCPacketHandlerClass" c:type="OrenNCPacketHandlerClass"/>
+        <type name="NCHandlerClass" c:type="OrenNCHandlerClass"/>
       </field>
       <field name="choose">
         <callback name="choose">
@@ -2961,7 +2938,7 @@ and/or use gtk-doc annotations.  -->
     <class name="DCServer"
            c:symbol-prefix="dcserver"
            c:type="OrenDCServer"
-           parent="NCPacketHandler"
+           parent="NCHandler"
            glib:type-name="OrenDCServer"
            glib:get-type="oren_dcserver_get_type"
            glib:type-struct="DCServerClass">
@@ -3000,11 +2977,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
-      <method name="channel_count" c:identifier="oren_dcserver_channel_count">
-        <return-value transfer-ownership="none">
-          <type name="gint" c:type="gint"/>
-        </return-value>
-      </method>
       <method name="close" c:identifier="oren_dcserver_close">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -3027,6 +2999,18 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="get_channel_count"
+              c:identifier="oren_dcserver_get_channel_count">
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+      </method>
+      <method name="get_data_quality"
+              c:identifier="oren_dcserver_get_data_quality">
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+      </method>
       <method name="get_factory" c:identifier="oren_dcserver_get_factory">
         <doc xml:whitespace="preserve">Get the factory used by the server.</doc>
         <return-value transfer-ownership="none">
@@ -3034,12 +3018,12 @@ and/or use gtk-doc annotations.  -->
           <type name="DCFactory" c:type="OrenDCFactory*"/>
         </return-value>
       </method>
-      <method name="get_group" c:identifier="oren_dcserver_get_group">
+      <method name="get_name" c:identifier="oren_dcserver_get_name">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
       </method>
-      <method name="get_name" c:identifier="oren_dcserver_get_name">
+      <method name="get_network" c:identifier="oren_dcserver_get_network">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -3060,9 +3044,17 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">the reactor</doc>
             <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
-          <parameter name="socket" transfer-ownership="none">
-            <doc xml:whitespace="preserve">the socket used for client login</doc>
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
+          <parameter name="service_addr"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the service IP addresses</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="NCInetAddress"/>
+            </array>
+          </parameter>
+          <parameter name="service_port" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the service port</doc>
+            <type name="guint16" c:type="guint16"/>
           </parameter>
           <parameter name="cluster_addr"
                      transfer-ownership="none"
@@ -3079,10 +3071,13 @@ and/or use gtk-doc annotations.  -->
           <parameter name="factory" transfer-ownership="none">
             <type name="DCFactory" c:type="OrenDCFactory*"/>
           </parameter>
-          <parameter name="slave_name" transfer-ownership="none">
+          <parameter name="parent_network" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="slave_group" transfer-ownership="none">
+          <parameter name="server_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="server_network" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="signature" transfer-ownership="none">
@@ -3101,6 +3096,9 @@ and/or use gtk-doc annotations.  -->
           <parameter name="max_cpu_usage" transfer-ownership="none">
             <type name="gint" c:type="gint"/>
           </parameter>
+          <parameter name="data_quality" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
           <parameter name="enable_p2p" transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
@@ -3109,8 +3107,14 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="parent_network"
+              c:identifier="oren_dcserver_parent_network">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
       <field name="parent_instance">
-        <type name="NCPacketHandler" c:type="OrenNCPacketHandler"/>
+        <type name="NCHandler" c:type="OrenNCHandler"/>
       </field>
       <field name="priv">
         <type name="DCServerPrivate" c:type="OrenDCServerPrivate*"/>
@@ -3150,7 +3154,7 @@ and/or use gtk-doc annotations.  -->
             c:type="OrenDCServerClass"
             glib:is-gtype-struct-for="DCServer">
       <field name="parent_class">
-        <type name="NCPacketHandlerClass" c:type="OrenNCPacketHandlerClass"/>
+        <type name="NCHandlerClass" c:type="OrenNCHandlerClass"/>
       </field>
       <field name="recv_ping">
         <callback name="recv_ping">
@@ -3259,6 +3263,35 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="full">
           <type name="DCUser" c:type="OrenDCUser*"/>
         </return-value>
+        <parameters>
+          <parameter name="channel" transfer-ownership="none">
+            <type name="DCChannel" c:type="OrenDCChannel*"/>
+          </parameter>
+          <parameter name="address" transfer-ownership="none">
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+          <parameter name="user_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="client_version" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="network_type" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="user_id" transfer-ownership="none">
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
+          <parameter name="login_code" transfer-ownership="none">
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
+          <parameter name="protocol_version" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
       </constructor>
       <virtual-method name="data">
         <return-value transfer-ownership="none">
@@ -3293,30 +3326,20 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
+      <method name="clear_buffer" c:identifier="oren_dcuser_clear_buffer">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
       <method name="client_version" c:identifier="oren_dcuser_client_version">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-      </method>
-      <method name="close" c:identifier="oren_dcuser_close">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
         </return-value>
       </method>
       <method name="enable_p2p" c:identifier="oren_dcuser_enable_p2p">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
-      </method>
-      <method name="flush" c:identifier="oren_dcuser_flush">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="session_id" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-        </parameters>
       </method>
       <method name="get_address" c:identifier="oren_dcuser_get_address">
         <doc xml:whitespace="preserve">Get the remote address of a user.</doc>
@@ -3347,80 +3370,44 @@ and/or use gtk-doc annotations.  -->
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
       </method>
+      <method name="make_data" c:identifier="oren_dcuser_make_data">
+        <doc xml:whitespace="preserve">Create a data packet;</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer or %NULL on error, Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+        </return-value>
+      </method>
+      <method name="make_message" c:identifier="oren_dcuser_make_message">
+        <doc xml:whitespace="preserve">Create a message packet;</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer or %NULL on error, Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+        </return-value>
+        <parameters>
+          <parameter name="message" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the message</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="network_type" c:identifier="oren_dcuser_network_type">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
       </method>
-      <method name="open" c:identifier="oren_dcuser_open">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="channel" transfer-ownership="none">
-            <type name="DCChannel" c:type="OrenDCChannel*"/>
-          </parameter>
-          <parameter name="address" transfer-ownership="none">
-            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-          </parameter>
-          <parameter name="buffer" transfer-ownership="none">
-            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-          <parameter name="user_name" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="client_version" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="network_type" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="user_id" transfer-ownership="none">
-            <type name="guint32" c:type="guint32"/>
-          </parameter>
-          <parameter name="login_code" transfer-ownership="none">
-            <type name="guint32" c:type="guint32"/>
-          </parameter>
-          <parameter name="protocol_version" transfer-ownership="none">
-            <type name="guint8" c:type="guint8"/>
-          </parameter>
-        </parameters>
-      </method>
       <method name="protocol_version"
               c:identifier="oren_dcuser_protocol_version">
         <return-value transfer-ownership="none">
-          <type name="guint8" c:type="guint8"/>
+          <type name="guint" c:type="guint"/>
         </return-value>
       </method>
-      <method name="recv" c:identifier="oren_dcuser_recv">
+      <method name="send_packet" c:identifier="oren_dcuser_send_packet">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
-          <parameter name="from" transfer-ownership="none">
-            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-          </parameter>
-          <parameter name="session_id" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
           <parameter name="buffer" transfer-ownership="none">
             <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="send" c:identifier="oren_dcuser_send">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="session_id" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-          <parameter name="buffer" transfer-ownership="none">
-            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-          <parameter name="flush" transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
           </parameter>
         </parameters>
       </method>
@@ -3434,19 +3421,60 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <method name="work" c:identifier="oren_dcuser_work">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="tv" transfer-ownership="none">
-            <type name="gpointer" c:type="timeval*"/>
-          </parameter>
-          <parameter name="timeout" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-        </parameters>
-      </method>
+      <property name="address"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="NCSockaddr"/>
+      </property>
+      <property name="buffer"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="NCBuffer"/>
+      </property>
+      <property name="channel"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="DCChannel"/>
+      </property>
+      <property name="client-version"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="login-code"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="guint"/>
+      </property>
+      <property name="network-type"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="protocol-version"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="guint"/>
+      </property>
+      <property name="user-id"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="guint"/>
+      </property>
+      <property name="user-name"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>
       </field>
@@ -3957,12 +3985,12 @@ and/or use gtk-doc annotations.  -->
           <type name="guint" c:type="guint"/>
         </return-value>
       </method>
-      <method name="disconnect" c:identifier="oren_mtpeer_disconnect">
+      <method name="clear_recv" c:identifier="oren_mtpeer_clear_recv">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
       </method>
-      <method name="flush" c:identifier="oren_mtpeer_flush">
+      <method name="disconnect" c:identifier="oren_mtpeer_disconnect">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -4201,14 +4229,14 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="clear_send" c:identifier="oren_mtsource_clear_send">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
       <method name="data_seq" c:identifier="oren_mtsource_data_seq">
         <return-value transfer-ownership="none">
           <type name="guint16" c:type="guint16"/>
-        </return-value>
-      </method>
-      <method name="flush" c:identifier="oren_mtsource_flush">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
         </return-value>
       </method>
       <method name="get_member" c:identifier="oren_mtsource_get_member">
@@ -4450,6 +4478,21 @@ and/or use gtk-doc annotations.  -->
     </record>
     <record name="MTTreePrivate" c:type="OrenMTTreePrivate" disguised="1">
     </record>
+    <callback name="MulticastFilter" c:type="OrenMulticastFilter">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="user" transfer-ownership="none">
+          <type name="DCUser" c:type="OrenDCUser*"/>
+        </parameter>
+        <parameter name="user_data" transfer-ownership="none" closure="1">
+          <type name="gpointer" c:type="gpointer"/>
+        </parameter>
+      </parameters>
+    </callback>
+    <record name="NCAQueue" c:type="OrenNCAQueue" disguised="1">
+    </record>
     <class name="NCBuffer"
            c:symbol-prefix="ncbuffer"
            c:type="OrenNCBuffer"
@@ -4514,15 +4557,35 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <method name="freeze" c:identifier="oren_ncbuffer_freeze">
+      <method name="get_read" c:identifier="oren_ncbuffer_get_read">
         <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
+          <type name="gsize" c:type="gsize"/>
         </return-value>
       </method>
-      <method name="is_frozen" c:identifier="oren_ncbuffer_is_frozen">
+      <method name="get_write" c:identifier="oren_ncbuffer_get_write">
+        <return-value transfer-ownership="none">
+          <type name="gsize" c:type="gsize"/>
+        </return-value>
+      </method>
+      <method name="is_locked" c:identifier="oren_ncbuffer_is_locked">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
+        <parameters>
+          <parameter name="mask" transfer-ownership="none">
+            <type name="NCBufferLock" c:type="OrenNCBufferLock"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="lock" c:identifier="oren_ncbuffer_lock">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="mask" transfer-ownership="none">
+            <type name="NCBufferLock" c:type="OrenNCBufferLock"/>
+          </parameter>
+        </parameters>
       </method>
       <method name="read_adv" c:identifier="oren_ncbuffer_read_adv">
         <return-value transfer-ownership="none">
@@ -4533,6 +4596,13 @@ and/or use gtk-doc annotations.  -->
             <type name="gsize" c:type="gsize"/>
           </parameter>
         </parameters>
+      </method>
+      <method name="read_inetaddr" c:identifier="oren_ncbuffer_read_inetaddr">
+        <doc xml:whitespace="preserve">Read an internet address from the buffer.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCInetAddress or %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="NCInetAddress" c:type="OrenNCInetAddress*"/>
+        </return-value>
       </method>
       <method name="read_ptr"
               c:identifier="oren_ncbuffer_read_ptr"
@@ -4580,6 +4650,36 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
       </method>
+      <method name="set_read" c:identifier="oren_ncbuffer_set_read">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="pos" transfer-ownership="none">
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_write" c:identifier="oren_ncbuffer_set_write">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="pos" transfer-ownership="none">
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="unlock" c:identifier="oren_ncbuffer_unlock">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="mask" transfer-ownership="none">
+            <type name="NCBufferLock" c:type="OrenNCBufferLock"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="unread_length" c:identifier="oren_ncbuffer_unread_length">
         <return-value transfer-ownership="none">
           <type name="gsize" c:type="gsize"/>
@@ -4616,6 +4716,17 @@ and/or use gtk-doc annotations.  -->
           </parameter>
           <parameter name="size" transfer-ownership="none">
             <type name="gsize" c:type="gsize"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="write_inetaddr"
+              c:identifier="oren_ncbuffer_write_inetaddr">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="address" transfer-ownership="none">
+            <type name="NCInetAddress" c:type="OrenNCInetAddress*"/>
           </parameter>
         </parameters>
       </method>
@@ -4709,6 +4820,23 @@ and/or use gtk-doc annotations.  -->
         <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>
     </record>
+    <bitfield name="NCBufferLock"
+              glib:type-name="OrenNCBufferLock"
+              glib:get-type="oren_ncbuffer_lock_get_type"
+              c:type="OrenNCBufferLock">
+      <member name="READ"
+              value="1"
+              c:identifier="OREN_NCBUFFER_LOCK_READ"
+              glib:nick="READ"/>
+      <member name="WRITE"
+              value="2"
+              c:identifier="OREN_NCBUFFER_LOCK_WRITE"
+              glib:nick="WRITE"/>
+      <member name="ALL"
+              value="3"
+              c:identifier="OREN_NCBUFFER_LOCK_ALL"
+              glib:nick="ALL"/>
+    </bitfield>
     <record name="NCBufferPrivate" c:type="OrenNCBufferPrivate" disguised="1">
     </record>
     <record name="NCFlowControl" c:type="OrenNCFlowControl" disguised="1">
@@ -4735,13 +4863,29 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
+      <virtual-method name="handle_packet">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="socket" transfer-ownership="none">
+            <type name="NCSocket" c:type="OrenNCSocket*"/>
+          </parameter>
+          <parameter name="from" transfer-ownership="none">
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
       <virtual-method name="handle_timer" invoker="handle_timer">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
           <parameter name="timer_id" transfer-ownership="none">
-            <type name="gint" c:type="gint"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </virtual-method>
@@ -4761,12 +4905,21 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="timer_id" transfer-ownership="none">
-            <type name="gint" c:type="gint"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </method>
+      <property name="handle-packet"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="gboolean"/>
+      </property>
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="NCHandlerPrivate" c:type="OrenNCHandlerPrivate*"/>
       </field>
       <glib:signal name="handle-input" when="first">
         <return-value transfer-ownership="none">
@@ -4778,13 +4931,29 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </glib:signal>
+      <glib:signal name="handle-packet" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="NCSocket"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="NCSockaddr"/>
+          </parameter>
+          <parameter name="p1" transfer-ownership="none">
+            <type name="NCBuffer"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
       <glib:signal name="handle-timer" when="first">
         <return-value transfer-ownership="none">
           <type name="none"/>
         </return-value>
         <parameters>
           <parameter name="object" transfer-ownership="none">
-            <type name="gint"/>
+            <type name="guint"/>
           </parameter>
         </parameters>
       </glib:signal>
@@ -4810,6 +4979,27 @@ and/or use gtk-doc annotations.  -->
           </parameters>
         </callback>
       </field>
+      <field name="handle_packet">
+        <callback name="handle_packet">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="NCHandler" c:type="OrenNCHandler*"/>
+            </parameter>
+            <parameter name="socket" transfer-ownership="none">
+              <type name="NCSocket" c:type="OrenNCSocket*"/>
+            </parameter>
+            <parameter name="from" transfer-ownership="none">
+              <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+            </parameter>
+            <parameter name="buffer" transfer-ownership="none">
+              <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
       <field name="handle_timer">
         <callback name="handle_timer">
           <return-value transfer-ownership="none">
@@ -4820,11 +5010,15 @@ and/or use gtk-doc annotations.  -->
               <type name="NCHandler" c:type="OrenNCHandler*"/>
             </parameter>
             <parameter name="timer_id" transfer-ownership="none">
-              <type name="gint" c:type="gint"/>
+              <type name="guint" c:type="guint"/>
             </parameter>
           </parameters>
         </callback>
       </field>
+    </record>
+    <record name="NCHandlerPrivate"
+            c:type="OrenNCHandlerPrivate"
+            disguised="1">
     </record>
     <class name="NCInetAddress"
            c:symbol-prefix="ncinet_address"
@@ -4977,38 +5171,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
-      <constructor name="new_from_string"
-                   c:identifier="oren_ncinet_sockaddr_new_from_string">
-        <doc xml:whitespace="preserve">Create an #OrenNCInetSockaddr object.</doc>
-        <return-value transfer-ownership="full">
-          <doc xml:whitespace="preserve">a #OrenNCInetSockaddr or %NULL on error. Free the returned object with g_object_unref().</doc>
-          <type name="NCInetSockaddr" c:type="OrenNCInetSockaddr*"/>
-        </return-value>
-        <parameters>
-          <parameter name="str" transfer-ownership="none" allow-none="1">
-            <doc xml:whitespace="preserve">ip:port</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <constructor name="new_simple"
-                   c:identifier="oren_ncinet_sockaddr_new_simple">
-        <doc xml:whitespace="preserve">Create an #OrenNCInetSockaddr object.</doc>
-        <return-value transfer-ownership="full">
-          <doc xml:whitespace="preserve">a #OrenNCInetSockaddr or %NULL on error. Free the returned object with g_object_unref().</doc>
-          <type name="NCInetSockaddr" c:type="OrenNCInetSockaddr*"/>
-        </return-value>
-        <parameters>
-          <parameter name="ip" transfer-ownership="none" allow-none="1">
-            <doc xml:whitespace="preserve">the ip address</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="port" transfer-ownership="none">
-            <doc xml:whitespace="preserve">the port</doc>
-            <type name="guint16" c:type="guint16"/>
-          </parameter>
-        </parameters>
-      </constructor>
       <method name="get_address"
               c:identifier="oren_ncinet_sockaddr_get_address">
         <doc xml:whitespace="preserve">Gets @self's #OrenNCInetAddress.</doc>
@@ -5032,11 +5194,6 @@ and/or use gtk-doc annotations.  -->
               c:identifier="oren_ncinet_sockaddr_get_scope_id">
         <return-value transfer-ownership="none">
           <type name="guint32" c:type="guint32"/>
-        </return-value>
-      </method>
-      <method name="to_string" c:identifier="oren_ncinet_sockaddr_to_string">
-        <return-value transfer-ownership="full">
-          <type name="utf8" c:type="gchar*"/>
         </return-value>
       </method>
       <property name="address"
@@ -5087,8 +5244,6 @@ and/or use gtk-doc annotations.  -->
       </field>
     </record>
     <record name="NCLogger" c:type="OrenNCLogger" disguised="1">
-    </record>
-    <record name="NCMsgQueue" c:type="OrenNCMsgQueue" disguised="1">
     </record>
     <enumeration name="NCOnlineState"
                  glib:type-name="OrenNCOnlineState"
@@ -5240,90 +5395,6 @@ and/or use gtk-doc annotations.  -->
     </record>
     <record name="NCPackerPrivate" c:type="OrenNCPackerPrivate" disguised="1">
     </record>
-    <class name="NCPacketHandler"
-           c:symbol-prefix="ncpacket_handler"
-           c:type="OrenNCPacketHandler"
-           parent="NCHandler"
-           glib:type-name="OrenNCPacketHandler"
-           glib:get-type="oren_ncpacket_handler_get_type"
-           glib:type-struct="NCPacketHandlerClass">
-      <constructor name="new" c:identifier="oren_ncpacket_handler_new">
-        <return-value transfer-ownership="full">
-          <type name="NCPacketHandler" c:type="OrenNCPacketHandler*"/>
-        </return-value>
-      </constructor>
-      <virtual-method name="handle_packet">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="socket" transfer-ownership="none">
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
-          </parameter>
-          <parameter name="from" transfer-ownership="none">
-            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-          </parameter>
-          <parameter name="buffer" transfer-ownership="none">
-            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-        </parameters>
-      </virtual-method>
-      <field name="parent_instance">
-        <type name="NCHandler" c:type="OrenNCHandler"/>
-      </field>
-      <field name="priv">
-        <type name="NCPacketHandlerPrivate"
-              c:type="OrenNCPacketHandlerPrivate*"/>
-      </field>
-      <glib:signal name="handle-packet" when="first">
-        <return-value transfer-ownership="none">
-          <type name="none"/>
-        </return-value>
-        <parameters>
-          <parameter name="object" transfer-ownership="none">
-            <type name="NCSocket"/>
-          </parameter>
-          <parameter name="p0" transfer-ownership="none">
-            <type name="NCSockaddr"/>
-          </parameter>
-          <parameter name="p1" transfer-ownership="none">
-            <type name="NCBuffer"/>
-          </parameter>
-        </parameters>
-      </glib:signal>
-    </class>
-    <record name="NCPacketHandlerClass"
-            c:type="OrenNCPacketHandlerClass"
-            glib:is-gtype-struct-for="NCPacketHandler">
-      <field name="parent_class">
-        <type name="NCHandlerClass" c:type="OrenNCHandlerClass"/>
-      </field>
-      <field name="handle_packet">
-        <callback name="handle_packet">
-          <return-value transfer-ownership="none">
-            <type name="none" c:type="void"/>
-          </return-value>
-          <parameters>
-            <parameter name="self" transfer-ownership="none">
-              <type name="NCPacketHandler" c:type="OrenNCPacketHandler*"/>
-            </parameter>
-            <parameter name="socket" transfer-ownership="none">
-              <type name="NCSocket" c:type="OrenNCSocket*"/>
-            </parameter>
-            <parameter name="from" transfer-ownership="none">
-              <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-            </parameter>
-            <parameter name="buffer" transfer-ownership="none">
-              <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-            </parameter>
-          </parameters>
-        </callback>
-      </field>
-    </record>
-    <record name="NCPacketHandlerPrivate"
-            c:type="OrenNCPacketHandlerPrivate"
-            disguised="1">
-    </record>
     <record name="NCPingMgr" c:type="OrenNCPingMgr" disguised="1">
     </record>
     <record name="NCPingResult" c:type="OrenNCPingResult" disguised="1">
@@ -5346,7 +5417,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="timer_id" transfer-ownership="none">
-            <type name="gint" c:type="gint"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </method>
@@ -5368,7 +5439,7 @@ and/or use gtk-doc annotations.  -->
           <parameter name="callback" transfer-ownership="none">
             <type name="gpointer" c:type="gpointer*"/>
           </parameter>
-          <parameter name="arg" transfer-ownership="none">
+          <parameter name="user_data" transfer-ownership="none">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
           <parameter name="timeout" transfer-ownership="none">
@@ -5415,7 +5486,7 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="threaded" transfer-ownership="none">
+          <parameter name="new_thread" transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
         </parameters>
@@ -5423,8 +5494,8 @@ and/or use gtk-doc annotations.  -->
       <method name="schedule_timer"
               c:identifier="oren_ncreactor_schedule_timer">
         <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">the timer id or -1 on fail</doc>
-          <type name="gint" c:type="gint"/>
+          <doc xml:whitespace="preserve">the timer ID or 0 on fail</doc>
+          <type name="guint" c:type="guint"/>
         </return-value>
         <parameters>
           <parameter name="microseconds" transfer-ownership="none">
@@ -5436,6 +5507,11 @@ and/or use gtk-doc annotations.  -->
             <type name="NCHandler" c:type="OrenNCHandler*"/>
           </parameter>
         </parameters>
+      </method>
+      <method name="sync" c:identifier="oren_ncreactor_sync">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
       </method>
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>
@@ -5495,6 +5571,16 @@ and/or use gtk-doc annotations.  -->
         <parameters>
           <parameter name="buffer" transfer-ownership="none">
             <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="full">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="type" transfer-ownership="none">
+            <type name="NCSessionFull" c:type="OrenNCSessionFull"/>
           </parameter>
         </parameters>
       </virtual-method>
@@ -5578,6 +5664,16 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
+      <method name="clear_recv" c:identifier="oren_ncsession_clear_recv">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <method name="clear_send" c:identifier="oren_ncsession_clear_send">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
       <method name="enqueue" c:identifier="oren_ncsession_enqueue">
         <return-value transfer-ownership="none">
           <type name="guint16" c:type="guint16"/>
@@ -5588,14 +5684,11 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <method name="flush_recv" c:identifier="oren_ncsession_flush_recv">
+      <method name="get_buffer" c:identifier="oren_ncsession_get_buffer">
+        <doc xml:whitespace="preserve">Gets the buffer used by the session.</doc>
         <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-      </method>
-      <method name="flush_send" c:identifier="oren_ncsession_flush_send">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
+          <doc xml:whitespace="preserve">an #OrenNCBuffer or %NULL</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
         </return-value>
       </method>
       <method name="get_max_resend"
@@ -5706,8 +5799,8 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="ping" transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
+          <parameter name="flags" transfer-ownership="none">
+            <type name="NCSessionWork" c:type="OrenNCSessionWork"/>
           </parameter>
         </parameters>
       </method>
@@ -5724,6 +5817,16 @@ and/or use gtk-doc annotations.  -->
         <parameters>
           <parameter name="object" transfer-ownership="none">
             <type name="NCBuffer"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="full" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="NCSessionFull"/>
           </parameter>
         </parameters>
       </glib:signal>
@@ -5844,6 +5947,21 @@ and/or use gtk-doc annotations.  -->
           </parameters>
         </callback>
       </field>
+      <field name="full">
+        <callback name="full">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="NCSession" c:type="OrenNCSession*"/>
+            </parameter>
+            <parameter name="type" transfer-ownership="none">
+              <type name="NCSessionFull" c:type="OrenNCSessionFull"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
       <field name="send_retry">
         <callback name="send_retry">
           <return-value transfer-ownership="none">
@@ -5950,10 +6068,52 @@ and/or use gtk-doc annotations.  -->
         </callback>
       </field>
     </record>
+    <enumeration name="NCSessionFull"
+                 glib:type-name="OrenNCSessionFull"
+                 glib:get-type="oren_ncsession_full_get_type"
+                 c:type="OrenNCSessionFull">
+      <member name="SEND"
+              value="0"
+              c:identifier="OREN_NCSESSION_FULL_SEND"
+              glib:nick="SEND"/>
+      <member name="RECV"
+              value="1"
+              c:identifier="OREN_NCSESSION_FULL_RECV"
+              glib:nick="RECV"/>
+      <member name="LOST"
+              value="2"
+              c:identifier="OREN_NCSESSION_FULL_LOST"
+              glib:nick="LOST"/>
+    </enumeration>
     <record name="NCSessionPrivate"
             c:type="OrenNCSessionPrivate"
             disguised="1">
     </record>
+    <bitfield name="NCSessionWork"
+              glib:type-name="OrenNCSessionWork"
+              glib:get-type="oren_ncsession_work_get_type"
+              c:type="OrenNCSessionWork">
+      <member name="SEND"
+              value="1"
+              c:identifier="OREN_NCSESSION_WORK_SEND"
+              glib:nick="SEND"/>
+      <member name="PING"
+              value="2"
+              c:identifier="OREN_NCSESSION_WORK_PING"
+              glib:nick="PING"/>
+      <member name="LOST"
+              value="4"
+              c:identifier="OREN_NCSESSION_WORK_LOST"
+              glib:nick="LOST"/>
+      <member name="NOPING"
+              value="5"
+              c:identifier="OREN_NCSESSION_WORK_NOPING"
+              glib:nick="NOPING"/>
+      <member name="ALL"
+              value="7"
+              c:identifier="OREN_NCSESSION_WORK_ALL"
+              glib:nick="ALL"/>
+    </bitfield>
     <class name="NCSockaddr"
            c:symbol-prefix="ncsockaddr"
            c:type="OrenNCSockaddr"
@@ -5973,6 +6133,37 @@ and/or use gtk-doc annotations.  -->
           </parameter>
           <parameter name="len" transfer-ownership="none">
             <type name="gsize" c:type="gsize"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="new_from_string"
+                   c:identifier="oren_ncsockaddr_new_from_string">
+        <doc xml:whitespace="preserve">Create an #OrenNCSockaddr object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCSockaddr or %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+        </return-value>
+        <parameters>
+          <parameter name="str" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">ip:port</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="new_simple" c:identifier="oren_ncsockaddr_new_simple">
+        <doc xml:whitespace="preserve">Create an #OrenNCSockaddr object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCSockaddr or %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+        </return-value>
+        <parameters>
+          <parameter name="ip" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the ip address</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="port" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the port</doc>
+            <type name="guint16" c:type="guint16"/>
           </parameter>
         </parameters>
       </constructor>
@@ -6042,6 +6233,11 @@ and/or use gtk-doc annotations.  -->
             <type name="gsize" c:type="gsize"/>
           </parameter>
         </parameters>
+      </method>
+      <method name="to_string" c:identifier="oren_ncsockaddr_to_string">
+        <return-value transfer-ownership="full">
+          <type name="utf8" c:type="gchar*"/>
+        </return-value>
       </method>
       <property name="family" transfer-ownership="none">
         <type name="NCSocketFamily"/>
@@ -6149,6 +6345,20 @@ and/or use gtk-doc annotations.  -->
           <parameter name="port" transfer-ownership="none">
             <doc xml:whitespace="preserve">the port</doc>
             <type name="guint16" c:type="guint16"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="new_from_addr"
+                   c:identifier="oren_ncsocket_new_from_addr">
+        <doc xml:whitespace="preserve">Create an #OrenNCSocket object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCSocket or %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="NCSocket" c:type="OrenNCSocket*"/>
+        </return-value>
+        <parameters>
+          <parameter name="addr" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the socket address</doc>
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -6627,9 +6837,6 @@ source address of the received packet.
           <parameter name="reactor" transfer-ownership="none">
             <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
-          <parameter name="socket" transfer-ownership="none">
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
-          </parameter>
           <parameter name="signature" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
@@ -6816,11 +7023,17 @@ source address of the received packet.
           </parameter>
         </parameters>
       </constructor>
+      <property name="pack-data"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="gboolean"/>
+      </property>
       <field name="parent_instance">
         <type name="DCFactory" c:type="OrenDCFactory"/>
       </field>
-      <field name="pack_data">
-        <type name="gboolean" c:type="gboolean"/>
+      <field name="priv">
+        <type name="SMFactoryPrivate" c:type="OrenSMFactoryPrivate*"/>
       </field>
     </class>
     <record name="SMFactoryClass"
@@ -6844,21 +7057,6 @@ source address of the received packet.
       <constructor name="new" c:identifier="oren_smuser_new">
         <return-value transfer-ownership="full">
           <type name="SMUser" c:type="OrenSMUser*"/>
-        </return-value>
-      </constructor>
-      <method name="accept_data" c:identifier="oren_smuser_accept_data">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-      </method>
-      <method name="is_source" c:identifier="oren_smuser_is_source">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-      </method>
-      <method name="open" c:identifier="oren_smuser_open">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <parameter name="channel" transfer-ownership="none">
@@ -6886,9 +7084,19 @@ source address of the received packet.
             <type name="guint32" c:type="guint32"/>
           </parameter>
           <parameter name="protocol_version" transfer-ownership="none">
-            <type name="guint8" c:type="guint8"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
+      </constructor>
+      <method name="accept_data" c:identifier="oren_smuser_accept_data">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="is_source" c:identifier="oren_smuser_is_source">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
       </method>
       <field name="parent_instance">
         <type name="DCUser" c:type="OrenDCUser"/>
@@ -6905,22 +7113,6 @@ source address of the received packet.
       </field>
     </record>
     <record name="SMUserPrivate" c:type="OrenSMUserPrivate" disguised="1">
-    </record>
-    <record name="Timeval"
-            c:type="OrenTimeval"
-            glib:type-name="OrenTimeval"
-            glib:get-type="oren_timeval_get_type"
-            c:symbol-prefix="timeval">
-      <method name="sec" c:identifier="oren_timeval_sec">
-        <return-value transfer-ownership="none">
-          <type name="gint" c:type="gint"/>
-        </return-value>
-      </method>
-      <method name="usec" c:identifier="oren_timeval_usec">
-        <return-value transfer-ownership="none">
-          <type name="gint" c:type="gint"/>
-        </return-value>
-      </method>
     </record>
     <function name="dclogin_result_to_string"
               c:identifier="oren_dclogin_result_to_string"
@@ -6945,14 +7137,6 @@ source address of the received packet.
           <type name="DCLogoutReason" c:type="OrenDCLogoutReason"/>
         </parameter>
       </parameters>
-    </function>
-    <function name="dcutils_create_buffer"
-              c:identifier="oren_dcutils_create_buffer">
-      <doc xml:whitespace="preserve">Make a buffer used for #OrenDCClient and #OrenDCUser</doc>
-      <return-value transfer-ownership="full">
-        <doc xml:whitespace="preserve">a #OrenNCBuffer.</doc>
-        <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-      </return-value>
     </function>
   </namespace>
 </repository>

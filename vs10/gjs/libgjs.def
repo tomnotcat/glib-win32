@@ -61,6 +61,7 @@ EXPORTS
 	gjs_unichar_from_string
 	gjs_get_type_name
 	gjs_value_to_int64
+	gjs_value_from_g_value
 	gjs_date_from_time_t
 	gjs_parse_args
 	gjs_rooted_array_new

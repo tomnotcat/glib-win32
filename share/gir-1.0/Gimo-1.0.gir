@@ -1,0 +1,1905 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="GLib" version="2.0"/>
+  <include name="GObject" version="2.0"/>
+  <namespace name="Gimo"
+             version="1.0"
+             shared-library="gimo.dll"
+             c:identifier-prefixes="Gimo"
+             c:symbol-prefixes="gimo">
+    <class name="Archive"
+           c:symbol-prefix="archive"
+           c:type="GimoArchive"
+           parent="GObject.Object"
+           glib:type-name="GimoArchive"
+           glib:get-type="gimo_archive_get_type"
+           glib:type-struct="ArchiveClass">
+      <constructor name="new" c:identifier="gimo_archive_new">
+        <return-value transfer-ownership="full">
+          <type name="Archive" c:type="GimoArchive*"/>
+        </return-value>
+      </constructor>
+      <virtual-method name="read" invoker="read">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="save" invoker="save">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="add_object" c:identifier="gimo_archive_add_object">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="id" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="object" transfer-ownership="none">
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="query_object" c:identifier="gimo_archive_query_object">
+        <doc xml:whitespace="preserve">Query object by identifier.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #GObject</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </return-value>
+        <parameters>
+          <parameter name="id" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the object identifier</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="query_objects" c:identifier="gimo_archive_query_objects">
+        <doc xml:whitespace="preserve">Query all the objects in the archive.</doc>
+        <return-value transfer-ownership="container">
+          <doc xml:whitespace="preserve">an array of objects.</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="GObject.Object"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="read" c:identifier="gimo_archive_read">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="remove_object" c:identifier="gimo_archive_remove_object">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="id" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="save" c:identifier="gimo_archive_save">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="ArchivePrivate" c:type="GimoArchivePrivate*"/>
+      </field>
+    </class>
+    <record name="ArchiveClass"
+            c:type="GimoArchiveClass"
+            glib:is-gtype-struct-for="Archive">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="read">
+        <callback name="read">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Archive" c:type="GimoArchive*"/>
+            </parameter>
+            <parameter name="file_name" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="save">
+        <callback name="save">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Archive" c:type="GimoArchive*"/>
+            </parameter>
+            <parameter name="file_name" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="ArchivePrivate" c:type="GimoArchivePrivate" disguised="1">
+    </record>
+    <class name="Context"
+           c:symbol-prefix="context"
+           c:type="GimoContext"
+           parent="GObject.Object"
+           glib:type-name="GimoContext"
+           glib:get-type="gimo_context_get_type"
+           glib:type-struct="ContextClass">
+      <constructor name="new" c:identifier="gimo_context_new">
+        <return-value transfer-ownership="full">
+          <type name="Context" c:type="GimoContext*"/>
+        </return-value>
+      </constructor>
+      <virtual-method name="state_changed">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="plugin" transfer-ownership="none">
+            <type name="Plugin" c:type="GimoPlugin*"/>
+          </parameter>
+          <parameter name="old_state" transfer-ownership="none">
+            <type name="PluginState" c:type="GimoPluginState"/>
+          </parameter>
+          <parameter name="new_state" transfer-ownership="none">
+            <type name="PluginState" c:type="GimoPluginState"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="destroy" c:identifier="gimo_context_destroy">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <method name="install_plugin" c:identifier="gimo_context_install_plugin">
+        <doc xml:whitespace="preserve">Install a plugin to the context.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">whether install success</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="path" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">plugin root path</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="plugin" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the plugin</doc>
+            <type name="Plugin" c:type="GimoPlugin*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="load_plugin"
+              c:identifier="gimo_context_load_plugin"
+              introspectable="0">
+        <return-value transfer-ownership="none">
+          <type name="guint" c:type="guint"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_path" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="cancellable" transfer-ownership="none">
+            <type c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="start" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="query_extensions"
+              c:identifier="gimo_context_query_extensions">
+        <doc xml:whitespace="preserve">Query the specified extensions in this context.</doc>
+        <return-value transfer-ownership="container">
+          <doc xml:whitespace="preserve">An #GPtrArray of extensions if successful, %NULL on error. Free the returned array with g_ptr_array_unref().</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="Extension"/>
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="extpt_id" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the extension point ID</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="query_extpoint" c:identifier="gimo_context_query_extpoint">
+        <doc xml:whitespace="preserve">Query an extension point with the specified ID.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">A #GimoExtPoint if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="ExtPoint" c:type="GimoExtPoint*"/>
+        </return-value>
+        <parameters>
+          <parameter name="extpt_id" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the extension point ID</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="query_plugin" c:identifier="gimo_context_query_plugin">
+        <doc xml:whitespace="preserve">Query a plugin descriptor with the specified ID.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #GimoPlugin</doc>
+          <type name="Plugin" c:type="GimoPlugin*"/>
+        </return-value>
+        <parameters>
+          <parameter name="plugin_id" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="query_plugins" c:identifier="gimo_context_query_plugins">
+        <doc xml:whitespace="preserve">Query all the installed plugins.</doc>
+        <return-value transfer-ownership="container">
+          <doc xml:whitespace="preserve">An #GPtrArray of plugins if successful, %NULL on error. Free the returned array with g_object_unref().</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="Plugin"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="resolve_extpoint"
+              c:identifier="gimo_context_resolve_extpoint">
+        <doc xml:whitespace="preserve">Resolve an extension point.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">A #GObject if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </return-value>
+        <parameters>
+          <parameter name="extpt_id" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the extension point ID</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="uninstall_plugin"
+              c:identifier="gimo_context_uninstall_plugin">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="plugin_id" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="ContextPrivate" c:type="GimoContextPrivate*"/>
+      </field>
+      <glib:signal name="state-changed" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="Plugin"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="PluginState"/>
+          </parameter>
+          <parameter name="p1" transfer-ownership="none">
+            <type name="PluginState"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="ContextClass"
+            c:type="GimoContextClass"
+            glib:is-gtype-struct-for="Context">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="state_changed">
+        <callback name="state_changed">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Context" c:type="GimoContext*"/>
+            </parameter>
+            <parameter name="plugin" transfer-ownership="none">
+              <type name="Plugin" c:type="GimoPlugin*"/>
+            </parameter>
+            <parameter name="old_state" transfer-ownership="none">
+              <type name="PluginState" c:type="GimoPluginState"/>
+            </parameter>
+            <parameter name="new_state" transfer-ownership="none">
+              <type name="PluginState" c:type="GimoPluginState"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="ContextPrivate" c:type="GimoContextPrivate" disguised="1">
+    </record>
+    <class name="Dlmodule"
+           c:symbol-prefix="dlmodule"
+           c:type="GimoDlmodule"
+           parent="GObject.Object"
+           glib:type-name="GimoDlmodule"
+           glib:get-type="gimo_dlmodule_get_type"
+           glib:type-struct="DlmoduleClass">
+      <implements name="Loadable"/>
+      <implements name="Module"/>
+      <constructor name="new" c:identifier="gimo_dlmodule_new">
+        <return-value transfer-ownership="full">
+          <type name="Dlmodule" c:type="GimoDlmodule*"/>
+        </return-value>
+      </constructor>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="DlmodulePrivate" c:type="GimoDlmodulePrivate*"/>
+      </field>
+    </class>
+    <record name="DlmoduleClass"
+            c:type="GimoDlmoduleClass"
+            glib:is-gtype-struct-for="Dlmodule">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="DlmodulePrivate" c:type="GimoDlmodulePrivate" disguised="1">
+    </record>
+    <enumeration name="Errors" c:type="GimoErrors">
+      <member name="none" value="0" c:identifier="GIMO_ERROR_NONE"/>
+      <member name="no_memory" value="1" c:identifier="GIMO_ERROR_NO_MEMORY"/>
+      <member name="no_file" value="2" c:identifier="GIMO_ERROR_NO_FILE"/>
+      <member name="open_file" value="3" c:identifier="GIMO_ERROR_OPEN_FILE"/>
+      <member name="invalid_file"
+              value="4"
+              c:identifier="GIMO_ERROR_INVALID_FILE"/>
+      <member name="invalid_id"
+              value="5"
+              c:identifier="GIMO_ERROR_INVALID_ID"/>
+      <member name="no_object" value="6" c:identifier="GIMO_ERROR_NO_OBJECT"/>
+      <member name="invalid_object"
+              value="7"
+              c:identifier="GIMO_ERROR_INVALID_OBJECT"/>
+      <member name="invalid_state"
+              value="8"
+              c:identifier="GIMO_ERROR_INVALID_STATE"/>
+      <member name="invalid_return"
+              value="9"
+              c:identifier="GIMO_ERROR_INVALID_RETURN"/>
+      <member name="no_plugin" value="10" c:identifier="GIMO_ERROR_NO_PLUGIN"/>
+      <member name="no_extpoint"
+              value="11"
+              c:identifier="GIMO_ERROR_NO_EXTPOINT"/>
+      <member name="no_extension"
+              value="12"
+              c:identifier="GIMO_ERROR_NO_EXTENSION"/>
+      <member name="conflict" value="13" c:identifier="GIMO_ERROR_CONFLICT"/>
+      <member name="no_type" value="14" c:identifier="GIMO_ERROR_NO_TYPE"/>
+      <member name="invalid_type"
+              value="15"
+              c:identifier="GIMO_ERROR_INVALID_TYPE"/>
+      <member name="load" value="16" c:identifier="GIMO_ERROR_LOAD"/>
+      <member name="unload" value="17" c:identifier="GIMO_ERROR_UNLOAD"/>
+      <member name="no_symbol" value="18" c:identifier="GIMO_ERROR_NO_SYMBOL"/>
+      <member name="invalid_symbol"
+              value="19"
+              c:identifier="GIMO_ERROR_INVALID_SYMBOL"/>
+      <member name="no_attribute"
+              value="20"
+              c:identifier="GIMO_ERROR_NO_ATTRIBUTE"/>
+      <member name="invalid_attribute"
+              value="21"
+              c:identifier="GIMO_ERROR_INVALID_ATTRIBUTE"/>
+    </enumeration>
+    <class name="ExtConfig"
+           c:symbol-prefix="ext_config"
+           c:type="GimoExtConfig"
+           parent="GObject.Object"
+           glib:type-name="GimoExtConfig"
+           glib:get-type="gimo_ext_config_get_type"
+           glib:type-struct="ExtConfigClass">
+      <constructor name="new" c:identifier="gimo_ext_config_new">
+        <doc xml:whitespace="preserve">Create a extension configuration with the provided parameters.</doc>
+        <return-value transfer-ownership="full">
+          <type name="ExtConfig" c:type="GimoExtConfig*"/>
+        </return-value>
+        <parameters>
+          <parameter name="name" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the config name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="value" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the config value</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="configs" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">sub configs</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="gpointer" c:type="gpointer"/>
+            </array>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_config" c:identifier="gimo_ext_config_get_config">
+        <doc xml:whitespace="preserve">Get a sub configuration with the specified namespace.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GimoExtConfig</doc>
+          <type name="ExtConfig" c:type="GimoExtConfig*"/>
+        </return-value>
+        <parameters>
+          <parameter name="name_space" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the sub configuration namespace</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_configs" c:identifier="gimo_ext_config_get_configs">
+        <doc xml:whitespace="preserve">Get the sub configurations of the config.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the configurations list.</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="ExtConfig"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="get_name" c:identifier="gimo_ext_config_get_name">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_value" c:identifier="gimo_ext_config_get_value">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <property name="configs"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="ObjectArray"/>
+      </property>
+      <property name="name"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="value"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="ExtConfigPrivate" c:type="GimoExtConfigPrivate*"/>
+      </field>
+    </class>
+    <record name="ExtConfigClass"
+            c:type="GimoExtConfigClass"
+            glib:is-gtype-struct-for="ExtConfig">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="ExtConfigPrivate"
+            c:type="GimoExtConfigPrivate"
+            disguised="1">
+    </record>
+    <class name="ExtPoint"
+           c:symbol-prefix="ext_point"
+           c:type="GimoExtPoint"
+           parent="GObject.Object"
+           glib:type-name="GimoExtPoint"
+           glib:get-type="gimo_ext_point_get_type"
+           glib:type-struct="ExtPointClass">
+      <constructor name="new" c:identifier="gimo_ext_point_new">
+        <return-value transfer-ownership="full">
+          <type name="ExtPoint" c:type="GimoExtPoint*"/>
+        </return-value>
+        <parameters>
+          <parameter name="id" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_id" c:identifier="gimo_ext_point_get_id">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_local_id" c:identifier="gimo_ext_point_get_local_id">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_name" c:identifier="gimo_ext_point_get_name">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="query_plugin" c:identifier="gimo_ext_point_query_plugin">
+        <doc xml:whitespace="preserve">Query the plugin descriptor of the extension point.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #GimoPlugin</doc>
+          <type name="Plugin" c:type="GimoPlugin*"/>
+        </return-value>
+      </method>
+      <property name="id"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="name"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="ExtPointPrivate" c:type="GimoExtPointPrivate*"/>
+      </field>
+    </class>
+    <record name="ExtPointClass"
+            c:type="GimoExtPointClass"
+            glib:is-gtype-struct-for="ExtPoint">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="ExtPointPrivate" c:type="GimoExtPointPrivate" disguised="1">
+    </record>
+    <class name="Extension"
+           c:symbol-prefix="extension"
+           c:type="GimoExtension"
+           parent="GObject.Object"
+           glib:type-name="GimoExtension"
+           glib:get-type="gimo_extension_get_type"
+           glib:type-struct="ExtensionClass">
+      <constructor name="new" c:identifier="gimo_extension_new">
+        <doc xml:whitespace="preserve">Create a extension descriptor with the provided parameters.</doc>
+        <return-value transfer-ownership="full">
+          <type name="Extension" c:type="GimoExtension*"/>
+        </return-value>
+        <parameters>
+          <parameter name="id" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the local extension ID</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="name" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the display name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="point" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the extension point ID</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="configs" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the configurations</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="gpointer" c:type="gpointer"/>
+            </array>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_config" c:identifier="gimo_extension_get_config">
+        <doc xml:whitespace="preserve">Get a configuration with the specified name.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GimoExtConfig</doc>
+          <type name="ExtConfig" c:type="GimoExtConfig*"/>
+        </return-value>
+        <parameters>
+          <parameter name="name_space" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the configuration namespace</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_config_value"
+              c:identifier="gimo_extension_get_config_value">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+        <parameters>
+          <parameter name="name_space" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_configs" c:identifier="gimo_extension_get_configs">
+        <doc xml:whitespace="preserve">Get the configurations of the extension.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the configurations list.</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="ExtConfig"/>
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="name_space"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the configurations namespace</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_extpoint_id"
+              c:identifier="gimo_extension_get_extpoint_id">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_id" c:identifier="gimo_extension_get_id">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_local_id" c:identifier="gimo_extension_get_local_id">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_name" c:identifier="gimo_extension_get_name">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="query_plugin" c:identifier="gimo_extension_query_plugin">
+        <doc xml:whitespace="preserve">Query the plugin descriptor of the extension.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #GimoPlugin</doc>
+          <type name="Plugin" c:type="GimoPlugin*"/>
+        </return-value>
+      </method>
+      <property name="configs"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="ObjectArray"/>
+      </property>
+      <property name="id"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="name"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="point"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="ExtensionPrivate" c:type="GimoExtensionPrivate*"/>
+      </field>
+    </class>
+    <record name="ExtensionClass"
+            c:type="GimoExtensionClass"
+            glib:is-gtype-struct-for="Extension">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="ExtensionPrivate"
+            c:type="GimoExtensionPrivate"
+            disguised="1">
+    </record>
+    <class name="Factory"
+           c:symbol-prefix="factory"
+           c:type="GimoFactory"
+           parent="GObject.Object"
+           glib:type-name="GimoFactory"
+           glib:get-type="gimo_factory_get_type"
+           glib:type-struct="FactoryClass">
+      <constructor name="new"
+                   c:identifier="gimo_factory_new"
+                   introspectable="0">
+        <doc xml:whitespace="preserve">Create a factory with the specified callback.</doc>
+        <return-value transfer-ownership="full">
+          <type name="Factory" c:type="GimoFactory*"/>
+        </return-value>
+        <parameters>
+          <parameter name="func"
+                     transfer-ownership="none"
+                     allow-none="1"
+                     scope="async"
+                     closure="1">
+            <doc xml:whitespace="preserve">the factory function</doc>
+            <type name="FactoryFunc" c:type="GimoFactoryFunc"/>
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">user data for @func</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="make" invoker="make">
+        <doc xml:whitespace="preserve">Make an object from the factory.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">A #GObject if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </return-value>
+      </virtual-method>
+      <method name="make" c:identifier="gimo_factory_make">
+        <doc xml:whitespace="preserve">Make an object from the factory.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">A #GObject if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </return-value>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="FactoryPrivate" c:type="GimoFactoryPrivate*"/>
+      </field>
+      <glib:signal name="make" when="last">
+        <doc xml:whitespace="preserve">The ::make signal is emitted to make a new object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">A #GObject if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="GObject.Object"/>
+        </return-value>
+      </glib:signal>
+    </class>
+    <record name="FactoryClass"
+            c:type="GimoFactoryClass"
+            glib:is-gtype-struct-for="Factory">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="make">
+        <callback name="make">
+          <return-value transfer-ownership="full">
+            <doc xml:whitespace="preserve">A #GObject if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+            <type name="GObject.Object" c:type="GObject*"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Factory" c:type="GimoFactory*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <callback name="FactoryFunc" c:type="GimoFactoryFunc" introspectable="0">
+      <return-value>
+        <type name="GObject.Object" c:type="GObject*"/>
+      </return-value>
+      <parameters>
+        <parameter name="user_data" transfer-ownership="none" closure="0">
+          <type name="gpointer" c:type="gpointer"/>
+        </parameter>
+      </parameters>
+    </callback>
+    <record name="FactoryPrivate" c:type="GimoFactoryPrivate" disguised="1">
+    </record>
+    <interface name="Loadable"
+               c:symbol-prefix="loadable"
+               c:type="GimoLoadable"
+               glib:type-name="GimoLoadable"
+               glib:get-type="gimo_loadable_get_type"
+               glib:type-struct="LoadableInterface">
+      <virtual-method name="load" invoker="load">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="unload" invoker="unload">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </virtual-method>
+      <method name="load" c:identifier="gimo_loadable_load">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="unload" c:identifier="gimo_loadable_unload">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+    </interface>
+    <record name="LoadableInterface"
+            c:type="GimoLoadableInterface"
+            glib:is-gtype-struct-for="Loadable">
+      <field name="base_iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="load">
+        <callback name="load">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Loadable" c:type="GimoLoadable*"/>
+            </parameter>
+            <parameter name="file_name" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="unload">
+        <callback name="unload">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Loadable" c:type="GimoLoadable*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <callback name="LoadableLoadFunc" c:type="GimoLoadableLoadFunc">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="self" transfer-ownership="none">
+          <type name="Loadable" c:type="GimoLoadable*"/>
+        </parameter>
+        <parameter name="file_name" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </callback>
+    <callback name="LoadableUnloadFunc" c:type="GimoLoadableUnloadFunc">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="self" transfer-ownership="none">
+          <type name="Loadable" c:type="GimoLoadable*"/>
+        </parameter>
+      </parameters>
+    </callback>
+    <class name="Loader"
+           c:symbol-prefix="loader"
+           c:type="GimoLoader"
+           parent="GObject.Object"
+           glib:type-name="GimoLoader"
+           glib:get-type="gimo_loader_get_type"
+           glib:type-struct="LoaderClass">
+      <constructor name="new" c:identifier="gimo_loader_new">
+        <return-value transfer-ownership="full">
+          <type name="Loader" c:type="GimoLoader*"/>
+        </return-value>
+      </constructor>
+      <constructor name="new_cached" c:identifier="gimo_loader_new_cached">
+        <return-value transfer-ownership="full">
+          <type name="Loader" c:type="GimoLoader*"/>
+        </return-value>
+      </constructor>
+      <method name="add_paths" c:identifier="gimo_loader_add_paths">
+        <doc xml:whitespace="preserve">Add file search paths to the loader.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="paths" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">path list, seperated by ':'</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="dup_paths" c:identifier="gimo_loader_dup_paths">
+        <doc xml:whitespace="preserve">Duplicate a copy of load search paths.</doc>
+        <return-value transfer-ownership="container">
+          <doc xml:whitespace="preserve">an array of search paths</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="utf8"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="load" c:identifier="gimo_loader_load">
+        <doc xml:whitespace="preserve">Load a file.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">A #GimoLoadable if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="Loadable" c:type="GimoLoadable*"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_name" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the file name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="query_cached" c:identifier="gimo_loader_query_cached">
+        <doc xml:whitespace="preserve">Query all the cached loaded objects.</doc>
+        <return-value transfer-ownership="container">
+          <doc xml:whitespace="preserve">An #GPtrArray if successful or %NULL if there's none. Free the returned array with g_ptr_array_unref().</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="Loadable"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="register" c:identifier="gimo_loader_register">
+        <doc xml:whitespace="preserve">Register a #GimoLoadable factor.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">%TRUE if register success.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="suffix" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the file suffix</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="factory" transfer-ownership="none">
+            <doc xml:whitespace="preserve">a #GimoLoadable factory</doc>
+            <type name="Factory" c:type="GimoFactory*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="remove_paths" c:identifier="gimo_loader_remove_paths">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="paths" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="unregister" c:identifier="gimo_loader_unregister">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="suffix" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="cache"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="gboolean"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="LoaderPrivate" c:type="GimoLoaderPrivate*"/>
+      </field>
+    </class>
+    <record name="LoaderClass"
+            c:type="GimoLoaderClass"
+            glib:is-gtype-struct-for="Loader">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="LoaderPrivate" c:type="GimoLoaderPrivate" disguised="1">
+    </record>
+    <interface name="Module"
+               c:symbol-prefix="module"
+               c:type="GimoModule"
+               glib:type-name="GimoModule"
+               glib:get-type="gimo_module_get_type"
+               glib:type-struct="ModuleInterface">
+      <virtual-method name="close" invoker="close">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="get_name" invoker="get_name">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="open" invoker="open">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="resolve" invoker="resolve">
+        <doc xml:whitespace="preserve">Resolve the symbol as an object constructor and create an object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">A #GObject if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </return-value>
+        <parameters>
+          <parameter name="symbol" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the constructor symbol</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="param" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the parameter for constructor</doc>
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+          <parameter name="has_return" transfer-ownership="none">
+            <doc xml:whitespace="preserve">whether the symbol has return value</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="close" c:identifier="gimo_module_close">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="get_name" c:identifier="gimo_module_get_name">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="open" c:identifier="gimo_module_open">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="file_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="resolve" c:identifier="gimo_module_resolve">
+        <doc xml:whitespace="preserve">Resolve the symbol as an object constructor and create an object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">A #GObject if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </return-value>
+        <parameters>
+          <parameter name="symbol" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the constructor symbol</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="param" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the parameter for constructor</doc>
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+          <parameter name="has_return" transfer-ownership="none">
+            <doc xml:whitespace="preserve">whether the symbol has return value</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+    </interface>
+    <record name="ModuleInterface"
+            c:type="GimoModuleInterface"
+            glib:is-gtype-struct-for="Module">
+      <field name="base_iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="open">
+        <callback name="open">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Module" c:type="GimoModule*"/>
+            </parameter>
+            <parameter name="file_name" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="close">
+        <callback name="close">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Module" c:type="GimoModule*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="get_name">
+        <callback name="get_name">
+          <return-value transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Module" c:type="GimoModule*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="resolve">
+        <callback name="resolve">
+          <return-value transfer-ownership="full">
+            <doc xml:whitespace="preserve">A #GObject if successful, %NULL on error. Free the returned object with g_object_unref().</doc>
+            <type name="GObject.Object" c:type="GObject*"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Module" c:type="GimoModule*"/>
+            </parameter>
+            <parameter name="symbol" transfer-ownership="none">
+              <doc xml:whitespace="preserve">the constructor symbol</doc>
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+            <parameter name="param" transfer-ownership="none" allow-none="1">
+              <doc xml:whitespace="preserve">the parameter for constructor</doc>
+              <type name="GObject.Object" c:type="GObject*"/>
+            </parameter>
+            <parameter name="has_return" transfer-ownership="none">
+              <doc xml:whitespace="preserve">whether the symbol has return value</doc>
+              <type name="gboolean" c:type="gboolean"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="ObjectArray"
+            c:type="GimoObjectArray"
+            glib:type-name="GimoObjectArray"
+            glib:get-type="gimo_object_array_get_type"
+            c:symbol-prefix="object_array">
+    </record>
+    <class name="Plugin"
+           c:symbol-prefix="plugin"
+           c:type="GimoPlugin"
+           parent="GObject.Object"
+           glib:type-name="GimoPlugin"
+           glib:get-type="gimo_plugin_get_type"
+           glib:type-struct="PluginClass">
+      <constructor name="new" c:identifier="gimo_plugin_new">
+        <doc xml:whitespace="preserve">Create a plugin descriptor with the provided parameters.</doc>
+        <return-value transfer-ownership="full">
+          <type name="Plugin" c:type="GimoPlugin*"/>
+        </return-value>
+        <parameters>
+          <parameter name="id" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the unique identifier</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="name" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the display name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="version" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the release version</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="provider" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the provider name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="path" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the runtime module path</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="module" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the runtime module name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="symbol" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the runtime symbol name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="requires" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the required plugins</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="Require"/>
+            </array>
+          </parameter>
+          <parameter name="extpoints" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the extension points</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="ExtPoint"/>
+            </array>
+          </parameter>
+          <parameter name="extensions"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the extensions</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="Extension"/>
+            </array>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="start">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="stop" invoker="stop">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </virtual-method>
+      <method name="define" c:identifier="gimo_plugin_define">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="symbol" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="object" transfer-ownership="none">
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_extension" c:identifier="gimo_plugin_get_extension">
+        <doc xml:whitespace="preserve">Get an extension with the specified local ID.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GimoExtension</doc>
+          <type name="Extension" c:type="GimoExtension*"/>
+        </return-value>
+        <parameters>
+          <parameter name="local_id" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the local extension ID</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_extensions" c:identifier="gimo_plugin_get_extensions">
+        <doc xml:whitespace="preserve">Get the extensions provided by the plugin.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the extensions list.</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="Extension"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="get_extpoint" c:identifier="gimo_plugin_get_extpoint">
+        <doc xml:whitespace="preserve">Get an extension point with the specified local ID.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GimoExtPoint</doc>
+          <type name="ExtPoint" c:type="GimoExtPoint*"/>
+        </return-value>
+        <parameters>
+          <parameter name="local_id" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the local extension point ID</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_extpoints" c:identifier="gimo_plugin_get_extpoints">
+        <doc xml:whitespace="preserve">Get the extension points provided by the plugin.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the extension points list.</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="ExtPoint"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="get_id" c:identifier="gimo_plugin_get_id">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_module" c:identifier="gimo_plugin_get_module">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_name" c:identifier="gimo_plugin_get_name">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_path" c:identifier="gimo_plugin_get_path">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_provider" c:identifier="gimo_plugin_get_provider">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_requires" c:identifier="gimo_plugin_get_requires">
+        <doc xml:whitespace="preserve">Get the required plugins of the plugin.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the required plugins list.</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="Require"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="get_state" c:identifier="gimo_plugin_get_state">
+        <return-value transfer-ownership="none">
+          <type name="PluginState" c:type="GimoPluginState"/>
+        </return-value>
+      </method>
+      <method name="get_symbol" c:identifier="gimo_plugin_get_symbol">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_version" c:identifier="gimo_plugin_get_version">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="query_context" c:identifier="gimo_plugin_query_context">
+        <doc xml:whitespace="preserve">Query the context of the plugin descriptor.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #GimoContext</doc>
+          <type name="Context" c:type="GimoContext*"/>
+        </return-value>
+      </method>
+      <method name="query_extensions"
+              c:identifier="gimo_plugin_query_extensions">
+        <doc xml:whitespace="preserve">Query the specified extensions in this plugin.</doc>
+        <return-value transfer-ownership="container">
+          <doc xml:whitespace="preserve">An #GPtrArray of extensions if successful, %NULL on error. Free the returned array with g_ptr_array_unref().</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="Extension"/>
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="extpt_id" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the extension point ID</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="resolve" c:identifier="gimo_plugin_resolve">
+        <doc xml:whitespace="preserve">Resolve the plugin runtime information.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #GObject</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </return-value>
+        <parameters>
+          <parameter name="symbol" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the symbol name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="start" c:identifier="gimo_plugin_start">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="loader" transfer-ownership="none">
+            <type name="Loader" c:type="GimoLoader*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="stop" c:identifier="gimo_plugin_stop">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <property name="extensions"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="ObjectArray"/>
+      </property>
+      <property name="extpoints"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="ObjectArray"/>
+      </property>
+      <property name="id"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="module"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="name"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="path"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="provider"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="requires"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="ObjectArray"/>
+      </property>
+      <property name="symbol"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="version"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="PluginPrivate" c:type="GimoPluginPrivate*"/>
+      </field>
+      <glib:signal name="start" when="last">
+        <return-value transfer-ownership="none">
+          <type name="gboolean"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="stop" when="last">
+        <return-value transfer-ownership="none">
+          <type name="gboolean"/>
+        </return-value>
+      </glib:signal>
+    </class>
+    <record name="PluginClass"
+            c:type="GimoPluginClass"
+            glib:is-gtype-struct-for="Plugin">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="start">
+        <callback name="start">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Plugin" c:type="GimoPlugin*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="stop">
+        <callback name="stop">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Plugin" c:type="GimoPlugin*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="PluginPrivate" c:type="GimoPluginPrivate" disguised="1">
+    </record>
+    <enumeration name="PluginState"
+                 glib:type-name="GimoPluginState"
+                 glib:get-type="gimo_plugin_state_get_type"
+                 c:type="GimoPluginState">
+      <member name="UNINSTALLED"
+              value="0"
+              c:identifier="GIMO_PLUGIN_UNINSTALLED"
+              glib:nick="UNINSTALLED"/>
+      <member name="INSTALLED"
+              value="1"
+              c:identifier="GIMO_PLUGIN_INSTALLED"
+              glib:nick="INSTALLED"/>
+      <member name="RESOLVED"
+              value="2"
+              c:identifier="GIMO_PLUGIN_RESOLVED"
+              glib:nick="RESOLVED"/>
+      <member name="STARTING"
+              value="3"
+              c:identifier="GIMO_PLUGIN_STARTING"
+              glib:nick="STARTING"/>
+      <member name="STOPPING"
+              value="4"
+              c:identifier="GIMO_PLUGIN_STOPPING"
+              glib:nick="STOPPING"/>
+      <member name="ACTIVE"
+              value="5"
+              c:identifier="GIMO_PLUGIN_ACTIVE"
+              glib:nick="ACTIVE"/>
+    </enumeration>
+    <class name="Require"
+           c:symbol-prefix="require"
+           c:type="GimoRequire"
+           parent="GObject.Object"
+           glib:type-name="GimoRequire"
+           glib:get-type="gimo_require_get_type"
+           glib:type-struct="RequireClass">
+      <constructor name="new" c:identifier="gimo_require_new">
+        <return-value transfer-ownership="full">
+          <type name="Require" c:type="GimoRequire*"/>
+        </return-value>
+        <parameters>
+          <parameter name="plugin" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="version" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="optional" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_plugin_id" c:identifier="gimo_require_get_plugin_id">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_version" c:identifier="gimo_require_get_version">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="is_optional" c:identifier="gimo_require_is_optional">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <property name="optional"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="gboolean"/>
+      </property>
+      <property name="plugin"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <property name="version"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="RequirePrivate" c:type="GimoRequirePrivate*"/>
+      </field>
+    </class>
+    <record name="RequireClass"
+            c:type="GimoRequireClass"
+            glib:is-gtype-struct-for="Require">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="RequirePrivate" c:type="GimoRequirePrivate" disguised="1">
+    </record>
+    <class name="XmlArchive"
+           c:symbol-prefix="xmlarchive"
+           c:type="GimoXmlArchive"
+           parent="Archive"
+           glib:type-name="GimoXmlArchive"
+           glib:get-type="gimo_xmlarchive_get_type"
+           glib:type-struct="XmlArchiveClass">
+      <implements name="Loadable"/>
+      <constructor name="new" c:identifier="gimo_xmlarchive_new">
+        <return-value transfer-ownership="full">
+          <type name="XmlArchive" c:type="GimoXmlArchive*"/>
+        </return-value>
+      </constructor>
+      <field name="parent_instance">
+        <type name="Archive" c:type="GimoArchive"/>
+      </field>
+    </class>
+    <record name="XmlArchiveClass"
+            c:type="GimoXmlArchiveClass"
+            glib:is-gtype-struct-for="XmlArchive">
+      <field name="parent_class">
+        <type name="ArchiveClass" c:type="GimoArchiveClass"/>
+      </field>
+    </record>
+    <record name="XmlArchivePrivate"
+            c:type="GimoXmlArchivePrivate"
+            disguised="1">
+    </record>
+    <function name="bind_object" c:identifier="gimo_bind_object">
+      <doc xml:whitespace="preserve">Binding an object to the object.</doc>
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GObject</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the binding key</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="data" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the binding data</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="bind_string" c:identifier="gimo_bind_string">
+      <doc xml:whitespace="preserve">Binding a string to the object.</doc>
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GObject</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the binding key</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="data" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the binding data</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="binding_lock" c:identifier="gimo_binding_lock">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="binding_unlock" c:identifier="gimo_binding_unlock">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="clear_error" c:identifier="gimo_clear_error">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+    </function>
+    <function name="dup_error_string" c:identifier="gimo_dup_error_string">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+    </function>
+    <function name="error_to_string" c:identifier="gimo_error_to_string">
+      <return-value transfer-ownership="none">
+        <type name="utf8" c:type="const gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="code" transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="get_error" c:identifier="gimo_get_error">
+      <return-value transfer-ownership="none">
+        <type name="gint" c:type="gint"/>
+      </return-value>
+    </function>
+    <function name="lookup_object" c:identifier="gimo_lookup_object">
+      <doc xml:whitespace="preserve">Lookup a binded object, must hold binding lock.</doc>
+      <return-value transfer-ownership="none">
+        <doc xml:whitespace="preserve">a #GObject</doc>
+        <type name="GObject.Object" c:type="GObject*"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GObject</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the binding key</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="lookup_string" c:identifier="gimo_lookup_string">
+      <return-value transfer-ownership="none">
+        <type name="utf8" c:type="const gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="query_object" c:identifier="gimo_query_object">
+      <doc xml:whitespace="preserve">Query a binded object.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">a #GObject</doc>
+        <type name="GObject.Object" c:type="GObject*"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GObject</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the binding key</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="query_string" c:identifier="gimo_query_string">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="resolve_type_lazily"
+              c:identifier="gimo_resolve_type_lazily">
+      <return-value transfer-ownership="none">
+        <type name="GType" c:type="GType"/>
+      </return-value>
+      <parameters>
+        <parameter name="name" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="safe_cast" c:identifier="gimo_safe_cast">
+      <doc xml:whitespace="preserve">Cast a object to the specified type, unref the object if failed.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">A #GObject if successful, %NULL on error.</doc>
+        <type name="GObject.Object" c:type="gpointer"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">a #GObject</doc>
+          <type name="GObject.Object" c:type="gpointer"/>
+        </parameter>
+        <parameter name="type" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the target type to cast</doc>
+          <type name="GType" c:type="GType"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="set_error" c:identifier="gimo_set_error">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="code" transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="set_error_full"
+              c:identifier="gimo_set_error_full"
+              introspectable="0">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="code" transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </parameter>
+        <parameter name="format" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter transfer-ownership="none">
+          <varargs>
+          </varargs>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="set_error_string" c:identifier="gimo_set_error_string">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="code" transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </parameter>
+        <parameter name="string" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="trace_error" c:identifier="gimo_trace_error">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="trace" transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </parameter>
+      </parameters>
+    </function>
+  </namespace>
+</repository>

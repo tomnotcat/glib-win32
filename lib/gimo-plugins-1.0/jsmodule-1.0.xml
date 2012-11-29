@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive version="1.0">
+  <object class="GimoPlugin">
+    <id>org.gimo.core.js.module</id>
+    <name>JavaScript Module Loader</name>
+    <version>1.0</version>
+    <provider>gimoapp.com</provider>
+    <module>jsmodule-1.0.so</module>
+    <symbol>gimo_jsmodule_plugin</symbol>
+    <extensions class="GimoExtension">
+      <extension id="loader" name="JavaScript Module Loader"
+                 point="org.gimo.core.loader.module"/>
+    </extensions>
+  </object>
+</archive>

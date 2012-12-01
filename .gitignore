@@ -6,7 +6,11 @@ vs10/Debug/*
 vs10/Release/*
 vs10/ipch/*
 vs10/all.sdf
-vs10/gobject-introspection/gobject-introspection-1.33.10/*
+vs10/cairo/cairo-1.12.8/*
+vs10/cairo/pixman-0.28.0/*
+vs10/cairo/Debug/*
+vs10/cairo/Release/*
+vs10/gobject-introspection/gobject-introspection-1.34.2/*
 vs10/gobject-introspection/Debug/*
 vs10/gobject-introspection/Release/*
 vs10/libffi/libffi-3.0.11/*
@@ -15,7 +19,7 @@ vs10/libffi/Release/*
 vs10/pkg-config/pkg-config-0.27.1/*
 vs10/pkg-config/Debug/*
 vs10/pkg-config/Release/*
-vs10/pygobject/pygobject-3.0.4/*
+vs10/pygobject/pygobject-3.4.2/*
 vs10/pygobject/Debug/*
 vs10/pygobject/Release/*
 vs10/gjs/gjs-1.33.14/*

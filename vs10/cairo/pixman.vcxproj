@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-access-accessors.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-access.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-arm.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-bits-image.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-combine-float.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-combine32.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-conical-gradient.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-edge-accessors.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-edge.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-fast-path.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-general.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-glyph.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-gradient-walker.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-image.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-linear-gradient.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-matrix.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-mips.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-noop.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-ppc.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-radial-gradient.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-region16.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-region32.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-solid-fill.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-sse2.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-timer.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-trap.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-utils.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman-x86.c" />
+    <ClCompile Include="pixman-0.28.0\pixman\pixman.c" />
+    <ClCompile Include="pixman-implementation-vs10.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="pixman.def" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D57D50D7-AA5C-4761-AACA-C2CD9A295CCB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>pixman</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PIXMAN_EXPORTS;USE_SSE2;XP_WIN;HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);pixman-0.28.0\pixman;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>pixman.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PIXMAN_EXPORTS;XP_WIN;USE_SSE2;HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);pixman-0.28.0\pixman</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>pixman.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

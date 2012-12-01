@@ -33,9 +33,13 @@ from ._gi import \
     register_interface_info, \
     hook_up_vfunc_implementation
 
+
+StructInfo  # pyflakes
+
 if sys.version_info > (3, 0):
     def callable(obj):
         return hasattr(obj, '__call__')
+
 
 def Function(info):
 
@@ -117,10 +121,10 @@ class MetaClassHelper(object):
 
             # If a method name starts with "do_" assume it is a vfunc, and search
             # in the base classes for a method with the same name to override.
-            # Recursion is not necessary here because getattr() searches all
-            # super class attributes as well.
+            # Recursion is necessary as overriden methods in most immediate parent
+            # classes may shadow vfuncs from classes higher in the hierarchy.
             vfunc_info = None
-            for base in cls.__bases__:
+            for base in cls.__mro__:
                 method = getattr(base, vfunc_name, None)
                 if method is not None and hasattr(method, '__info__') and \
                         isinstance(method.__info__, VFuncInfo):
@@ -144,14 +148,15 @@ class MetaClassHelper(object):
                 if ambiguous_base is not None:
                     base_info = vfunc_info.get_container()
                     raise TypeError('Method %s() on class %s.%s is ambiguous '
-                            'with methods in base classes %s.%s and %s.%s' %
-                            (vfunc_name,
-                             cls.__info__.get_namespace(),
-                             cls.__info__.get_name(),
-                             base_info.get_namespace(),
-                             base_info.get_name(),
-                             ambiguous_base.__info__.get_namespace(),
-                             ambiguous_base.__info__.get_name()))
+                                    'with methods in base classes %s.%s and %s.%s' %
+                                    (vfunc_name,
+                                     cls.__info__.get_namespace(),
+                                     cls.__info__.get_name(),
+                                     base_info.get_namespace(),
+                                     base_info.get_name(),
+                                     ambiguous_base.__info__.get_namespace(),
+                                     ambiguous_base.__info__.get_name()
+                                    ))
                 hook_up_vfunc_implementation(vfunc_info, cls.__gtype__,
                                              py_vfunc)
 
@@ -168,6 +173,7 @@ class MetaClassHelper(object):
             name = 'do_%s' % vfunc_info.get_name()
             value = NativeVFunc(vfunc_info)
             setattr(cls, name, value)
+
 
 def find_vfunc_info_in_interface(bases, vfunc_name):
     for base in bases:
@@ -190,6 +196,7 @@ def find_vfunc_info_in_interface(bases, vfunc_name):
 
     return None
 
+
 def find_vfunc_conflict_in_bases(vfunc, bases):
     for klass in bases:
         if not hasattr(klass, '__info__') or \
@@ -205,6 +212,7 @@ def find_vfunc_conflict_in_bases(vfunc, bases):
         if aklass is not None:
             return aklass
     return None
+
 
 class GObjectMeta(_gobject.GObjectMeta, MetaClassHelper):
 
@@ -253,7 +261,7 @@ def mro(C):
             candidate = subclass_bases[0]
             not_head = [s for s in bases_of_subclasses if candidate in s[1:]]
             if not_head and _gobject.GInterface not in candidate.__bases__:
-                candidate = None # conflict, reject candidate
+                candidate = None  # conflict, reject candidate
             else:
                 break
 
@@ -263,7 +271,7 @@ def mro(C):
 
         bases.append(candidate)
 
-        for subclass_bases in bases_of_subclasses[:]: # remove candidate
+        for subclass_bases in bases_of_subclasses[:]:  # remove candidate
             if subclass_bases and subclass_bases[0] == candidate:
                 del subclass_bases[0]
                 if not subclass_bases:

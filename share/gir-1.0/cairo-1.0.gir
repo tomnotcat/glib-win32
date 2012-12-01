@@ -5,7 +5,7 @@
             xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
   <package name="cairo-gobject"/>
   <namespace name="cairo" version="1.0"
-	     shared-library="libcairo-gobject.so.2"
+	     shared-library="cairo.dll,cairo-gobject.dll"
 	     c:identifier-prefixes="cairo"
 	     c:symbol-prefixes="cairo">
     <record name="Context" c:type="cairo_t" foreign="1"

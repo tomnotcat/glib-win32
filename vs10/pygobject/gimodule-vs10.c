@@ -60,9 +60,10 @@ _wrap_pyg_enum_register_new_gtype_and_add (PyObject *self,
     GIEnumInfo *info;
     gint n_values;
     GEnumValue *g_enum_values;
-    GType g_type;
-    const gchar *type_name;
     int i;
+    const gchar *type_name;
+    GType g_type;
+
     if (!PyArg_ParseTupleAndKeywords (args, kwargs,
                                       "O:enum_add_make_new_gtype",
                                       kwlist, (PyObject *)&py_info)) {
@@ -79,7 +80,7 @@ _wrap_pyg_enum_register_new_gtype_and_add (PyObject *self,
     n_values = g_enum_info_get_n_values (info);
     g_enum_values = g_new0 (GEnumValue, n_values + 1);
 
-    for (i=0; i < n_values; i++) {
+    for (i = 0; i < n_values; i++) {
         GIValueInfo *value_info;
         GEnumValue *enum_value;
         const gchar *name;
@@ -147,9 +148,10 @@ _wrap_pyg_flags_register_new_gtype_and_add (PyObject *self,
     GIEnumInfo *info;
     gint n_values;
     GFlagsValue *g_flags_values;
-    GType g_type;
-    const gchar *type_name;
     int i;
+    const gchar *type_name;
+    GType g_type;
+
     if (!PyArg_ParseTupleAndKeywords (args, kwargs,
                                       "O:flags_add_make_new_gtype",
                                       kwlist, (PyObject *)&py_info)) {
@@ -166,7 +168,7 @@ _wrap_pyg_flags_register_new_gtype_and_add (PyObject *self,
     n_values = g_enum_info_get_n_values (info);
     g_flags_values = g_new0 (GFlagsValue, n_values + 1);
 
-    for ( i=0; i < n_values; i++) {
+    for (i = 0; i < n_values; i++) {
         GIValueInfo *value_info;
         GFlagsValue *flags_value;
         const gchar *name;
@@ -490,6 +492,7 @@ PYGLIB_MODULE_START(_gi, "_gi")
     _pygi_info_register_types (module);
     _pygi_struct_register_types (module);
     _pygi_boxed_register_types (module);
+    _pygi_ccallback_register_types (module);
     _pygi_argument_init();
 
     api = PYGLIB_CPointer_WrapPointer ( (void *) &CAPI, "gi._API");

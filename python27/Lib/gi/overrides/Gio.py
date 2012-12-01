@@ -29,6 +29,7 @@ Gio = modules['Gio']._introspection_module
 
 __all__ = []
 
+
 class FileEnumerator(Gio.FileEnumerator):
     def __iter__(self):
         return self
@@ -48,11 +49,22 @@ class FileEnumerator(Gio.FileEnumerator):
 FileEnumerator = override(FileEnumerator)
 __all__.append('FileEnumerator')
 
+
+class MenuItem(Gio.MenuItem):
+    def set_attribute(self, attributes):
+        for (name, format_string, value) in attributes:
+            self.set_attribute_value(name, GLib.Variant(format_string, value))
+
+
+MenuItem = override(MenuItem)
+__all__.append('MenuItem')
+
+
 class Settings(Gio.Settings):
     '''Provide dictionary-like access to GLib.Settings.'''
 
-    def __init__(self, schema, path=None, backend=None):
-        Gio.Settings.__init__(self, schema=schema, backend=backend, path=path)
+    def __init__(self, schema, path=None, backend=None, **kwargs):
+        Gio.Settings.__init__(self, schema=schema, backend=backend, path=path, **kwargs)
 
     def __contains__(self, key):
         return key in self.list_keys()
@@ -89,8 +101,15 @@ class Settings(Gio.Settings):
             type_str = v.get_child_value(0).get_type_string()
             assert type_str.startswith('a')
             type_str = type_str[1:]
+        elif type_ == 'enum':
+            # v is an array with the allowed values
+            assert v.get_child_value(0).get_type_string().startswith('a')
+            type_str = v.get_child_value(0).get_child_value(0).get_type_string()
+            allowed = v.unpack()
+            if value not in allowed:
+                raise ValueError('value %s is not an allowed enum (%s)' % (value, allowed))
         else:
-            raise NotImplementedError('Cannot handle allowed type range class' + str(type_))
+            raise NotImplementedError('Cannot handle allowed type range class ' + str(type_))
 
         self.set_value(key, GLib.Variant(type_str, value))
 
@@ -99,6 +118,7 @@ class Settings(Gio.Settings):
 
 Settings = override(Settings)
 __all__.append('Settings')
+
 
 class _DBusProxyMethodCall:
     '''Helper class to implement DBusProxy method calls.'''
@@ -138,14 +158,17 @@ class _DBusProxyMethodCall:
         if 'result_handler' in kwargs:
             # asynchronous call
             user_data = (kwargs['result_handler'],
-                    kwargs.get('error_handler'), kwargs.get('user_data'))
+                         kwargs.get('error_handler'),
+                         kwargs.get('user_data'))
             self.dbus_proxy.call(self.method_name, arg_variant,
-                    kwargs.get('flags', 0), kwargs.get('timeout', -1), None,
-                    self.__async_result_handler, user_data)
+                                 kwargs.get('flags', 0), kwargs.get('timeout', -1), None,
+                                 self.__async_result_handler, user_data)
         else:
             # synchronous call
             result = self.dbus_proxy.call_sync(self.method_name, arg_variant,
-                    kwargs.get('flags', 0), kwargs.get('timeout', -1), None)
+                                               kwargs.get('flags', 0),
+                                               kwargs.get('timeout', -1),
+                                               None)
             return self._unpack_result(result)
 
     @classmethod
@@ -163,9 +186,10 @@ class _DBusProxyMethodCall:
 
         return result
 
+
 class DBusProxy(Gio.DBusProxy):
     '''Provide comfortable and pythonic method calls.
-    
+
     This marshalls the method arguments into a GVariant, invokes the
     call_sync() method on the DBusProxy object, and unmarshalls the result
     GVariant back into a Python tuple.
@@ -193,7 +217,7 @@ class DBusProxy(Gio.DBusProxy):
       error_handler(proxy_object, exception, user_data) is called when it
       finishes. If error_handler is not given, result_handler is called with
       the exception object as result instead.
-    
+
     - user_data: Optional user data to pass to result_handler for
       asynchronous calls.
 

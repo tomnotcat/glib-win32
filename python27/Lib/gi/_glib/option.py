@@ -32,7 +32,7 @@ GOptionGroup in glib.
 import sys
 import optparse
 from optparse import OptParseError, OptionError, OptionValueError, \
-                     BadOptionError, OptionConflictError
+    BadOptionError, OptionConflictError
 
 if sys.version_info >= (3, 0):
     _basestring = str
@@ -42,6 +42,7 @@ else:
     _bytes = str
 
 import gi._glib
+gi  # pyflakes
 _glib = sys.modules['gi._glib._glib']
 
 __all__ = [
@@ -55,6 +56,7 @@ __all__ = [
     "OptionParser",
     "make_option",
 ]
+
 
 class Option(optparse.Option):
     """Represents a command line option
@@ -104,7 +106,6 @@ class Option(optparse.Option):
         if not self.help:
             raise ValueError("%s needs a help message.", self._long_opts[0])
 
-
     def _set_opt_string(self, opts):
         if self.REMAINING in opts:
             self._long_opts.append(self.REMAINING)
@@ -136,6 +137,7 @@ class Option(optparse.Option):
 
         for long_name in self._long_opts[len(self._short_opts):]:
             yield (long_name[2:], _bytes('\0'), flags, self.help, self.metavar)
+
 
 class OptionGroup(optparse.OptionGroup):
     """A group of command line options.
@@ -199,19 +201,19 @@ class OptionGroup(optparse.OptionGroup):
                 raise gerror
 
         group = _glib.OptionGroup(self.name, self.description,
-                                    self.help_description, callback)
+                                  self.help_description, callback)
         if self.translation_domain:
             group.set_translation_domain(self.translation_domain)
 
         entries = []
         for option in self.option_list:
             entries.extend(option._to_goptionentries())
- 
+
         group.add_entries(entries)
 
         return group
 
-    def get_option_group(self, parser = None):
+    def get_option_group(self, parser=None):
         """ Returns the corresponding GOptionGroup object.
 
         Can be used as parameter for gnome_program_init(), gtk_init().
@@ -227,6 +229,7 @@ class OptionGroup(optparse.OptionGroup):
                 self.defaults[option.dest] = option.check_value(
                     opt_str, default)
         self.values = optparse.Values(self.defaults)
+
 
 class OptionParser(optparse.OptionParser):
     """Command line parser with GOption support.
@@ -302,7 +305,7 @@ class OptionParser(optparse.OptionParser):
     def add_option_group(self, *args, **kwargs):
         if isinstance(args[0], _basestring):
             optparse.OptionParser.add_option_group(self,
-                OptionGroup(self, *args, **kwargs))
+                                                   OptionGroup(self, *args, **kwargs))
             return
         elif len(args) == 1 and not kwargs:
             if isinstance(args[0], OptionGroup):

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_GLIB_EXPORTS;HAVE_CONFIG_H;Py_ENABLE_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.0.4\gi;pygobject-3.0.4\gi\_glib;pygobject-3.0.4\gi\_gobject</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.4.2\gi;pygobject-3.4.2\gi\_glib;pygobject-3.4.2\gi\_gobject</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -73,7 +73,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_GLIB_EXPORTS;HAVE_CONFIG_H;Py_ENABLE_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.0.4\gi;pygobject-3.0.4\gi\_glib;pygobject-3.0.4\gi\_gobject</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.4.2\gi;pygobject-3.4.2\gi\_glib;pygobject-3.4.2\gi\_gobject</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -88,27 +88,27 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\glibmodule.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pygiochannel.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pyglib.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pygmaincontext.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pygmainloop.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pygoptioncontext.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pygoptiongroup.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pygsource.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pygspawn.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\glibmodule.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pygiochannel.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pyglib.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pygmaincontext.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pygmainloop.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pygoptioncontext.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pygoptiongroup.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pygsource.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pygspawn.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pygiochannel.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pyglib-private.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pyglib-python-compat.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pyglib.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pygmaincontext.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pygmainloop.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pygoptioncontext.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pygoptiongroup.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pygsource.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_glib\pygspawn.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pygiochannel.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pyglib-private.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pyglib-python-compat.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pyglib.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pygmaincontext.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pygmainloop.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pygoptioncontext.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pygoptiongroup.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pygsource.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_glib\pygspawn.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

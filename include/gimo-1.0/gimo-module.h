@@ -42,8 +42,7 @@ struct _GimoModuleInterface {
     const gchar* (*get_name) (GimoModule *self);
     GObject* (*resolve) (GimoModule *self,
                          const gchar *symbol,
-                         GObject *param,
-                         gboolean has_return);
+                         GObject *param);
 };
 
 GType gimo_module_get_type (void) G_GNUC_CONST;
@@ -57,8 +56,7 @@ const gchar* gimo_module_get_name (GimoModule *self);
 
 GObject* gimo_module_resolve (GimoModule *self,
                               const gchar *symbol,
-                              GObject *param,
-                              gboolean has_return);
+                              GObject *param);
 
 G_END_DECLS
 

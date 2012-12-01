@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -12,14 +12,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="giscannermodule-vs10.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\giscanner\sourcescanner.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\scannerlexer.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\giscanner\sourcescanner.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\scannerlexer.c" />
     <ClCompile Include="scannerparser-vs10.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gobject-introspection-1.33.10\giscanner\grealpath.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\giscanner\sourcescanner.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\scannerparser.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\giscanner\grealpath.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\giscanner\sourcescanner.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\scannerparser.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -68,7 +68,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_GISCANNER_EXPORTS;Py_ENABLE_SHARED;YY_NO_UNISTD_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;gobject-introspection-1.33.10;gobject-introspection-1.33.10\giscanner;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.34.2;gobject-introspection-1.34.2;gobject-introspection-1.34.2\giscanner;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -89,7 +89,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_GISCANNER_EXPORTS;Py_ENABLE_SHARED;YY_NO_UNISTD_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;gobject-introspection-1.33.10;gobject-introspection-1.33.10\giscanner</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.34.2;gobject-introspection-1.34.2;gobject-introspection-1.34.2\giscanner</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

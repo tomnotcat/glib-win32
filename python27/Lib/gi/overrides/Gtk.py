@@ -20,7 +20,6 @@
 # USA
 
 import sys
-from gi import _gobject
 from gi.repository import GObject
 from ..overrides import override
 from ..importer import modules
@@ -61,6 +60,7 @@ class Widget(Gtk.Widget):
 Widget = override(Widget)
 __all__.append('Widget')
 
+
 class Container(Gtk.Container, Widget):
 
     def __len__(self):
@@ -86,6 +86,7 @@ class Container(Gtk.Container, Widget):
 Container = override(Container)
 __all__.append('Container')
 
+
 class Editable(Gtk.Editable):
 
     def insert_text(self, text, position):
@@ -103,12 +104,14 @@ class Editable(Gtk.Editable):
 Editable = override(Editable)
 __all__.append("Editable")
 
+
 class Action(Gtk.Action):
     def __init__(self, name, label, tooltip, stock_id, **kwds):
         Gtk.Action.__init__(self, name=name, label=label, tooltip=tooltip, stock_id=stock_id, **kwds)
 
 Action = override(Action)
 __all__.append("Action")
+
 
 class RadioAction(Gtk.RadioAction):
     def __init__(self, name, label, tooltip, stock_id, value, **kwds):
@@ -117,9 +120,10 @@ class RadioAction(Gtk.RadioAction):
 RadioAction = override(RadioAction)
 __all__.append("RadioAction")
 
+
 class ActionGroup(Gtk.ActionGroup):
     def __init__(self, name, **kwds):
-        super(ActionGroup, self).__init__(name = name, **kwds)
+        super(ActionGroup, self).__init__(name=name, **kwds)
 
     def add_actions(self, entries, user_data=None):
         """
@@ -215,7 +219,6 @@ class ActionGroup(Gtk.ActionGroup):
             # using inner function above since entries can leave out optional arguments
             _process_action(*e)
 
-
     def add_radio_actions(self, entries, value=None, on_change=None, user_data=None):
         """
         The add_radio_actions() method is a convenience method that creates a
@@ -276,12 +279,13 @@ class ActionGroup(Gtk.ActionGroup):
 
         if first_action is not None and on_change is not None:
             if user_data is None:
-                action.connect('changed', on_change)
+                first_action.connect('changed', on_change)
             else:
-                action.connect('changed', on_change, user_data)
+                first_action.connect('changed', on_change, user_data)
 
 ActionGroup = override(ActionGroup)
 __all__.append('ActionGroup')
+
 
 class UIManager(Gtk.UIManager):
     def add_ui_from_string(self, buffer):
@@ -297,6 +301,7 @@ class UIManager(Gtk.UIManager):
 
 UIManager = override(UIManager)
 __all__.append('UIManager')
+
 
 class ComboBox(Gtk.ComboBox, Container):
 
@@ -318,6 +323,7 @@ class Box(Gtk.Box):
 Box = override(Box)
 __all__.append('Box')
 
+
 class SizeGroup(Gtk.SizeGroup):
     def __init__(self, mode=Gtk.SizeGroupMode.VERTICAL):
         super(SizeGroup, self).__init__(mode=mode)
@@ -327,8 +333,11 @@ __all__.append('SizeGroup')
 
 
 class MenuItem(Gtk.MenuItem):
-    def __init__(self, label=None):
-        super(MenuItem, self).__init__(label=label)
+    def __init__(self, label=None, **kwds):
+        if label:
+            super(MenuItem, self).__init__(label=label, **kwds)
+        else:
+            super(MenuItem, self).__init__(**kwds)
 
 MenuItem = override(MenuItem)
 __all__.append('MenuItem')
@@ -350,7 +359,7 @@ class Builder(Gtk.Builder):
             if not _callable(handler):
                 raise TypeError('Handler %s is not a method or function' % handler_name)
 
-            after = flags or GObject.ConnectFlags.AFTER
+            after = flags & GObject.ConnectFlags.AFTER
             if connect_obj is not None:
                 if after:
                     gobj.connect_object_after(signal_name, handler, connect_obj)
@@ -384,6 +393,24 @@ Builder = override(Builder)
 __all__.append('Builder')
 
 
+# NOTE: This must come before any other Window/Dialog subclassing, to ensure
+# that we have a correct inheritance hierarchy.
+
+
+class Window(Gtk.Window):
+    def __init__(self, type=Gtk.WindowType.TOPLEVEL, **kwds):
+        # type is a construct-only property; if it is already set (e. g. by
+        # GtkBuilder), do not try to set it again and just ignore it
+        try:
+            self.get_property('type')
+            Gtk.Window.__init__(self, **kwds)
+        except TypeError:
+            Gtk.Window.__init__(self, type=type, **kwds)
+
+Window = override(Window)
+__all__.append('Window')
+
+
 class Dialog(Gtk.Dialog, Container):
 
     def __init__(self,
@@ -411,10 +438,8 @@ class Dialog(Gtk.Dialog, Container):
             self.set_destroy_with_parent(True)
 
         # NO_SEPARATOR has been removed from Gtk 3
-        try:
-            if flags & Gtk.DialogFlags.NO_SEPARATOR:
-                self.set_has_separator(False)
-        except AttributeError:
+        if hasattr(Gtk.DialogFlags, "NO_SEPARATOR") and (flags & Gtk.DialogFlags.NO_SEPARATOR):
+            self.set_has_separator(False)
             import warnings
             warnings.warn("Gtk.DialogFlags.NO_SEPARATOR has been depricated since Gtk+-3.0", DeprecationWarning)
 
@@ -451,6 +476,7 @@ class Dialog(Gtk.Dialog, Container):
 Dialog = override(Dialog)
 __all__.append('Dialog')
 
+
 class MessageDialog(Gtk.MessageDialog, Dialog):
     def __init__(self,
                  parent=None,
@@ -460,7 +486,7 @@ class MessageDialog(Gtk.MessageDialog, Dialog):
                  message_format=None,
                  **kwds):
 
-        if message_format != None:
+        if message_format:
             kwds['text'] = message_format
 
         # type keyword is used for backwards compat with PyGTK
@@ -472,8 +498,9 @@ class MessageDialog(Gtk.MessageDialog, Dialog):
         Gtk.MessageDialog.__init__(self,
                                    _buttons_property=buttons,
                                    message_type=message_type,
+                                   parent=parent,
+                                   flags=flags,
                                    **kwds)
-        Dialog.__init__(self, parent=parent, flags=flags)
 
     def format_secondary_text(self, message_format):
         self.set_property('secondary-use-markup', False)
@@ -486,23 +513,24 @@ class MessageDialog(Gtk.MessageDialog, Dialog):
 MessageDialog = override(MessageDialog)
 __all__.append('MessageDialog')
 
-class AboutDialog(Gtk.AboutDialog, Dialog):
+
+class AboutDialog(Gtk.AboutDialog):
     def __init__(self, **kwds):
         Gtk.AboutDialog.__init__(self, **kwds)
-        Dialog.__init__(self)
 
 AboutDialog = override(AboutDialog)
 __all__.append('AboutDialog')
 
-class ColorSelectionDialog(Gtk.ColorSelectionDialog, Dialog):
+
+class ColorSelectionDialog(Gtk.ColorSelectionDialog):
     def __init__(self, title=None, **kwds):
-        Gtk.ColorSelectionDialog.__init__(self, **kwds)
-        Dialog.__init__(self, title=title)
+        Gtk.ColorSelectionDialog.__init__(self, title=title, **kwds)
 
 ColorSelectionDialog = override(ColorSelectionDialog)
 __all__.append('ColorSelectionDialog')
 
-class FileChooserDialog(Gtk.FileChooserDialog, Dialog):
+
+class FileChooserDialog(Gtk.FileChooserDialog):
     def __init__(self,
                  title=None,
                  parent=None,
@@ -511,24 +539,23 @@ class FileChooserDialog(Gtk.FileChooserDialog, Dialog):
                  **kwds):
         Gtk.FileChooserDialog.__init__(self,
                                        action=action,
+                                       title=title,
+                                       parent=parent,
+                                       buttons=buttons,
                                        **kwds)
-        Dialog.__init__(self,
-                        title=title,
-                        parent=parent,
-                        buttons=buttons)
-
 FileChooserDialog = override(FileChooserDialog)
 __all__.append('FileChooserDialog')
 
-class FontSelectionDialog(Gtk.FontSelectionDialog, Dialog):
+
+class FontSelectionDialog(Gtk.FontSelectionDialog):
     def __init__(self, title=None, **kwds):
-        Gtk.FontSelectionDialog.__init__(self, **kwds)
-        Dialog.__init__(self, title=title)
+        Gtk.FontSelectionDialog.__init__(self, title=title, **kwds)
 
 FontSelectionDialog = override(FontSelectionDialog)
 __all__.append('FontSelectionDialog')
 
-class RecentChooserDialog(Gtk.RecentChooserDialog, Dialog):
+
+class RecentChooserDialog(Gtk.RecentChooserDialog):
     def __init__(self,
                  title=None,
                  parent=None,
@@ -536,16 +563,21 @@ class RecentChooserDialog(Gtk.RecentChooserDialog, Dialog):
                  buttons=None,
                  **kwds):
 
-        Gtk.RecentChooserDialog.__init__(self, recent_manager=manager, **kwds)
-        Dialog.__init__(self,
-                        title=title,
-                        parent=parent,
-                        buttons=buttons)
+        Gtk.RecentChooserDialog.__init__(self,
+                                         recent_manager=manager,
+                                         title=title,
+                                         parent=parent,
+                                         buttons=buttons,
+                                         **kwds)
 
 RecentChooserDialog = override(RecentChooserDialog)
 __all__.append('RecentChooserDialog')
 
+
 class IconView(Gtk.IconView):
+
+    def __init__(self, model=None, **kwds):
+        Gtk.IconView.__init__(self, model=model, **kwds)
 
     def get_item_at_pos(self, x, y):
         success, path, cell = super(IconView, self).get_item_at_pos(x, y)
@@ -565,6 +597,16 @@ class IconView(Gtk.IconView):
 IconView = override(IconView)
 __all__.append('IconView')
 
+
+class ToolButton(Gtk.ToolButton):
+
+    def __init__(self, stock_id=None, **kwds):
+        Gtk.ToolButton.__init__(self, stock_id=stock_id, **kwds)
+
+ToolButton = override(ToolButton)
+__all__.append('ToolButton')
+
+
 class IMContext(Gtk.IMContext):
 
     def get_surrounding(self):
@@ -575,6 +617,7 @@ class IMContext(Gtk.IMContext):
 IMContext = override(IMContext)
 __all__.append('IMContext')
 
+
 class RecentInfo(Gtk.RecentInfo):
 
     def get_application_info(self, app_name):
@@ -584,6 +627,7 @@ class RecentInfo(Gtk.RecentInfo):
 
 RecentInfo = override(RecentInfo)
 __all__.append('RecentInfo')
+
 
 class TextBuffer(Gtk.TextBuffer):
     def _get_or_create_tag_table(self):
@@ -626,7 +670,7 @@ class TextBuffer(Gtk.TextBuffer):
         Gtk.TextBuffer.set_text(self, text, length)
 
     def insert(self, iter, text, length=-1):
-        if not isinstance(text , _basestring):
+        if not isinstance(text, _basestring):
             raise TypeError('text must be a string, not %s' % type(text))
 
         Gtk.TextBuffer.insert(self, iter, text, length)
@@ -658,7 +702,7 @@ class TextBuffer(Gtk.TextBuffer):
         self.insert_with_tags(iter, text, *tag_objs)
 
     def insert_at_cursor(self, text, length=-1):
-        if not isinstance(text , _basestring):
+        if not isinstance(text, _basestring):
             raise TypeError('text must be a string, not %s' % type(text))
 
         Gtk.TextBuffer.insert_at_cursor(self, text, length)
@@ -673,11 +717,12 @@ class TextBuffer(Gtk.TextBuffer):
 TextBuffer = override(TextBuffer)
 __all__.append('TextBuffer')
 
+
 class TextIter(Gtk.TextIter):
 
     def forward_search(self, string, flags, limit):
         success, match_start, match_end = super(TextIter, self).forward_search(string,
-            flags, limit)
+                                                                               flags, limit)
         if success:
             return (match_start, match_end)
         else:
@@ -685,7 +730,7 @@ class TextIter(Gtk.TextIter):
 
     def backward_search(self, string, flags, limit):
         success, match_start, match_end = super(TextIter, self).backward_search(string,
-            flags, limit)
+                                                                                flags, limit)
         if success:
             return (match_start, match_end)
         else:
@@ -703,6 +748,7 @@ class TextIter(Gtk.TextIter):
 TextIter = override(TextIter)
 __all__.append('TextIter')
 
+
 class TreeModel(Gtk.TreeModel):
     def __len__(self):
         return self.iter_n_children(None)
@@ -713,9 +759,9 @@ class TreeModel(Gtk.TreeModel):
     # alias for Python 2.x object protocol
     __nonzero__ = __bool__
 
-    def __getitem__(self, key):
+    def _getiter(self, key):
         if isinstance(key, Gtk.TreeIter):
-            return TreeModelRow(self, key)
+            return key
         elif isinstance(key, int) and key < 0:
             index = len(self) + key
             if index < 0:
@@ -724,17 +770,25 @@ class TreeModel(Gtk.TreeModel):
                 aiter = self.get_iter(index)
             except ValueError:
                 raise IndexError("could not find tree path '%s'" % key)
-            return TreeModelRow(self, aiter)
+            return aiter
         else:
             try:
                 aiter = self.get_iter(key)
             except ValueError:
                 raise IndexError("could not find tree path '%s'" % key)
-            return TreeModelRow(self, aiter)
+            return aiter
+
+    def __getitem__(self, key):
+        aiter = self._getiter(key)
+        return TreeModelRow(self, aiter)
 
     def __setitem__(self, key, value):
         row = self[key]
         self.set_row(row.iter, value)
+
+    def __delitem__(self, key):
+        aiter = self._getiter(key)
+        self.remove(aiter)
 
     def __iter__(self):
         return TreeModelRowIter(self, self.get_iter_first())
@@ -765,6 +819,12 @@ class TreeModel(Gtk.TreeModel):
         if success:
             return next_iter
 
+    def iter_previous(self, aiter):
+        prev_iter = aiter.copy()
+        success = super(TreeModel, self).iter_previous(prev_iter)
+        if success:
+            return prev_iter
+
     def iter_children(self, aiter):
         success, child_iter = super(TreeModel, self).iter_children(aiter)
         if success:
@@ -780,7 +840,7 @@ class TreeModel(Gtk.TreeModel):
         if success:
             return parent_iter
 
-    def set_row(self, treeiter, row):
+    def _convert_row(self, row):
         # TODO: Accept a dictionary for row
         # model.append(None,{COLUMN_ICON: icon, COLUMN_NAME: name})
         if isinstance(row, str):
@@ -790,92 +850,104 @@ class TreeModel(Gtk.TreeModel):
         if len(row) != n_columns:
             raise ValueError('row sequence has the incorrect number of elements')
 
-        for i in range(n_columns):
-            value = row[i]
+        result = []
+        columns = []
+        for cur_col, value in enumerate(row):
+            # do not try to set None values, they are causing warnings
             if value is None:
-               continue  # None means skip this row
+                continue
+            result.append(self._convert_value(cur_col, value))
+            columns.append(cur_col)
+        return (result, columns)
 
-            self.set_value(treeiter, i, value)
-
-    def _convert_value(self, treeiter, column, value):
+    def set_row(self, treeiter, row):
+        converted_row, columns = self._convert_row(row)
+        for column in columns:
+            value = row[column]
             if value is None:
-                return
+                continue  # None means skip this row
 
-            # we may need to convert to a basic type
-            type_ = self.get_column_type(column)
-            if type_ == GObject.TYPE_STRING:
-                if isinstance(value, str):
-                    value = str(value)
-                elif sys.version_info < (3, 0):
-                    if isinstance(value, unicode):
-                        value = value.encode('UTF-8')
-                    else:
-                        raise ValueError('Expected string or unicode for column %i but got %s%s' % (column, value, type(value)))
+            self.set_value(treeiter, column, value)
+
+    def _convert_value(self, column, value):
+        if value is None:
+            return None
+
+        # we may need to convert to a basic type
+        type_ = self.get_column_type(column)
+        if type_ == GObject.TYPE_STRING:
+            if isinstance(value, str):
+                value = str(value)
+            elif sys.version_info < (3, 0):
+                if isinstance(value, unicode):
+                    value = value.encode('UTF-8')
                 else:
-                    raise ValueError('Expected a string for column %i but got %s' % (column, type(value)))
-            elif type_ == GObject.TYPE_FLOAT or type_ == GObject.TYPE_DOUBLE:
-                if isinstance(value, float):
-                    value = float(value)
+                    raise ValueError('Expected string or unicode for column %i but got %s%s' % (column, value, type(value)))
+            else:
+                raise ValueError('Expected a string for column %i but got %s' % (column, type(value)))
+        elif type_ == GObject.TYPE_FLOAT or type_ == GObject.TYPE_DOUBLE:
+            if isinstance(value, float):
+                value = float(value)
+            else:
+                raise ValueError('Expected a float for column %i but got %s' % (column, type(value)))
+        elif type_ == GObject.TYPE_LONG or type_ == GObject.TYPE_INT:
+            if isinstance(value, int):
+                value = int(value)
+            elif sys.version_info < (3, 0):
+                if isinstance(value, long):
+                    value = long(value)
                 else:
-                    raise ValueError('Expected a float for column %i but got %s' % (column, type(value)))
-            elif type_ == GObject.TYPE_LONG or type_ == GObject.TYPE_INT:
-                if isinstance(value, int):
-                    value = int(value)
-                elif sys.version_info < (3, 0):
-                    if isinstance(value, long):
-                        value = long(value)
-                    else:
-                        raise ValueError('Expected an long for column %i but got %s' % (column, type(value)))
-                else:
-                    raise ValueError('Expected an integer for column %i but got %s' % (column, type(value)))
-            elif type_ == GObject.TYPE_BOOLEAN:
-                cmp_classes = [int]
+                    raise ValueError('Expected an long for column %i but got %s' % (column, type(value)))
+            else:
+                raise ValueError('Expected an integer for column %i but got %s' % (column, type(value)))
+        elif type_ == GObject.TYPE_BOOLEAN:
+            cmp_classes = [int]
+            if sys.version_info < (3, 0):
+                cmp_classes.append(long)
+
+            if isinstance(value, tuple(cmp_classes)):
+                value = bool(value)
+            else:
+                raise ValueError('Expected a bool for column %i but got %s' % (column, type(value)))
+        else:
+            # use GValues directly to marshal to the correct type
+            # standard object checks should take care of validation
+            # so we don't have to do it here
+            value_container = GObject.Value()
+            value_container.init(type_)
+            if type_ == GObject.TYPE_CHAR:
+                value_container.set_char(value)
+                value = value_container
+            elif type_ == GObject.TYPE_UCHAR:
+                value_container.set_uchar(value)
+                value = value_container
+            elif type_ == GObject.TYPE_UNICHAR:
+                cmp_classes = [str]
                 if sys.version_info < (3, 0):
-                    cmp_classes.append(long)
+                    cmp_classes.append(unicode)
 
                 if isinstance(value, tuple(cmp_classes)):
-                    value = bool(value)
-                else:
-                    raise ValueError('Expected a bool for column %i but got %s' % (column, type(value)))
-            else:
-                # use GValues directly to marshal to the correct type
-                # standard object checks should take care of validation
-                # so we don't have to do it here
-                value_container = GObject.Value()
-                value_container.init(type_)
-                if type_ == GObject.TYPE_CHAR:
-                    value_container.set_char(value)
-                    value = value_container
-                elif type_ == GObject.TYPE_UCHAR:
-                    value_container.set_uchar(value)
-                    value = value_container
-                elif type_ == GObject.TYPE_UNICHAR:
-                    cmp_classes = [str]
-                    if sys.version_info < (3, 0):
-                        cmp_classes.append(unicode)
+                    value = ord(value[0])
 
-                    if isinstance(value, tuple(cmp_classes)):
-                        value = ord(value[0])
+                value_container.set_uint(value)
+                value = value_container
+            elif type_ == GObject.TYPE_UINT:
+                value_container.set_uint(value)
+                value = value_container
+            elif type_ == GObject.TYPE_ULONG:
+                value_container.set_ulong(value)
+                value = value_container
+            elif type_ == GObject.TYPE_INT64:
+                value_container.set_int64(value)
+                value = value_container
+            elif type_ == GObject.TYPE_UINT64:
+                value_container.set_uint64(value)
+                value = value_container
+            elif type_ == GObject.TYPE_PYOBJECT:
+                value_container.set_boxed(value)
+                value = value_container
 
-                    value_container.set_uint(value)
-                    value = value_container
-                elif type_ == GObject.TYPE_UINT:
-                    value_container.set_uint(value)
-                    value = value_container
-                elif type_ == GObject.TYPE_ULONG:
-                    value_container.set_ulong(value)
-                    value = value_container
-                elif type_ == GObject.TYPE_INT64:
-                    value_container.set_int64(value)
-                    value = value_container
-                elif type_ == GObject.TYPE_UINT64:
-                    value_container.set_uint64(value)
-                    value = value_container
-                elif type_ == GObject.TYPE_PYOBJECT:
-                    value_container.set_boxed(value)
-                    value = value_container
-
-            return value
+        return value
 
     def get(self, treeiter, *columns):
         n_columns = self.get_n_columns()
@@ -898,6 +970,7 @@ class TreeModel(Gtk.TreeModel):
 TreeModel = override(TreeModel)
 __all__.append('TreeModel')
 
+
 class TreeSortable(Gtk.TreeSortable, ):
 
     def get_sort_column_id(self):
@@ -916,26 +989,45 @@ class TreeSortable(Gtk.TreeSortable, ):
 TreeSortable = override(TreeSortable)
 __all__.append('TreeSortable')
 
+
+class TreeModelSort(Gtk.TreeModelSort):
+    def __init__(self, model, **kwds):
+        Gtk.TreeModelSort.__init__(self, model=model, **kwds)
+
+TreeModelSort = override(TreeModelSort)
+__all__.append('TreeModelSort')
+
+
 class ListStore(Gtk.ListStore, TreeModel, TreeSortable):
     def __init__(self, *column_types):
         Gtk.ListStore.__init__(self)
         self.set_column_types(column_types)
 
-    def append(self, row=None):
-        treeiter = Gtk.ListStore.append(self)
-
+    def _do_insert(self, position, row):
         if row is not None:
-            self.set_row(treeiter, row)
+            row, columns = self._convert_row(row)
+            treeiter = self.insert_with_valuesv(position, columns, row)
+        else:
+            treeiter = Gtk.ListStore.insert(self, position)
 
         return treeiter
+
+    def append(self, row=None):
+        if row:
+            return self._do_insert(-1, row)
+        # gtk_list_store_insert() does not know about the "position == -1"
+        # case, so use append() here
+        else:
+            return Gtk.ListStore.append(self)
+
+    def prepend(self, row=None):
+        return self._do_insert(0, row)
 
     def insert(self, position, row=None):
-        treeiter = Gtk.ListStore.insert(self, position)
+        return self._do_insert(position, row)
 
-        if row is not None:
-            self.set_row(treeiter, row)
-
-        return treeiter
+    # FIXME: sends two signals; check if this can use an atomic
+    # insert_with_valuesv()
 
     def insert_before(self, sibling, row=None):
         treeiter = Gtk.ListStore.insert_before(self, sibling)
@@ -945,6 +1037,9 @@ class ListStore(Gtk.ListStore, TreeModel, TreeSortable):
 
         return treeiter
 
+    # FIXME: sends two signals; check if this can use an atomic
+    # insert_with_valuesv()
+
     def insert_after(self, sibling, row=None):
         treeiter = Gtk.ListStore.insert_after(self, sibling)
 
@@ -953,16 +1048,8 @@ class ListStore(Gtk.ListStore, TreeModel, TreeSortable):
 
         return treeiter
 
-    def prepend(self, row=None):
-        treeiter = Gtk.ListStore.prepend(self)
-
-        if row is not None:
-            self.set_row(treeiter, row)
-
-        return treeiter
-
     def set_value(self, treeiter, column, value):
-        value = self._convert_value(treeiter, column, value)
+        value = self._convert_value(column, value)
         Gtk.ListStore.set_value(self, treeiter, column, value)
 
     def set(self, treeiter, *args):
@@ -982,7 +1069,7 @@ class ListStore(Gtk.ListStore, TreeModel, TreeSortable):
                 _set_lists(columns, values)
             elif isinstance(args[0], (tuple, list)):
                 if len(args) != 2:
-                    raise TypeError('Too many arguments');
+                    raise TypeError('Too many arguments')
                 _set_lists(args[0], args[1])
             elif isinstance(args[0], dict):
                 columns = args[0].keys()
@@ -993,6 +1080,7 @@ class ListStore(Gtk.ListStore, TreeModel, TreeSortable):
 
 ListStore = override(ListStore)
 __all__.append('ListStore')
+
 
 class TreeModelRow(object):
 
@@ -1017,6 +1105,10 @@ class TreeModelRow(object):
         return self.get_next()
 
     @property
+    def previous(self):
+        return self.get_previous()
+
+    @property
     def parent(self):
         return self.get_parent()
 
@@ -1024,6 +1116,11 @@ class TreeModelRow(object):
         next_iter = self.model.iter_next(self.iter)
         if next_iter:
             return TreeModelRow(self.model, next_iter)
+
+    def get_previous(self):
+        prev_iter = self.model.iter_previous(self.iter)
+        if prev_iter:
+            return TreeModelRow(self.model, prev_iter)
 
     def get_parent(self):
         parent_iter = self.model.iter_parent(self.iter)
@@ -1059,9 +1156,9 @@ class TreeModelRow(object):
             if len(indexList) != len(value):
                 raise ValueError(
                     "attempt to assign sequence of size %d to slice of size %d"
-                        % (len(value), len(indexList)))
+                    % (len(value), len(indexList)))
 
-            for i,v in enumerate(indexList):
+            for i, v in enumerate(indexList):
                 self.model.set_value(self.iter, v, value[i])
         else:
             raise TypeError("index must be an integer or slice, not %s" % type(key).__name__)
@@ -1077,6 +1174,7 @@ class TreeModelRow(object):
         return TreeModelRowIter(self.model, child_iter)
 
 __all__.append('TreeModelRow')
+
 
 class TreeModelRowIter(object):
 
@@ -1098,6 +1196,7 @@ class TreeModelRowIter(object):
         return self
 
 __all__.append('TreeModelRowIter')
+
 
 class TreePath(Gtk.TreePath):
 
@@ -1135,8 +1234,18 @@ class TreePath(Gtk.TreePath):
     def __ge__(self, other):
         return other is None or self.compare(other) >= 0
 
+    def __iter__(self):
+        return iter(self.get_indices())
+
+    def __len__(self):
+        return self.get_depth()
+
+    def __getitem__(self, index):
+        return self.get_indices()[index]
+
 TreePath = override(TreePath)
 __all__.append('TreePath')
+
 
 class TreeStore(Gtk.TreeStore, TreeModel, TreeSortable):
 
@@ -1144,21 +1253,26 @@ class TreeStore(Gtk.TreeStore, TreeModel, TreeSortable):
         Gtk.TreeStore.__init__(self)
         self.set_column_types(column_types)
 
-    def append(self, parent, row=None):
-        treeiter = Gtk.TreeStore.append(self, parent)
-
+    def _do_insert(self, parent, position, row):
         if row is not None:
-            self.set_row(treeiter, row)
+            row, columns = self._convert_row(row)
+            treeiter = self.insert_with_values(parent, position, columns, row)
+        else:
+            treeiter = Gtk.TreeStore.insert(self, parent, position)
 
         return treeiter
+
+    def append(self, parent, row=None):
+        return self._do_insert(parent, -1, row)
+
+    def prepend(self, parent, row=None):
+        return self._do_insert(parent, 0, row)
 
     def insert(self, parent, position, row=None):
-        treeiter = Gtk.TreeStore.insert(self, parent, position)
+        return self._do_insert(parent, position, row)
 
-        if row is not None:
-            self.set_row(treeiter, row)
-
-        return treeiter
+    # FIXME: sends two signals; check if this can use an atomic
+    # insert_with_valuesv()
 
     def insert_before(self, parent, sibling, row=None):
         treeiter = Gtk.TreeStore.insert_before(self, parent, sibling)
@@ -1167,6 +1281,9 @@ class TreeStore(Gtk.TreeStore, TreeModel, TreeSortable):
             self.set_row(treeiter, row)
 
         return treeiter
+
+    # FIXME: sends two signals; check if this can use an atomic
+    # insert_with_valuesv()
 
     def insert_after(self, parent, sibling, row=None):
         treeiter = Gtk.TreeStore.insert_after(self, parent, sibling)
@@ -1177,7 +1294,7 @@ class TreeStore(Gtk.TreeStore, TreeModel, TreeSortable):
         return treeiter
 
     def set_value(self, treeiter, column, value):
-        value = self._convert_value(treeiter, column, value)
+        value = self._convert_value(column, value)
         Gtk.TreeStore.set_value(self, treeiter, column, value)
 
     def set(self, treeiter, *args):
@@ -1197,7 +1314,7 @@ class TreeStore(Gtk.TreeStore, TreeModel, TreeSortable):
                 _set_lists(columns, values)
             elif isinstance(args[0], (tuple, list)):
                 if len(args) != 2:
-                    raise TypeError('Too many arguments');
+                    raise TypeError('Too many arguments')
                 _set_lists(args[0], args[1])
             elif isinstance(args[0], dict):
                 columns = args[0].keys()
@@ -1208,6 +1325,7 @@ class TreeStore(Gtk.TreeStore, TreeModel, TreeSortable):
 
 TreeStore = override(TreeStore)
 __all__.append('TreeStore')
+
 
 class TreeView(Gtk.TreeView, Container):
 
@@ -1220,6 +1338,11 @@ class TreeView(Gtk.TreeView, Container):
         success, path, column, cell_x, cell_y = super(TreeView, self).get_path_at_pos(x, y)
         if success:
             return (path, column, cell_x, cell_y,)
+
+    def get_visible_range(self):
+        success, start_path, end_path = super(TreeView, self).get_visible_range()
+        if success:
+            return (start_path, end_path,)
 
     def get_dest_row_at_pos(self, drag_x, drag_y):
         success, path, pos = super(TreeView, self).get_dest_row_at_pos(drag_x, drag_y)
@@ -1251,9 +1374,26 @@ class TreeView(Gtk.TreeView, Container):
             path = TreePath(path)
         super(TreeView, self).scroll_to_cell(path, column, use_align, row_align, col_align)
 
+    def set_cursor(self, path, column=None, start_editing=False):
+        if not isinstance(path, Gtk.TreePath):
+            path = TreePath(path)
+        super(TreeView, self).set_cursor(path, column, start_editing)
+
+    def get_cell_area(self, path, column=None):
+        if not isinstance(path, Gtk.TreePath):
+            path = TreePath(path)
+        return super(TreeView, self).get_cell_area(path, column)
+
+    def insert_column_with_attributes(self, position, title, cell, **kwargs):
+        column = TreeViewColumn()
+        column.set_title(title)
+        column.pack_start(cell, False)
+        self.insert_column(column, position)
+        column.set_attributes(cell, **kwargs)
 
 TreeView = override(TreeView)
 __all__.append('TreeView')
+
 
 class TreeViewColumn(Gtk.TreeViewColumn):
     def __init__(self, title='',
@@ -1274,8 +1414,16 @@ class TreeViewColumn(Gtk.TreeViewColumn):
     def set_cell_data_func(self, cell_renderer, func, func_data=None):
         super(TreeViewColumn, self).set_cell_data_func(cell_renderer, func, func_data)
 
+    def set_attributes(self, cell_renderer, **attributes):
+        Gtk.CellLayout.clear_attributes(self, cell_renderer)
+
+        for (name, value) in attributes.items():
+            Gtk.CellLayout.add_attribute(self, cell_renderer, name, value)
+
+
 TreeViewColumn = override(TreeViewColumn)
 __all__.append('TreeViewColumn')
+
 
 class TreeSelection(Gtk.TreeSelection):
 
@@ -1292,6 +1440,7 @@ class TreeSelection(Gtk.TreeSelection):
             return (model, None)
 
     # for compatibility with PyGtk
+
     def get_selected_rows(self):
         rows, model = super(TreeSelection, self).get_selected_rows()
         return (model, rows)
@@ -1300,18 +1449,18 @@ class TreeSelection(Gtk.TreeSelection):
 TreeSelection = override(TreeSelection)
 __all__.append('TreeSelection')
 
+
 class Button(Gtk.Button, Container):
-    def __init__(self, label=None, stock=None, use_underline=False, **kwds):
+    def __init__(self, label=None, stock=None, use_stock=False, use_underline=False, **kwds):
         if stock:
             label = stock
             use_stock = True
             use_underline = True
-        else:
-            use_stock = False
         Gtk.Button.__init__(self, label=label, use_stock=use_stock,
                             use_underline=use_underline, **kwds)
 Button = override(Button)
 __all__.append('Button')
+
 
 class LinkButton(Gtk.LinkButton):
     def __init__(self, uri, label=None, **kwds):
@@ -1320,6 +1469,7 @@ class LinkButton(Gtk.LinkButton):
 LinkButton = override(LinkButton)
 __all__.append('LinkButton')
 
+
 class Label(Gtk.Label):
     def __init__(self, label=None, **kwds):
         Gtk.Label.__init__(self, label=label, **kwds)
@@ -1327,12 +1477,19 @@ class Label(Gtk.Label):
 Label = override(Label)
 __all__.append('Label')
 
+
 class Adjustment(Gtk.Adjustment):
     def __init__(self, *args, **kwds):
         arg_names = ('value', 'lower', 'upper',
-                        'step_increment', 'page_increment', 'page_size')
+                     'step_increment', 'page_increment', 'page_size')
         new_args = dict(zip(arg_names, args))
         new_args.update(kwds)
+
+        # PyGTK compatiblity
+        if 'page_incr' in new_args:
+            new_args['page_increment'] = new_args.pop('page_incr')
+        if 'step_incr' in new_args:
+            new_args['step_increment'] = new_args.pop('step_incr')
         Gtk.Adjustment.__init__(self, **new_args)
 
         # The value property is set between lower and (upper - page_size).
@@ -1344,6 +1501,7 @@ class Adjustment(Gtk.Adjustment):
 Adjustment = override(Adjustment)
 __all__.append('Adjustment')
 
+
 class Table(Gtk.Table, Container):
     def __init__(self, rows=1, columns=1, homogeneous=False, **kwds):
         if 'n_rows' in kwds:
@@ -1351,14 +1509,15 @@ class Table(Gtk.Table, Container):
 
         if 'n_columns' in kwds:
             columns = kwds.pop('n_columns')
-            
+
         Gtk.Table.__init__(self, n_rows=rows, n_columns=columns, homogeneous=homogeneous, **kwds)
 
-    def attach(self, child, left_attach, right_attach, top_attach, bottom_attach, xoptions=Gtk.AttachOptions.EXPAND|Gtk.AttachOptions.FILL, yoptions=Gtk.AttachOptions.EXPAND|Gtk.AttachOptions.FILL, xpadding=0, ypadding=0):
+    def attach(self, child, left_attach, right_attach, top_attach, bottom_attach, xoptions=Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, yoptions=Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, xpadding=0, ypadding=0):
         Gtk.Table.attach(self, child, left_attach, right_attach, top_attach, bottom_attach, xoptions, yoptions, xpadding, ypadding)
 
 Table = override(Table)
 __all__.append('Table')
+
 
 class ScrolledWindow(Gtk.ScrolledWindow):
     def __init__(self, hadjustment=None, vadjustment=None, **kwds):
@@ -1366,6 +1525,23 @@ class ScrolledWindow(Gtk.ScrolledWindow):
 
 ScrolledWindow = override(ScrolledWindow)
 __all__.append('ScrolledWindow')
+
+
+class HScrollbar(Gtk.HScrollbar):
+    def __init__(self, adjustment=None, **kwds):
+        Gtk.HScrollbar.__init__(self, adjustment=adjustment, **kwds)
+
+HScrollbar = override(HScrollbar)
+__all__.append('HScrollbar')
+
+
+class VScrollbar(Gtk.VScrollbar):
+    def __init__(self, adjustment=None, **kwds):
+        Gtk.VScrollbar.__init__(self, adjustment=adjustment, **kwds)
+
+VScrollbar = override(VScrollbar)
+__all__.append('VScrollbar')
+
 
 class Paned(Gtk.Paned):
     def pack1(self, child, resize=False, shrink=True):
@@ -1377,6 +1553,46 @@ class Paned(Gtk.Paned):
 Paned = override(Paned)
 __all__.append('Paned')
 
+
+class Arrow(Gtk.Arrow):
+    def __init__(self, arrow_type, shadow_type, **kwds):
+        Gtk.Arrow.__init__(self, arrow_type=arrow_type,
+                           shadow_type=shadow_type,
+                           **kwds)
+
+Arrow = override(Arrow)
+__all__.append('Arrow')
+
+
+class IconSet(Gtk.IconSet):
+    def __new__(cls, pixbuf=None):
+        if pixbuf is not None:
+            iconset = Gtk.IconSet.new_from_pixbuf(pixbuf)
+        else:
+            iconset = Gtk.IconSet.__new__(cls)
+        return iconset
+
+IconSet = override(IconSet)
+__all__.append('IconSet')
+
+
+class Viewport(Gtk.Viewport):
+    def __init__(self, hadjustment=None, vadjustment=None, **kwds):
+        Gtk.Viewport.__init__(self, hadjustment=hadjustment,
+                              vadjustment=vadjustment,
+                              **kwds)
+
+Viewport = override(Viewport)
+__all__.append('Viewport')
+
+
+class TreeModelFilter(Gtk.TreeModelFilter):
+    def set_visible_func(self, func, data=None):
+        super(TreeModelFilter, self).set_visible_func(func, data)
+
+TreeModelFilter = override(TreeModelFilter)
+__all__.append('TreeModelFilter')
+
 if Gtk._version != '2.0':
     class Menu(Gtk.Menu):
         def popup(self, parent_menu_shell, parent_menu_item, func, data, button, activate_time):
@@ -1385,11 +1601,15 @@ if Gtk._version != '2.0':
     __all__.append('Menu')
 
 _Gtk_main_quit = Gtk.main_quit
+
+
 @override(Gtk.main_quit)
 def main_quit(*args):
     _Gtk_main_quit()
 
 _Gtk_stock_lookup = Gtk.stock_lookup
+
+
 @override(Gtk.stock_lookup)
 def stock_lookup(*args):
     success, item = _Gtk_stock_lookup(*args)

@@ -8,6 +8,7 @@ and/or use gtk-doc annotations.  -->
             xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
   <include name="GLib" version="2.0"/>
   <include name="GObject" version="2.0"/>
+  <include name="Gimo" version="1.0"/>
   <namespace name="Oren"
              version="1.0"
              shared-library="oren.dll"
@@ -3572,6 +3573,706 @@ and/or use gtk-doc annotations.  -->
     </record>
     <record name="DCUserPrivate" c:type="OrenDCUserPrivate" disguised="1">
     </record>
+    <enumeration name="GPAuthResult"
+                 glib:type-name="OrenGPAuthResult"
+                 glib:get-type="oren_gpauth_result_get_type"
+                 c:type="OrenGPAuthResult">
+      <member name="UNKNOWN"
+              value="0"
+              c:identifier="OREN_GPAUTH_RESULT_UNKNOWN"
+              glib:nick="UNKNOWN"/>
+      <member name="SUCCESS"
+              value="1"
+              c:identifier="OREN_GPAUTH_RESULT_SUCCESS"
+              glib:nick="SUCCESS"/>
+      <member name="ERRNAME"
+              value="2"
+              c:identifier="OREN_GPAUTH_RESULT_ERRNAME"
+              glib:nick="ERRNAME"/>
+      <member name="ERRPWD"
+              value="3"
+              c:identifier="OREN_GPAUTH_RESULT_ERRPWD"
+              glib:nick="ERRPWD"/>
+    </enumeration>
+    <class name="GPChannel"
+           c:symbol-prefix="gpchannel"
+           c:type="OrenGPChannel"
+           parent="DCChannel"
+           glib:type-name="OrenGPChannel"
+           glib:get-type="oren_gpchannel_get_type"
+           glib:type-struct="GPChannelClass">
+      <constructor name="new" c:identifier="oren_gpchannel_new">
+        <return-value transfer-ownership="full">
+          <type name="GPChannel" c:type="OrenGPChannel*"/>
+        </return-value>
+        <parameters>
+          <parameter name="plugin_paths" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="make_protocol" c:identifier="oren_gpchannel_make_protocol">
+        <doc xml:whitespace="preserve">Create a protocol packet;</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer or %NULL on error, Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+        </return-value>
+        <parameters>
+          <parameter name="message" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the message</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="multicast_protocol"
+              c:identifier="oren_gpchannel_multicast_protocol">
+        <doc xml:whitespace="preserve">Multicast protocol to all the users except @skip and filtered.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="skip" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the user to skip</doc>
+            <type name="GPUser" c:type="OrenGPUser*"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the packet to multicast</doc>
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+          <parameter name="filter"
+                     transfer-ownership="none"
+                     allow-none="1"
+                     scope="call"
+                     closure="3">
+            <doc xml:whitespace="preserve">the filter function</doc>
+            <type name="MulticastFilter" c:type="OrenMulticastFilter"/>
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">user data for @filter</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="plugin-paths"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <field name="parent_instance">
+        <type name="DCChannel" c:type="OrenDCChannel"/>
+      </field>
+      <field name="priv">
+        <type name="GPChannelPrivate" c:type="OrenGPChannelPrivate*"/>
+      </field>
+    </class>
+    <record name="GPChannelClass"
+            c:type="OrenGPChannelClass"
+            glib:is-gtype-struct-for="GPChannel">
+      <field name="parent_class">
+        <type name="DCChannelClass" c:type="OrenDCChannelClass"/>
+      </field>
+    </record>
+    <record name="GPChannelPrivate"
+            c:type="OrenGPChannelPrivate"
+            disguised="1">
+    </record>
+    <class name="GPClient"
+           c:symbol-prefix="gpclient"
+           c:type="OrenGPClient"
+           parent="DCClient"
+           glib:type-name="OrenGPClient"
+           glib:get-type="oren_gpclient_get_type"
+           glib:type-struct="GPClientClass">
+      <constructor name="new" c:identifier="oren_gpclient_new">
+        <return-value transfer-ownership="full">
+          <type name="GPClient" c:type="OrenGPClient*"/>
+        </return-value>
+      </constructor>
+      <virtual-method name="auth">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="result" transfer-ownership="none">
+            <type name="GPAuthResult" c:type="OrenGPAuthResult"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="protocol">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="get_dispatch" c:identifier="oren_gpclient_get_dispatch">
+        <doc xml:whitespace="preserve">Get the protocol dispatch of the client.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #OrenGPDispatch or %NULL.</doc>
+          <type name="GPDispatch" c:type="OrenGPDispatch*"/>
+        </return-value>
+      </method>
+      <method name="get_privilege" c:identifier="oren_gpclient_get_privilege">
+        <return-value transfer-ownership="none">
+          <type name="GPUserPrivilege" c:type="OrenGPUserPrivilege"/>
+        </return-value>
+      </method>
+      <method name="has_privilege" c:identifier="oren_gpclient_has_privilege">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="privilege" transfer-ownership="none">
+            <type name="GPUserPrivilege" c:type="OrenGPUserPrivilege"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="make_protocol" c:identifier="oren_gpclient_make_protocol">
+        <doc xml:whitespace="preserve">Create a protocol packet;</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer or %NULL on error, Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+        </return-value>
+        <parameters>
+          <parameter name="message" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the message</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="open" c:identifier="oren_gpclient_open">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="reactor" transfer-ownership="none">
+            <type name="NCReactor" c:type="OrenNCReactor*"/>
+          </parameter>
+          <parameter name="signature" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="statistics" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+          <parameter name="context" transfer-ownership="none">
+            <type name="Gimo.Context" c:type="GimoContext*"/>
+          </parameter>
+          <parameter name="extpoint" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="disp" transfer-ownership="none">
+            <type name="GPDispatch" c:type="OrenGPDispatch*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="send_auth" c:identifier="oren_gpclient_send_auth">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="user_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="password" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="send_protocol" c:identifier="oren_gpclient_send_protocol">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="DCClient" c:type="OrenDCClient"/>
+      </field>
+      <field name="priv">
+        <type name="GPClientPrivate" c:type="OrenGPClientPrivate*"/>
+      </field>
+      <glib:signal name="auth" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="GPAuthResult"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="protocol" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="NCBuffer"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="GPClientClass"
+            c:type="OrenGPClientClass"
+            glib:is-gtype-struct-for="GPClient">
+      <field name="parent_class">
+        <type name="DCClientClass" c:type="OrenDCClientClass"/>
+      </field>
+      <field name="auth">
+        <callback name="auth">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="GPClient" c:type="OrenGPClient*"/>
+            </parameter>
+            <parameter name="result" transfer-ownership="none">
+              <type name="GPAuthResult" c:type="OrenGPAuthResult"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="protocol">
+        <callback name="protocol">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="GPClient" c:type="OrenGPClient*"/>
+            </parameter>
+            <parameter name="buffer" transfer-ownership="none">
+              <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="GPClientPrivate" c:type="OrenGPClientPrivate" disguised="1">
+    </record>
+    <class name="GPDispatch"
+           c:symbol-prefix="gpdispatch"
+           c:type="OrenGPDispatch"
+           parent="GObject.Object"
+           glib:type-name="OrenGPDispatch"
+           glib:get-type="oren_gpdispatch_get_type"
+           glib:type-struct="GPDispatchClass">
+      <constructor name="new" c:identifier="oren_gpdispatch_new">
+        <return-value transfer-ownership="full">
+          <type name="GPDispatch" c:type="OrenGPDispatch*"/>
+        </return-value>
+        <parameters>
+          <parameter name="queued" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="queued">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="request">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="message" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="dispatch" c:identifier="oren_gpdispatch_dispatch">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="sender" transfer-ownership="none">
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="handle_queued"
+              c:identifier="oren_gpdispatch_handle_queued">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="register" c:identifier="oren_gpdispatch_register">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="message" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="message_id" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="handler" transfer-ownership="none">
+            <type name="GPHandler" c:type="OrenGPHandler*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="unregister" c:identifier="oren_gpdispatch_unregister">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="message" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="handler" transfer-ownership="none">
+            <type name="GPHandler" c:type="OrenGPHandler*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="queued"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="gboolean"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="GPDispatchPrivate" c:type="OrenGPDispatchPrivate*"/>
+      </field>
+      <glib:signal name="queued" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="request" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="GPDispatchClass"
+            c:type="OrenGPDispatchClass"
+            glib:is-gtype-struct-for="GPDispatch">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="request">
+        <callback name="request">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="GPDispatch" c:type="OrenGPDispatch*"/>
+            </parameter>
+            <parameter name="message" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="queued">
+        <callback name="queued">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="GPDispatch" c:type="OrenGPDispatch*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="GPDispatchPrivate"
+            c:type="OrenGPDispatchPrivate"
+            disguised="1">
+    </record>
+    <class name="GPFactory"
+           c:symbol-prefix="gpfactory"
+           c:type="OrenGPFactory"
+           parent="DCFactory"
+           glib:type-name="OrenGPFactory"
+           glib:get-type="oren_gpfactory_get_type"
+           glib:type-struct="GPFactoryClass">
+      <constructor name="new" c:identifier="oren_gpfactory_new">
+        <return-value transfer-ownership="full">
+          <type name="GPFactory" c:type="OrenGPFactory*"/>
+        </return-value>
+        <parameters>
+          <parameter name="plugin_paths" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <property name="plugin-paths"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <field name="parent_instance">
+        <type name="DCFactory" c:type="OrenDCFactory"/>
+      </field>
+      <field name="priv">
+        <type name="GPFactoryPrivate" c:type="OrenGPFactoryPrivate*"/>
+      </field>
+    </class>
+    <record name="GPFactoryClass"
+            c:type="OrenGPFactoryClass"
+            glib:is-gtype-struct-for="GPFactory">
+      <field name="parent_class">
+        <type name="DCFactoryClass" c:type="OrenDCFactoryClass"/>
+      </field>
+    </record>
+    <record name="GPFactoryPrivate"
+            c:type="OrenGPFactoryPrivate"
+            disguised="1">
+    </record>
+    <class name="GPHandler"
+           c:symbol-prefix="gphandler"
+           c:type="OrenGPHandler"
+           parent="NCHandler"
+           glib:type-name="OrenGPHandler"
+           glib:get-type="oren_gphandler_get_type"
+           glib:type-struct="GPHandlerClass">
+      <constructor name="new" c:identifier="oren_gphandler_new">
+        <return-value transfer-ownership="full">
+          <type name="GPHandler" c:type="OrenGPHandler*"/>
+        </return-value>
+      </constructor>
+      <virtual-method name="handle_protocol" invoker="handle_protocol">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="sender" transfer-ownership="none">
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+          <parameter name="message" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+          <parameter name="message_id" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="handle_protocol"
+              c:identifier="oren_gphandler_handle_protocol">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="sender" transfer-ownership="none">
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+          <parameter name="message" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+          <parameter name="message_id" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="NCHandler" c:type="OrenNCHandler"/>
+      </field>
+      <field name="priv">
+        <type name="GPHandlerPrivate" c:type="OrenGPHandlerPrivate*"/>
+      </field>
+      <glib:signal name="handle-protocol" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="GObject.Object"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+          <parameter name="p1" transfer-ownership="none">
+            <type name="NCBuffer"/>
+          </parameter>
+          <parameter name="p2" transfer-ownership="none">
+            <type name="guint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="GPHandlerClass"
+            c:type="OrenGPHandlerClass"
+            glib:is-gtype-struct-for="GPHandler">
+      <field name="parent_class">
+        <type name="NCHandlerClass" c:type="OrenNCHandlerClass"/>
+      </field>
+      <field name="handle_protocol">
+        <callback name="handle_protocol">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="GPHandler" c:type="OrenGPHandler*"/>
+            </parameter>
+            <parameter name="sender" transfer-ownership="none">
+              <type name="GObject.Object" c:type="GObject*"/>
+            </parameter>
+            <parameter name="message" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+            <parameter name="buffer" transfer-ownership="none">
+              <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+            </parameter>
+            <parameter name="message_id" transfer-ownership="none">
+              <type name="guint" c:type="guint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="GPHandlerPrivate"
+            c:type="OrenGPHandlerPrivate"
+            disguised="1">
+    </record>
+    <class name="GPUser"
+           c:symbol-prefix="gpuser"
+           c:type="OrenGPUser"
+           parent="DCUser"
+           glib:type-name="OrenGPUser"
+           glib:get-type="oren_gpuser_get_type"
+           glib:type-struct="GPUserClass">
+      <constructor name="new" c:identifier="oren_gpuser_new">
+        <return-value transfer-ownership="full">
+          <type name="GPUser" c:type="OrenGPUser*"/>
+        </return-value>
+        <parameters>
+          <parameter name="channel" transfer-ownership="none">
+            <type name="DCChannel" c:type="OrenDCChannel*"/>
+          </parameter>
+          <parameter name="address" transfer-ownership="none">
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+          <parameter name="user_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="client_version" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="network_type" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="user_id" transfer-ownership="none">
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
+          <parameter name="login_code" transfer-ownership="none">
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
+          <parameter name="protocol_version" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_privilege" c:identifier="oren_gpuser_get_privilege">
+        <return-value transfer-ownership="none">
+          <type name="GPUserPrivilege" c:type="OrenGPUserPrivilege"/>
+        </return-value>
+      </method>
+      <method name="has_privilege" c:identifier="oren_gpuser_has_privilege">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="privilege" transfer-ownership="none">
+            <type name="GPUserPrivilege" c:type="OrenGPUserPrivilege"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="make_protocol" c:identifier="oren_gpuser_make_protocol">
+        <doc xml:whitespace="preserve">Create a protocol packet;</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer or %NULL on error, Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+        </return-value>
+        <parameters>
+          <parameter name="message" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the message</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="send_protocol" c:identifier="oren_gpuser_send_protocol">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="DCUser" c:type="OrenDCUser"/>
+      </field>
+      <field name="priv">
+        <type name="GPUserPrivate" c:type="OrenGPUserPrivate*"/>
+      </field>
+    </class>
+    <record name="GPUserClass"
+            c:type="OrenGPUserClass"
+            glib:is-gtype-struct-for="GPUser">
+      <field name="parent_class">
+        <type name="DCUserClass" c:type="OrenDCUserClass"/>
+      </field>
+    </record>
+    <record name="GPUserPrivate" c:type="OrenGPUserPrivate" disguised="1">
+    </record>
+    <enumeration name="GPUserPrivilege"
+                 glib:type-name="OrenGPUserPrivilege"
+                 glib:get-type="oren_gpuser_privilege_get_type"
+                 c:type="OrenGPUserPrivilege">
+      <member name="ROOT"
+              value="0"
+              c:identifier="OREN_GPUSER_PRIVILEGE_ROOT"
+              glib:nick="ROOT"/>
+      <member name="MANAGER"
+              value="3"
+              c:identifier="OREN_GPUSER_PRIVILEGE_MANAGER"
+              glib:nick="MANAGER"/>
+      <member name="USER"
+              value="6"
+              c:identifier="OREN_GPUSER_PRIVILEGE_USER"
+              glib:nick="USER"/>
+      <member name="GUEST"
+              value="9"
+              c:identifier="OREN_GPUSER_PRIVILEGE_GUEST"
+              glib:nick="GUEST"/>
+    </enumeration>
     <class name="MTBranch"
            c:symbol-prefix="mtbranch"
            c:type="OrenMTBranch"

@@ -54,26 +54,26 @@ _pygi_lookup_property_from_g_type (GType g_type, const gchar *attr_name)
 
     repository = g_irepository_get_default();
     info = g_irepository_find_by_gtype (repository, g_type);
-    if (info == NULL) {
-        return NULL;
-    }
+    if (info != NULL) {
 
-    n_infos = g_object_info_get_n_properties ( (GIObjectInfo *) info);
-    for (i = 0; i < n_infos; i++) {
-        GIPropertyInfo *property_info;
+        n_infos = g_object_info_get_n_properties ( (GIObjectInfo *) info);
+        for (i = 0; i < n_infos; i++) {
+            GIPropertyInfo *property_info;
 
-        property_info = g_object_info_get_property ( (GIObjectInfo *) info, i);
-        g_assert (info != NULL);
+            property_info = g_object_info_get_property ( (GIObjectInfo *) info,
+                                                         i);
+            g_assert (info != NULL);
 
-        if (strcmp (attr_name, g_base_info_get_name (property_info)) == 0) {
-            g_base_info_unref (info);
-            return property_info;
+            if (strcmp (attr_name, g_base_info_get_name (property_info)) == 0) {
+                g_base_info_unref (info);
+                return property_info;
+            }
+
+            g_base_info_unref (property_info);
         }
 
-        g_base_info_unref (property_info);
+        g_base_info_unref (info);
     }
-
-    g_base_info_unref (info);
 
     parent = g_type_parent (g_type);
     if (parent > 0)
@@ -95,7 +95,7 @@ pygi_get_property_value_real (PyGObject *instance,
     PyObject *py_value = NULL;
     GITypeInfo *type_info = NULL;
     GITransfer transfer;
-    GITypeTag type_tag;
+	GITypeTag type_tag;
     canonicalize_key (property_name);
 
     g_type = pyg_type_from_object ((PyObject *)instance);
@@ -115,22 +115,42 @@ pygi_get_property_value_real (PyGObject *instance,
     type_info = g_property_info_get_type (property_info);
     transfer = g_property_info_get_ownership_transfer (property_info);
 
-    type_tag = g_type_info_get_tag (type_info);
+     type_tag = g_type_info_get_tag (type_info);
     switch (type_tag) {
         case GI_TYPE_TAG_BOOLEAN:
             arg.v_boolean = g_value_get_boolean (&value);
             break;
         case GI_TYPE_TAG_INT8:
+            arg.v_int8 = g_value_get_schar (&value);
+            break;
         case GI_TYPE_TAG_INT16:
         case GI_TYPE_TAG_INT32:
+            if (G_VALUE_HOLDS_LONG (&value))
+                arg.v_long = g_value_get_long (&value);
+            else
+                arg.v_int = g_value_get_int (&value);
+            break;
         case GI_TYPE_TAG_INT64:
-            arg.v_int = g_value_get_int (&value);
+            if (G_VALUE_HOLDS_LONG (&value))
+                arg.v_long = g_value_get_long (&value);
+            else
+                arg.v_int64 = g_value_get_int64 (&value);
             break;
         case GI_TYPE_TAG_UINT8:
+            arg.v_uint8 = g_value_get_uchar (&value);
+            break;
         case GI_TYPE_TAG_UINT16:
         case GI_TYPE_TAG_UINT32:
+            if (G_VALUE_HOLDS_ULONG (&value))
+                arg.v_ulong = g_value_get_ulong (&value);
+            else
+                arg.v_uint = g_value_get_uint (&value);
+            break;
         case GI_TYPE_TAG_UINT64:
-            arg.v_uint = g_value_get_uint (&value);
+            if (G_VALUE_HOLDS_ULONG (&value))
+                arg.v_ulong = g_value_get_ulong (&value);
+            else
+                arg.v_uint64 = g_value_get_uint64 (&value);
             break;
         case GI_TYPE_TAG_FLOAT:
             arg.v_float = g_value_get_float (&value);
@@ -191,8 +211,28 @@ pygi_get_property_value_real (PyGObject *instance,
             arg.v_pointer = g_value_get_boxed (&value);
             break;
         case GI_TYPE_TAG_GLIST:
+        case GI_TYPE_TAG_GSLIST:
             arg.v_pointer = g_value_get_pointer (&value);
             break;
+        case GI_TYPE_TAG_ARRAY:
+        {
+            gchar** strings;
+            GArray *arg_items;
+            int i;
+
+            strings = g_value_get_boxed (&value);
+            if (strings == NULL)
+                arg.v_pointer = NULL;
+            else {
+                arg_items = g_array_sized_new (TRUE, TRUE, sizeof (GIArgument), g_strv_length (strings));
+                g_array_set_size (arg_items, g_strv_length (strings));
+                for (i = 0; strings[i] != NULL; ++i) {
+                    g_array_index (arg_items, GIArgument, i).v_string = strings[i];
+                }
+                arg.v_pointer = arg_items;
+            }
+            break;
+        }
         default:
             PyErr_Format (PyExc_NotImplementedError,
                           "Retrieving properties of type %s is not implemented",
@@ -248,6 +288,9 @@ pygi_set_property_value_real (PyGObject *instance,
     transfer = g_property_info_get_ownership_transfer (property_info);
     arg = _pygi_argument_from_object (py_value, type_info, transfer);
 
+    if (PyErr_Occurred())
+        goto out;
+
     g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
 
     // FIXME: Lots of types still unhandled
@@ -296,16 +339,36 @@ pygi_set_property_value_real (PyGObject *instance,
             g_value_set_boolean (&value, arg.v_boolean);
             break;
         case GI_TYPE_TAG_INT8:
+            g_value_set_schar (&value, arg.v_int8);
+            break;
         case GI_TYPE_TAG_INT16:
         case GI_TYPE_TAG_INT32:
+            if (G_VALUE_HOLDS_LONG (&value))
+                g_value_set_long (&value, arg.v_long);
+            else
+                g_value_set_int (&value, arg.v_int);
+            break;
         case GI_TYPE_TAG_INT64:
-            g_value_set_int (&value, arg.v_int);
+            if (G_VALUE_HOLDS_LONG (&value))
+                g_value_set_long (&value, arg.v_long);
+            else
+                g_value_set_int64 (&value, arg.v_int64);
             break;
         case GI_TYPE_TAG_UINT8:
+            g_value_set_uchar (&value, arg.v_uint8);
+            break;
         case GI_TYPE_TAG_UINT16:
         case GI_TYPE_TAG_UINT32:
+            if (G_VALUE_HOLDS_ULONG (&value))
+                g_value_set_ulong (&value, arg.v_ulong);
+            else
+                g_value_set_uint (&value, arg.v_uint);
+            break;
         case GI_TYPE_TAG_UINT64:
-            g_value_set_uint (&value, arg.v_uint);
+            if (G_VALUE_HOLDS_ULONG (&value))
+                g_value_set_ulong (&value, arg.v_ulong);
+            else
+                g_value_set_uint64 (&value, arg.v_uint64);
             break;
         case GI_TYPE_TAG_FLOAT:
             g_value_set_float (&value, arg.v_float);
@@ -326,6 +389,23 @@ pygi_set_property_value_real (PyGObject *instance,
         case GI_TYPE_TAG_GLIST:
             g_value_set_pointer (&value, arg.v_pointer);
             break;
+        case GI_TYPE_TAG_ARRAY:
+        {
+            GArray *arg_items = (GArray*) arg.v_pointer;
+            gchar** strings;
+            int i;
+
+            if (arg_items == NULL)
+                goto out;
+
+            strings = g_new0 (char*, arg_items->len);
+            for (i = 0; i < arg_items->len; ++i) {
+                strings[i] = g_array_index (arg_items, GIArgument, i).v_string;
+            }
+            g_array_free (arg_items, TRUE);
+            g_value_set_boxed (&value, strings);
+            break;
+        }
         default:
             PyErr_Format (PyExc_NotImplementedError,
                           "Setting properties of type %s is not implemented",

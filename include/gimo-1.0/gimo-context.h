@@ -86,6 +86,8 @@ GPtrArray* gimo_context_query_extensions (GimoContext *self,
 GObject* gimo_context_resolve_extpoint (GimoContext *self,
                                         const gchar *extpt_id);
 
+void gimo_context_run_plugins (GimoContext *self);
+
 void gimo_context_destroy (GimoContext *self);
 
 G_END_DECLS

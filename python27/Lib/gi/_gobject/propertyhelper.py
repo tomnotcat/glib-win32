@@ -24,16 +24,16 @@ import sys
 from . import _gobject
 
 from .constants import \
-     TYPE_NONE, TYPE_INTERFACE, TYPE_CHAR, TYPE_UCHAR, \
-     TYPE_BOOLEAN, TYPE_INT, TYPE_UINT, TYPE_LONG, \
-     TYPE_ULONG, TYPE_INT64, TYPE_UINT64, TYPE_ENUM, \
-     TYPE_FLAGS, TYPE_FLOAT, TYPE_DOUBLE, TYPE_STRING, \
-     TYPE_POINTER, TYPE_BOXED, TYPE_PARAM, TYPE_OBJECT, \
-     TYPE_PYOBJECT
+    TYPE_NONE, TYPE_INTERFACE, TYPE_CHAR, TYPE_UCHAR, \
+    TYPE_BOOLEAN, TYPE_INT, TYPE_UINT, TYPE_LONG, \
+    TYPE_ULONG, TYPE_INT64, TYPE_UINT64, TYPE_ENUM, TYPE_FLAGS, \
+    TYPE_FLOAT, TYPE_DOUBLE, TYPE_STRING, \
+    TYPE_POINTER, TYPE_BOXED, TYPE_PARAM, TYPE_OBJECT, \
+    TYPE_PYOBJECT, TYPE_GTYPE, TYPE_STRV
 from .constants import \
-     G_MINFLOAT, G_MAXFLOAT, G_MINDOUBLE, G_MAXDOUBLE, \
-     G_MININT, G_MAXINT, G_MAXUINT, G_MINLONG, G_MAXLONG, \
-     G_MAXULONG
+    G_MAXFLOAT, G_MAXDOUBLE, \
+    G_MININT, G_MAXINT, G_MAXUINT, G_MINLONG, G_MAXLONG, \
+    G_MAXULONG
 
 if sys.version_info >= (3, 0):
     _basestring = str
@@ -42,13 +42,14 @@ else:
     _basestring = basestring
     _long = long
 
-class property(object):
+
+class Property(object):
     """
     Creates a new property which in conjunction with GObject subclass will
     create a property proxy:
 
-    >>> class MyObject(gobject.GObject):
-    >>> ... prop = gobject.property(type=str)
+    >>> class MyObject(GObject.GObject):
+    >>> ... prop = GObject.Property(type=str)
 
     >>> obj = MyObject()
     >>> obj.prop = 'value'
@@ -58,17 +59,69 @@ class property(object):
 
     The API is similar to the builtin property:
 
-    class AnotherObject(gobject.GObject):
-        @gobject.property
+    class AnotherObject(GObject.GObject):
+        @GObject.Property
         def prop(self):
+            '''Read only property.'''
             return ...
 
-    Which will create a read-only property called prop.
+        @GObject.Property(type=int)
+        def propInt(self):
+            '''Read-write integer property.'''
+            return ...
+
+        @propInt.setter
+        def propInt(self, value):
+            ...
     """
+    _type_from_pytype_lookup = {
+        # Put long_ first in case long_ and int are the same so int clobbers long_
+        _long: TYPE_LONG,
+        int: TYPE_INT,
+        bool: TYPE_BOOLEAN,
+        float: TYPE_DOUBLE,
+        str: TYPE_STRING,
+        object: TYPE_PYOBJECT,
+    }
+
+    _min_value_lookup = {
+        TYPE_UINT: 0,
+        TYPE_ULONG: 0,
+        TYPE_UINT64: 0,
+        # Remember that G_MINFLOAT and G_MINDOUBLE are something different.
+        TYPE_FLOAT: -G_MAXFLOAT,
+        TYPE_DOUBLE: -G_MAXDOUBLE,
+        TYPE_INT: G_MININT,
+        TYPE_LONG: G_MINLONG,
+        TYPE_INT64: -2 ** 62 - 1,
+    }
+
+    _max_value_lookup = {
+        TYPE_UINT: G_MAXUINT,
+        TYPE_ULONG: G_MAXULONG,
+        TYPE_INT64: 2 ** 62 - 1,
+        TYPE_UINT64: 2 ** 63 - 1,
+        TYPE_FLOAT: G_MAXFLOAT,
+        TYPE_DOUBLE: G_MAXDOUBLE,
+        TYPE_INT: G_MAXINT,
+        TYPE_LONG: G_MAXLONG,
+    }
+
+    _default_lookup = {
+        TYPE_INT: 0,
+        TYPE_UINT: 0,
+        TYPE_LONG: 0,
+        TYPE_ULONG: 0,
+        TYPE_INT64: 0,
+        TYPE_UINT64: 0,
+        TYPE_STRING: '',
+        TYPE_FLOAT: 0.0,
+        TYPE_DOUBLE: 0.0,
+    }
 
     class __metaclass__(type):
         def __repr__(self):
-            return "<class 'gobject.property'>"
+            return "<class 'GObject.Property'>"
 
     def __init__(self, getter=None, setter=None, type=None, default=None,
                  nick='', blurb='', flags=_gobject.PARAM_READWRITE,
@@ -96,16 +149,6 @@ class property(object):
         @keyword maximum:  maximum allowed value (int, float, long only)
         """
 
-        if getter and not setter:
-            setter = self._readonly_setter
-        elif setter and not getter:
-            getter = self._writeonly_getter
-        elif not setter and not getter:
-            getter = self._default_getter
-            setter = self._default_setter
-        self.getter = getter
-        self.setter = setter
-
         if type is None:
             type = object
         self.type = self._type_from_python(type)
@@ -123,6 +166,17 @@ class property(object):
         if flags < 0 or flags > 32:
             raise TypeError("invalid flag value: %r" % (flags,))
         self.flags = flags
+
+        # Call after setting blurb for potential __doc__ usage.
+        if getter and not setter:
+            setter = self._readonly_setter
+        elif setter and not getter:
+            getter = self._writeonly_getter
+        elif not setter and not getter:
+            getter = self._default_getter
+            setter = self._default_setter
+        self.getter(getter)
+        self.setter(setter)
 
         if minimum is not None:
             if minimum < self._get_minimum():
@@ -146,7 +200,7 @@ class property(object):
         self._exc = None
 
     def __repr__(self):
-        return '<gobject property %s (%s)>' % (
+        return '<GObject Property %s (%s)>' % (
             self.name or '(uninitialized)',
             _gobject.type_name(self.type))
 
@@ -174,48 +228,47 @@ class property(object):
             self._exc = None
             raise exc
 
+    def __call__(self, fget):
+        """Allows application of the getter along with init arguments."""
+        return self.getter(fget)
+
+    def getter(self, fget):
+        """Set the getter function to fget. For use as a decorator."""
+        if self.__doc__ is None:
+            self.__doc__ = fget.__doc__
+        if not self.blurb and fget.__doc__:
+            self.blurb = fget.__doc__
+        self.fget = fget
+        return self
+
+    def setter(self, fset):
+        """Set the setter function to fset. For use as a decorator."""
+        self.fset = fset
+        return self
+
     def _type_from_python(self, type_):
-        if type_ == _long:
-            return TYPE_LONG
-        elif type_ == int:
-            return TYPE_INT
-        elif type_ == bool:
-            return TYPE_BOOLEAN
-        elif type_ == float:
-            return TYPE_DOUBLE
-        elif type_ == str:
-            return TYPE_STRING
-        elif type_ == object:
-            return TYPE_PYOBJECT
+        if type_ in self._type_from_pytype_lookup:
+            return self._type_from_pytype_lookup[type_]
         elif (isinstance(type_, type) and
               issubclass(type_, (_gobject.GObject,
                                  _gobject.GEnum,
+                                 _gobject.GFlags,
                                  _gobject.GBoxed))):
             return type_.__gtype__
-        elif type_ in [TYPE_NONE, TYPE_INTERFACE, TYPE_CHAR, TYPE_UCHAR,
+        elif type_ in (TYPE_NONE, TYPE_INTERFACE, TYPE_CHAR, TYPE_UCHAR,
                        TYPE_INT, TYPE_UINT, TYPE_BOOLEAN, TYPE_LONG,
                        TYPE_ULONG, TYPE_INT64, TYPE_UINT64,
                        TYPE_FLOAT, TYPE_DOUBLE, TYPE_POINTER,
                        TYPE_BOXED, TYPE_PARAM, TYPE_OBJECT, TYPE_STRING,
-                       TYPE_PYOBJECT]:
+                       TYPE_PYOBJECT, TYPE_GTYPE, TYPE_STRV):
             return type_
         else:
             raise TypeError("Unsupported type: %r" % (type_,))
 
     def _get_default(self, default):
-        ptype = self.type
         if default is not None:
             return default
-
-        if ptype in [TYPE_INT, TYPE_UINT, TYPE_LONG, TYPE_ULONG,
-                     TYPE_INT64, TYPE_UINT64]:
-            return 0
-        elif ptype == TYPE_STRING:
-            return ''
-        elif ptype == TYPE_FLOAT or ptype == TYPE_DOUBLE:
-            return 0.0
-        else:
-            return None
+        return self._default_lookup.get(self.type, None)
 
     def _check_default(self):
         ptype = self.type
@@ -226,61 +279,41 @@ class property(object):
         elif ptype == TYPE_PYOBJECT:
             if default is not None:
                 raise TypeError("object types does not have default values")
+        elif ptype == TYPE_GTYPE:
+            if default is not None:
+                raise TypeError("GType types does not have default values")
         elif _gobject.type_is_a(ptype, TYPE_ENUM):
             if default is None:
                 raise TypeError("enum properties needs a default value")
             elif not _gobject.type_is_a(default, ptype):
                 raise TypeError("enum value %s must be an instance of %r" %
                                 (default, ptype))
+        elif _gobject.type_is_a(ptype, TYPE_FLAGS):
+            if not _gobject.type_is_a(default, ptype):
+                raise TypeError("flags value %s must be an instance of %r" %
+                                (default, ptype))
+        elif _gobject.type_is_a(ptype, TYPE_STRV) and default is not None:
+            if not isinstance(default, list):
+                raise TypeError("Strv value %s must be a list" % repr(default))
+            for val in default:
+                if type(val) not in (str, bytes):
+                    raise TypeError("Strv value %s must contain only strings" % str(default))
 
     def _get_minimum(self):
-        ptype = self.type
-        if ptype in [TYPE_UINT, TYPE_ULONG, TYPE_UINT64]:
-            return 0
-        # Remember that G_MINFLOAT and G_MINDOUBLE are something different.
-        elif ptype == TYPE_FLOAT:
-            return -G_MAXFLOAT
-        elif ptype == TYPE_DOUBLE:
-            return -G_MAXDOUBLE
-        elif ptype == TYPE_INT:
-            return G_MININT
-        elif ptype == TYPE_LONG:
-            return G_MINLONG
-        elif ptype == TYPE_INT64:
-            return -2 ** 62 - 1
-
-        return None
+        return self._min_value_lookup.get(self.type, None)
 
     def _get_maximum(self):
-        ptype = self.type
-        if ptype == TYPE_UINT:
-            return G_MAXUINT
-        elif ptype == TYPE_ULONG:
-            return G_MAXULONG
-        elif ptype == TYPE_INT64:
-            return 2 ** 62 - 1
-        elif ptype == TYPE_UINT64:
-            return 2 ** 63 - 1
-        elif ptype == TYPE_FLOAT:
-            return G_MAXFLOAT
-        elif ptype == TYPE_DOUBLE:
-            return G_MAXDOUBLE
-        elif ptype == TYPE_INT:
-            return G_MAXINT
-        elif ptype == TYPE_LONG:
-            return G_MAXLONG
-
-        return None
+        return self._max_value_lookup.get(self.type, None)
 
     #
     # Getter and Setter
     #
 
     def _default_setter(self, instance, value):
-        setattr(instance, '_property_helper_'+self.name, value)
+        setattr(instance, '_property_helper_' + self.name, value)
 
     def _default_getter(self, instance):
-        return getattr(instance, '_property_helper_'+self.name, self.default)
+        return getattr(instance, '_property_helper_' + self.name, self.default)
 
     def _readonly_setter(self, instance, value):
         self._exc = TypeError("%s property of %s is read-only" % (
@@ -296,13 +329,13 @@ class property(object):
 
     def get_pspec_args(self):
         ptype = self.type
-        if ptype in [TYPE_INT, TYPE_UINT, TYPE_LONG, TYPE_ULONG,
-                     TYPE_INT64, TYPE_UINT64, TYPE_FLOAT, TYPE_DOUBLE]:
+        if ptype in (TYPE_INT, TYPE_UINT, TYPE_LONG, TYPE_ULONG,
+                     TYPE_INT64, TYPE_UINT64, TYPE_FLOAT, TYPE_DOUBLE):
             args = self.minimum, self.maximum, self.default
         elif (ptype == TYPE_STRING or ptype == TYPE_BOOLEAN or
-              ptype.is_a(TYPE_ENUM)):
+              ptype.is_a(TYPE_ENUM) or ptype.is_a(TYPE_FLAGS)):
             args = (self.default,)
-        elif ptype == TYPE_PYOBJECT:
+        elif ptype in (TYPE_PYOBJECT, TYPE_GTYPE):
             args = ()
         elif ptype.is_a(TYPE_OBJECT) or ptype.is_a(TYPE_BOXED):
             args = ()

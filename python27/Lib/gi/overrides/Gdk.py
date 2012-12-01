@@ -28,7 +28,9 @@ Gdk = modules['Gdk']._introspection_module
 
 __all__ = []
 
+
 class Color(Gdk.Color):
+    MAX_VALUE = 65535
 
     def __init__(self, red, green, blue):
         Gdk.Color.__init__(self)
@@ -44,6 +46,28 @@ class Color(Gdk.Color):
 
     def __repr__(self):
         return '<Gdk.Color(red=%d, green=%d, blue=%d)>' % (self.red, self.green, self.blue)
+
+    red_float = property(fget=lambda self: self.red / float(self.MAX_VALUE),
+                         fset=lambda self, v: setattr(self, 'red', int(v * self.MAX_VALUE)))
+
+    green_float = property(fget=lambda self: self.green / float(self.MAX_VALUE),
+                           fset=lambda self, v: setattr(self, 'green', int(v * self.MAX_VALUE)))
+
+    blue_float = property(fget=lambda self: self.blue / float(self.MAX_VALUE),
+                          fset=lambda self, v: setattr(self, 'blue', int(v * self.MAX_VALUE)))
+
+    def to_floats(self):
+        """Return (red_float, green_float, blue_float) triple."""
+
+        return (self.red_float, self.green_float, self.blue_float)
+
+    @staticmethod
+    def from_floats(red, green, blue):
+        """Return a new Color object from red/green/blue values from 0.0 to 1.0."""
+
+        return Color(int(red * Color.MAX_VALUE),
+                     int(green * Color.MAX_VALUE),
+                     int(blue * Color.MAX_VALUE))
 
 Color = override(Color)
 __all__.append('Color')
@@ -65,6 +89,27 @@ if Gdk._version == '3.0':
 
         def __repr__(self):
             return '<Gdk.Color(red=%f, green=%f, blue=%f, alpha=%f)>' % (self.red, self.green, self.blue, self.alpha)
+
+        def __iter__(self):
+            """Iterator which allows easy conversion to tuple and list types."""
+
+            yield self.red
+            yield self.green
+            yield self.blue
+            yield self.alpha
+
+        def to_color(self):
+            """Converts this RGBA into a Color instance which excludes alpha."""
+
+            return Color(int(self.red * Color.MAX_VALUE),
+                         int(self.green * Color.MAX_VALUE),
+                         int(self.blue * Color.MAX_VALUE))
+
+        @classmethod
+        def from_color(cls, color):
+            """Returns a new RGBA instance given a Color instance."""
+
+            return cls(color.red_float, color.green_float, color.blue_float)
 
     RGBA = override(RGBA)
     __all__.append('RGBA')
@@ -106,8 +151,10 @@ else:
             # Gdk.Window had to be made abstract,
             # this override allows using the standard constructor
             return Gdk.Window.new(parent, attributes, attributes_mask)
+
         def __init__(self, parent, attributes, attributes_mask):
             pass
+
         def cairo_create(self):
             return Gdk.cairo_create(self)
 
@@ -116,6 +163,7 @@ else:
 
 Gdk.EventType._2BUTTON_PRESS = getattr(Gdk.EventType, "2BUTTON_PRESS")
 Gdk.EventType._3BUTTON_PRESS = getattr(Gdk.EventType, "3BUTTON_PRESS")
+
 
 class Event(Gdk.Event):
     _UNION_MEMBERS = {
@@ -202,11 +250,12 @@ gsuccess_mask_funcs = ['get_state',
                        'get_coords',
                        'get_root_coords']
 
+
 def _gsuccess_mask(func):
     def cull_success(*args):
         result = func(*args)
         success = result[0]
-        if success == False:
+        if not success:
             return None
         else:
             if len(result) == 2:
@@ -235,6 +284,7 @@ for event_class in event_member_classes:
 
 # end GdkEvent overrides
 
+
 class DragContext(Gdk.DragContext):
     def finish(self, success, del_, time):
         Gtk = modules['Gtk']._introspection_module
@@ -242,6 +292,7 @@ class DragContext(Gdk.DragContext):
 
 DragContext = override(DragContext)
 __all__.append('DragContext')
+
 
 class Cursor(Gdk.Cursor):
     def __new__(cls, *args, **kwds):
@@ -285,6 +336,8 @@ Cursor = override(Cursor)
 __all__.append('Cursor')
 
 _Gdk_color_parse = Gdk.color_parse
+
+
 @override(Gdk.color_parse)
 def color_parse(color):
     success, color = _Gdk_color_parse(color)
@@ -296,49 +349,49 @@ def color_parse(color):
 if Gdk._version >= '3.0':
     SELECTION_PRIMARY = Gdk.atom_intern('PRIMARY', True)
     __all__.append('SELECTION_PRIMARY')
-    
+
     SELECTION_SECONDARY = Gdk.atom_intern('SECONDARY', True)
     __all__.append('SELECTION_SECONDARY')
-    
+
     SELECTION_CLIPBOARD = Gdk.atom_intern('CLIPBOARD', True)
     __all__.append('SELECTION_CLIPBOARD')
-    
+
     TARGET_BITMAP = Gdk.atom_intern('BITMAP', True)
     __all__.append('TARGET_BITMAP')
-    
+
     TARGET_COLORMAP = Gdk.atom_intern('COLORMAP', True)
     __all__.append('TARGET_COLORMAP')
-    
+
     TARGET_DRAWABLE = Gdk.atom_intern('DRAWABLE', True)
     __all__.append('TARGET_DRAWABLE')
-    
+
     TARGET_PIXMAP = Gdk.atom_intern('PIXMAP', True)
     __all__.append('TARGET_PIXMAP')
-    
+
     TARGET_STRING = Gdk.atom_intern('STRING', True)
     __all__.append('TARGET_STRING')
-    
+
     SELECTION_TYPE_ATOM = Gdk.atom_intern('ATOM', True)
     __all__.append('SELECTION_TYPE_ATOM')
-    
+
     SELECTION_TYPE_BITMAP = Gdk.atom_intern('BITMAP', True)
     __all__.append('SELECTION_TYPE_BITMAP')
-    
+
     SELECTION_TYPE_COLORMAP = Gdk.atom_intern('COLORMAP', True)
     __all__.append('SELECTION_TYPE_COLORMAP')
-    
+
     SELECTION_TYPE_DRAWABLE = Gdk.atom_intern('DRAWABLE', True)
     __all__.append('SELECTION_TYPE_DRAWABLE')
-    
+
     SELECTION_TYPE_INTEGER = Gdk.atom_intern('INTEGER', True)
     __all__.append('SELECTION_TYPE_INTEGER')
-    
+
     SELECTION_TYPE_PIXMAP = Gdk.atom_intern('PIXMAP', True)
     __all__.append('SELECTION_TYPE_PIXMAP')
-    
+
     SELECTION_TYPE_WINDOW = Gdk.atom_intern('WINDOW', True)
     __all__.append('SELECTION_TYPE_WINDOW')
-    
+
     SELECTION_TYPE_STRING = Gdk.atom_intern('STRING', True)
     __all__.append('SELECTION_TYPE_STRING')
 

@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_GOBJECT_EXPORTS;HAVE_CONFIG_H;Py_ENABLE_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.0.4\gi;pygobject-3.0.4\gi\_glib;pygobject-3.0.4\gi\_gobject</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.34.2;pygobject-3.4.2\gi;pygobject-3.4.2\gi\_glib;pygobject-3.4.2\gi\_gobject</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -73,7 +73,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_GOBJECT_EXPORTS;HAVE_CONFIG_H;Py_ENABLE_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.0.4\gi;pygobject-3.0.4\gi\_glib;pygobject-3.0.4\gi\_gobject</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.34.2;pygobject-3.4.2\gi;pygobject-3.4.2\gi\_glib;pygobject-3.4.2\gi\_gobject</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -88,29 +88,27 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pyglib.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\ffi-marshaller.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\gobjectmodule.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\pygboxed.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\pygenum.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\pygflags.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\pyginterface.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\pygobject.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\pygparamspec.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\pygpointer.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_gobject\pygtype.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pyglib.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_gobject\gobjectmodule.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_gobject\pygboxed.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_gobject\pygenum.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_gobject\pygflags.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_gobject\pyginterface.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_gobject\pygobject.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_gobject\pygparamspec.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_gobject\pygpointer.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_gobject\pygtype.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\ffi-marshaller.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\pygboxed.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\pygenum.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\pygflags.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\pyginterface.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\pygobject-private.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\pygobject.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\pygparamspec.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\pygpointer.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\_gobject\pygtype.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_gobject\pygboxed.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_gobject\pygenum.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_gobject\pygflags.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_gobject\pyginterface.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_gobject\pygobject-private.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_gobject\pygobject.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_gobject\pygparamspec.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_gobject\pygpointer.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\_gobject\pygtype.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

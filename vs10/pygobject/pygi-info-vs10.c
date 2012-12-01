@@ -88,12 +88,54 @@ _base_info_richcompare (PyGIBaseInfo *self, PyObject *other, int op)
     return res;
 }
 
-static PyMethodDef _PyGIBaseInfo_methods[4];
+static PyMethodDef _PyGIBaseInfo_methods[5];
 
 PYGLIB_DEFINE_TYPE("gi.BaseInfo", PyGIBaseInfo_Type, PyGIBaseInfo);
 
 static PyObject *
 _wrap_g_base_info_get_name (PyGIBaseInfo *self)
+{
+    /* It may be better to use keyword.iskeyword(); keep in sync with
+     * python -c 'import keyword; print(keyword.kwlist)' */
+#if PY_VERSION_HEX < 0x03000000
+    /* Python 2.x */
+    static const gchar* keywords[] = {"and", "as", "assert", "break", "class",
+        "continue", "def", "del", "elif", "else", "except", "exec", "finally",
+        "for", "from", "global", "if", "import", "in", "is", "lambda", "not",
+        "or", "pass", "print", "raise", "return", "try", "while", "with",
+        "yield", NULL};
+#elif PY_VERSION_HEX < 0x04000000
+    /* Python 3.x; note that we explicitly keep "print"; it is not a keyword
+     * any more, but we do not want to break API between Python versions */
+    static const gchar* keywords[] = {"False", "None", "True", "and", "as",
+        "assert", "break", "class", "continue", "def", "del", "elif", "else",
+        "except", "finally", "for", "from", "global", "if", "import", "in",
+        "is", "lambda", "nonlocal", "not", "or", "pass", "raise", "return",
+        "try", "while", "with", "yield",
+        "print", NULL};
+#else
+    #error Need keyword list for this major Python version
+#endif
+
+    const gchar *name, **i;
+
+    name = g_base_info_get_name (self->info);
+
+    /* escape keywords */
+    for (i = keywords; *i != NULL; ++i) {
+        if (strcmp (name, *i) == 0) {
+            gchar *escaped = g_strconcat (name, "_", NULL);
+            PyObject *obj = PYGLIB_PyUnicode_FromString (escaped);
+            g_free (escaped);
+            return obj;
+        }
+    }
+
+    return PYGLIB_PyUnicode_FromString (name);
+}
+
+static PyObject *
+_wrap_g_base_info_get_name_unescaped (PyGIBaseInfo *self)
 {
     return PYGLIB_PyUnicode_FromString (g_base_info_get_name (self->info));
 }
@@ -119,8 +161,9 @@ _wrap_g_base_info_get_container (PyGIBaseInfo *self)
 }
 
 
-static PyMethodDef _PyGIBaseInfo_methods[4] = {
+static PyMethodDef _PyGIBaseInfo_methods[] = {
     { "get_name", (PyCFunction) _wrap_g_base_info_get_name, METH_NOARGS },
+    { "get_name_unescaped", (PyCFunction) _wrap_g_base_info_get_name_unescaped, METH_NOARGS },
     { "get_namespace", (PyCFunction) _wrap_g_base_info_get_namespace, METH_NOARGS },
     { "get_container", (PyCFunction) _wrap_g_base_info_get_container, METH_NOARGS },
     { NULL, NULL, 0 }
@@ -787,7 +830,7 @@ pygi_g_struct_info_is_simple (GIStructInfo *struct_info)
     for (i = 0; i < n_field_infos && is_simple; i++) {
         GIFieldInfo *field_info;
         GITypeInfo *field_type_info;
-        GITypeTag field_type_tag;
+		GITypeTag field_type_tag;
         field_info = g_struct_info_get_field (struct_info, i);
         field_type_info = g_field_info_get_type (field_info);
 
@@ -1026,6 +1069,13 @@ _wrap_g_object_info_get_vfuncs (PyGIBaseInfo *self)
     return _get_vfuncs (self, GI_INFO_TYPE_OBJECT);
 }
 
+static PyObject *
+_wrap_g_object_info_get_abstract (PyGIBaseInfo *self)
+{
+    gboolean is_abstract  = g_object_info_get_abstract ( (GIObjectInfo*) self->info);
+    return PyBool_FromLong (is_abstract);
+}
+
 static PyMethodDef _PyGIObjectInfo_methods[] = {
     { "get_parent", (PyCFunction) _wrap_g_object_info_get_parent, METH_NOARGS },
     { "get_methods", (PyCFunction) _wrap_g_object_info_get_methods, METH_NOARGS },
@@ -1033,6 +1083,7 @@ static PyMethodDef _PyGIObjectInfo_methods[] = {
     { "get_interfaces", (PyCFunction) _wrap_g_object_info_get_interfaces, METH_NOARGS },
     { "get_constants", (PyCFunction) _wrap_g_object_info_get_constants, METH_NOARGS },
     { "get_vfuncs", (PyCFunction) _wrap_g_object_info_get_vfuncs, METH_NOARGS },
+    { "get_abstract", (PyCFunction) _wrap_g_object_info_get_abstract, METH_NOARGS },
     { NULL, NULL, 0 }
 };
 
@@ -1104,6 +1155,7 @@ _wrap_g_constant_info_get_value (PyGIBaseInfo *self)
     GITypeInfo *type_info;
     GIArgument value;
     PyObject *py_value;
+    gboolean free_array = FALSE;
 
     if (g_constant_info_get_value ( (GIConstantInfo *) self->info, &value) < 0) {
         PyErr_SetString (PyExc_RuntimeError, "unable to get value");
@@ -1112,8 +1164,18 @@ _wrap_g_constant_info_get_value (PyGIBaseInfo *self)
 
     type_info = g_constant_info_get_type ( (GIConstantInfo *) self->info);
 
-    py_value = _pygi_argument_to_object (&value, type_info, GI_TRANSFER_NOTHING);
+    if (g_type_info_get_tag (type_info) == GI_TYPE_TAG_ARRAY) {
+        value.v_pointer = _pygi_argument_to_array (&value, NULL, NULL,
+                                                   type_info, &free_array);
+    }
 
+    py_value = _pygi_argument_to_object (&value, type_info, GI_TRANSFER_NOTHING);
+    
+    if (free_array) {
+        g_array_free (value.v_pointer, FALSE);
+    }
+
+    g_constant_info_free_value (self->info, &value);
     g_base_info_unref ( (GIBaseInfo *) type_info);
 
     return py_value;
@@ -1158,6 +1220,7 @@ _wrap_g_field_info_get_value (PyGIBaseInfo *self,
     GITypeInfo *field_type_info;
     GIArgument value;
     PyObject *py_value = NULL;
+    gboolean free_array = FALSE;
 
     memset(&value, 0, sizeof(GIArgument));
 
@@ -1219,7 +1282,7 @@ _wrap_g_field_info_get_value (PyGIBaseInfo *self,
 
                 offset = g_field_info_get_offset ( (GIFieldInfo *) self->info);
 
-                value.v_pointer = (guint8*)pointer + offset;
+                value.v_pointer = (char*) pointer + offset;
 
                 goto argument_to_object;
             }
@@ -1234,18 +1297,15 @@ _wrap_g_field_info_get_value (PyGIBaseInfo *self,
         goto out;
     }
 
-    if ( (g_type_info_get_tag (field_type_info) == GI_TYPE_TAG_ARRAY) &&
-            (g_type_info_get_array_type (field_type_info) == GI_ARRAY_TYPE_C)) {
-        value.v_pointer = _pygi_argument_to_array (&value, NULL,
-                                                   field_type_info, FALSE);
+    if (g_type_info_get_tag (field_type_info) == GI_TYPE_TAG_ARRAY) {
+        value.v_pointer = _pygi_argument_to_array (&value, NULL, NULL,
+                                                   field_type_info, &free_array);
     }
 
 argument_to_object:
     py_value = _pygi_argument_to_object (&value, field_type_info, GI_TRANSFER_NOTHING);
 
-    if ( (value.v_pointer != NULL) &&
-            (g_type_info_get_tag (field_type_info) == GI_TYPE_TAG_ARRAY) &&
-               (g_type_info_get_array_type (field_type_info) == GI_ARRAY_TYPE_C)) {
+    if (free_array) {
         g_array_free (value.v_pointer, FALSE);
     }
 
@@ -1358,7 +1418,7 @@ _wrap_g_field_info_set_value (PyGIBaseInfo *self,
                 size = g_struct_info_get_size ( (GIStructInfo *) info);
                 g_assert (size > 0);
 
-                g_memmove ((guint8*)pointer + offset, value.v_pointer, size);
+                g_memmove ((char*) pointer + offset, value.v_pointer, size);
 
                 g_base_info_unref (info);
 
@@ -1371,6 +1431,39 @@ _wrap_g_field_info_set_value (PyGIBaseInfo *self,
         }
 
         g_base_info_unref (info);
+    } else if (g_type_info_is_pointer (field_type_info)
+            && g_type_info_get_tag (field_type_info) == GI_TYPE_TAG_VOID) {
+        int offset;
+
+        if (py_value != Py_None && !PYGLIB_PyLong_Check(py_value)) {
+            if (PyErr_WarnEx(PyExc_RuntimeWarning,
+                         "Usage of gpointers to store objects is being deprecated. "
+                         "Please use integer values only, see: https://bugzilla.gnome.org/show_bug.cgi?id=683599",
+                         1))
+                goto out;
+        }
+
+        offset = g_field_info_get_offset ((GIFieldInfo *) self->info);
+        value = _pygi_argument_from_object (py_value, field_type_info, GI_TRANSFER_NOTHING);
+
+        /* Decrement the previous python object stashed on the void pointer.
+         * This seems somewhat dangerous as the code is blindly assuming any
+         * void pointer field stores a python object pointer and then decrefs it.
+         * This is essentially the same as something like:
+         *  Py_XDECREF(struct->void_ptr); */
+        Py_XDECREF(G_STRUCT_MEMBER (gpointer, pointer, offset));
+
+        /* Assign and increment the newly assigned object. At this point the value
+         * arg will hold a pointer the python object "py_value" or NULL.
+         * This is essentially:
+         *  struct->void_ptr = value.v_pointer;
+         *  Py_XINCREF(struct->void_ptr);
+         */
+        G_STRUCT_MEMBER (gpointer, pointer, offset) = (gpointer)value.v_pointer;
+        Py_XINCREF(G_STRUCT_MEMBER (gpointer, pointer, offset));
+
+        retval = Py_None;
+        goto out;
     }
 
     value = _pygi_argument_from_object (py_value, field_type_info, GI_TRANSFER_EVERYTHING);

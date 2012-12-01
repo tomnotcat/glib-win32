@@ -89,7 +89,6 @@ _wrap_g_irepository_require (PyGIRepository *self,
     const char *version = NULL;
     PyObject *lazy = NULL;
     GIRepositoryLoadFlags flags = 0;
-    GTypelib *typelib;
     GError *error;
 
     if (!PyArg_ParseTupleAndKeywords (args, kwargs, "s|zO:Repository.require",
@@ -102,7 +101,7 @@ _wrap_g_irepository_require (PyGIRepository *self,
     }
 
     error = NULL;
-    typelib = g_irepository_require (self->repository, namespace_, version, flags, &error);
+    g_irepository_require (self->repository, namespace_, version, flags, &error);
     if (error != NULL) {
         PyErr_SetString (PyGIRepositoryError, error->message);
         g_error_free (error);
@@ -256,7 +255,7 @@ _wrap_g_irepository_get_loaded_namespaces (PyGIRepository *self)
     return py_namespaces;
 }
 
-static PyMethodDef _PyGIRepository_methods[9] = {
+static PyMethodDef _PyGIRepository_methods[] = {
     { "enumerate_versions", (PyCFunction) _wrap_g_irepository_enumerate_versions, METH_VARARGS | METH_KEYWORDS },
     { "get_default", (PyCFunction) _wrap_g_irepository_get_default, METH_STATIC | METH_NOARGS },
     { "require", (PyCFunction) _wrap_g_irepository_require, METH_VARARGS | METH_KEYWORDS },

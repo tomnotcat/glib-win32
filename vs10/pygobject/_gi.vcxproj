@@ -12,47 +12,49 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gimodule-vs10.c" />
+    <ClCompile Include="pygi-argument-vs10.c" />
     <ClCompile Include="pygi-cache-vs10.c" />
     <ClCompile Include="pygi-callbacks-vs10.c" />
+    <ClCompile Include="pygi-closure-vs10.c" />
     <ClCompile Include="pygi-info-vs10.c" />
     <ClCompile Include="pygi-invoke-vs10.c" />
     <ClCompile Include="pygi-marshal-cleanup-vs10.c" />
     <ClCompile Include="pygi-marshal-from-py-vs10.c" />
     <ClCompile Include="pygi-property-vs10.c" />
     <ClCompile Include="pygi-repository-vs10.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\pygi-argument.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\pygi-boxed.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\pygi-closure.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\pygi-foreign-gvariant.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\pygi-foreign.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\pygi-marshal-to-py.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\pygi-signal-closure.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\pygi-struct.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\pygi-type.c" />
-    <ClCompile Include="pygobject-3.0.4\gi\_glib\pyglib.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\pygi-boxed.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\pygi-ccallback.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\pygi-foreign-gvariant.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\pygi-foreign.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\pygi-marshal-to-py.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\pygi-signal-closure.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\pygi-struct.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\pygi-type.c" />
+    <ClCompile Include="pygobject-3.4.2\gi\_glib\pyglib.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-argument.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-boxed.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-cache.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-callbacks.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-closure.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-foreign-gvariant.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-foreign.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-info.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-invoke-state-struct.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-invoke.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-marshal-cleanup.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-marshal-from-py.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-marshal-to-py.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-private.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-property.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-repository.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-signal-closure.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-struct.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi-type.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygi.h" />
-    <ClInclude Include="pygobject-3.0.4\gi\pygobject-external.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-argument.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-boxed.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-cache.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-callbacks.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-ccallback.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-closure.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-foreign-gvariant.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-foreign.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-info.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-invoke-state-struct.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-invoke.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-marshal-cleanup.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-marshal-from-py.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-marshal-to-py.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-private.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-property.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-repository.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-signal-closure.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-struct.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi-type.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygi.h" />
+    <ClInclude Include="pygobject-3.4.2\gi\pygobject-external.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +103,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_GI_EXPORTS;Py_ENABLE_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.0.4\gi;pygobject-3.0.4\gi\_glib;pygobject-3.0.4\gi\_gobject;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.34.2;pygobject-3.4.2\gi;pygobject-3.4.2\gi\_glib;pygobject-3.4.2\gi\_gobject;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -122,7 +124,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_GI_EXPORTS;Py_ENABLE_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.33.10;pygobject-3.0.4\gi;pygobject-3.0.4\gi\_glib;pygobject-3.0.4\gi\_gobject</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Python27\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libffi-3.0.11;..\..\include\gobject-introspection-1.34.2;pygobject-3.4.2\gi;pygobject-3.4.2\gi\_glib;pygobject-3.4.2\gi\_gobject</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

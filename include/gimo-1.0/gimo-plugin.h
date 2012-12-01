@@ -47,7 +47,8 @@ struct _GimoPlugin {
 struct _GimoPluginClass {
     GObjectClass parent_class;
     gboolean (*start) (GimoPlugin *self);
-    gboolean (*stop) (GimoPlugin *self);
+    void (*run) (GimoPlugin *self);
+    void (*stop) (GimoPlugin *self);
 };
 
 GType gimo_plugin_get_type (void) G_GNUC_CONST;
@@ -106,7 +107,9 @@ GObject* gimo_plugin_resolve (GimoPlugin *self,
 gboolean gimo_plugin_start (GimoPlugin *self,
                             GimoLoader *loader);
 
-gboolean gimo_plugin_stop (GimoPlugin *self);
+void gimo_plugin_run (GimoPlugin *self);
+
+void gimo_plugin_stop (GimoPlugin *self);
 
 G_END_DECLS
 

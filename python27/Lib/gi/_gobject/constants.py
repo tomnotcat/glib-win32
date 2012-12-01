@@ -19,8 +19,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
 # USA
 
-import sys
-
 from . import _gobject
 
 # TYPE_INVALID defined in gobjectmodule.c
@@ -45,6 +43,9 @@ TYPE_BOXED = _gobject.type_from_name('GBoxed')
 TYPE_PARAM = _gobject.type_from_name('GParam')
 TYPE_OBJECT = _gobject.type_from_name('GObject')
 TYPE_PYOBJECT = _gobject.type_from_name('PyObject')
+TYPE_GTYPE = _gobject.type_from_name('GType')
+TYPE_STRV = _gobject.type_from_name('GStrv')
+TYPE_VARIANT = _gobject.type_from_name('GVariant')
 TYPE_UNICHAR = TYPE_UINT
 
 # do a little dance to maintain API compatibility
@@ -79,4 +80,3 @@ G_MAXSIZE = _gobject.G_MAXSIZE
 G_MAXSSIZE = _gobject.G_MAXSSIZE
 G_MINOFFSET = _gobject.G_MINOFFSET
 G_MAXOFFSET = _gobject.G_MAXOFFSET
-

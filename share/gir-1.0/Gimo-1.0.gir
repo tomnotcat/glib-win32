@@ -184,6 +184,18 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
+      <method name="add_paths" c:identifier="gimo_context_add_paths">
+        <doc xml:whitespace="preserve">Add plugin search paths to the context.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="paths" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">path list</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="destroy" c:identifier="gimo_context_destroy">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -287,6 +299,11 @@ and/or use gtk-doc annotations.  -->
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
+      </method>
+      <method name="run_plugins" c:identifier="gimo_context_run_plugins">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
       </method>
       <method name="uninstall_plugin"
               c:identifier="gimo_context_uninstall_plugin">
@@ -946,7 +963,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="paths" transfer-ownership="none" allow-none="1">
-            <doc xml:whitespace="preserve">path list, seperated by ':'</doc>
+            <doc xml:whitespace="preserve">path list</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -1082,10 +1099,6 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">the parameter for constructor</doc>
             <type name="GObject.Object" c:type="GObject*"/>
           </parameter>
-          <parameter name="has_return" transfer-ownership="none">
-            <doc xml:whitespace="preserve">whether the symbol has return value</doc>
-            <type name="gboolean" c:type="gboolean"/>
-          </parameter>
         </parameters>
       </virtual-method>
       <method name="close" c:identifier="gimo_module_close">
@@ -1122,10 +1135,6 @@ and/or use gtk-doc annotations.  -->
           <parameter name="param" transfer-ownership="none" allow-none="1">
             <doc xml:whitespace="preserve">the parameter for constructor</doc>
             <type name="GObject.Object" c:type="GObject*"/>
-          </parameter>
-          <parameter name="has_return" transfer-ownership="none">
-            <doc xml:whitespace="preserve">whether the symbol has return value</doc>
-            <type name="gboolean" c:type="gboolean"/>
           </parameter>
         </parameters>
       </method>
@@ -1192,10 +1201,6 @@ and/or use gtk-doc annotations.  -->
             <parameter name="param" transfer-ownership="none" allow-none="1">
               <doc xml:whitespace="preserve">the parameter for constructor</doc>
               <type name="GObject.Object" c:type="GObject*"/>
-            </parameter>
-            <parameter name="has_return" transfer-ownership="none">
-              <doc xml:whitespace="preserve">whether the symbol has return value</doc>
-              <type name="gboolean" c:type="gboolean"/>
             </parameter>
           </parameters>
         </callback>
@@ -1270,6 +1275,11 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
+      <virtual-method name="run" invoker="run">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
       <virtual-method name="start">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
@@ -1277,7 +1287,7 @@ and/or use gtk-doc annotations.  -->
       </virtual-method>
       <virtual-method name="stop" invoker="stop">
         <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
+          <type name="none" c:type="void"/>
         </return-value>
       </virtual-method>
       <method name="define" c:identifier="gimo_plugin_define">
@@ -1422,6 +1432,11 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="run" c:identifier="gimo_plugin_run">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
       <method name="start" c:identifier="gimo_plugin_start">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
@@ -1434,7 +1449,7 @@ and/or use gtk-doc annotations.  -->
       </method>
       <method name="stop" c:identifier="gimo_plugin_stop">
         <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
+          <type name="none" c:type="void"/>
         </return-value>
       </method>
       <property name="extensions"
@@ -1503,6 +1518,11 @@ and/or use gtk-doc annotations.  -->
       <field name="priv">
         <type name="PluginPrivate" c:type="GimoPluginPrivate*"/>
       </field>
+      <glib:signal name="run" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
       <glib:signal name="start" when="last">
         <return-value transfer-ownership="none">
           <type name="gboolean"/>
@@ -1510,7 +1530,7 @@ and/or use gtk-doc annotations.  -->
       </glib:signal>
       <glib:signal name="stop" when="last">
         <return-value transfer-ownership="none">
-          <type name="gboolean"/>
+          <type name="none"/>
         </return-value>
       </glib:signal>
     </class>
@@ -1532,10 +1552,22 @@ and/or use gtk-doc annotations.  -->
           </parameters>
         </callback>
       </field>
+      <field name="run">
+        <callback name="run">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Plugin" c:type="GimoPlugin*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
       <field name="stop">
         <callback name="stop">
           <return-value transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
+            <type name="none" c:type="void"/>
           </return-value>
           <parameters>
             <parameter name="self" transfer-ownership="none">

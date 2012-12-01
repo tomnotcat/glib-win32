@@ -32,6 +32,147 @@
 #include "pygi-marshal-cleanup.h"
 #include "pygi-marshal-from-py.h"
 
+gboolean
+gi_argument_from_py_ssize_t (GIArgument   *arg_out,
+                             Py_ssize_t    size_in,
+                             GITypeTag     type_tag)                             
+{
+    switch (type_tag) {
+    case GI_TYPE_TAG_VOID:
+    case GI_TYPE_TAG_BOOLEAN:
+        goto unhandled_type;
+
+    case GI_TYPE_TAG_INT8:
+        if (size_in >= G_MININT8 && size_in <= G_MAXINT8) {
+            arg_out->v_int8 = size_in;
+            return TRUE;
+        } else {
+            goto overflow;
+        }
+
+    case GI_TYPE_TAG_UINT8:
+        if (size_in >= 0 && size_in <= G_MAXUINT8) {
+            arg_out->v_uint8 = size_in;
+            return TRUE;
+        } else {
+            goto overflow;
+        }
+
+    case GI_TYPE_TAG_INT16:
+        if (size_in >= G_MININT16 && size_in <= G_MAXINT16) {
+            arg_out->v_int16 = size_in;
+            return TRUE;
+        } else {
+            goto overflow;
+        }
+
+    case GI_TYPE_TAG_UINT16:
+        if (size_in >= 0 && size_in <= G_MAXUINT16) {
+            arg_out->v_uint16 = size_in;
+            return TRUE;
+        } else {
+            goto overflow;
+        }
+
+        /* Ranges assume two's complement */
+    case GI_TYPE_TAG_INT32:
+        if (size_in >= G_MININT32 && size_in <= G_MAXINT32) {
+            arg_out->v_int32 = size_in;
+            return TRUE;
+        } else {
+            goto overflow;
+        }
+
+    case GI_TYPE_TAG_UINT32:
+        if (size_in >= 0 && size_in <= G_MAXUINT32) {
+            arg_out->v_uint32 = size_in;
+            return TRUE;
+        } else {
+            goto overflow;
+        }
+
+    case GI_TYPE_TAG_INT64:
+        arg_out->v_int64 = size_in;
+        return TRUE;
+
+    case GI_TYPE_TAG_UINT64:
+        if (size_in >= 0) {
+            arg_out->v_uint64 = size_in;
+            return TRUE;
+        } else {
+            goto overflow;
+        }
+            
+    case GI_TYPE_TAG_FLOAT:
+    case GI_TYPE_TAG_DOUBLE:
+    case GI_TYPE_TAG_GTYPE:
+    case GI_TYPE_TAG_UTF8:
+    case GI_TYPE_TAG_FILENAME:
+    case GI_TYPE_TAG_ARRAY:
+    case GI_TYPE_TAG_INTERFACE:
+    case GI_TYPE_TAG_GLIST:
+    case GI_TYPE_TAG_GSLIST:
+    case GI_TYPE_TAG_GHASH:
+    case GI_TYPE_TAG_ERROR:
+    case GI_TYPE_TAG_UNICHAR:
+    default:
+        goto unhandled_type;
+    }
+
+ overflow:
+    PyErr_Format (PyExc_OverflowError,
+                  "Unable to marshal C Py_ssize_t %zd to %s",
+                  size_in,
+                  g_type_tag_to_string (type_tag));
+    return FALSE;
+
+ unhandled_type:
+    PyErr_Format (PyExc_TypeError,
+                  "Unable to marshal C Py_ssize_t %zd to %s",
+                  size_in,
+                  g_type_tag_to_string (type_tag));
+    return FALSE;
+}
+
+gboolean
+gi_argument_from_c_long (GIArgument *arg_out,
+                         long        c_long_in,
+                         GITypeTag   type_tag)
+{
+    switch (type_tag) {
+      case GI_TYPE_TAG_INT8:
+          arg_out->v_int8 = c_long_in;
+          return TRUE;
+      case GI_TYPE_TAG_UINT8:
+          arg_out->v_uint8 = c_long_in;
+          return TRUE;
+      case GI_TYPE_TAG_INT16:
+          arg_out->v_int16 = c_long_in;
+          return TRUE;
+      case GI_TYPE_TAG_UINT16:
+          arg_out->v_uint16 = c_long_in;
+          return TRUE;
+      case GI_TYPE_TAG_INT32:
+          arg_out->v_int32 = c_long_in;
+          return TRUE;
+      case GI_TYPE_TAG_UINT32:
+          arg_out->v_uint32 = c_long_in;
+          return TRUE;
+      case GI_TYPE_TAG_INT64:
+          arg_out->v_int64 = c_long_in;
+          return TRUE;
+      case GI_TYPE_TAG_UINT64:
+          arg_out->v_uint64 = c_long_in;
+          return TRUE;
+      default:
+          PyErr_Format (PyExc_TypeError,
+                        "Unable to marshal C long %ld to %s",
+                        c_long_in,
+                        g_type_tag_to_string (type_tag));
+          return FALSE;
+    }
+}
+
 /*
  * _is_union_member - check to see if the py_arg is actually a member of the
  * expected C union
@@ -61,21 +202,18 @@ _is_union_member (PyGIInterfaceCache *iface_cache, PyObject *py_arg) {
 
         /* we can only check if the members are interfaces */
         if (g_type_info_get_tag (field_type_info) == GI_TYPE_TAG_INTERFACE) {
+            GIInterfaceInfo *field_iface_info;
             PyObject *py_type;
-            GIInterfaceInfo *field_iface_info =
-                g_type_info_get_interface (field_type_info);
 
-            py_type = _pygi_type_import_by_gi_info (
-                (GIBaseInfo *) field_iface_info);
+            field_iface_info = g_type_info_get_interface (field_type_info);
+            py_type = _pygi_type_import_by_gi_info ((GIBaseInfo *) field_iface_info);
 
             if (py_type != NULL && PyObject_IsInstance (py_arg, py_type)) {
                 is_member = TRUE;
-                break;
             }
 
             Py_XDECREF (py_type);
             g_base_info_unref ( ( GIBaseInfo *) field_iface_info);
-
         }
 
         g_base_info_unref ( ( GIBaseInfo *) field_type_info);
@@ -148,7 +286,7 @@ _pygi_marshal_from_py_int8 (PyGIInvokeState   *state,
         return FALSE;
     }
 
-    arg->v_long = long_;
+    arg->v_int8 = long_;
 
     return TRUE;
 }
@@ -197,7 +335,7 @@ _pygi_marshal_from_py_uint8 (PyGIInvokeState   *state,
         return FALSE;
     }
 
-    arg->v_long = long_;
+    arg->v_uint8 = long_;
 
     return TRUE;
 }
@@ -236,7 +374,7 @@ _pygi_marshal_from_py_int16 (PyGIInvokeState   *state,
         return FALSE;
     }
 
-    arg->v_long = long_;
+    arg->v_int16 = long_;
 
     return TRUE;
 }
@@ -266,16 +404,16 @@ _pygi_marshal_from_py_uint16 (PyGIInvokeState   *state,
 
     if (PyErr_Occurred ()) {
         PyErr_Clear ();
-        PyErr_Format (PyExc_ValueError, "%li not in range %d to %d", long_, 0, 65535);
+        PyErr_Format (PyExc_ValueError, "%ld not in range %d to %d", long_, 0, 65535);
         return FALSE;
     }
 
     if (long_ < 0 || long_ > 65535) {
-        PyErr_Format (PyExc_ValueError, "%li not in range %d to %d", long_, 0, 65535);
+        PyErr_Format (PyExc_ValueError, "%ld not in range %d to %d", long_, 0, 65535);
         return FALSE;
     }
 
-    arg->v_long = long_;
+    arg->v_uint16 = long_;
 
     return TRUE;
 }
@@ -314,7 +452,7 @@ _pygi_marshal_from_py_int32 (PyGIInvokeState   *state,
         return FALSE;
     }
 
-    arg->v_long = long_;
+    arg->v_int32 = long_;
 
     return TRUE;
 }
@@ -350,16 +488,16 @@ _pygi_marshal_from_py_uint32 (PyGIInvokeState   *state,
 
     if (PyErr_Occurred ()) {
         PyErr_Clear ();
-        PyErr_Format (PyExc_ValueError, "%lli not in range %i to %u", long_, 0, G_MAXUINT32);
+        PyErr_Format (PyExc_ValueError, "%lld not in range %i to %u", long_, 0, G_MAXUINT32);
         return FALSE;
     }
 
     if (long_ < 0 || long_ > G_MAXUINT32) {
-        PyErr_Format (PyExc_ValueError, "%lli not in range %i to %u", long_, 0, G_MAXUINT32);
+        PyErr_Format (PyExc_ValueError, "%lld not in range %i to %u", long_, 0, G_MAXUINT32);
         return FALSE;
     }
 
-    arg->v_uint64 = long_;
+    arg->v_uint32 = long_;
 
     return TRUE;
 }
@@ -372,7 +510,7 @@ _pygi_marshal_from_py_int64 (PyGIInvokeState   *state,
                              GIArgument        *arg)
 {
     PyObject *py_long;
-    long long long_;
+    gint64 long_;
 
     if (!PyNumber_Check (py_arg)) {
         PyErr_Format (PyExc_TypeError, "Must be number, not %s",
@@ -386,10 +524,10 @@ _pygi_marshal_from_py_int64 (PyGIInvokeState   *state,
 
 #if PY_VERSION_HEX < 0x03000000
     if (PyInt_Check (py_long))
-        long_ = PyInt_AS_LONG (py_long);
+        long_ = (gint64) PyInt_AS_LONG (py_long);
     else
 #endif
-        long_ = PyLong_AsLongLong (py_long);
+        long_ = (gint64) PyLong_AsLongLong (py_long);
 
     Py_DECREF (py_long);
 
@@ -404,6 +542,8 @@ _pygi_marshal_from_py_int64 (PyGIInvokeState   *state,
 
         if (PyUnicode_Check (py_str)) {
             PyObject *py_bytes = PyUnicode_AsUTF8String (py_str);
+            Py_DECREF (py_str);
+
             if (py_bytes == NULL)
                 return FALSE;
 
@@ -416,18 +556,13 @@ _pygi_marshal_from_py_int64 (PyGIInvokeState   *state,
             Py_DECREF (py_bytes);
         } else {
             long_str = g_strdup (PYGLIB_PyBytes_AsString(py_str));
+            Py_DECREF (py_str);
         }
 
-        Py_DECREF (py_str);
-        PyErr_Format (PyExc_ValueError, "%s not in range %ld to %ld",
-                      long_str, G_MININT64, G_MAXINT64);
+        PyErr_Format (PyExc_ValueError, "%s not in range %lld to %lld",
+                      long_str, (long long) G_MININT64, (long long) G_MAXINT64);
 
         g_free (long_str);
-        return FALSE;
-    }
-
-    if (long_ < G_MININT64 || long_ > G_MAXINT64) {
-        PyErr_Format (PyExc_ValueError, "%lld not in range %ld to %ld", long_, G_MININT64, G_MAXINT64);
         return FALSE;
     }
 
@@ -458,13 +593,13 @@ _pygi_marshal_from_py_uint64 (PyGIInvokeState   *state,
 
 #if PY_VERSION_HEX < 0x03000000
     if (PyInt_Check (py_long)) {
-        long long_ = PyInt_AsLong (py_long);
-        if (long_ < 0) {
-            PyErr_Format (PyExc_ValueError, "%ld not in range %d to %lu",
-                          long_, 0, G_MAXUINT64);
+        long long_ =  PyInt_AsLong (py_long);
+        if (long_ < 0 || long_ > G_MAXUINT64) {
+            PyErr_Format (PyExc_ValueError, "%" G_GUINT64_FORMAT " not in range %d to %" G_GUINT64_FORMAT,
+                          (gint64) long_, 0, G_MAXUINT64);
             return FALSE;
         }
-        ulong_ = long_;
+        ulong_ = (guint64) long_;
     } else
 #endif
         ulong_ = PyLong_AsUnsignedLongLong (py_long);
@@ -482,6 +617,8 @@ _pygi_marshal_from_py_uint64 (PyGIInvokeState   *state,
 
         if (PyUnicode_Check (py_str)) {
             PyObject *py_bytes = PyUnicode_AsUTF8String (py_str);
+            Py_DECREF (py_str);
+
             if (py_bytes == NULL)
                 return FALSE;
 
@@ -494,11 +631,10 @@ _pygi_marshal_from_py_uint64 (PyGIInvokeState   *state,
             Py_DECREF (py_bytes);
         } else {
             long_str = g_strdup (PYGLIB_PyBytes_AsString (py_str));
+            Py_DECREF (py_str);
         }
 
-        Py_DECREF (py_str);
-
-        PyErr_Format (PyExc_ValueError, "%s not in range %d to %lu",
+        PyErr_Format (PyExc_ValueError, "%s not in range %d to %" G_GUINT64_FORMAT,
                       long_str, 0, G_MAXUINT64);
 
         g_free (long_str);
@@ -506,7 +642,7 @@ _pygi_marshal_from_py_uint64 (PyGIInvokeState   *state,
     }
 
     if (ulong_ > G_MAXUINT64) {
-        PyErr_Format (PyExc_ValueError, "%lu not in range %d to %lu", ulong_, 0, G_MAXUINT64);
+        PyErr_Format (PyExc_ValueError, "%" G_GUINT64_FORMAT " not in range %d to %" G_GUINT64_FORMAT, ulong_, 0, G_MAXUINT64);
         return FALSE;
     }
 
@@ -628,8 +764,8 @@ _pygi_marshal_from_py_unichar (PyGIInvokeState   *state,
     }
 
     if (size != 1) {
-       PyErr_Format (PyExc_TypeError, "Must be a one character string, not %ld characters",
-                     size);
+       PyErr_Format (PyExc_TypeError, "Must be a one character string, not %lld characters",
+                     (long long) size);
        g_free (string_);
        return FALSE;
     }
@@ -794,6 +930,7 @@ _pygi_marshal_from_py_array (PyGIInvokeState   *state,
     if (sequence_cache->item_cache->type_tag == GI_TYPE_TAG_UINT8 &&
         PYGLIB_PyBytes_Check (py_arg)) {
         memcpy(array_->data, PYGLIB_PyBytes_AsString (py_arg), length);
+        array_->len = length;
         if (sequence_cache->is_zero_terminated) {
             /* If array_ has been created with zero_termination, space for the
              * terminator is properly allocated, so we're not off-by-one here. */
@@ -842,10 +979,36 @@ _pygi_marshal_from_py_array (PyGIInvokeState   *state,
                          * since GVariants are opaque hence always passed by ref */
                         g_assert (item_size == sizeof (item.v_pointer));
                         g_array_insert_val (array_, i, item.v_pointer);
-                    } else if (!is_boxed || is_gvalue) {
-                        memcpy (array_->data + (i * item_size), item.v_pointer, item_size);
-                        if (from_py_cleanup)
+                    } else if (is_gvalue) {
+                        GValue* dest = (GValue*) (array_->data + (i * item_size));
+                        memset (dest, 0, item_size);
+                        if (item.v_pointer != NULL) {
+                            g_value_init (dest, G_VALUE_TYPE ((GValue*) item.v_pointer));
+                            g_value_copy ((GValue*) item.v_pointer, dest);
+                        }
+
+                        if (from_py_cleanup) {
                             from_py_cleanup (state, item_arg_cache, item.v_pointer, TRUE);
+                            /* we freed the original copy already, the new one is a 
+                             * struct in an array. _pygi_marshal_cleanup_from_py_array()
+                             * must not free it again */
+                            item_arg_cache->from_py_cleanup = NULL;
+                        }
+                    } else if (!is_boxed) {
+                        /* HACK: Gdk.Atom is merely an integer wrapped in a pointer,
+                         * so we must not dereference it; just copy the pointer
+                         * value, and don't attempt to free it. TODO: find out
+                         * if there are other data types with similar behaviour
+                         * and generalize. */
+                        if (g_strcmp0 (item_iface_cache->type_name, "Gdk.Atom") == 0) {
+                            g_assert (item_size == sizeof (item.v_pointer));
+                            memcpy (array_->data + (i * item_size), &item.v_pointer, item_size);
+                        } else {
+                            memcpy (array_->data + (i * item_size), item.v_pointer, item_size);
+
+                            if (from_py_cleanup)
+                                from_py_cleanup (state, item_arg_cache, item.v_pointer, TRUE);
+                        }
                     } else {
                         g_array_insert_val (array_, i, item);
                     }
@@ -889,12 +1052,21 @@ array_success:
         if (child_cache->direction == PYGI_DIRECTION_BIDIRECTIONAL) {
             gint *len_arg = (gint *)state->in_args[child_cache->c_arg_index].v_pointer;
             /* if we are not setup yet just set the in arg */
-            if (len_arg == NULL)
-                state->in_args[child_cache->c_arg_index].v_long = length;
-            else
+            if (len_arg == NULL) {
+                if (!gi_argument_from_py_ssize_t (&state->in_args[child_cache->c_arg_index],
+                                                  length,
+                                                  child_cache->type_tag)) {
+                    goto err;
+                }
+            } else {
                 *len_arg = length;
+            }
         } else {
-            state->in_args[child_cache->c_arg_index].v_long = length;
+            if (!gi_argument_from_py_ssize_t (&state->in_args[child_cache->c_arg_index],
+                                              length,
+                                              child_cache->type_tag)) {
+                goto err;
+            }
         }
     }
 
@@ -959,7 +1131,7 @@ _pygi_marshal_from_py_glist (PyGIInvokeState   *state,
                                  &item))
             goto err;
 
-        list_ = g_list_append (list_, item.v_pointer);
+        list_ = g_list_prepend (list_, _pygi_arg_to_hash_pointer (&item, sequence_cache->item_cache->type_tag));
         continue;
 err:
         /* FIXME: clean up list
@@ -972,7 +1144,7 @@ err:
         return FALSE;
     }
 
-    arg->v_pointer = list_;
+    arg->v_pointer = g_list_reverse (list_);
     return TRUE;
 }
 
@@ -1026,7 +1198,7 @@ _pygi_marshal_from_py_gslist (PyGIInvokeState   *state,
                             &item))
             goto err;
 
-        list_ = g_slist_append (list_, item.v_pointer);
+        list_ = g_slist_prepend (list_, _pygi_arg_to_hash_pointer (&item, sequence_cache->item_cache->type_tag));
         continue;
 err:
         /* FIXME: Clean up list
@@ -1040,7 +1212,7 @@ err:
         return FALSE;
     }
 
-    arg->v_pointer = list_;
+    arg->v_pointer = g_slist_reverse (list_);
     return TRUE;
 }
 
@@ -1131,7 +1303,9 @@ _pygi_marshal_from_py_ghash (PyGIInvokeState   *state,
                                        &value))
             goto err;
 
-        g_hash_table_insert (hash_, key.v_pointer, value.v_pointer);
+        g_hash_table_insert (hash_,
+                             _pygi_arg_to_hash_pointer (&key, hash_cache->key_cache->type_tag),
+                             _pygi_arg_to_hash_pointer (&value, hash_cache->value_cache->type_tag));
         continue;
 err:
         /* FIXME: cleanup hash keys and values */
@@ -1160,6 +1334,15 @@ _pygi_marshal_from_py_gerror (PyGIInvokeState   *state,
     return FALSE;
 }
 
+/* _pygi_destroy_notify_dummy:
+ *
+ * Dummy method used in the occasion when a method has a GDestroyNotify
+ * argument without user data.
+ */
+static void
+_pygi_destroy_notify_dummy (gpointer data) {
+}
+
 gboolean
 _pygi_marshal_from_py_interface_callback (PyGIInvokeState   *state,
                                           PyGICallableCache *callable_cache,
@@ -1179,17 +1362,14 @@ _pygi_marshal_from_py_interface_callback (PyGIInvokeState   *state,
     if (callback_cache->user_data_index > 0) {
         user_data_cache = callable_cache->args_cache[callback_cache->user_data_index];
         if (user_data_cache->py_arg_index < state->n_py_in_args) {
+            /* py_user_data is a borrowed reference. */
             py_user_data = PyTuple_GetItem (state->py_in_args, user_data_cache->py_arg_index);
             if (!py_user_data)
                 return FALSE;
-        } else {
-            py_user_data = Py_None;
-            Py_INCREF (Py_None);
         }
     }
 
     if (py_arg == Py_None && !(py_user_data == Py_None || py_user_data == NULL)) {
-        Py_DECREF (py_user_data);
         PyErr_Format (PyExc_TypeError,
                       "When passing None for a callback userdata must also be None");
 
@@ -1197,12 +1377,10 @@ _pygi_marshal_from_py_interface_callback (PyGIInvokeState   *state,
     }
 
     if (py_arg == Py_None) {
-        Py_XDECREF (py_user_data);
         return TRUE;
     }
 
     if (!PyCallable_Check (py_arg)) {
-        Py_XDECREF (py_user_data);
         PyErr_Format (PyExc_TypeError,
                       "Callback needs to be a function or method not %s",
                       py_arg->ob_type->tp_name);
@@ -1210,21 +1388,52 @@ _pygi_marshal_from_py_interface_callback (PyGIInvokeState   *state,
         return FALSE;
     }
 
-    if (callback_cache->destroy_notify_index > 0)
-        destroy_cache = callable_cache->args_cache[callback_cache->destroy_notify_index];
-
     callable_info = (GICallableInfo *)callback_cache->interface_info;
 
     closure = _pygi_make_native_closure (callable_info, callback_cache->scope, py_arg, py_user_data);
     arg->v_pointer = closure->closure;
+
+    /* The PyGICClosure instance is used as user data passed into the C function.
+     * The return trip to python will marshal this back and pull the python user data out.
+     */
     if (user_data_cache != NULL) {
         state->in_args[user_data_cache->c_arg_index].v_pointer = closure;
     }
 
-    if (destroy_cache) {
-        PyGICClosure *destroy_notify = _pygi_destroy_notify_create ();
-        state->in_args[destroy_cache->c_arg_index].v_pointer = destroy_notify->closure;
+    /* Setup a GDestroyNotify callback if this method supports it along with
+     * a user data field. The user data field is a requirement in order
+     * free resources and ref counts associated with this arguments closure.
+     * In case a user data field is not available, show a warning giving
+     * explicit information and setup a dummy notification to avoid a crash
+     * later on in _pygi_destroy_notify_callback_closure.
+     */
+    if (callback_cache->destroy_notify_index > 0) {
+        destroy_cache = callable_cache->args_cache[callback_cache->destroy_notify_index];
     }
+
+    if (destroy_cache) {
+        if (user_data_cache != NULL) {
+            PyGICClosure *destroy_notify = _pygi_destroy_notify_create ();
+            state->in_args[destroy_cache->c_arg_index].v_pointer = destroy_notify->closure;
+        } else {
+            gchar *msg = g_strdup_printf("Callables passed to %s will leak references because "
+                                         "the method does not support a user_data argument. "
+                                         "See: https://bugzilla.gnome.org/show_bug.cgi?id=685598",
+                                         callable_cache->name);
+            if (PyErr_WarnEx(PyExc_RuntimeWarning, msg, 2)) {
+                g_free(msg);
+                _pygi_invoke_closure_free(closure);
+                return FALSE;
+            }
+            g_free(msg);
+            state->in_args[destroy_cache->c_arg_index].v_pointer = _pygi_destroy_notify_dummy;
+        }
+    }
+
+    /* Store the PyGIClosure as extra args data so _pygi_marshal_cleanup_from_py_interface_callback
+     * can clean it up later for GI_SCOPE_TYPE_CALL based closures.
+     */
+    state->args_data[arg_cache->c_arg_index] = closure;
 
     return TRUE;
 }
@@ -1236,20 +1445,32 @@ _pygi_marshal_from_py_interface_enum (PyGIInvokeState   *state,
                                       PyObject          *py_arg,
                                       GIArgument        *arg)
 {
-    PyObject *int_;
+    PyObject *py_long;
+    long c_long;
     gint is_instance;
     PyGIInterfaceCache *iface_cache = (PyGIInterfaceCache *)arg_cache;
+    GIBaseInfo *interface;
 
     is_instance = PyObject_IsInstance (py_arg, iface_cache->py_type);
 
-    int_ = PYGLIB_PyNumber_Long (py_arg);
-    if (int_ == NULL) {
+    py_long = PYGLIB_PyNumber_Long (py_arg);
+    if (py_long == NULL) {
         PyErr_Clear();
         goto err;
     }
 
-    arg->v_long = PYGLIB_PyLong_AsLong (int_);
-    Py_DECREF (int_);
+    c_long = PYGLIB_PyLong_AsLong (py_long);
+    Py_DECREF (py_long);
+
+    /* Write c_long into arg */
+    interface = g_type_info_get_interface (arg_cache->type_info);
+    assert(g_base_info_get_type (interface) == GI_INFO_TYPE_ENUM);
+    if (!gi_argument_from_c_long(arg,
+                                 c_long,
+                                 g_enum_info_get_storage_type ((GIEnumInfo *)interface))) {
+          g_assert_not_reached();
+          return FALSE;
+    }
 
     /* If this is not an instance of the Enum type that we want
      * we need to check if the value is equivilant to one of the
@@ -1263,7 +1484,7 @@ _pygi_marshal_from_py_interface_enum (PyGIInvokeState   *state,
                 g_enum_info_get_value (iface_cache->interface_info, i);
             glong enum_value = g_value_info_get_value (value_info);
             g_base_info_unref ( (GIBaseInfo *)value_info);
-            if (arg->v_long == enum_value) {
+            if (c_long == enum_value) {
                 is_found = TRUE;
                 break;
             }
@@ -1288,24 +1509,34 @@ _pygi_marshal_from_py_interface_flags (PyGIInvokeState   *state,
                                        PyObject          *py_arg,
                                        GIArgument        *arg)
 {
-    PyObject *int_;
+    PyObject *py_long;
+    long c_long;
     gint is_instance;
     PyGIInterfaceCache *iface_cache = (PyGIInterfaceCache *)arg_cache;
+    GIBaseInfo *interface;
 
     is_instance = PyObject_IsInstance (py_arg, iface_cache->py_type);
 
-    int_ = PYGLIB_PyNumber_Long (py_arg);
-    if (int_ == NULL) {
+    py_long = PYGLIB_PyNumber_Long (py_arg);
+    if (py_long == NULL) {
         PyErr_Clear ();
         goto err;
     }
 
-    arg->v_long = PYGLIB_PyLong_AsLong (int_);
-    Py_DECREF (int_);
+    c_long = PYGLIB_PyLong_AsLong (py_long);
+    Py_DECREF (py_long);
 
     /* only 0 or argument of type Flag is allowed */
-    if (!is_instance && arg->v_long != 0)
+    if (!is_instance && c_long != 0)
         goto err;
+
+    /* Write c_long into arg */
+    interface = g_type_info_get_interface (arg_cache->type_info);
+    g_assert (g_base_info_get_type (interface) == GI_INFO_TYPE_FLAGS);
+    if (!gi_argument_from_c_long(arg, c_long,
+                                 g_enum_info_get_storage_type ((GIEnumInfo *)interface))) {
+        return FALSE;
+    }
 
     return TRUE;
 
@@ -1393,10 +1624,18 @@ _pygi_marshal_from_py_interface_struct (PyGIInvokeState   *state,
     } else if (!PyObject_IsInstance (py_arg, iface_cache->py_type)) {
         /* first check to see if this is a member of the expected union */
         if (!_is_union_member (iface_cache, py_arg)) {
-            if (!PyErr_Occurred())
-                PyErr_Format (PyExc_TypeError, "Expected %s, but got %s",
+            if (!PyErr_Occurred()) {
+                PyObject *module = PyObject_GetAttrString(py_arg, "__module__");
+
+                PyErr_Format (PyExc_TypeError, "argument %s: Expected %s, but got %s%s%s",
+                              arg_cache->arg_name ? arg_cache->arg_name : "self",
                               iface_cache->type_name,
-                              iface_cache->py_type->ob_type->tp_name);
+                              module ? PYGLIB_PyUnicode_AsString(module) : "",
+                              module ? "." : "",
+                              py_arg->ob_type->tp_name);
+                if (module)
+                    Py_DECREF (module);
+            }
 
             return FALSE;
         }
@@ -1445,9 +1684,16 @@ _pygi_marshal_from_py_interface_object (PyGIInvokeState   *state,
     }
 
     if (!PyObject_IsInstance (py_arg, ( (PyGIInterfaceCache *)arg_cache)->py_type)) {
-        PyErr_Format (PyExc_TypeError, "Expected %s, but got %s",
+        PyObject *module = PyObject_GetAttrString(py_arg, "__module__");
+
+        PyErr_Format (PyExc_TypeError, "argument %s: Expected %s, but got %s%s%s",
+                      arg_cache->arg_name ? arg_cache->arg_name : "self",
                       ( (PyGIInterfaceCache *)arg_cache)->type_name,
-                      ( (PyGIInterfaceCache *)arg_cache)->py_type->ob_type->tp_name);
+                      module ? PYGLIB_PyUnicode_AsString(module) : "",
+                      module ? "." : "",
+                      py_arg->ob_type->tp_name);
+        if (module)
+            Py_DECREF (module);
         return FALSE;
     }
 
@@ -1489,12 +1735,18 @@ gboolean _pygi_marshal_from_py_interface_instance (PyGIInvokeState   *state,
             if (!PyObject_IsInstance (py_arg, iface_cache->py_type)) {
                 /* wait, we might be a member of a union so manually check */
                 if (!_is_union_member (iface_cache, py_arg)) {
-                    if (!PyErr_Occurred())
+                    if (!PyErr_Occurred()) {
+                        PyObject *module = PyObject_GetAttrString(py_arg, "__module__");
                         PyErr_Format (PyExc_TypeError,
-                                      "Expected a %s, but got %s",
+                                      "argument %s: Expected a %s, but got %s%s%s",
+                                      arg_cache->arg_name ? arg_cache->arg_name : "self",
                                       iface_cache->type_name,
+                                      module ? PYGLIB_PyUnicode_AsString(module) : "",
+                                      module ? "." : "",
                                       py_arg->ob_type->tp_name);
-
+                        if (module)
+                            Py_DECREF (module);
+                    }
                     return FALSE;
                 }
             }
@@ -1520,9 +1772,15 @@ gboolean _pygi_marshal_from_py_interface_instance (PyGIInvokeState   *state,
                 GType expected_type = iface_cache->g_type;
 
                 if (!g_type_is_a (obj_type, expected_type)) {
-                    PyErr_Format (PyExc_TypeError, "Expected a %s, but got %s",
+                    PyObject *module = PyObject_GetAttrString(py_arg, "__module__");
+                    PyErr_Format (PyExc_TypeError, "argument %s: Expected %s, but got %s%s%s",
+                                  arg_cache->arg_name ? arg_cache->arg_name : "self",
                                   iface_cache->type_name,
+                                  module ? PYGLIB_PyUnicode_AsString(module) : "",
+                                  module ? "." : "",
                                   py_arg->ob_type->tp_name);
+                    if (module)
+                        Py_DECREF (module);
                     return FALSE;
                 }
             }

@@ -1,25 +1,31 @@
-import sys
 import types
 
 from gi import _gobject
 
+# support overrides in different directories than our gi module
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
 registry = None
+
+
 class _Registry(dict):
     def __setitem__(self, key, value):
-        '''We do checks here to make sure only submodules of the override 
+        '''We do checks here to make sure only submodules of the override
         module are added.  Key and value should be the same object and come
-        from the gi.override module.  
+        from the gi.override module.
 
         We add the override to the dict as "override_module.name".  For instance
         if we were overriding Gtk.Button you would retrive it as such:
         registry['Gtk.Button']
-        ''' 
+        '''
         if not key == value:
             raise KeyError('You have tried to modify the registry.  This should only be done by the override decorator')
 
-        info = getattr(value, '__info__')
-        if info == None:
-            raise KeyError('Can not override a type %s, which is not in a gobject introspection typelib' % value.__name__)
+        try:
+            info = getattr(value, '__info__')
+        except AttributeError:
+            raise TypeError('Can not override a type %s, which is not in a gobject introspection typelib' % value.__name__)
 
         if not value.__module__.startswith('gi.overrides'):
             raise KeyError('You have tried to modify the registry outside of the overrides module.  This is not allowed')
@@ -27,10 +33,10 @@ class _Registry(dict):
         g_type = info.get_g_type()
         assert g_type != _gobject.TYPE_NONE
         if g_type != _gobject.TYPE_INVALID:
-            g_type.pytype = value 
+            g_type.pytype = value
 
             # strip gi.overrides from module name
-            module =  value.__module__[13:]
+            module = value.__module__[13:]
             key = "%s.%s" % (module, value.__name__)
             super(_Registry, self).__setitem__(key, value)
 
@@ -55,12 +61,11 @@ class overridefunc(object):
 
 registry = _Registry()
 
+
 def override(type_):
     '''Decorator for registering an override'''
-    if type(type_) == types.FunctionType:
+    if isinstance(type_, types.FunctionType):
         return overridefunc(type_)
     else:
         registry.register(type_)
         return type_
-
-

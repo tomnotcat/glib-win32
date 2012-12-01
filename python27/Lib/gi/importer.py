@@ -24,7 +24,7 @@ from __future__ import absolute_import
 import logging
 import sys
 
-from ._gi import Repository, RepositoryError
+from ._gi import Repository
 from .module import DynamicModule, DynamicGObjectModule, DynamicGLibModule
 
 
@@ -76,4 +76,3 @@ class DynamicImporter(object):
         dynamic_module._load()
 
         return dynamic_module
-

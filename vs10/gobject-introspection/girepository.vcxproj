@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -38,30 +38,30 @@
     <ClCompile Include="girmodule-vs10.c" />
     <ClCompile Include="girnode-vs10.c" />
     <ClCompile Include="girparser-vs10.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gdump.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\giarginfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gibaseinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gicallableinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\giconstantinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gienuminfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gifieldinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gifunctioninfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\giinterfaceinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\ginvoke.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\giobjectinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gipropertyinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\giregisteredtypeinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\girepository.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\giroffsets.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\girwriter.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gisignalinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gistructinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gitypeinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gitypelib.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\giunioninfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\givfuncinfo.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gthash-test.c" />
-    <ClCompile Include="gobject-introspection-1.33.10\girepository\gthash.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gdump.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\giarginfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gibaseinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gicallableinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\giconstantinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gienuminfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gifieldinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gifunctioninfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\giinterfaceinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\ginvoke.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\giobjectinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gipropertyinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\giregisteredtypeinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\girepository.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\giroffsets.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\girwriter.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gisignalinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gistructinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gitypeinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gitypelib.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\giunioninfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\givfuncinfo.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gthash-test.c" />
+    <ClCompile Include="gobject-introspection-1.34.2\girepository\gthash.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cmph-vs10\bdz.h" />
@@ -102,33 +102,33 @@
     <ClInclude Include="cmph-vs10\select_lookup_tables.h" />
     <ClInclude Include="cmph-vs10\vqueue.h" />
     <ClInclude Include="cmph-vs10\vstack.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\giarginfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gibaseinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gicallableinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\giconstantinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gienuminfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gifieldinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gifunctioninfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\giinterfaceinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\giobjectinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gipropertyinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\giregisteredtypeinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\girepository-private.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\girepository.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\girffi.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\girmodule.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\girnode.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\girparser.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\girwriter.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gisignalinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gistructinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gitypeinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gitypelib-internal.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gitypelib.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\gitypes.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\giunioninfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\givfuncinfo.h" />
-    <ClInclude Include="gobject-introspection-1.33.10\girepository\glib-compat.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\giarginfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gibaseinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gicallableinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\giconstantinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gienuminfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gifieldinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gifunctioninfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\giinterfaceinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\giobjectinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gipropertyinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\giregisteredtypeinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\girepository-private.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\girepository.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\girffi.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\girmodule.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\girnode.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\girparser.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\girwriter.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gisignalinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gistructinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gitypeinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gitypelib-internal.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gitypelib.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\gitypes.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\giunioninfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\givfuncinfo.h" />
+    <ClInclude Include="gobject-introspection-1.34.2\girepository\glib-compat.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +176,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DLL_EXPORT;GI_EXPORTS;G_IREPOSITORY_COMPILATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\include\libffi-3.0.11;..\..\lib\glib-2.0\include;gobject-introspection-1.33.10\girepository;gobject-introspection-1.33.10\girepository\cmph;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\include\libffi-3.0.11;..\..\lib\glib-2.0\include;gobject-introspection-1.34.2\girepository;gobject-introspection-1.34.2\girepository\cmph;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -200,7 +200,7 @@ Copy "..\debug\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL_EXPORT;GI_EXPORTS;G_IREPOSITORY_COMPILATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\include\libffi-3.0.11;..\..\lib\glib-2.0\include;gobject-introspection-1.33.10\girepository;gobject-introspection-1.33.10\girepository\cmph;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\include\libffi-3.0.11;..\..\lib\glib-2.0\include;gobject-introspection-1.34.2\girepository;gobject-introspection-1.34.2\girepository\cmph;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -214,26 +214,26 @@ Copy "..\debug\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"</Command>
     <PostBuildEvent>
       <Command>Copy "..\release\$(TargetName)$(TargetExt)"  "..\..\bin\$(TargetName)$(TargetExt)"
 Copy "..\release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
-Copy "gobject-introspection-1.33.10\girepository\girepository.h"  "..\..\include\gobject-introspection-1.33.10\girepository.h"
-Copy "gobject-introspection-1.33.10\girepository\giarginfo.h"  "..\..\include\gobject-introspection-1.33.10\giarginfo.h"
-Copy "gobject-introspection-1.33.10\girepository\gitypes.h"  "..\..\include\gobject-introspection-1.33.10\gitypes.h"
-Copy "gobject-introspection-1.33.10\girepository\gibaseinfo.h"  "..\..\include\gobject-introspection-1.33.10\gibaseinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\gitypelib.h"  "..\..\include\gobject-introspection-1.33.10\gitypelib.h"
-Copy "gobject-introspection-1.33.10\girepository\gicallableinfo.h"  "..\..\include\gobject-introspection-1.33.10\gicallableinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\giconstantinfo.h"  "..\..\include\gobject-introspection-1.33.10\giconstantinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\gienuminfo.h"  "..\..\include\gobject-introspection-1.33.10\gienuminfo.h"
-Copy "gobject-introspection-1.33.10\girepository\gifieldinfo.h"  "..\..\include\gobject-introspection-1.33.10\gifieldinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\gifunctioninfo.h"  "..\..\include\gobject-introspection-1.33.10\gifunctioninfo.h"
-Copy "gobject-introspection-1.33.10\girepository\giinterfaceinfo.h"  "..\..\include\gobject-introspection-1.33.10\giinterfaceinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\gipropertyinfo.h"  "..\..\include\gobject-introspection-1.33.10\gipropertyinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\giobjectinfo.h"  "..\..\include\gobject-introspection-1.33.10\giobjectinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\giregisteredtypeinfo.h"  "..\..\include\gobject-introspection-1.33.10\giregisteredtypeinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\gisignalinfo.h"  "..\..\include\gobject-introspection-1.33.10\gisignalinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\gistructinfo.h"  "..\..\include\gobject-introspection-1.33.10\gistructinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\gitypeinfo.h"  "..\..\include\gobject-introspection-1.33.10\gitypeinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\giunioninfo.h"  "..\..\include\gobject-introspection-1.33.10\giunioninfo.h"
-Copy "gobject-introspection-1.33.10\girepository\givfuncinfo.h"  "..\..\include\gobject-introspection-1.33.10\givfuncinfo.h"
-Copy "gobject-introspection-1.33.10\girepository\girffi.h"  "..\..\include\gobject-introspection-1.33.10\girffi.h"</Command>
+Copy "gobject-introspection-1.34.2\girepository\girepository.h"  "..\..\include\gobject-introspection-1.34.2\girepository.h"
+Copy "gobject-introspection-1.34.2\girepository\giarginfo.h"  "..\..\include\gobject-introspection-1.34.2\giarginfo.h"
+Copy "gobject-introspection-1.34.2\girepository\gitypes.h"  "..\..\include\gobject-introspection-1.34.2\gitypes.h"
+Copy "gobject-introspection-1.34.2\girepository\gibaseinfo.h"  "..\..\include\gobject-introspection-1.34.2\gibaseinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\gitypelib.h"  "..\..\include\gobject-introspection-1.34.2\gitypelib.h"
+Copy "gobject-introspection-1.34.2\girepository\gicallableinfo.h"  "..\..\include\gobject-introspection-1.34.2\gicallableinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\giconstantinfo.h"  "..\..\include\gobject-introspection-1.34.2\giconstantinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\gienuminfo.h"  "..\..\include\gobject-introspection-1.34.2\gienuminfo.h"
+Copy "gobject-introspection-1.34.2\girepository\gifieldinfo.h"  "..\..\include\gobject-introspection-1.34.2\gifieldinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\gifunctioninfo.h"  "..\..\include\gobject-introspection-1.34.2\gifunctioninfo.h"
+Copy "gobject-introspection-1.34.2\girepository\giinterfaceinfo.h"  "..\..\include\gobject-introspection-1.34.2\giinterfaceinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\gipropertyinfo.h"  "..\..\include\gobject-introspection-1.34.2\gipropertyinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\giobjectinfo.h"  "..\..\include\gobject-introspection-1.34.2\giobjectinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\giregisteredtypeinfo.h"  "..\..\include\gobject-introspection-1.34.2\giregisteredtypeinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\gisignalinfo.h"  "..\..\include\gobject-introspection-1.34.2\gisignalinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\gistructinfo.h"  "..\..\include\gobject-introspection-1.34.2\gistructinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\gitypeinfo.h"  "..\..\include\gobject-introspection-1.34.2\gitypeinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\giunioninfo.h"  "..\..\include\gobject-introspection-1.34.2\giunioninfo.h"
+Copy "gobject-introspection-1.34.2\girepository\givfuncinfo.h"  "..\..\include\gobject-introspection-1.34.2\givfuncinfo.h"
+Copy "gobject-introspection-1.34.2\girepository\girffi.h"  "..\..\include\gobject-introspection-1.34.2\girffi.h"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

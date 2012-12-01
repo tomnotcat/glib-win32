@@ -29,6 +29,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libintl", "gettext\libintl.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gjs-module-langNative", "gjs\gjs-module-langNative.vcxproj", "{84AE50E0-24EB-43E9-B023-E22D0904D67E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cairo", "cairo\cairo.vcxproj", "{1BCE48FF-3D5D-4038-892C-BF616EC7E79C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pixman", "cairo\pixman.vcxproj", "{D57D50D7-AA5C-4761-AACA-C2CD9A295CCB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cairo-gobject", "cairo\cairo-gobject.vcxproj", "{062C8992-1464-4A81-8778-2B7B5791A112}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -91,6 +97,18 @@ Global
 		{84AE50E0-24EB-43E9-B023-E22D0904D67E}.Debug|Win32.Build.0 = Debug|Win32
 		{84AE50E0-24EB-43E9-B023-E22D0904D67E}.Release|Win32.ActiveCfg = Release|Win32
 		{84AE50E0-24EB-43E9-B023-E22D0904D67E}.Release|Win32.Build.0 = Release|Win32
+		{1BCE48FF-3D5D-4038-892C-BF616EC7E79C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1BCE48FF-3D5D-4038-892C-BF616EC7E79C}.Debug|Win32.Build.0 = Debug|Win32
+		{1BCE48FF-3D5D-4038-892C-BF616EC7E79C}.Release|Win32.ActiveCfg = Release|Win32
+		{1BCE48FF-3D5D-4038-892C-BF616EC7E79C}.Release|Win32.Build.0 = Release|Win32
+		{D57D50D7-AA5C-4761-AACA-C2CD9A295CCB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D57D50D7-AA5C-4761-AACA-C2CD9A295CCB}.Debug|Win32.Build.0 = Debug|Win32
+		{D57D50D7-AA5C-4761-AACA-C2CD9A295CCB}.Release|Win32.ActiveCfg = Release|Win32
+		{D57D50D7-AA5C-4761-AACA-C2CD9A295CCB}.Release|Win32.Build.0 = Release|Win32
+		{062C8992-1464-4A81-8778-2B7B5791A112}.Debug|Win32.ActiveCfg = Debug|Win32
+		{062C8992-1464-4A81-8778-2B7B5791A112}.Debug|Win32.Build.0 = Debug|Win32
+		{062C8992-1464-4A81-8778-2B7B5791A112}.Release|Win32.ActiveCfg = Release|Win32
+		{062C8992-1464-4A81-8778-2B7B5791A112}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

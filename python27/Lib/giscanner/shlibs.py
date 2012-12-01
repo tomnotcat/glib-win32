@@ -69,19 +69,6 @@ def _resolve_non_libtool(options, binary, libraries):
     if not libraries:
         return []
 
-    #if os.uname()[0] == 'OpenBSD':
-    #    # Hack for OpenBSD when using the ports' libtool which uses slightly
-    #    # different directories to store the libraries in. So rewite binary.args[0]
-    #    # by inserting '.libs/'.
-    #    old_argdir = binary.args[0]
-    #    new_libsdir = os.path.join(os.path.dirname(binary.args[0]), '.libs/')
-    #    new_lib = new_libsdir + os.path.basename(binary.args[0])
-    #    if os.path.exists(new_lib):
-    #        binary.args[0] = new_lib
-    #        os.putenv('LD_LIBRARY_PATH', new_libsdir)
-    #    else:
-    #        binary.args[0] = old_argdir
-
     if os.name == 'nt':
         shlibs = []
 

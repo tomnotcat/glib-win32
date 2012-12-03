@@ -1,0 +1,4 @@
+GtkEntry can't receive mouse event:
+    gtkentry.c:gtk_entry_realize
+        GDK_INPUT_ONLY -> GDK_INPUT_OUTPUT
+        add GDK_EXPOSURE_MASK to event_mask

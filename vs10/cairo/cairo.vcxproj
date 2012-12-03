@@ -113,6 +113,7 @@
     <ClCompile Include="cairo-1.12.8\src\cairo-surface-subsurface.c" />
     <ClCompile Include="cairo-1.12.8\src\cairo-surface-wrapper.c" />
     <ClCompile Include="cairo-1.12.8\src\cairo-surface.c" />
+    <ClCompile Include="cairo-1.12.8\src\cairo-svg-surface.c" />
     <ClCompile Include="cairo-1.12.8\src\cairo-time.c" />
     <ClCompile Include="cairo-1.12.8\src\cairo-tor-scan-converter.c" />
     <ClCompile Include="cairo-1.12.8\src\cairo-tor22-scan-converter.c" />

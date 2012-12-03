@@ -25,6 +25,9 @@ vs10/pygobject/Release/*
 vs10/gjs/gjs-1.33.14/*
 vs10/gjs/Debug/*
 vs10/gjs/Release/*
+vs10/librsvg/librsvg-2.36.4/*
+vs10/librsvg/Debug/*
+vs10/librsvg/Release/*
 vs10/gettext/gettext-0.18.1.1/*
 vs10/gettext/Debug/*
 vs10/gettext/Release/*

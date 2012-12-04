@@ -50,11 +50,11 @@ struct _OrenDCPingResultClass {
 
 GType oren_dcping_result_get_type (void) G_GNUC_CONST;
 
-OrenDCPingResult* oren_dcping_result_new (OrenCMSlaveInfo *info,
+OrenDCPingResult* oren_dcping_result_new (OrenCMItem *item,
                                           gint rtt,
                                           gint user_count);
 
-OrenCMSlaveInfo* oren_dcping_result_get_info (OrenDCPingResult *self);
+OrenCMItem* oren_dcping_result_get_item (OrenDCPingResult *self);
 
 gint oren_dcping_result_get_rtt (OrenDCPingResult *self);
 

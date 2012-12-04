@@ -151,6 +151,9 @@ void _oren_dcchannel_send_chgaddr (OrenDCChannel *self,
 void _oren_dcchannel_add_send_data (OrenDCChannel *self,
                                     guint32 size);
 
+void _oren_dcchannel_add_send_packet (OrenDCChannel *self,
+                                      guint32 count);
+
 void _oren_dcchannel_add_send_lost (OrenDCChannel *self,
                                     guint32 count);
 

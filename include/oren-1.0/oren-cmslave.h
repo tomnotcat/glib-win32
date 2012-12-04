@@ -68,7 +68,8 @@ void oren_cmslave_close (OrenCMSlave *self);
 void oren_cmslave_login (OrenCMSlave *self,
                          OrenNCSockaddr *address,
                          const gchar *slave_name,
-                         const gchar *slave_network);
+                         const gchar *slave_group,
+                         const gchar *slave_place);
 
 void oren_cmslave_logout (OrenCMSlave *self);
 
@@ -89,7 +90,9 @@ const gchar* oren_cmslave_server_version (OrenCMSlave *self);
 
 const gchar* oren_cmslave_get_name (OrenCMSlave *self);
 
-const gchar* oren_cmslave_get_network (OrenCMSlave *self);
+const gchar* oren_cmslave_get_group (OrenCMSlave *self);
+
+const gchar* oren_cmslave_get_place (OrenCMSlave *self);
 
 GSList* _oren_cmslave_create_channels_list (gboolean dup, ...);
 

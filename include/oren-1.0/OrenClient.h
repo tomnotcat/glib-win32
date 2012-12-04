@@ -146,6 +146,8 @@ public:
 
     virtual void OnChoose (const char *server_name);
 
+    virtual void OnTimeOffset (int msec);
+
     virtual void OnLogin (LoginResult result);
 
     virtual void OnLogout (LogoutReason reason);

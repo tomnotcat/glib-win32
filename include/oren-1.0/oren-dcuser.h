@@ -95,9 +95,10 @@ void oren_dcuser_set_address (OrenDCUser *self,
 
 OrenNCSockaddr* oren_dcuser_get_address (OrenDCUser *self);
 
-gboolean _oren_dcuser_real_send (OrenDCUser *self,
-                                 OrenNCBuffer *buffer,
-                                 gboolean flush);
+gboolean _oren_dcuser_send (OrenDCUser *self,
+                            OrenNCBuffer *buffer,
+                            gboolean flush,
+                            gboolean statistics);
 
 gboolean _oren_dcuser_recv (OrenDCUser *self,
                             OrenNCSockaddr *from,

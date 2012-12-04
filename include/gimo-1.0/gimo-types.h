@@ -36,6 +36,8 @@ typedef struct _GimoFactory GimoFactory;
 typedef struct _GimoLoadable GimoLoadable;
 typedef struct _GimoArchive GimoArchive;
 typedef struct _GPtrArray GimoObjectArray;
+typedef struct _GimoRunnable GimoRunnable;
+typedef struct _GimoSignalBus GimoSignalBus;
 
 GType gimo_object_array_get_type (void) G_GNUC_CONST;
 #define GIMO_TYPE_OBJECT_ARRAY (gimo_object_array_get_type ())

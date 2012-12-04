@@ -22,12 +22,11 @@
 
 G_BEGIN_DECLS
 
-typedef struct _OrenCMClient OrenCMClient;
 typedef struct _OrenCMServer OrenCMServer;
+typedef struct _OrenCMNode OrenCMNode;
 typedef struct _OrenCMSlave OrenCMSlave;
-typedef struct _OrenCMRequest OrenCMRequest;
-typedef struct _OrenCMSlaveSession OrenCMSlaveSession;
-typedef struct _OrenCMSlaveInfo OrenCMSlaveInfo;
+typedef struct _OrenCMClient OrenCMClient;
+typedef struct _OrenCMItem OrenCMItem;
 
 G_END_DECLS
 

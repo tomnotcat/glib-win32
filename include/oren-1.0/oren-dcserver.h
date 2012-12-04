@@ -61,9 +61,10 @@ gboolean oren_dcserver_open (OrenDCServer *self,
                              OrenNCSockaddr *cluster_addr,
                              OrenNCSockaddr *parent_addr,
                              OrenDCFactory *factory,
-                             const gchar *parent_network,
+                             const gchar *parent_group,
                              const gchar *server_name,
-                             const gchar *server_network,
+                             const gchar *server_group,
+                             const gchar *server_place,
                              const gchar *signature,
                              gint max_thread_count,
                              gint max_channel_count,
@@ -75,11 +76,13 @@ gboolean oren_dcserver_open (OrenDCServer *self,
 
 void oren_dcserver_close (OrenDCServer *self);
 
+const gchar* oren_dcserver_get_parent_group (OrenDCServer *self);
+
 const gchar* oren_dcserver_get_name (OrenDCServer *self);
 
-const gchar* oren_dcserver_get_network (OrenDCServer *self);
+const gchar* oren_dcserver_get_group (OrenDCServer *self);
 
-const gchar* oren_dcserver_parent_network (OrenDCServer *self);
+const gchar* oren_dcserver_get_place (OrenDCServer *self);
 
 const gchar* oren_dcserver_get_signature (OrenDCServer *self);
 

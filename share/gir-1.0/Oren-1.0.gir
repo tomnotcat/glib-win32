@@ -176,7 +176,7 @@ and/or use gtk-doc annotations.  -->
           <parameter name="groups" transfer-ownership="none">
             <doc xml:whitespace="preserve">list of slaves</doc>
             <type name="GLib.SList">
-              <type name="CMSlaveInfo"/>
+              <type name="CMItem"/>
             </type>
           </parameter>
         </parameters>
@@ -271,6 +271,114 @@ and/or use gtk-doc annotations.  -->
     </record>
     <record name="CMClientPrivate" c:type="OrenCMClientPrivate" disguised="1">
     </record>
+    <class name="CMItem"
+           c:symbol-prefix="cmitem"
+           c:type="OrenCMItem"
+           parent="GObject.Object"
+           glib:type-name="OrenCMItem"
+           glib:get-type="oren_cmitem_get_type"
+           glib:type-struct="CMItemClass">
+      <constructor name="new" c:identifier="oren_cmitem_new">
+        <doc xml:whitespace="preserve">Create a slave info with the specified parameters.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">the created slave info object.</doc>
+          <type name="CMItem" c:type="OrenCMItem*"/>
+        </return-value>
+        <parameters>
+          <parameter name="slave_name"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the slave name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="slave_group"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the slave group</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="channel" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the channel name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="service_addr"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the service IP addresses</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="NCInetAddress"/>
+            </array>
+          </parameter>
+          <parameter name="service_port" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the service port</doc>
+            <type name="guint16" c:type="guint16"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_address" c:identifier="oren_cmitem_get_address">
+        <doc xml:whitespace="preserve">Get an service address of the slave info.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #OrenNCSockaddr or %NULL on error.</doc>
+          <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+        </return-value>
+      </method>
+      <method name="get_channel" c:identifier="oren_cmitem_get_channel">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_group" c:identifier="oren_cmitem_get_group">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_name" c:identifier="oren_cmitem_get_name">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_service_addr"
+              c:identifier="oren_cmitem_get_service_addr">
+        <doc xml:whitespace="preserve">Get an service address of the slave info.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the service address list</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="NCInetAddress"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="get_service_port"
+              c:identifier="oren_cmitem_get_service_port">
+        <return-value transfer-ownership="none">
+          <type name="guint16" c:type="guint16"/>
+        </return-value>
+      </method>
+      <method name="set_address" c:identifier="oren_cmitem_set_address">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="address" transfer-ownership="none">
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="CMItemPrivate" c:type="OrenCMItemPrivate*"/>
+      </field>
+    </class>
+    <record name="CMItemClass"
+            c:type="OrenCMItemClass"
+            glib:is-gtype-struct-for="CMItem">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="CMItemPrivate" c:type="OrenCMItemPrivate" disguised="1">
+    </record>
     <enumeration name="CMLoginResult"
                  glib:type-name="OrenCMLoginResult"
                  glib:get-type="oren_cmlogin_result_get_type"
@@ -304,7 +412,7 @@ and/or use gtk-doc annotations.  -->
               c:identifier="OREN_CMLOGIN_RESULT_ERRGROUP"
               glib:nick="errgroup"/>
       <member name="errsvc"
-              value="7"
+              value="8"
               c:identifier="OREN_CMLOGIN_RESULT_ERRSVC"
               glib:nick="errsvc"/>
     </enumeration>
@@ -329,7 +437,318 @@ and/or use gtk-doc annotations.  -->
               c:identifier="OREN_CMLOGOUT_REASON_KICKOUT"
               glib:nick="kickout"/>
     </enumeration>
-    <record name="CMRequest" c:type="OrenCMRequest" disguised="1">
+    <constant name="CMNODE_LOST_DIFF"
+              value="300"
+              c:type="OREN_CMNODE_LOST_DIFF">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="CMNODE_LOST_LIMIT"
+              value="500"
+              c:type="OREN_CMNODE_LOST_LIMIT">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="CMNODE_USER_LIMIT"
+              value="100"
+              c:type="OREN_CMNODE_USER_LIMIT">
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <class name="CMNode"
+           c:symbol-prefix="cmnode"
+           c:type="OrenCMNode"
+           parent="GObject.Object"
+           glib:type-name="OrenCMNode"
+           glib:get-type="oren_cmnode_get_type"
+           glib:type-struct="CMNodeClass">
+      <constructor name="new" c:identifier="oren_cmnode_new">
+        <return-value transfer-ownership="full">
+          <type name="CMNode" c:type="OrenCMNode*"/>
+        </return-value>
+        <parameters>
+          <parameter name="protocol_version" transfer-ownership="none">
+            <type name="guint8" c:type="guint8"/>
+          </parameter>
+          <parameter name="client_version" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="slave_id" transfer-ownership="none">
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
+          <parameter name="login_code" transfer-ownership="none">
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
+          <parameter name="slave_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="slave_group" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="slave_place" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="max_channel_count" transfer-ownership="none">
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
+          <parameter name="max_user_count" transfer-ownership="none">
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
+          <parameter name="server" transfer-ownership="none">
+            <type name="CMServer" c:type="OrenCMServer*"/>
+          </parameter>
+          <parameter name="socket" transfer-ownership="none">
+            <type name="NCSocket" c:type="OrenNCSocket*"/>
+          </parameter>
+          <parameter name="address" transfer-ownership="none">
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          </parameter>
+          <parameter name="service_addr" transfer-ownership="none">
+            <array name="GLib.PtrArray" c:type="GPtrArray*">
+              <type name="gpointer" c:type="gpointer"/>
+            </array>
+          </parameter>
+          <parameter name="service_port" transfer-ownership="none">
+            <type name="guint16" c:type="guint16"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="client_version" c:identifier="oren_cmnode_client_version">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_address" c:identifier="oren_cmnode_get_address">
+        <doc xml:whitespace="preserve">Get the remote address of a slave.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #OrenNCSockaddr.</doc>
+          <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+        </return-value>
+      </method>
+      <method name="get_group" c:identifier="oren_cmnode_get_group">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_id" c:identifier="oren_cmnode_get_id">
+        <return-value transfer-ownership="none">
+          <type name="guint32" c:type="guint32"/>
+        </return-value>
+      </method>
+      <method name="get_login_code" c:identifier="oren_cmnode_get_login_code">
+        <return-value transfer-ownership="none">
+          <type name="guint32" c:type="guint32"/>
+        </return-value>
+      </method>
+      <method name="get_name" c:identifier="oren_cmnode_get_name">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_place" c:identifier="oren_cmnode_get_place">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_server" c:identifier="oren_cmnode_get_server">
+        <doc xml:whitespace="preserve">Get the server of the slave.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #OrenCMServer.</doc>
+          <type name="CMServer" c:type="OrenCMServer*"/>
+        </return-value>
+      </method>
+      <method name="get_service_addr"
+              c:identifier="oren_cmnode_get_service_addr">
+        <doc xml:whitespace="preserve">Get the service address of a slave.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the service address list</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="NCInetAddress"/>
+          </array>
+        </return-value>
+      </method>
+      <method name="get_service_port"
+              c:identifier="oren_cmnode_get_service_port">
+        <return-value transfer-ownership="none">
+          <type name="guint16" c:type="guint16"/>
+        </return-value>
+      </method>
+      <method name="get_workload" c:identifier="oren_cmnode_get_workload">
+        <doc xml:whitespace="preserve">Get the workload information of a slave.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="load"
+                     direction="out"
+                     caller-allocates="1"
+                     transfer-ownership="none">
+            <doc xml:whitespace="preserve">Store the work load information</doc>
+            <type name="CMNodeLoad" c:type="OrenCMNodeLoad*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="has_channel" c:identifier="oren_cmnode_has_channel">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="channel_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="active" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="is_overloaded" c:identifier="oren_cmnode_is_overloaded">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="protocol_version"
+              c:identifier="oren_cmnode_protocol_version">
+        <return-value transfer-ownership="none">
+          <type name="guint8" c:type="guint8"/>
+        </return-value>
+      </method>
+      <method name="recv" c:identifier="oren_cmnode_recv">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="from" transfer-ownership="none">
+            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="req_channel" c:identifier="oren_cmnode_req_channel">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="channel_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="send" c:identifier="oren_cmnode_send">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="CMNodePrivate" c:type="OrenCMNodePrivate*"/>
+      </field>
+      <glib:signal name="add-channel" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="remove-channel" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="update-workload" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gpointer"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="CMNodeClass"
+            c:type="OrenCMNodeClass"
+            glib:is-gtype-struct-for="CMNode">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="add_channel">
+        <callback name="add_channel">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="CMServer" c:type="OrenCMServer*"/>
+            </parameter>
+            <parameter name="channel" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="remove_channel">
+        <callback name="remove_channel">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="CMServer" c:type="OrenCMServer*"/>
+            </parameter>
+            <parameter name="channel" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="update_workload">
+        <callback name="update_workload">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="CMServer" c:type="OrenCMServer*"/>
+            </parameter>
+            <parameter name="load" transfer-ownership="none">
+              <type name="CMNodeLoad" c:type="OrenCMNodeLoad*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="CMNodeLoad" c:type="OrenCMNodeLoad">
+      <field name="channel_count" writable="1">
+        <type name="guint32" c:type="guint32"/>
+      </field>
+      <field name="user_count" writable="1">
+        <type name="guint32" c:type="guint32"/>
+      </field>
+      <field name="byte_rate" writable="1">
+        <type name="guint32" c:type="guint32"/>
+      </field>
+      <field name="lost_rate" writable="1">
+        <type name="guint32" c:type="guint32"/>
+      </field>
+    </record>
+    <record name="CMNodePrivate" c:type="OrenCMNodePrivate" disguised="1">
     </record>
     <enumeration name="CMRequestResult"
                  glib:type-name="OrenCMRequestResult"
@@ -368,21 +787,6 @@ and/or use gtk-doc annotations.  -->
               c:identifier="OREN_CMREQUEST_RESULT_ERRSVER"
               glib:nick="errsver"/>
     </enumeration>
-    <constant name="CMSLAVE_SESSION_LOST_DIFF"
-              value="300"
-              c:type="OREN_CMSLAVE_SESSION_LOST_DIFF">
-      <type name="gint" c:type="gint"/>
-    </constant>
-    <constant name="CMSLAVE_SESSION_LOST_LIMIT"
-              value="500"
-              c:type="OREN_CMSLAVE_SESSION_LOST_LIMIT">
-      <type name="gint" c:type="gint"/>
-    </constant>
-    <constant name="CMSLAVE_SESSION_USER_LIMIT"
-              value="100"
-              c:type="OREN_CMSLAVE_SESSION_USER_LIMIT">
-      <type name="gint" c:type="gint"/>
-    </constant>
     <class name="CMServer"
            c:symbol-prefix="cmserver"
            c:type="OrenCMServer"
@@ -401,7 +805,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="slave" transfer-ownership="none">
-            <type name="CMSlaveSession" c:type="OrenCMSlaveSession*"/>
+            <type name="CMNode" c:type="OrenCMNode*"/>
           </parameter>
         </parameters>
       </virtual-method>
@@ -411,7 +815,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="slave" transfer-ownership="none">
-            <type name="CMSlaveSession" c:type="OrenCMSlaveSession*"/>
+            <type name="CMNode" c:type="OrenCMNode*"/>
           </parameter>
         </parameters>
       </virtual-method>
@@ -427,8 +831,8 @@ and/or use gtk-doc annotations.  -->
       </method>
       <method name="lookup_slave" c:identifier="oren_cmserver_lookup_slave">
         <return-value transfer-ownership="full">
-          <doc xml:whitespace="preserve">a #OrenCMSlaveSession or %NULL if not found. Free the returned object with g_object_unref().</doc>
-          <type name="CMSlaveSession" c:type="OrenCMSlaveSession*"/>
+          <doc xml:whitespace="preserve">a #OrenCMNode or %NULL if not found. Free the returned object with g_object_unref().</doc>
+          <type name="CMNode" c:type="OrenCMNode*"/>
         </return-value>
         <parameters>
           <parameter name="slave_name" transfer-ownership="none">
@@ -485,7 +889,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="object" transfer-ownership="none">
-            <type name="CMSlaveSession"/>
+            <type name="CMNode"/>
           </parameter>
         </parameters>
       </glib:signal>
@@ -495,7 +899,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="object" transfer-ownership="none">
-            <type name="CMSlaveSession"/>
+            <type name="CMNode"/>
           </parameter>
         </parameters>
       </glib:signal>
@@ -516,7 +920,7 @@ and/or use gtk-doc annotations.  -->
               <type name="CMServer" c:type="OrenCMServer*"/>
             </parameter>
             <parameter name="slave" transfer-ownership="none">
-              <type name="CMSlaveSession" c:type="OrenCMSlaveSession*"/>
+              <type name="CMNode" c:type="OrenCMNode*"/>
             </parameter>
           </parameters>
         </callback>
@@ -531,7 +935,7 @@ and/or use gtk-doc annotations.  -->
               <type name="CMServer" c:type="OrenCMServer*"/>
             </parameter>
             <parameter name="slave" transfer-ownership="none">
-              <type name="CMSlaveSession" c:type="OrenCMSlaveSession*"/>
+              <type name="CMNode" c:type="OrenCMNode*"/>
             </parameter>
           </parameters>
         </callback>
@@ -589,12 +993,17 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
       </method>
+      <method name="get_group" c:identifier="oren_cmslave_get_group">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
       <method name="get_name" c:identifier="oren_cmslave_get_name">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
       </method>
-      <method name="get_network" c:identifier="oren_cmslave_get_network">
+      <method name="get_place" c:identifier="oren_cmslave_get_place">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -615,7 +1024,10 @@ and/or use gtk-doc annotations.  -->
           <parameter name="slave_name" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="slave_network" transfer-ownership="none">
+          <parameter name="slave_group" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="slave_place" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -762,422 +1174,7 @@ and/or use gtk-doc annotations.  -->
         </callback>
       </field>
     </record>
-    <class name="CMSlaveInfo"
-           c:symbol-prefix="cmslave_info"
-           c:type="OrenCMSlaveInfo"
-           parent="GObject.Object"
-           glib:type-name="OrenCMSlaveInfo"
-           glib:get-type="oren_cmslave_info_get_type"
-           glib:type-struct="CMSlaveInfoClass">
-      <constructor name="new" c:identifier="oren_cmslave_info_new">
-        <doc xml:whitespace="preserve">Create a slave info with the specified parameters.</doc>
-        <return-value transfer-ownership="full">
-          <doc xml:whitespace="preserve">the created slave info object.</doc>
-          <type name="CMSlaveInfo" c:type="OrenCMSlaveInfo*"/>
-        </return-value>
-        <parameters>
-          <parameter name="slave_name"
-                     transfer-ownership="none"
-                     allow-none="1">
-            <doc xml:whitespace="preserve">the slave name</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="slave_group"
-                     transfer-ownership="none"
-                     allow-none="1">
-            <doc xml:whitespace="preserve">the slave group</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="channel" transfer-ownership="none" allow-none="1">
-            <doc xml:whitespace="preserve">the channel name</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="service_addr"
-                     transfer-ownership="none"
-                     allow-none="1">
-            <doc xml:whitespace="preserve">the service IP addresses</doc>
-            <array name="GLib.PtrArray" c:type="GPtrArray*">
-              <type name="NCInetAddress"/>
-            </array>
-          </parameter>
-          <parameter name="service_port" transfer-ownership="none">
-            <doc xml:whitespace="preserve">the service port</doc>
-            <type name="guint16" c:type="guint16"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <method name="get_address" c:identifier="oren_cmslave_info_get_address">
-        <doc xml:whitespace="preserve">Get an service address of the slave info.</doc>
-        <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">a #OrenNCSockaddr or %NULL on error.</doc>
-          <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-        </return-value>
-      </method>
-      <method name="get_channel" c:identifier="oren_cmslave_info_get_channel">
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-      </method>
-      <method name="get_group" c:identifier="oren_cmslave_info_get_group">
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-      </method>
-      <method name="get_name" c:identifier="oren_cmslave_info_get_name">
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-      </method>
-      <method name="get_service_addr"
-              c:identifier="oren_cmslave_info_get_service_addr">
-        <doc xml:whitespace="preserve">Get an service address of the slave info.</doc>
-        <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">the service address list</doc>
-          <array name="GLib.PtrArray" c:type="GPtrArray*">
-            <type name="NCInetAddress"/>
-          </array>
-        </return-value>
-      </method>
-      <method name="get_service_port"
-              c:identifier="oren_cmslave_info_get_service_port">
-        <return-value transfer-ownership="none">
-          <type name="guint16" c:type="guint16"/>
-        </return-value>
-      </method>
-      <method name="set_address" c:identifier="oren_cmslave_info_set_address">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="address" transfer-ownership="none">
-            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <field name="parent_instance">
-        <type name="GObject.Object" c:type="GObject"/>
-      </field>
-      <field name="priv">
-        <type name="CMSlaveInfoPrivate" c:type="OrenCMSlaveInfoPrivate*"/>
-      </field>
-    </class>
-    <record name="CMSlaveInfoClass"
-            c:type="OrenCMSlaveInfoClass"
-            glib:is-gtype-struct-for="CMSlaveInfo">
-      <field name="parent_class">
-        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
-      </field>
-    </record>
-    <record name="CMSlaveInfoPrivate"
-            c:type="OrenCMSlaveInfoPrivate"
-            disguised="1">
-    </record>
     <record name="CMSlavePrivate" c:type="OrenCMSlavePrivate" disguised="1">
-    </record>
-    <class name="CMSlaveSession"
-           c:symbol-prefix="cmslave_session"
-           c:type="OrenCMSlaveSession"
-           parent="GObject.Object"
-           glib:type-name="OrenCMSlaveSession"
-           glib:get-type="oren_cmslave_session_get_type"
-           glib:type-struct="CMSlaveSessionClass">
-      <constructor name="new" c:identifier="oren_cmslave_session_new">
-        <return-value transfer-ownership="full">
-          <type name="CMSlaveSession" c:type="OrenCMSlaveSession*"/>
-        </return-value>
-        <parameters>
-          <parameter name="protocol_version" transfer-ownership="none">
-            <type name="guint8" c:type="guint8"/>
-          </parameter>
-          <parameter name="client_version" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="slave_id" transfer-ownership="none">
-            <type name="guint32" c:type="guint32"/>
-          </parameter>
-          <parameter name="login_code" transfer-ownership="none">
-            <type name="guint32" c:type="guint32"/>
-          </parameter>
-          <parameter name="slave_name" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="slave_network" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="max_channel_count" transfer-ownership="none">
-            <type name="guint32" c:type="guint32"/>
-          </parameter>
-          <parameter name="max_user_count" transfer-ownership="none">
-            <type name="guint32" c:type="guint32"/>
-          </parameter>
-          <parameter name="server" transfer-ownership="none">
-            <type name="CMServer" c:type="OrenCMServer*"/>
-          </parameter>
-          <parameter name="socket" transfer-ownership="none">
-            <type name="NCSocket" c:type="OrenNCSocket*"/>
-          </parameter>
-          <parameter name="address" transfer-ownership="none">
-            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-          </parameter>
-          <parameter name="service_addr" transfer-ownership="none">
-            <array name="GLib.PtrArray" c:type="GPtrArray*">
-              <type name="gpointer" c:type="gpointer"/>
-            </array>
-          </parameter>
-          <parameter name="service_port" transfer-ownership="none">
-            <type name="guint16" c:type="guint16"/>
-          </parameter>
-          <parameter name="buffer" transfer-ownership="none">
-            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <method name="client_version"
-              c:identifier="oren_cmslave_session_client_version">
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-      </method>
-      <method name="get_address"
-              c:identifier="oren_cmslave_session_get_address">
-        <doc xml:whitespace="preserve">Get the remote address of a slave.</doc>
-        <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">a #OrenNCSockaddr.</doc>
-          <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-        </return-value>
-      </method>
-      <method name="get_id" c:identifier="oren_cmslave_session_get_id">
-        <return-value transfer-ownership="none">
-          <type name="guint32" c:type="guint32"/>
-        </return-value>
-      </method>
-      <method name="get_login_code"
-              c:identifier="oren_cmslave_session_get_login_code">
-        <return-value transfer-ownership="none">
-          <type name="guint32" c:type="guint32"/>
-        </return-value>
-      </method>
-      <method name="get_name" c:identifier="oren_cmslave_session_get_name">
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-      </method>
-      <method name="get_network"
-              c:identifier="oren_cmslave_session_get_network">
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-      </method>
-      <method name="get_server" c:identifier="oren_cmslave_session_get_server">
-        <doc xml:whitespace="preserve">Get the server of the slave.</doc>
-        <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">a #OrenCMServer.</doc>
-          <type name="CMServer" c:type="OrenCMServer*"/>
-        </return-value>
-      </method>
-      <method name="get_service_addr"
-              c:identifier="oren_cmslave_session_get_service_addr">
-        <doc xml:whitespace="preserve">Get the service address of a slave.</doc>
-        <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">the service address list</doc>
-          <array name="GLib.PtrArray" c:type="GPtrArray*">
-            <type name="NCInetAddress"/>
-          </array>
-        </return-value>
-      </method>
-      <method name="get_service_port"
-              c:identifier="oren_cmslave_session_get_service_port">
-        <return-value transfer-ownership="none">
-          <type name="guint16" c:type="guint16"/>
-        </return-value>
-      </method>
-      <method name="get_workload"
-              c:identifier="oren_cmslave_session_get_workload">
-        <doc xml:whitespace="preserve">Get the workload information of a slave.</doc>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="info"
-                     direction="out"
-                     caller-allocates="1"
-                     transfer-ownership="none">
-            <doc xml:whitespace="preserve">Store the workload information</doc>
-            <type name="CMSlaveWorkload" c:type="OrenCMSlaveWorkload*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="has_channel"
-              c:identifier="oren_cmslave_session_has_channel">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="channel_name" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="active" transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="protocol_version"
-              c:identifier="oren_cmslave_session_protocol_version">
-        <return-value transfer-ownership="none">
-          <type name="guint8" c:type="guint8"/>
-        </return-value>
-      </method>
-      <method name="recv" c:identifier="oren_cmslave_session_recv">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="from" transfer-ownership="none">
-            <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
-          </parameter>
-          <parameter name="buffer" transfer-ownership="none">
-            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="req_channel"
-              c:identifier="oren_cmslave_session_req_channel">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="channel_name" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="send" c:identifier="oren_cmslave_session_send">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="buffer" transfer-ownership="none">
-            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="work" c:identifier="oren_cmslave_session_work">
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="tv" transfer-ownership="none">
-            <type name="gpointer" c:type="timeval*"/>
-          </parameter>
-          <parameter name="timeout" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-        </parameters>
-      </method>
-      <field name="parent_instance">
-        <type name="GObject.Object" c:type="GObject"/>
-      </field>
-      <field name="priv">
-        <type name="CMSlaveSessionPrivate"
-              c:type="OrenCMSlaveSessionPrivate*"/>
-      </field>
-      <glib:signal name="add-channel" when="first">
-        <return-value transfer-ownership="none">
-          <type name="none"/>
-        </return-value>
-        <parameters>
-          <parameter name="object" transfer-ownership="none">
-            <type name="utf8"/>
-          </parameter>
-        </parameters>
-      </glib:signal>
-      <glib:signal name="remove-channel" when="first">
-        <return-value transfer-ownership="none">
-          <type name="none"/>
-        </return-value>
-        <parameters>
-          <parameter name="object" transfer-ownership="none">
-            <type name="utf8"/>
-          </parameter>
-        </parameters>
-      </glib:signal>
-      <glib:signal name="update-workload" when="first">
-        <return-value transfer-ownership="none">
-          <type name="none"/>
-        </return-value>
-        <parameters>
-          <parameter name="object" transfer-ownership="none">
-            <type name="gpointer"/>
-          </parameter>
-        </parameters>
-      </glib:signal>
-    </class>
-    <record name="CMSlaveSessionClass"
-            c:type="OrenCMSlaveSessionClass"
-            glib:is-gtype-struct-for="CMSlaveSession">
-      <field name="parent_class">
-        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
-      </field>
-      <field name="add_channel">
-        <callback name="add_channel">
-          <return-value transfer-ownership="none">
-            <type name="none" c:type="void"/>
-          </return-value>
-          <parameters>
-            <parameter name="self" transfer-ownership="none">
-              <type name="CMServer" c:type="OrenCMServer*"/>
-            </parameter>
-            <parameter name="channel" transfer-ownership="none">
-              <type name="utf8" c:type="const gchar*"/>
-            </parameter>
-          </parameters>
-        </callback>
-      </field>
-      <field name="remove_channel">
-        <callback name="remove_channel">
-          <return-value transfer-ownership="none">
-            <type name="none" c:type="void"/>
-          </return-value>
-          <parameters>
-            <parameter name="self" transfer-ownership="none">
-              <type name="CMServer" c:type="OrenCMServer*"/>
-            </parameter>
-            <parameter name="channel" transfer-ownership="none">
-              <type name="utf8" c:type="const gchar*"/>
-            </parameter>
-          </parameters>
-        </callback>
-      </field>
-      <field name="update_workload">
-        <callback name="update_workload">
-          <return-value transfer-ownership="none">
-            <type name="none" c:type="void"/>
-          </return-value>
-          <parameters>
-            <parameter name="self" transfer-ownership="none">
-              <type name="CMServer" c:type="OrenCMServer*"/>
-            </parameter>
-            <parameter name="info" transfer-ownership="none">
-              <type name="CMSlaveWorkload" c:type="OrenCMSlaveWorkload*"/>
-            </parameter>
-          </parameters>
-        </callback>
-      </field>
-    </record>
-    <record name="CMSlaveSessionPrivate"
-            c:type="OrenCMSlaveSessionPrivate"
-            disguised="1">
-    </record>
-    <record name="CMSlaveWorkload" c:type="OrenCMSlaveWorkload">
-      <field name="user_count" writable="1">
-        <type name="guint32" c:type="guint32"/>
-      </field>
-      <field name="byte_rate" writable="1">
-        <type name="guint32" c:type="guint32"/>
-      </field>
-      <field name="lost_rate" writable="1">
-        <type name="guint32" c:type="guint32"/>
-      </field>
     </record>
     <class name="DCChannel"
            c:symbol-prefix="dcchannel"
@@ -1689,23 +1686,31 @@ and/or use gtk-doc annotations.  -->
         </return-value>
       </method>
       <method name="login" c:identifier="oren_dcclient_login">
+        <doc xml:whitespace="preserve">Login to the server.</doc>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
           <parameter name="login_time" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the login time</doc>
             <type name="guint32" c:type="guint32"/>
           </parameter>
           <parameter name="address" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the server address</doc>
             <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
           </parameter>
           <parameter name="channel_name" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the channel to login</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="user_name" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the user name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="network_type" transfer-ownership="none">
+          <parameter name="network_type"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">network type</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -1756,8 +1761,8 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="info" transfer-ownership="none">
-            <type name="CMSlaveInfo" c:type="OrenCMSlaveInfo*"/>
+          <parameter name="item" transfer-ownership="none">
+            <type name="CMItem" c:type="OrenCMItem*"/>
           </parameter>
           <parameter name="timeout" transfer-ownership="none">
             <type name="gint" c:type="gint"/>
@@ -2544,8 +2549,8 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="slave" transfer-ownership="none">
-            <type name="CMSlaveInfo" c:type="OrenCMSlaveInfo*"/>
+          <parameter name="item" transfer-ownership="none">
+            <type name="CMItem" c:type="OrenCMItem*"/>
           </parameter>
         </parameters>
       </virtual-method>
@@ -2594,6 +2599,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
       </method>
       <method name="login" c:identifier="oren_dclogin_login">
+        <doc xml:whitespace="preserve">Login to the server.</doc>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2602,21 +2608,31 @@ and/or use gtk-doc annotations.  -->
             <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
           </parameter>
           <parameter name="is_cmaddr" transfer-ownership="none">
+            <doc xml:whitespace="preserve">whether the address is an cluster monitor</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
-          <parameter name="group_name" transfer-ownership="none">
+          <parameter name="group_name"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">the group name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="slave_count" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the request slave count</doc>
             <type name="guint" c:type="guint"/>
           </parameter>
           <parameter name="channel_name" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the channel to login</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="user_name" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the user name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="network_type" transfer-ownership="none">
+          <parameter name="network_type"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">network type</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -2627,26 +2643,34 @@ and/or use gtk-doc annotations.  -->
         </return-value>
       </method>
       <method name="open" c:identifier="oren_dclogin_open">
+        <doc xml:whitespace="preserve">Open an login object.</doc>
         <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">whether open success or fail.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <parameter name="reactor" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the reactor</doc>
             <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
-          <parameter name="cmclient" transfer-ownership="none">
+          <parameter name="cmclient" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the cluster client</doc>
             <type name="CMClient" c:type="OrenCMClient*"/>
           </parameter>
-          <parameter name="dcclient" transfer-ownership="none">
+          <parameter name="dcclient" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the channel client</doc>
             <type name="DCClient" c:type="OrenDCClient*"/>
           </parameter>
-          <parameter name="factory" transfer-ownership="none">
+          <parameter name="factory" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the client factory</doc>
             <type name="DCFactory" c:type="OrenDCFactory*"/>
           </parameter>
-          <parameter name="signature" transfer-ownership="none">
+          <parameter name="signature" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the login signature</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="statistics" transfer-ownership="none">
+            <doc xml:whitespace="preserve">whether do bandwidth statistics</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
         </parameters>
@@ -2663,7 +2687,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="object" transfer-ownership="none">
-            <type name="CMSlaveInfo"/>
+            <type name="CMItem"/>
           </parameter>
         </parameters>
       </glib:signal>
@@ -2703,8 +2727,8 @@ and/or use gtk-doc annotations.  -->
             <parameter name="self" transfer-ownership="none">
               <type name="DCLogin" c:type="OrenDCLogin*"/>
             </parameter>
-            <parameter name="slave" transfer-ownership="none">
-              <type name="CMSlaveInfo" c:type="OrenCMSlaveInfo*"/>
+            <parameter name="item" transfer-ownership="none">
+              <type name="CMItem" c:type="OrenCMItem*"/>
             </parameter>
           </parameters>
         </callback>
@@ -2884,8 +2908,8 @@ and/or use gtk-doc annotations.  -->
           <type name="DCPingResult" c:type="OrenDCPingResult*"/>
         </return-value>
         <parameters>
-          <parameter name="info" transfer-ownership="none">
-            <type name="CMSlaveInfo" c:type="OrenCMSlaveInfo*"/>
+          <parameter name="item" transfer-ownership="none">
+            <type name="CMItem" c:type="OrenCMItem*"/>
           </parameter>
           <parameter name="rtt" transfer-ownership="none">
             <type name="gint" c:type="gint"/>
@@ -2895,11 +2919,11 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
-      <method name="get_info" c:identifier="oren_dcping_result_get_info">
+      <method name="get_item" c:identifier="oren_dcping_result_get_item">
         <doc xml:whitespace="preserve">Get the slave information of the ping result.</doc>
         <return-value transfer-ownership="none">
-          <doc xml:whitespace="preserve">a #OrenCMSlaveInfo or %NULL on error.</doc>
-          <type name="CMSlaveInfo" c:type="OrenCMSlaveInfo*"/>
+          <doc xml:whitespace="preserve">a #OrenCMItem or %NULL on error.</doc>
+          <type name="CMItem" c:type="OrenCMItem*"/>
         </return-value>
       </method>
       <method name="get_rtt" c:identifier="oren_dcping_result_get_rtt">
@@ -3019,12 +3043,23 @@ and/or use gtk-doc annotations.  -->
           <type name="DCFactory" c:type="OrenDCFactory*"/>
         </return-value>
       </method>
+      <method name="get_group" c:identifier="oren_dcserver_get_group">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
       <method name="get_name" c:identifier="oren_dcserver_get_name">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
       </method>
-      <method name="get_network" c:identifier="oren_dcserver_get_network">
+      <method name="get_parent_group"
+              c:identifier="oren_dcserver_get_parent_group">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_place" c:identifier="oren_dcserver_get_place">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -3072,13 +3107,16 @@ and/or use gtk-doc annotations.  -->
           <parameter name="factory" transfer-ownership="none">
             <type name="DCFactory" c:type="OrenDCFactory*"/>
           </parameter>
-          <parameter name="parent_network" transfer-ownership="none">
+          <parameter name="parent_group" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="server_name" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="server_network" transfer-ownership="none">
+          <parameter name="server_group" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="server_place" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="signature" transfer-ownership="none">
@@ -3107,12 +3145,6 @@ and/or use gtk-doc annotations.  -->
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
         </parameters>
-      </method>
-      <method name="parent_network"
-              c:identifier="oren_dcserver_parent_network">
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
       </method>
       <field name="parent_instance">
         <type name="NCHandler" c:type="OrenNCHandler"/>

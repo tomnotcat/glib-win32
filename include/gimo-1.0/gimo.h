@@ -37,5 +37,7 @@
 #include <gimo-marshal.h>
 #include <gimo-utils.h>
 #include <gimo-extconfig.h>
+#include <gimo-runnable.h>
+#include <gimo-signalbus.h>
 
 #endif /* __GIMO_H__ */

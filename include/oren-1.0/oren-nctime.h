@@ -22,6 +22,9 @@
 
 #ifdef G_OS_WIN32
 # include <WinSock2.h>
+
+G_BEGIN_DECLS
+
 int gettimeofday (struct timeval *tv,
                   struct timezone *tz);
 
@@ -32,6 +35,9 @@ void timeradd (const struct timeval *a,
 void timersub (const struct timeval *a,
                const struct timeval *b,
                struct timeval *res);
+
+G_END_DECLS
+
 #else
 # include <sys/time.h>
 #endif

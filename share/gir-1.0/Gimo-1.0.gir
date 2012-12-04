@@ -168,6 +168,21 @@ and/or use gtk-doc annotations.  -->
           <type name="Context" c:type="GimoContext*"/>
         </return-value>
       </constructor>
+      <virtual-method name="async_run" invoker="async_run">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="run" transfer-ownership="none">
+            <type name="Runnable" c:type="GimoRunnable*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="destroy" invoker="destroy">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
       <virtual-method name="state_changed">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -193,6 +208,16 @@ and/or use gtk-doc annotations.  -->
           <parameter name="paths" transfer-ownership="none" allow-none="1">
             <doc xml:whitespace="preserve">path list</doc>
             <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="async_run" c:identifier="gimo_context_async_run">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="run" transfer-ownership="none">
+            <type name="Runnable" c:type="GimoRunnable*"/>
           </parameter>
         </parameters>
       </method>
@@ -322,6 +347,21 @@ and/or use gtk-doc annotations.  -->
       <field name="priv">
         <type name="ContextPrivate" c:type="GimoContextPrivate*"/>
       </field>
+      <glib:signal name="async-run" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="Runnable"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="destroy" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
       <glib:signal name="state-changed" when="first">
         <return-value transfer-ownership="none">
           <type name="none"/>
@@ -362,6 +402,33 @@ and/or use gtk-doc annotations.  -->
             </parameter>
             <parameter name="new_state" transfer-ownership="none">
               <type name="PluginState" c:type="GimoPluginState"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="async_run">
+        <callback name="async_run">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Context" c:type="GimoContext*"/>
+            </parameter>
+            <parameter name="run" transfer-ownership="none">
+              <type name="Runnable" c:type="GimoRunnable*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="destroy">
+        <callback name="destroy">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Context" c:type="GimoContext*"/>
             </parameter>
           </parameters>
         </callback>
@@ -1215,7 +1282,7 @@ and/or use gtk-doc annotations.  -->
     <class name="Plugin"
            c:symbol-prefix="plugin"
            c:type="GimoPlugin"
-           parent="GObject.Object"
+           parent="Runnable"
            glib:type-name="GimoPlugin"
            glib:get-type="gimo_plugin_get_type"
            glib:type-struct="PluginClass">
@@ -1275,11 +1342,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
-      <virtual-method name="run" invoker="run">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-      </virtual-method>
       <virtual-method name="start">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
@@ -1432,11 +1494,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <method name="run" c:identifier="gimo_plugin_run">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-      </method>
       <method name="start" c:identifier="gimo_plugin_start">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
@@ -1513,16 +1570,11 @@ and/or use gtk-doc annotations.  -->
         <type name="utf8"/>
       </property>
       <field name="parent_instance">
-        <type name="GObject.Object" c:type="GObject"/>
+        <type name="Runnable" c:type="GimoRunnable"/>
       </field>
       <field name="priv">
         <type name="PluginPrivate" c:type="GimoPluginPrivate*"/>
       </field>
-      <glib:signal name="run" when="last">
-        <return-value transfer-ownership="none">
-          <type name="none"/>
-        </return-value>
-      </glib:signal>
       <glib:signal name="start" when="last">
         <return-value transfer-ownership="none">
           <type name="gboolean"/>
@@ -1538,24 +1590,12 @@ and/or use gtk-doc annotations.  -->
             c:type="GimoPluginClass"
             glib:is-gtype-struct-for="Plugin">
       <field name="parent_class">
-        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+        <type name="RunnableClass" c:type="GimoRunnableClass"/>
       </field>
       <field name="start">
         <callback name="start">
           <return-value transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
-          </return-value>
-          <parameters>
-            <parameter name="self" transfer-ownership="none">
-              <type name="Plugin" c:type="GimoPlugin*"/>
-            </parameter>
-          </parameters>
-        </callback>
-      </field>
-      <field name="run">
-        <callback name="run">
-          <return-value transfer-ownership="none">
-            <type name="none" c:type="void"/>
           </return-value>
           <parameters>
             <parameter name="self" transfer-ownership="none">
@@ -1679,6 +1719,95 @@ and/or use gtk-doc annotations.  -->
       </field>
     </record>
     <record name="RequirePrivate" c:type="GimoRequirePrivate" disguised="1">
+    </record>
+    <class name="Runnable"
+           c:symbol-prefix="runnable"
+           c:type="GimoRunnable"
+           parent="GObject.Object"
+           glib:type-name="GimoRunnable"
+           glib:get-type="gimo_runnable_get_type"
+           glib:type-struct="RunnableClass">
+      <constructor name="new" c:identifier="gimo_runnable_new">
+        <return-value transfer-ownership="full">
+          <type name="Runnable" c:type="GimoRunnable*"/>
+        </return-value>
+      </constructor>
+      <virtual-method name="run" invoker="run">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <method name="run" c:identifier="gimo_runnable_run">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <glib:signal name="run" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
+    </class>
+    <record name="RunnableClass"
+            c:type="GimoRunnableClass"
+            glib:is-gtype-struct-for="Runnable">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="run">
+        <callback name="run">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Runnable" c:type="GimoRunnable*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="RunnablePrivate" c:type="GimoRunnablePrivate" disguised="1">
+    </record>
+    <class name="SignalBus"
+           c:symbol-prefix="signal_bus"
+           c:type="GimoSignalBus"
+           parent="Runnable"
+           glib:type-name="GimoSignalBus"
+           glib:get-type="gimo_signal_bus_get_type"
+           glib:type-struct="SignalBusClass">
+      <property name="context"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="Context"/>
+      </property>
+      <property name="object"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="GObject.Object"/>
+      </property>
+      <field name="parent_instance">
+        <type name="Runnable" c:type="GimoRunnable"/>
+      </field>
+      <field name="priv">
+        <type name="SignalBusPrivate" c:type="GimoSignalBusPrivate*"/>
+      </field>
+    </class>
+    <record name="SignalBusClass"
+            c:type="GimoSignalBusClass"
+            glib:is-gtype-struct-for="SignalBus">
+      <field name="parent_class">
+        <type name="RunnableClass" c:type="GimoRunnableClass"/>
+      </field>
+    </record>
+    <record name="SignalBusPrivate"
+            c:type="GimoSignalBusPrivate"
+            disguised="1">
     </record>
     <class name="XmlArchive"
            c:symbol-prefix="xmlarchive"

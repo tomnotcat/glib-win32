@@ -45,8 +45,8 @@ struct _OrenCMServer {
 
 struct _OrenCMServerClass {
     OrenNCHandlerClass parent_class;
-    void (*add_slave) (OrenCMServer *self, OrenCMSlaveSession *slave);
-    void (*remove_slave) (OrenCMServer *self, OrenCMSlaveSession *slave);
+    void (*add_slave) (OrenCMServer *self, OrenCMNode *slave);
+    void (*remove_slave) (OrenCMServer *self, OrenCMNode *slave);
 };
 
 GType oren_cmserver_get_type(void) G_GNUC_CONST;
@@ -69,19 +69,22 @@ const gchar* oren_cmserver_get_name (OrenCMServer *self);
 
 gint oren_cmserver_slave_count (OrenCMServer *self);
 
-OrenCMSlaveSession* oren_cmserver_lookup_slave (OrenCMServer *self,
-                                                const gchar *slave_name);
+OrenCMNode* oren_cmserver_lookup_slave (OrenCMServer *self,
+                                        const gchar *slave_name);
 
 void _oren_cmserver_remove_slave (OrenCMServer *self,
-                                  OrenCMSlaveSession *slave);
+                                  OrenCMNode *slave);
 
 void _oren_cmserver_add_channel (OrenCMServer *self,
                                  const gchar *channel_name,
-                                 OrenCMSlaveSession *slave);
+                                 OrenCMNode *slave);
 
 void _oren_cmserver_remove_channel (OrenCMServer *self,
                                     const gchar *channel_name,
-                                    OrenCMSlaveSession *slave);
+                                    OrenCMNode *slave);
+
+void _oren_cmserver_set_modified (OrenCMServer *self,
+                                  gboolean workload);
 
 G_END_DECLS
 

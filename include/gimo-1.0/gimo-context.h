@@ -51,6 +51,9 @@ struct _GimoContextClass {
                            GimoPlugin *plugin,
                            GimoPluginState old_state,
                            GimoPluginState new_state);
+    void (*async_run) (GimoContext *self,
+                       GimoRunnable *run);
+    void (*destroy) (GimoContext *self);
 };
 
 GType gimo_context_get_type (void) G_GNUC_CONST;
@@ -87,6 +90,9 @@ GObject* gimo_context_resolve_extpoint (GimoContext *self,
                                         const gchar *extpt_id);
 
 void gimo_context_run_plugins (GimoContext *self);
+
+void gimo_context_async_run (GimoContext *self,
+                             GimoRunnable *run);
 
 void gimo_context_destroy (GimoContext *self);
 

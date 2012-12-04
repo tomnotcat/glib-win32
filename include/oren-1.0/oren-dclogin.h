@@ -46,7 +46,7 @@ struct _OrenDCLogin {
 
 struct _OrenDCLoginClass {
     OrenNCHandlerClass parent_class;
-    void (*choose) (OrenDCLogin *self, OrenCMSlaveInfo *slave);
+    void (*choose) (OrenDCLogin *self, OrenCMItem *item);
     void (*login) (OrenDCLogin *self, OrenDCLoginResult result);
     void (*logout) (OrenDCLogin *self, OrenDCLogoutReason reason);
 };

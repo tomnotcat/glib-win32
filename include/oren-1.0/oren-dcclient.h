@@ -85,7 +85,7 @@ gboolean oren_dcclient_open (OrenDCClient *self,
 void oren_dcclient_close (OrenDCClient *self);
 
 void oren_dcclient_ping (OrenDCClient *self,
-                         OrenCMSlaveInfo *info,
+                         OrenCMItem *item,
                          gint timeout);
 
 void oren_dcclient_login (OrenDCClient *self,

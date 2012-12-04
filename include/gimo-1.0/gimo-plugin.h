@@ -20,7 +20,7 @@
 #ifndef __GIMO_PLUGIN_H__
 #define __GIMO_PLUGIN_H__
 
-#include "gimo-types.h"
+#include "gimo-runnable.h"
 
 G_BEGIN_DECLS
 
@@ -40,14 +40,13 @@ typedef struct _GimoPluginPrivate GimoPluginPrivate;
 typedef struct _GimoPluginClass GimoPluginClass;
 
 struct _GimoPlugin {
-    GObject parent_instance;
+    GimoRunnable parent_instance;
     GimoPluginPrivate *priv;
 };
 
 struct _GimoPluginClass {
-    GObjectClass parent_class;
+    GimoRunnableClass parent_class;
     gboolean (*start) (GimoPlugin *self);
-    void (*run) (GimoPlugin *self);
     void (*stop) (GimoPlugin *self);
 };
 
@@ -106,8 +105,6 @@ GObject* gimo_plugin_resolve (GimoPlugin *self,
 
 gboolean gimo_plugin_start (GimoPlugin *self,
                             GimoLoader *loader);
-
-void gimo_plugin_run (GimoPlugin *self);
 
 void gimo_plugin_stop (GimoPlugin *self);
 

@@ -24,20 +24,6 @@
 G_BEGIN_DECLS
 
 /**
- * OrenGPAuthResult:
- * @OREN_GPAUTH_RESULT_UNKNOWN: Unknown Result
- * @OREN_GPAUTH_RESULT_SUCCESS: Authenticate successfully
- * @OREN_GPAUTH_RESULT_ERRNAME: Invalid Username
- * @OREN_GPAUTH_RESULT_ERRPWD: Invalid Password
- */
-typedef enum {
-    OREN_GPAUTH_RESULT_UNKNOWN,
-    OREN_GPAUTH_RESULT_SUCCESS,
-    OREN_GPAUTH_RESULT_ERRNAME,
-    OREN_GPAUTH_RESULT_ERRPWD
-} OrenGPAuthResult;
-
-/**
  * OrenGPUserPrivilege:
  * @OREN_GPUSER_PRIVILEGE_ROOT: Root Privilege
  * @OREN_GPUSER_PRIVILEGE_RESERVED1: Reserved Privilege
@@ -69,9 +55,6 @@ typedef struct _OrenGPUser OrenGPUser;
 typedef struct _OrenGPHandler OrenGPHandler;
 typedef struct _OrenGPDispatch OrenGPDispatch;
 typedef struct _OrenGPFactory OrenGPFactory;
-
-GType oren_gpauth_result_get_type (void) G_GNUC_CONST;
-#define OREN_TYPE_GPAUTH_RESULT (oren_gpauth_result_get_type ())
 
 GType oren_gpuser_privilege_get_type (void) G_GNUC_CONST;
 #define OREN_TYPE_GPUSER_PRIVILEGE (oren_gpuser_privilege_get_type ())

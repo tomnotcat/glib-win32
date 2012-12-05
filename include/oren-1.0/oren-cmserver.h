@@ -83,9 +83,6 @@ void _oren_cmserver_remove_channel (OrenCMServer *self,
                                     const gchar *channel_name,
                                     OrenCMNode *slave);
 
-void _oren_cmserver_set_modified (OrenCMServer *self,
-                                  gboolean workload);
-
 G_END_DECLS
 
 #endif /* __OREN_CM_SERVER_H__ */

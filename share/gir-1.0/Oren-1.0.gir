@@ -119,6 +119,9 @@ and/or use gtk-doc annotations.  -->
           <parameter name="channel" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
+          <parameter name="place" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
           <parameter name="count" transfer-ownership="none">
             <type name="guint16" c:type="guint16"/>
           </parameter>
@@ -301,6 +304,10 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">the channel name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
+          <parameter name="place" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the server place</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
           <parameter name="service_addr"
                      transfer-ownership="none"
                      allow-none="1">
@@ -333,6 +340,11 @@ and/or use gtk-doc annotations.  -->
         </return-value>
       </method>
       <method name="get_name" c:identifier="oren_cmitem_get_name">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_place" c:identifier="oren_cmitem_get_place">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -1703,7 +1715,7 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">the channel to login</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="user_name" transfer-ownership="none">
+          <parameter name="user_name" transfer-ownership="none" allow-none="1">
             <doc xml:whitespace="preserve">the user name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
@@ -2579,6 +2591,19 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
       </method>
+      <method name="get_bus" c:identifier="oren_dclogin_get_bus">
+        <doc xml:whitespace="preserve">Get signal bus of the object.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GimoSignalBus.</doc>
+          <type name="Gimo.SignalBus" c:type="GimoSignalBus*"/>
+        </return-value>
+        <parameters>
+          <parameter name="context" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the plugin context</doc>
+            <type name="Gimo.Context" c:type="GimoContext*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="get_cmclient" c:identifier="oren_dclogin_get_cmclient">
         <doc xml:whitespace="preserve">Get the #OrenCMClient used by the login.</doc>
         <return-value transfer-ownership="none">
@@ -2625,7 +2650,7 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">the channel to login</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="user_name" transfer-ownership="none">
+          <parameter name="user_name" transfer-ownership="none" allow-none="1">
             <doc xml:whitespace="preserve">the user name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
@@ -2633,6 +2658,10 @@ and/or use gtk-doc annotations.  -->
                      transfer-ownership="none"
                      allow-none="1">
             <doc xml:whitespace="preserve">network type</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="place" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">location</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -2681,6 +2710,42 @@ and/or use gtk-doc annotations.  -->
       <field name="priv">
         <type name="DCLoginPrivate" c:type="OrenDCLoginPrivate*"/>
       </field>
+      <glib:signal name="choose" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="CMItem"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="login" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="DCLoginResult"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="logout" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="DCLogoutReason"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <class name="DCLoginBus"
+           c:symbol-prefix="dclogin_bus"
+           parent="Gimo.SignalBus"
+           glib:type-name="OrenDCLoginBus"
+           glib:get-type="oren_dclogin_bus_get_type">
       <glib:signal name="choose" when="first">
         <return-value transfer-ownership="none">
           <type name="none"/>
@@ -3605,27 +3670,6 @@ and/or use gtk-doc annotations.  -->
     </record>
     <record name="DCUserPrivate" c:type="OrenDCUserPrivate" disguised="1">
     </record>
-    <enumeration name="GPAuthResult"
-                 glib:type-name="OrenGPAuthResult"
-                 glib:get-type="oren_gpauth_result_get_type"
-                 c:type="OrenGPAuthResult">
-      <member name="UNKNOWN"
-              value="0"
-              c:identifier="OREN_GPAUTH_RESULT_UNKNOWN"
-              glib:nick="UNKNOWN"/>
-      <member name="SUCCESS"
-              value="1"
-              c:identifier="OREN_GPAUTH_RESULT_SUCCESS"
-              glib:nick="SUCCESS"/>
-      <member name="ERRNAME"
-              value="2"
-              c:identifier="OREN_GPAUTH_RESULT_ERRNAME"
-              glib:nick="ERRNAME"/>
-      <member name="ERRPWD"
-              value="3"
-              c:identifier="OREN_GPAUTH_RESULT_ERRPWD"
-              glib:nick="ERRPWD"/>
-    </enumeration>
     <class name="GPChannel"
            c:symbol-prefix="gpchannel"
            c:type="OrenGPChannel"
@@ -3721,16 +3765,6 @@ and/or use gtk-doc annotations.  -->
           <type name="GPClient" c:type="OrenGPClient*"/>
         </return-value>
       </constructor>
-      <virtual-method name="auth">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="result" transfer-ownership="none">
-            <type name="GPAuthResult" c:type="OrenGPAuthResult"/>
-          </parameter>
-        </parameters>
-      </virtual-method>
       <virtual-method name="protocol">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -3801,19 +3835,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <method name="send_auth" c:identifier="oren_gpclient_send_auth">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="user_name" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="password" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-        </parameters>
-      </method>
       <method name="send_protocol" c:identifier="oren_gpclient_send_protocol">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -3824,22 +3845,22 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="set_privilege" c:identifier="oren_gpclient_set_privilege">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="privilege" transfer-ownership="none">
+            <type name="GPUserPrivilege" c:type="OrenGPUserPrivilege"/>
+          </parameter>
+        </parameters>
+      </method>
       <field name="parent_instance">
         <type name="DCClient" c:type="OrenDCClient"/>
       </field>
       <field name="priv">
         <type name="GPClientPrivate" c:type="OrenGPClientPrivate*"/>
       </field>
-      <glib:signal name="auth" when="first">
-        <return-value transfer-ownership="none">
-          <type name="none"/>
-        </return-value>
-        <parameters>
-          <parameter name="object" transfer-ownership="none">
-            <type name="GPAuthResult"/>
-          </parameter>
-        </parameters>
-      </glib:signal>
       <glib:signal name="protocol" when="first">
         <return-value transfer-ownership="none">
           <type name="none"/>
@@ -3856,21 +3877,6 @@ and/or use gtk-doc annotations.  -->
             glib:is-gtype-struct-for="GPClient">
       <field name="parent_class">
         <type name="DCClientClass" c:type="OrenDCClientClass"/>
-      </field>
-      <field name="auth">
-        <callback name="auth">
-          <return-value transfer-ownership="none">
-            <type name="none" c:type="void"/>
-          </return-value>
-          <parameters>
-            <parameter name="self" transfer-ownership="none">
-              <type name="GPClient" c:type="OrenGPClient*"/>
-            </parameter>
-            <parameter name="result" transfer-ownership="none">
-              <type name="GPAuthResult" c:type="OrenGPAuthResult"/>
-            </parameter>
-          </parameters>
-        </callback>
       </field>
       <field name="protocol">
         <callback name="protocol">
@@ -4265,6 +4271,16 @@ and/or use gtk-doc annotations.  -->
         <parameters>
           <parameter name="buffer" transfer-ownership="none">
             <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_privilege" c:identifier="oren_gpuser_set_privilege">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="privilege" transfer-ownership="none">
+            <type name="GPUserPrivilege" c:type="OrenGPUserPrivilege"/>
           </parameter>
         </parameters>
       </method>

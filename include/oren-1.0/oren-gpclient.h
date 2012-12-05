@@ -45,7 +45,6 @@ struct _OrenGPClient {
 
 struct _OrenGPClientClass {
     OrenDCClientClass parent_class;
-    void (*auth) (OrenGPClient *self, OrenGPAuthResult result);
     void (*protocol) (OrenGPClient *self, OrenNCBuffer *buffer);
 };
 
@@ -69,9 +68,8 @@ OrenNCBuffer* oren_gpclient_make_protocol (OrenGPClient *self,
 void oren_gpclient_send_protocol (OrenGPClient *self,
                                   OrenNCBuffer *buffer);
 
-void oren_gpclient_send_auth (OrenGPClient *self,
-                              const gchar *user_name,
-                              const gchar *password);
+void oren_gpclient_set_privilege (OrenGPClient *self,
+                                  OrenGPUserPrivilege privilege);
 
 OrenGPUserPrivilege oren_gpclient_get_privilege (OrenGPClient *self);
 

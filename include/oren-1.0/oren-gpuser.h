@@ -65,6 +65,9 @@ OrenNCBuffer* oren_gpuser_make_protocol (OrenGPUser *self,
 void oren_gpuser_send_protocol (OrenGPUser *self,
                                 OrenNCBuffer *buffer);
 
+void oren_gpuser_set_privilege (OrenGPUser *self,
+                                OrenGPUserPrivilege privilege);
+
 OrenGPUserPrivilege oren_gpuser_get_privilege (OrenGPUser *self);
 
 gboolean oren_gpuser_has_privilege (OrenGPUser *self,

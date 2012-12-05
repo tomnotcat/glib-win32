@@ -74,6 +74,7 @@ void oren_cmclient_request_groups (OrenCMClient *self);
 void oren_cmclient_request_slaves (OrenCMClient *self,
                                    const gchar *group,
                                    const gchar *channel,
+                                   const gchar *place,
                                    guint16 count);
 
 G_END_DECLS

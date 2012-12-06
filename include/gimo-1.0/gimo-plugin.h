@@ -102,7 +102,7 @@ void gimo_plugin_define_object (GimoPlugin *self,
 
 void gimo_plugin_define_string (GimoPlugin *self,
                                 const gchar *symbol,
-                                const gchar *sgring);
+                                const gchar *string);
 
 GObject* gimo_plugin_resolve (GimoPlugin *self,
                               const gchar *symbol);

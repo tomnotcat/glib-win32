@@ -50,6 +50,9 @@ struct _GimoSignalBusClass {
 
 GType gimo_signal_bus_get_type (void) G_GNUC_CONST;
 
+void gimo_signal_bus_set_capacity (GimoSignalBus *self,
+                                   gsize size);
+
 #define GIMO_SIGNALBUS_BEGIN(TN, t_n, s_c) \
     struct TN##Bus { \
         GimoSignalBus parent_instance; \

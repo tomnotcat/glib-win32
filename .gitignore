@@ -1,6 +1,5 @@
 *.suo
 *.aps
-*.vcxproj.user
 .MySCMServerInfo
 vs10/Debug/*
 vs10/Release/*

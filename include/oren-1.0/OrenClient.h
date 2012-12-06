@@ -117,17 +117,13 @@ public:
     // 127.0.0.1:7474
     void ReqServers (const char *cmaddr, const char *channel);
 
-    void SetQuality (unsigned int quality);
-
-    unsigned int GetQuality (void);
-
     void SetSource (const void *param, size_t size);
 
     void SendFormat (const void *format, size_t size);
 
     void TurnRecv (bool accept_data);
 
-    void SendData (const void *data, size_t size);
+    void SendData (const void *data, size_t size, int max_retry);
 
     void Logout (void);
 
@@ -157,8 +153,6 @@ public:
     virtual void OnSource (const char *source_name,
                            const void *param,
                            size_t size);
-
-    virtual void OnQuality (unsigned int quality);
 
     virtual void OnFormat (const void *format, size_t size);
 

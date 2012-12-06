@@ -56,9 +56,7 @@ OrenNCBuffer* oren_gpchannel_make_protocol (OrenGPChannel *self,
 
 void oren_gpchannel_multicast_protocol (OrenGPChannel *self,
                                         OrenGPUser *skip,
-                                        OrenNCBuffer *buffer,
-                                        OrenMulticastFilter filter,
-                                        gpointer user_data);
+                                        OrenNCBuffer *buffer);
 
 void _oren_gpchannel_dispatch_protocol (OrenGPChannel *self,
                                         OrenGPUser *user,

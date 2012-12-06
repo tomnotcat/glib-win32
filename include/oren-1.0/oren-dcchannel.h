@@ -109,33 +109,30 @@ void oren_dcchannel_freeze (OrenDCChannel *self);
 
 gboolean oren_dcchannel_is_frozen (OrenDCChannel *self);
 
-OrenNCBuffer* oren_dcchannel_make_data (OrenDCChannel *self);
+OrenNCBuffer* oren_dcchannel_make_packet (OrenDCChannel *self,
+                                          guint msg);
 
-OrenNCBuffer* oren_dcchannel_make_message (OrenDCChannel *self,
-                                           guint message);
+void oren_dcchannel_multicast (OrenDCChannel *self,
+                               OrenDCUser *skip,
+                               OrenNCBuffer *buffer,
+                               guint max_retry);
 
-void oren_dcchannel_multicast_packet (OrenDCChannel *self,
-                                      OrenDCUser *skip,
-                                      OrenNCBuffer *buffer,
-                                      OrenMulticastFilter filter,
-                                      gpointer user_data);
+void oren_dcchannel_multicast_p2p (OrenDCChannel *self,
+                                   OrenDCUser *skip,
+                                   OrenNCBuffer *buffer,
+                                   guint max_retry);
 
-void _oren_dcchannel_real_multicast (OrenDCChannel *self,
-                                     OrenDCUser *skip,
-                                     OrenNCBuffer *buffer,
-                                     OrenMulticastFilter filter,
-                                     gpointer user_data,
-                                     gboolean flush);
-
-void _oren_dcchannel_real_clear (OrenDCChannel *self);
+void oren_dcchannel_multicast_full (OrenDCChannel *self,
+                                    OrenDCUser *skip,
+                                    OrenNCBuffer *buffer,
+                                    OrenMulticastFilter filter,
+                                    gpointer user_data,
+                                    guint max_retry,
+                                    gboolean flush,
+                                    gboolean use_p2p);
 
 void _oren_dcchannel_remove_user (OrenDCChannel *self,
                                   OrenDCUser *user);
-
-void _oren_dcchannel_set_quality (OrenDCChannel *self,
-                                  OrenDCUser *user,
-                                  guint32 send,
-                                  guint32 receive);
 
 void _oren_dcchannel_enable_p2p (OrenDCChannel *self,
                                  OrenDCUser *user);

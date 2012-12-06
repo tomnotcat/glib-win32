@@ -48,7 +48,9 @@ struct _OrenSMClientClass {
     void (*source) (OrenSMClient *self, OrenNCBuffer *param);
     void (*accept) (OrenSMClient *self, gboolean accept);
     void (*media_format) (OrenSMClient *self, OrenNCBuffer *format);
-    void (*media_data) (OrenSMClient *self, OrenNCBuffer *buffer);
+    void (*media_data) (OrenSMClient *self,
+                        guint max_retry,
+                        OrenNCBuffer *buffer);
 };
 
 GType oren_smclient_get_type (void) G_GNUC_CONST;
@@ -71,7 +73,8 @@ void oren_smclient_send_format (OrenSMClient *self,
 
 void oren_smclient_send_data (OrenSMClient *self,
                               gconstpointer data,
-                              gsize size);
+                              gsize size,
+                              guint max_retry);
 
 void oren_smclient_accept_data (OrenSMClient *self,
                                 gboolean accept);

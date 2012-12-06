@@ -78,6 +78,7 @@ void _oren_smchannel_set_format (OrenSMChannel *self,
 
 void _oren_smchannel_send_data (OrenSMChannel *self,
                                 OrenSMUser *from,
+                                guint8 max_retry,
                                 guint8 source_code,
                                 gconstpointer data,
                                 gsize size);

@@ -70,7 +70,6 @@ gboolean oren_dcserver_open (OrenDCServer *self,
                              gint max_channel_count,
                              gint max_user_count,
                              gint max_cpu_usage,
-                             gint data_quality,
                              gboolean enable_p2p,
                              gboolean auto_freeze);
 
@@ -87,8 +86,6 @@ const gchar* oren_dcserver_get_place (OrenDCServer *self);
 const gchar* oren_dcserver_get_signature (OrenDCServer *self);
 
 OrenDCFactory* oren_dcserver_get_factory (OrenDCServer *self);
-
-gint oren_dcserver_get_data_quality (OrenDCServer *self);
 
 gint oren_dcserver_get_channel_count (OrenDCServer *self);
 

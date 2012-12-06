@@ -89,11 +89,6 @@ void oren_ncsession_set_buffer (OrenNCSession *self,
 
 OrenNCBuffer* oren_ncsession_get_buffer (OrenNCSession *self);
 
-void oren_ncsession_set_max_resend (OrenNCSession *self,
-                                    guint resend);
-
-guint oren_ncsession_get_max_resend (OrenNCSession *self);
-
 void oren_ncsession_set_pps (OrenNCSession *self, guint pps);
 
 guint oren_ncsession_get_pps (OrenNCSession *self);
@@ -103,10 +98,12 @@ void oren_ncsession_set_rtt (OrenNCSession *self, guint rtt);
 guint oren_ncsession_get_rtt (OrenNCSession *self);
 
 guint16 oren_ncsession_enqueue (OrenNCSession *self,
-                                OrenNCBuffer *buffer);
+                                OrenNCBuffer *buffer,
+                                guint max_retry);
 
 gboolean oren_ncsession_send (OrenNCSession *self,
-                              OrenNCBuffer *buffer);
+                              OrenNCBuffer *buffer,
+                              guint max_retry);
 
 gboolean oren_ncsession_recv (OrenNCSession *self,
                               OrenNCBuffer *buffer);

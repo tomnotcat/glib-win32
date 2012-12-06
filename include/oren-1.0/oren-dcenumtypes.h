@@ -29,9 +29,6 @@ GType oren_dclogin_result_get_type (void) G_GNUC_CONST;
 GType oren_dclogout_reason_get_type (void) G_GNUC_CONST;
 #define OREN_TYPE_DCLOGOUT_REASON (oren_dclogout_reason_get_type ())
 
-GType oren_dcsession_id_get_type (void) G_GNUC_CONST;
-#define OREN_TYPE_DCSESSION_ID (oren_dcsession_id_get_type ())
-
 const gchar* oren_dclogin_result_to_string (OrenDCLoginResult result);
 
 const gchar* oren_dclogout_reason_to_string (OrenDCLogoutReason reason);

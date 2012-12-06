@@ -47,9 +47,8 @@ struct _OrenDCUser {
 
 struct _OrenDCUserClass {
     GObjectClass parent_class;
-    void (*message) (OrenDCUser *self, guint message, OrenNCBuffer *buffer);
-    void (*data) (OrenDCUser *self, OrenNCBuffer *buffer);
-    void (*p2p) (OrenDCUser *self, gboolean enable);
+    void (*turnp2p) (OrenDCUser *self, gboolean enable);
+    void (*packet) (OrenDCUser *self, guint msg, OrenNCBuffer *buffer);
 };
 
 GType oren_dcuser_get_type (void) G_GNUC_CONST;
@@ -64,15 +63,12 @@ OrenDCUser* oren_dcuser_new (OrenDCChannel *channel,
                              guint32 login_code,
                              guint protocol_version);
 
-OrenNCBuffer* oren_dcuser_make_data (OrenDCUser *self);
-
-OrenNCBuffer* oren_dcuser_make_message (OrenDCUser *self,
-                                        guint message);
+OrenNCBuffer* oren_dcuser_make_packet (OrenDCUser *self,
+                                       guint msg);
 
 gboolean oren_dcuser_send_packet (OrenDCUser *self,
-                                  OrenNCBuffer *buffer);
-
-void oren_dcuser_clear_buffer (OrenDCUser *self);
+                                  OrenNCBuffer *buffer,
+                                  guint max_retry);
 
 OrenDCChannel* oren_dcuser_get_channel (OrenDCUser *self);
 
@@ -97,12 +93,12 @@ OrenNCSockaddr* oren_dcuser_get_address (OrenDCUser *self);
 
 gboolean _oren_dcuser_send (OrenDCUser *self,
                             OrenNCBuffer *buffer,
+                            guint max_retry,
                             gboolean flush,
                             gboolean statistics);
 
 gboolean _oren_dcuser_recv (OrenDCUser *self,
                             OrenNCSockaddr *from,
-                            guint session_id,
                             OrenNCBuffer *buffer);
 
 gboolean _oren_dcuser_work (OrenDCUser *self,

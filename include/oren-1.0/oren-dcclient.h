@@ -50,9 +50,7 @@ struct _OrenDCClientClass {
     void (*ping) (OrenDCClient *self, OrenDCPingResult *result);
     void (*login) (OrenDCClient *self, OrenDCLoginResult result);
     void (*logout) (OrenDCClient *self, OrenDCLogoutReason reason);
-    void (*quality) (OrenDCClient *self, guint receive);
-    void (*message) (OrenDCClient *self, guint message, OrenNCBuffer *buffer);
-    void (*data) (OrenDCClient *self, OrenNCBuffer *buffer);
+    void (*packet) (OrenDCClient *self, guint msg, OrenNCBuffer *buffer);
     void (*alone) (OrenDCClient *self, gboolean alone);
     void (*p2p) (OrenDCClient *self, gboolean enable);
     void (*work) (OrenDCClient *self);
@@ -99,20 +97,15 @@ void oren_dcclient_logout (OrenDCClient *self);
 
 OrenNCOnlineState oren_dcclient_get_state (OrenDCClient *self);
 
-void oren_dcclient_set_quality (OrenDCClient *self,
-                                guint send,
-                                guint receive);
-
 void oren_dcclient_enable_p2p (OrenDCClient *self,
                                gboolean enable);
 
-OrenNCBuffer* oren_dcclient_make_data (OrenDCClient *self);
-
-OrenNCBuffer* oren_dcclient_make_message (OrenDCClient *self,
-                                          guint message);
+OrenNCBuffer* oren_dcclient_make_packet (OrenDCClient *self,
+                                         guint msg);
 
 void oren_dcclient_send_packet (OrenDCClient *self,
-                                OrenNCBuffer *buffer);
+                                OrenNCBuffer *buffer,
+                                guint max_retry);
 
 const gchar* oren_dcclient_server_name (OrenDCClient *self);
 
@@ -131,18 +124,13 @@ gboolean oren_dcclient_is_alone (OrenDCClient *self);
 void oren_dcclient_get_transfer_status (OrenDCClient *self,
                                         OrenDCTransferStatus *status);
 
-void _oren_dcclient_real_set_quality (OrenDCClient *self,
-                                      guint send,
-                                      guint receive);
-
 void _oren_dcclient_real_enable_p2p (OrenDCClient *self,
                                      gboolean enable);
 
 gboolean _oren_dcclient_real_send (OrenDCClient *self,
                                    OrenNCBuffer *buffer,
+                                   guint max_retry,
                                    gboolean flush);
-
-void _oren_dcclient_real_clear (OrenDCClient *self);
 
 OrenMTPeer* _oren_dcclient_get_mtpeer (OrenDCClient *self);
 

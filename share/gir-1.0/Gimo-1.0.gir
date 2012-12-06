@@ -1379,7 +1379,8 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">the symbol name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="sgring" transfer-ownership="none">
+          <parameter name="string" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the string value</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -1801,6 +1802,16 @@ and/or use gtk-doc annotations.  -->
            glib:type-name="GimoSignalBus"
            glib:get-type="gimo_signal_bus_get_type"
            glib:type-struct="SignalBusClass">
+      <method name="set_capacity" c:identifier="gimo_signal_bus_set_capacity">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="size" transfer-ownership="none">
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+        </parameters>
+      </method>
       <property name="context"
                 writable="1"
                 construct-only="1"

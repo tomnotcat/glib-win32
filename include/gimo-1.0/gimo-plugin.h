@@ -96,9 +96,13 @@ GimoContext* gimo_plugin_query_context (GimoPlugin *self);
 
 GimoPluginState gimo_plugin_get_state (GimoPlugin *self);
 
-gboolean gimo_plugin_define (GimoPlugin *self,
-                             const gchar *symbol,
-                             GObject *object);
+void gimo_plugin_define_object (GimoPlugin *self,
+                                const gchar *symbol,
+                                GObject *object);
+
+void gimo_plugin_define_string (GimoPlugin *self,
+                                const gchar *symbol,
+                                const gchar *sgring);
 
 GObject* gimo_plugin_resolve (GimoPlugin *self,
                               const gchar *symbol);

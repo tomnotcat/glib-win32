@@ -1353,16 +1353,34 @@ and/or use gtk-doc annotations.  -->
           <type name="none" c:type="void"/>
         </return-value>
       </virtual-method>
-      <method name="define" c:identifier="gimo_plugin_define">
+      <method name="define_object" c:identifier="gimo_plugin_define_object">
+        <doc xml:whitespace="preserve">Define an object to the plugin.</doc>
         <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
+          <type name="none" c:type="void"/>
         </return-value>
         <parameters>
           <parameter name="symbol" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the symbol name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="object" transfer-ownership="none">
+          <parameter name="object" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">a #GObject</doc>
             <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="define_string" c:identifier="gimo_plugin_define_string">
+        <doc xml:whitespace="preserve">Define a string to the plugin.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="symbol" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the symbol name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="sgring" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
       </method>
@@ -1496,11 +1514,14 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </method>
       <method name="start" c:identifier="gimo_plugin_start">
+        <doc xml:whitespace="preserve">Start the plugin runtime.</doc>
         <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">whether call success</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
-          <parameter name="loader" transfer-ownership="none">
+          <parameter name="loader" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the module loader</doc>
             <type name="Loader" c:type="GimoLoader*"/>
           </parameter>
         </parameters>

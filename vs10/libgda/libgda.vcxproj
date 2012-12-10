@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{93CB4E5D-5B5E-4844-95C8-725150D39973}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>sqlite</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SQLITE_EXPORTS;SQLITE_ENABLE_COLUMN_METADATA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\lib\glib-2.0\include;sqlite-amalgamation-3071401;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>sqlite.def</ModuleDefinitionFile>
+      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gio-2.0.lib;gmodule-2.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy "..\Debug\$(TargetName)$(TargetExt)"  "..\..\bin\$(TargetName)$(TargetExt)"
+Copy "..\Debug\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
+Copy "sqlite-amalgamation-3071401\sqlite3.h"  "..\..\include\sqlite\sqlite3.h"
+Copy "sqlheavy-0.1.1\sqlheavy\SQLHeavy.h"  "..\..\include\sqlite\SQLHeavy.h"
+
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SQLITE_EXPORTS;SQLITE_ENABLE_COLUMN_METADATA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\lib\glib-2.0\include;sqlite-amalgamation-3071401</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>sqlite.def</ModuleDefinitionFile>
+      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gio-2.0.lib;gmodule-2.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy "..\Release\$(TargetName)$(TargetExt)"  "..\..\bin\$(TargetName)$(TargetExt)"
+Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
+Copy "sqlite-amalgamation-3071401\sqlite3.h"  "..\..\include\sqlite\sqlite3.h"
+Copy "sqlheavy-0.1.1\sqlheavy\SQLHeavy.h"  "..\..\include\sqlite\SQLHeavy.h"
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="sqlite-amalgamation-3071401\sqlite3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="sqlite.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-backup.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-common-function.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-cursor.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-database.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-enums.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-error.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-mutable-record.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-profiling-database.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-query-result.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-query.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-queryable.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-record-set.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-record.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-row.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-table-cursor.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-table.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-transaction.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-user-functions.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-value.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-version.c" />
+    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-versioned-database.c" />
+    <ClCompile Include="sqlite-amalgamation-3071401\sqlite3.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

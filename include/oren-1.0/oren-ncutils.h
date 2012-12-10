@@ -76,6 +76,27 @@ GPtrArray* _oren_create_inetaddr_array (gchar **strs);
 
 gchar* _oren_inetaddr_array_to_string (GPtrArray *addrs);
 
+/* Utility log functions for scripts. */
+#ifndef oren_debug
+void oren_debug (const gchar *str);
+#endif
+
+#ifndef oren_message
+void oren_message (const gchar *str);
+#endif
+
+#ifndef oren_warning
+void oren_warning (const gchar *str);
+#endif
+
+#ifndef oren_critical
+void oren_critical (const gchar *str);
+#endif
+
+#ifndef oren_error
+void oren_error (const gchar *str);
+#endif
+
 G_END_DECLS
 
 #endif /* __OREN_NC_UTILS_H__ */

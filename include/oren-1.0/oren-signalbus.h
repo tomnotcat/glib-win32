@@ -19,12 +19,20 @@
 #define __OREN_SIGNALBUS_H__
 
 #include "oren-dctypes.h"
+#include "oren-nctypes.h"
 #include <gimo.h>
 
 G_BEGIN_DECLS
 
 GType oren_dclogin_bus_get_type (void) G_GNUC_CONST;
-GimoSignalBus* oren_dclogin_get_bus (OrenDCLogin *self, GimoContext *context);
+
+GimoSignalBus* oren_dclogin_get_bus (OrenDCLogin *self,
+                                     GimoContext *context);
+
+GType oren_http_request_bus_get_type (void) G_GNUC_CONST;
+
+GimoSignalBus* oren_http_request_get_bus (OrenHttpRequest *self,
+                                          GimoContext *context);
 
 G_END_DECLS
 

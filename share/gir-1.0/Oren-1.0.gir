@@ -1294,6 +1294,20 @@ and/or use gtk-doc annotations.  -->
           <type name="DCClient" c:type="OrenDCClient*"/>
         </return-value>
       </method>
+      <method name="get_reactor" c:identifier="oren_dcchannel_get_reactor">
+        <doc xml:whitespace="preserve">Get the reactor of the channel.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #OrenNCReactor.</doc>
+          <type name="NCReactor" c:type="OrenNCReactor*"/>
+        </return-value>
+      </method>
+      <method name="get_server" c:identifier="oren_dcchannel_get_server">
+        <doc xml:whitespace="preserve">Get the server of the channel.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #OrenDCServer.</doc>
+          <type name="DCServer" c:type="OrenDCServer*"/>
+        </return-value>
+      </method>
       <method name="get_signature" c:identifier="oren_dcchannel_get_signature">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
@@ -3571,6 +3585,13 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
+      <method name="get_context" c:identifier="oren_gpchannel_get_context">
+        <doc xml:whitespace="preserve">Get the plugin context of the channel.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GimoContext.</doc>
+          <type name="Gimo.Context" c:type="GimoContext*"/>
+        </return-value>
+      </method>
       <method name="make_protocol" c:identifier="oren_gpchannel_make_protocol">
         <doc xml:whitespace="preserve">Create a protocol packet;</doc>
         <return-value transfer-ownership="full">
@@ -3683,26 +3704,34 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </method>
       <method name="open" c:identifier="oren_gpclient_open">
+        <doc xml:whitespace="preserve">Open an login object.</doc>
         <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">whether open success or fail.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <parameter name="reactor" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the reactor</doc>
             <type name="NCReactor" c:type="OrenNCReactor*"/>
           </parameter>
-          <parameter name="signature" transfer-ownership="none">
+          <parameter name="signature" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the login signature</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="statistics" transfer-ownership="none">
+            <doc xml:whitespace="preserve">whether do bandwidth statistics</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
-          <parameter name="context" transfer-ownership="none">
+          <parameter name="context" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the plugin context</doc>
             <type name="Gimo.Context" c:type="GimoContext*"/>
           </parameter>
-          <parameter name="extpoint" transfer-ownership="none">
+          <parameter name="extpoint" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the extension point for handler</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="disp" transfer-ownership="none">
+          <parameter name="disp" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the protocol dispatch</doc>
             <type name="GPDispatch" c:type="OrenGPDispatch*"/>
           </parameter>
         </parameters>
@@ -3832,6 +3861,17 @@ and/or use gtk-doc annotations.  -->
           </parameter>
           <parameter name="handler" transfer-ownership="none">
             <type name="GPHandler" c:type="OrenGPHandler*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_queue_size"
+              c:identifier="oren_gpdispatch_set_queue_size">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="size" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </method>
@@ -4193,6 +4233,173 @@ and/or use gtk-doc annotations.  -->
               c:identifier="OREN_GPUSER_PRIVILEGE_GUEST"
               glib:nick="GUEST"/>
     </enumeration>
+    <class name="HttpRequest"
+           c:symbol-prefix="http_request"
+           c:type="OrenHttpRequest"
+           parent="GObject.Object"
+           glib:type-name="OrenHttpRequest"
+           glib:get-type="oren_http_request_get_type"
+           glib:type-struct="HttpRequestClass">
+      <implements name="TaskBase"/>
+      <constructor name="new" c:identifier="oren_http_request_new">
+        <return-value transfer-ownership="full">
+          <type name="HttpRequest" c:type="OrenHttpRequest*"/>
+        </return-value>
+        <parameters>
+          <parameter name="url" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="error">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="error" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="response">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="content" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="get_bus" c:identifier="oren_http_request_get_bus">
+        <doc xml:whitespace="preserve">Get signal bus of the object.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GimoSignalBus.</doc>
+          <type name="Gimo.SignalBus" c:type="GimoSignalBus*"/>
+        </return-value>
+        <parameters>
+          <parameter name="context" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the plugin context</doc>
+            <type name="Gimo.Context" c:type="GimoContext*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_url" c:identifier="oren_http_request_get_url">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="perform" c:identifier="oren_http_request_perform">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <property name="timeout"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="guint"/>
+      </property>
+      <property name="url"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="utf8"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="HttpRequestPrivate" c:type="OrenHttpRequestPrivate*"/>
+      </field>
+      <glib:signal name="error" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="response" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <class name="HttpRequestBus"
+           c:symbol-prefix="http_request_bus"
+           parent="Gimo.SignalBus"
+           glib:type-name="OrenHttpRequestBus"
+           glib:get-type="oren_http_request_bus_get_type">
+      <glib:signal name="error" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="response" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="utf8"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="HttpRequestClass"
+            c:type="OrenHttpRequestClass"
+            glib:is-gtype-struct-for="HttpRequest">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="response">
+        <callback name="response">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="HttpRequest" c:type="OrenHttpRequest*"/>
+            </parameter>
+            <parameter name="content" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="error">
+        <callback name="error">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="HttpRequest" c:type="OrenHttpRequest*"/>
+            </parameter>
+            <parameter name="error" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="HttpRequestPrivate"
+            c:type="OrenHttpRequestPrivate"
+            disguised="1">
+    </record>
     <class name="MTBranch"
            c:symbol-prefix="mtbranch"
            c:type="OrenMTBranch"
@@ -6020,6 +6227,11 @@ and/or use gtk-doc annotations.  -->
     </record>
     <record name="NCPingResult" c:type="OrenNCPingResult" disguised="1">
     </record>
+    <constant name="NCREACTOR_DEFAULT_QUEUE_SIZE"
+              value="256"
+              c:type="OREN_NCREACTOR_DEFAULT_QUEUE_SIZE">
+      <type name="gint" c:type="gint"/>
+    </constant>
     <class name="NCReactor"
            c:symbol-prefix="ncreactor"
            c:type="OrenNCReactor"
@@ -6126,6 +6338,17 @@ and/or use gtk-doc annotations.  -->
           <parameter name="handler" transfer-ownership="none">
             <doc xml:whitespace="preserve">the handler to be registered</doc>
             <type name="NCHandler" c:type="OrenNCHandler*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_queue_size"
+              c:identifier="oren_ncreactor_set_queue_size">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="size" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </method>
@@ -7736,6 +7959,273 @@ source address of the received packet.
     </record>
     <record name="SMUserPrivate" c:type="OrenSMUserPrivate" disguised="1">
     </record>
+    <class name="Task"
+           c:symbol-prefix="task"
+           c:type="OrenTask"
+           parent="GObject.Object"
+           glib:type-name="OrenTask"
+           glib:get-type="oren_task_get_type"
+           glib:type-struct="TaskClass">
+      <implements name="TaskBase"/>
+      <constructor name="new" c:identifier="oren_task_new">
+        <doc xml:whitespace="preserve">Create a task with the specified callback.</doc>
+        <return-value transfer-ownership="full">
+          <type name="Task" c:type="OrenTask*"/>
+        </return-value>
+        <parameters>
+          <parameter name="start"
+                     transfer-ownership="none"
+                     allow-none="1"
+                     scope="async">
+            <doc xml:whitespace="preserve">the start function</doc>
+            <type name="TaskFunc" c:type="OrenTaskFunc"/>
+          </parameter>
+          <parameter name="stop"
+                     transfer-ownership="none"
+                     allow-none="1"
+                     scope="async"
+                     closure="2">
+            <doc xml:whitespace="preserve">the stop function</doc>
+            <type name="TaskFunc" c:type="OrenTaskFunc"/>
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">user data for @start and @stop</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="start">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="stop">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="TaskPrivate" c:type="OrenTaskPrivate*"/>
+      </field>
+      <glib:signal name="start" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="stop" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
+    </class>
+    <interface name="TaskBase"
+               c:symbol-prefix="task_base"
+               c:type="OrenTaskBase"
+               glib:type-name="OrenTaskBase"
+               glib:get-type="oren_task_base_get_type"
+               glib:type-struct="TaskBaseInterface">
+      <virtual-method name="start" invoker="start">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="stop" invoker="stop">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <method name="start" c:identifier="oren_task_base_start">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <method name="stop" c:identifier="oren_task_base_stop">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+    </interface>
+    <callback name="TaskBaseFunc" c:type="OrenTaskBaseFunc">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="self" transfer-ownership="none">
+          <type name="TaskBase" c:type="OrenTaskBase*"/>
+        </parameter>
+      </parameters>
+    </callback>
+    <record name="TaskBaseInterface"
+            c:type="OrenTaskBaseInterface"
+            glib:is-gtype-struct-for="TaskBase">
+      <field name="base_iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="start">
+        <callback name="start">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="TaskBase" c:type="OrenTaskBase*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="stop">
+        <callback name="stop">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="TaskBase" c:type="OrenTaskBase*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="TaskClass"
+            c:type="OrenTaskClass"
+            glib:is-gtype-struct-for="Task">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="start">
+        <callback name="start">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Task" c:type="OrenTask*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="stop">
+        <callback name="stop">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Task" c:type="OrenTask*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <callback name="TaskFunc" c:type="OrenTaskFunc">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="user_data" transfer-ownership="none" closure="0">
+          <type name="gpointer" c:type="gpointer"/>
+        </parameter>
+      </parameters>
+    </callback>
+    <record name="TaskPrivate" c:type="OrenTaskPrivate" disguised="1">
+    </record>
+    <class name="ThreadPool"
+           c:symbol-prefix="thread_pool"
+           c:type="OrenThreadPool"
+           parent="GObject.Object"
+           glib:type-name="OrenThreadPool"
+           glib:get-type="oren_thread_pool_get_type"
+           glib:type-struct="ThreadPoolClass">
+      <constructor name="new" c:identifier="oren_thread_pool_new">
+        <return-value transfer-ownership="full">
+          <type name="ThreadPool" c:type="OrenThreadPool*"/>
+        </return-value>
+        <parameters>
+          <parameter name="thread_count" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="add_task" c:identifier="oren_thread_pool_add_task">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="task" transfer-ownership="none">
+            <type name="TaskBase" c:type="OrenTaskBase*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="remove_task" c:identifier="oren_thread_pool_remove_task">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="task" transfer-ownership="none">
+            <type name="TaskBase" c:type="OrenTaskBase*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_queue_size"
+              c:identifier="oren_thread_pool_set_queue_size">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="size" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="wait_for_finish"
+              c:identifier="oren_thread_pool_wait_for_finish">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <property name="queue-size"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="guint"/>
+      </property>
+      <property name="thread-count"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="guint"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="ThreadPoolPrivate" c:type="OrenThreadPoolPrivate*"/>
+      </field>
+    </class>
+    <record name="ThreadPoolClass"
+            c:type="OrenThreadPoolClass"
+            glib:is-gtype-struct-for="ThreadPool">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="ThreadPoolPrivate"
+            c:type="OrenThreadPoolPrivate"
+            disguised="1">
+    </record>
+    <function name="critical" c:identifier="oren_critical">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="str" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
     <function name="dclogin_result_to_string"
               c:identifier="oren_dclogin_result_to_string"
               moved-to="DCLoginResult.to_string">
@@ -7757,6 +8247,46 @@ source address of the received packet.
       <parameters>
         <parameter name="reason" transfer-ownership="none">
           <type name="DCLogoutReason" c:type="OrenDCLogoutReason"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="debug" c:identifier="oren_debug">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="str" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="error" c:identifier="oren_error">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="str" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="message" c:identifier="oren_message">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="str" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="warning" c:identifier="oren_warning">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="str" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
         </parameter>
       </parameters>
     </function>

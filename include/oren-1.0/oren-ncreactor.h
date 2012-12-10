@@ -34,6 +34,8 @@ G_BEGIN_DECLS
 #define OREN_NCREACTOR_GET_CLASS(obj) \
     (G_TYPE_INSTANCE_GET_CLASS((obj), OREN_TYPE_NCREACTOR, OrenNCReactorClass))
 
+#define OREN_NCREACTOR_DEFAULT_QUEUE_SIZE (256)
+
 typedef struct _OrenNCReactorPrivate OrenNCReactorPrivate;
 typedef struct _OrenNCReactorClass OrenNCReactorClass;
 
@@ -49,6 +51,9 @@ struct _OrenNCReactorClass {
 GType oren_ncreactor_get_type (void) G_GNUC_CONST;
 
 OrenNCReactor* oren_ncreactor_new (void);
+
+void oren_ncreactor_set_queue_size (OrenNCReactor *self,
+                                    guint size);
 
 gboolean oren_ncreactor_register_handler (OrenNCReactor *self,
                                           OrenNCSocket *socket,

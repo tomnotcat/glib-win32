@@ -53,6 +53,9 @@ GType oren_gpdispatch_get_type (void) G_GNUC_CONST;
 
 OrenGPDispatch* oren_gpdispatch_new (gboolean queued);
 
+void oren_gpdispatch_set_queue_size (OrenGPDispatch *self,
+                                     guint size);
+
 void oren_gpdispatch_dispatch (OrenGPDispatch *self,
                                GObject *sender,
                                OrenNCBuffer *buffer);

@@ -51,6 +51,8 @@ GType oren_gpchannel_get_type (void) G_GNUC_CONST;
 
 OrenGPChannel* oren_gpchannel_new (const gchar *plugin_paths);
 
+GimoContext* oren_gpchannel_get_context (OrenGPChannel *self);
+
 OrenNCBuffer* oren_gpchannel_make_protocol (OrenGPChannel *self,
                                             const gchar *message);
 

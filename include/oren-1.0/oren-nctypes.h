@@ -39,6 +39,10 @@ typedef struct _OrenNCAQueue OrenNCAQueue;
 typedef struct _OrenNCUdproxy OrenNCUdproxy;
 typedef struct _OrenNCStatistics OrenNCStatistics;
 typedef struct _OrenNCFlowControl OrenNCFlowControl;
+typedef struct _OrenHttpRequest OrenHttpRequest;
+typedef struct _OrenTaskBase OrenTaskBase;
+typedef struct _OrenTask OrenTask;
+typedef struct _OrenThreadPool OrenThreadPool;
 
 G_END_DECLS
 

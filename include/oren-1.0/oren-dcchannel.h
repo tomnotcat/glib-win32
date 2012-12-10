@@ -82,6 +82,10 @@ const gchar* oren_dcchannel_get_name (OrenDCChannel *self);
 
 const gchar* oren_dcchannel_get_signature (OrenDCChannel *self);
 
+OrenNCReactor* oren_dcchannel_get_reactor (OrenDCChannel *self);
+
+OrenDCServer* oren_dcchannel_get_server (OrenDCChannel *self);
+
 OrenNCSockaddr* oren_dcchannel_get_address (OrenDCChannel *self);
 
 OrenDCClient* oren_dcchannel_get_parent (OrenDCChannel *self);

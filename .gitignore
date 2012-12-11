@@ -27,7 +27,7 @@ vs10/gjs/Release/*
 vs10/librsvg/librsvg-2.36.4/*
 vs10/librsvg/Debug/*
 vs10/librsvg/Release/*
-vs10/libgda/libgda-5.1.1/*
+vs10/libgda/libgda-5.0.3/*
 vs10/libgda/Debug/*
 vs10/libgda/Release/*
 vs10/gettext/gettext-0.18.1.1/*

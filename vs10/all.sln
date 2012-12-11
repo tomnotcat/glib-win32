@@ -39,6 +39,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "librsvg", "librsvg\librsvg.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpixbufloader-svg", "librsvg\libpixbufloader-svg.vcxproj", "{240041A8-B7F4-4DC0-BC3A-C1E28BDECC81}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgda", "libgda\libgda.vcxproj", "{93CB4E5D-5B5E-4844-95C8-725150D39973}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -121,6 +123,10 @@ Global
 		{240041A8-B7F4-4DC0-BC3A-C1E28BDECC81}.Debug|Win32.Build.0 = Debug|Win32
 		{240041A8-B7F4-4DC0-BC3A-C1E28BDECC81}.Release|Win32.ActiveCfg = Release|Win32
 		{240041A8-B7F4-4DC0-BC3A-C1E28BDECC81}.Release|Win32.Build.0 = Release|Win32
+		{93CB4E5D-5B5E-4844-95C8-725150D39973}.Debug|Win32.ActiveCfg = Debug|Win32
+		{93CB4E5D-5B5E-4844-95C8-725150D39973}.Debug|Win32.Build.0 = Debug|Win32
+		{93CB4E5D-5B5E-4844-95C8-725150D39973}.Release|Win32.ActiveCfg = Release|Win32
+		{93CB4E5D-5B5E-4844-95C8-725150D39973}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

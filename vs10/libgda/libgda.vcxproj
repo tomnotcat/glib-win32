@@ -51,13 +51,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SQLITE_EXPORTS;SQLITE_ENABLE_COLUMN_METADATA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\lib\glib-2.0\include;sqlite-amalgamation-3071401;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBGDA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\lib\glib-2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>sqlite.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>libgda.def</ModuleDefinitionFile>
       <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gio-2.0.lib;gmodule-2.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\lib</AdditionalLibraryDirectories>
     </Link>
@@ -78,15 +78,15 @@ Copy "sqlheavy-0.1.1\sqlheavy\SQLHeavy.h"  "..\..\include\sqlite\SQLHeavy.h"
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SQLITE_EXPORTS;SQLITE_ENABLE_COLUMN_METADATA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\lib\glib-2.0\include;sqlite-amalgamation-3071401</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBGDA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include\glib-2.0;..\..\lib\glib-2.0\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>sqlite.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>libgda.def</ModuleDefinitionFile>
       <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gio-2.0.lib;gmodule-2.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\lib</AdditionalLibraryDirectories>
     </Link>
@@ -100,34 +100,12 @@ Copy "sqlheavy-0.1.1\sqlheavy\SQLHeavy.h"  "..\..\include\sqlite\SQLHeavy.h"
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="sqlite-amalgamation-3071401\sqlite3.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="sqlite.rc" />
+    <ResourceCompile Include="libgda.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-backup.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-common-function.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-cursor.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-database.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-enums.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-error.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-mutable-record.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-profiling-database.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-query-result.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-query.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-queryable.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-record-set.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-record.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-row.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-table-cursor.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-table.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-transaction.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-user-functions.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-value.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-version.c" />
-    <ClCompile Include="sqlheavy-0.1.1\sqlheavy\sqlheavy-versioned-database.c" />
-    <ClCompile Include="sqlite-amalgamation-3071401\sqlite3.c" />
+    <None Include="libgda.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -104,6 +104,12 @@ void gimo_plugin_define_string (GimoPlugin *self,
                                 const gchar *symbol,
                                 const gchar *string);
 
+GObject* gimo_plugin_get_object (GimoPlugin *self,
+                                 const gchar *symbol);
+
+const gchar* gimo_plugin_get_string (GimoPlugin *self,
+                                     const gchar *symbol);
+
 GObject* gimo_plugin_resolve (GimoPlugin *self,
                               const gchar *symbol);
 

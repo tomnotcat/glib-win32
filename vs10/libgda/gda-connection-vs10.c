@@ -1549,6 +1549,8 @@ sqlite_connection_closed_cb (GdaConnection *cnc, G_GNUC_UNUSED gpointer data)
 	g_unlink (filename);
 }
 
+#include <Windows.h>
+
 /**
  * gda_connection_open_sqlite:
  * @directory: (allow-none): the directory the database file will be in, or %NULL for the default TMP directory
@@ -1576,17 +1578,26 @@ gda_connection_open_sqlite (const gchar *directory, const gchar *filename, gbool
 
 	fname = g_build_filename (directory, filename, NULL);
 #ifdef G_OS_WIN32
+	/*
 	fd = g_open (fname, O_WRONLY | O_CREAT | O_TRUNC,
 		     S_IRUSR | S_IWUSR);
+			 */
+	fd = CreateFile (fname, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, 0, NULL);
+	if (fd == INVALID_HANDLE_VALUE) {
+		g_free (fname);
+		return NULL;
+	}
+	CloseHandle (fd);
 #else
 	fd = g_open (fname, O_WRONLY | O_CREAT | O_NOCTTY | O_TRUNC,
 		     S_IRUSR | S_IWUSR);
-#endif
 	if (fd == -1) {
 		g_free (fname);
 		return NULL;
 	}
 	close (fd);
+#endif
+	
 
 	
 	tmp1 = gda_rfc1738_encode (directory);

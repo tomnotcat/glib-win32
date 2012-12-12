@@ -5223,7 +5223,7 @@ The following environment variables can affect the resulting output:
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="to_stream" transfer-ownership="none">
+          <parameter name="to_stream" transfer-ownership="none" allow-none="1">
             <doc xml:whitespace="preserve">where to dump the data model</doc>
             <type name="gpointer" c:type="FILE*"/>
           </parameter>

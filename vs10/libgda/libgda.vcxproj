@@ -188,6 +188,7 @@ Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
     <ClCompile Include="gda-data-proxy-vs10.c" />
     <ClCompile Include="gda-data-select-vs10.c" />
     <ClCompile Include="gda-handler-bin-vs10.c" />
+    <ClCompile Include="gda-handler-numerical-vs10.c" />
     <ClCompile Include="gda-holder-vs10.c" />
     <ClCompile Include="gda-meta-store-vs10.c" />
     <ClCompile Include="gda-meta-struct-io-vs10.c" />
@@ -200,15 +201,18 @@ Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
     <ClCompile Include="gda-sqlite-blob-op-vs10.c" />
     <ClCompile Include="gda-sqlite-meta-vs10.c" />
     <ClCompile Include="gda-sqlite-provider-vs10.c" />
+    <ClCompile Include="gda-sqlite-recordset-vs10.c" />
     <ClCompile Include="gda-statement-struct-compound-vs10.c" />
     <ClCompile Include="gda-statement-struct-vs10.c" />
     <ClCompile Include="gda-statement-vs10.c" />
+    <ClCompile Include="gda-symbols-util-vs10.c" />
     <ClCompile Include="gda-thread-provider-vs10.c" />
     <ClCompile Include="gda-thread-recordset-vs10.c" />
     <ClCompile Include="gda-thread-wrapper-vs10.c" />
     <ClCompile Include="gda-tree-manager-vs10.c" />
     <ClCompile Include="gda-tree-mgr-columns-vs10.c" />
     <ClCompile Include="gda-tree-mgr-label-vs10.c" />
+    <ClCompile Include="gda-tree-mgr-schemas-vs10.c" />
     <ClCompile Include="gda-tree-mgr-select-vs10.c" />
     <ClCompile Include="gda-tree-mgr-tables-vs10.c" />
     <ClCompile Include="gda-tree-node-vs10.c" />
@@ -239,10 +243,8 @@ Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
     <ClCompile Include="libgda-5.0.3\libgda\gda-row.c" />
     <ClCompile Include="libgda-5.0.3\libgda\gda-server-provider.c" />
     <ClCompile Include="libgda-5.0.3\libgda\gda-transaction-status.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-tree-mgr-schemas.c" />
     <ClCompile Include="libgda-5.0.3\libgda\gda-types.c" />
     <ClCompile Include="libgda-5.0.3\libgda\handlers\gda-handler-boolean.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\handlers\gda-handler-numerical.c" />
     <ClCompile Include="libgda-5.0.3\libgda\handlers\gda-handler-string.c" />
     <ClCompile Include="libgda-5.0.3\libgda\handlers\gda-handler-time.c" />
     <ClCompile Include="libgda-5.0.3\libgda\handlers\gda-handler-type.c" />
@@ -265,9 +267,7 @@ Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
     <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-handler-bin.c" />
     <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-handler-boolean.c" />
     <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-pstmt.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-recordset.c" />
     <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-util.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-symbols-util.c" />
     <ClCompile Include="libgda-5.0.3\libgda\sqlite\virtual\gda-virtual-connection.c" />
     <ClCompile Include="libgda-5.0.3\libgda\sqlite\virtual\gda-virtual-provider.c" />
     <ClCompile Include="libgda-5.0.3\libgda\sqlite\virtual\gda-vprovider-hub.c" />

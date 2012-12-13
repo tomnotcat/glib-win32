@@ -30,6 +30,9 @@ gchar* _oren_signature_bin2hex (gchar *stringbuf,
                                 gconstpointer buffer,
                                 gsize length);
 
+gpointer _oren_signature_hex2bin (gpointer buffer,
+                                  const gchar *string,
+                                  gsize length);
 
 G_END_DECLS
 

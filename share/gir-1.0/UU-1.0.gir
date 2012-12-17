@@ -10,6 +10,7 @@ and/or use gtk-doc annotations.  -->
   <include name="GLib" version="2.0"/>
   <include name="GModule" version="2.0"/>
   <include name="GObject" version="2.0"/>
+  <include name="Gda" version="5.0"/>
   <include name="Gdk" version="3.0"/>
   <include name="GdkPixbuf" version="2.0"/>
   <include name="Gimo" version="1.0"/>
@@ -18,6 +19,7 @@ and/or use gtk-doc annotations.  -->
   <include name="Oren" version="1.0"/>
   <include name="Pango" version="1.0"/>
   <include name="cairo" version="1.0"/>
+  <include name="libxml2" version="2.0"/>
   <package name="UU-1.0"/>
   <namespace name="UU"
              version="1.0"
@@ -101,6 +103,20 @@ and/or use gtk-doc annotations.  -->
         <parameter name="buffer" transfer-ownership="none">
           <doc xml:whitespace="preserve">a #OrenNCBuffer.</doc>
           <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="set_blob_value_from_file"
+              c:identifier="uu_set_blob_value_from_file">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="holder" transfer-ownership="none">
+          <type name="Gda.Holder" c:type="GdaHolder*"/>
+        </parameter>
+        <parameter name="filename" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
         </parameter>
       </parameters>
     </function>

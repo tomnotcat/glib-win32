@@ -110,7 +110,7 @@ static const GValue        *gda_data_meta_wrapper_get_value_at    (GdaDataModel 
 static GObjectClass *parent_class = NULL;
 
 /**
- * gda_data_meta_wrapper_get_type
+ * gda_data_meta_wrapper_get_type:
  *
  * Returns: the #GType of GdaDataMetaWrapper.
  */
@@ -328,7 +328,7 @@ gda_data_meta_wrapper_get_property (GObject *object,
 }
 
 /**
- * gda_data_meta_wrapper_new
+ * gda_data_meta_wrapper_new:
  * @model: a #GdaDataModel
  *
  * Creates a new #GdaDataModel object which buffers the rows of @model. This object is useful
@@ -468,7 +468,7 @@ to_lower (gchar *str)
 }
 
 /**
- * _gda_data_meta_wrapper_compute_value
+ * _gda_data_meta_wrapper_compute_value:
  *
  * Returns:
  *  - NULL if no changes are necessary from the current value
@@ -480,7 +480,6 @@ _gda_data_meta_wrapper_compute_value (const GValue *value, GdaSqlIdentifierStyle
 	GValue *retval = NULL;
 	const gchar *str;
     gchar **sa;
-
 	if (G_VALUE_TYPE (value) != G_TYPE_STRING)
 		return NULL;
 	str = g_value_get_string (value);
@@ -589,25 +588,24 @@ gda_data_meta_wrapper_get_value_at (GdaDataModel *model, gint col, gint row, GEr
 		CompRow *crow = NULL;
 		crow = g_hash_table_lookup (imodel->priv->computed_rows, &row);
 		if (!crow || !(crow->values[indexcol]) || (crow->values[indexcol] == NON_COMP_VALUE)) {
-			const GValue *cvalue;
-            GValue *retval;
+			const GValue *cvalue;			
+			GValue *retval;
 			cvalue = gda_data_model_get_value_at (imodel->priv->model, col, row, error);
 			if (!cvalue)
 				return NULL;
-			
-			
+
 			retval = _gda_data_meta_wrapper_compute_value (cvalue, imodel->priv->mode,
 								       imodel->priv->reserved_keyword_func);
 			if (!retval)
 				return cvalue;
 			
 			if (!crow) {
-                gint i;
+                				gint i;
 				crow = g_new0 (CompRow, 1);
 				crow->row = row;
 				crow->size = imodel->priv->cols_to_wrap_size;
 				crow->values = g_new (GValue *, crow->size);
-				
+
 				for (i = 0; i < crow->size; i++)
 					crow->values [i] = NON_COMP_VALUE;
 				g_hash_table_insert (imodel->priv->computed_rows, &(crow->row), crow);
@@ -620,12 +618,11 @@ gda_data_meta_wrapper_get_value_at (GdaDataModel *model, gint col, gint row, GEr
 	}
 	else {
 		const GValue *cvalue;
-        GValue *retval;
+		GValue *retval;
 		cvalue = gda_data_model_get_value_at (imodel->priv->model, col, row, error);
 		if (!cvalue)
 			return NULL;
 
-		
 		retval = _gda_data_meta_wrapper_compute_value (cvalue, imodel->priv->mode,
 							       imodel->priv->reserved_keyword_func);
 		if (!retval)

@@ -11,12 +11,13 @@
  * Copyright (C) 2005 - 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2005 Dan Winship <danw@src.gnome.org>
  * Copyright (C) 2005 Stanislav Brabec <sbrabec@suse.de>
- * Copyright (C) 2005 - 2011 Vivien Malerba <malerba@gnome-db.org>
- * Copyright (C) 2006 - 2010 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2005 - 2012 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2006 - 2011 Murray Cumming <murrayc@murrayc.com>
  * Copyright (C) 2007 Leonardo Boshell <lb@kmc.com.co>
  * Copyright (C) 2008 Phil Longstaff <plongstaff@rogers.com>
  * Copyright (C) 2008 Przemysław Grzegorczyk <pgrzegorczyk@gmail.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
+ * Copyright (C) 2011 Daniel Espinosa <despinosa@src.gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -132,7 +133,7 @@ gda_data_model_class_init (G_GNUC_UNUSED gpointer g_class)
 	MUTEX_LOCK();
 	if (! initialized) {
 		/**
-		 * GdaDataModel::changed
+		 * GdaDataModel::changed:
 		 * @model: the #GdaDataModel
 		 *
 		 * Gets emitted when any value in @model has been changed
@@ -146,7 +147,7 @@ gda_data_model_class_init (G_GNUC_UNUSED gpointer g_class)
 				      g_cclosure_marshal_VOID__VOID,
 				      G_TYPE_NONE, 0);
 		/**
-		 * GdaDataModel::row-inserted
+		 * GdaDataModel::row-inserted:
 		 * @model: the #GdaDataModel
 		 * @row: the row number
 		 *
@@ -161,7 +162,7 @@ gda_data_model_class_init (G_GNUC_UNUSED gpointer g_class)
 				      g_cclosure_marshal_VOID__INT,
 				      G_TYPE_NONE, 1, G_TYPE_INT);
 		/**
-		 * GdaDataModel::row-updated
+		 * GdaDataModel::row-updated:
 		 * @model: the #GdaDataModel
 		 * @row: the row number
 		 *
@@ -176,7 +177,7 @@ gda_data_model_class_init (G_GNUC_UNUSED gpointer g_class)
 				      g_cclosure_marshal_VOID__INT,
 				      G_TYPE_NONE, 1, G_TYPE_INT);
 		/**
-		 * GdaDataModel::row-removed
+		 * GdaDataModel::row-removed:
 		 * @model: the #GdaDataModel
 		 * @row: the row number
 		 *
@@ -191,7 +192,7 @@ gda_data_model_class_init (G_GNUC_UNUSED gpointer g_class)
 				      g_cclosure_marshal_VOID__INT,
 				      G_TYPE_NONE, 1, G_TYPE_INT);
 		/**
-		 * GdaDataModel::reset
+		 * GdaDataModel::reset:
 		 * @model: the #GdaDataModel
 		 *
 		 * Gets emitted when @model's contents has been completely reset (the number and
@@ -207,7 +208,7 @@ gda_data_model_class_init (G_GNUC_UNUSED gpointer g_class)
 				      G_TYPE_NONE, 0);
 
 		/**
-		 * GdaDataModel::access-changed
+		 * GdaDataModel::access-changed:
 		 * @model: the #GdaDataModel
 		 *
 		 * Gets emitted when @model's access flags have changed. Use
@@ -369,7 +370,6 @@ gda_data_model_reset (GdaDataModel *model)
  * re-enable notifications again, you should call the
  * #gda_data_model_thaw function.
  *
- * Virtual: i_set_notify
  */
 void
 gda_data_model_freeze (GdaDataModel *model)
@@ -378,8 +378,6 @@ gda_data_model_freeze (GdaDataModel *model)
 	
 	if (GDA_DATA_MODEL_GET_CLASS (model)->i_set_notify)
 		(GDA_DATA_MODEL_GET_CLASS (model)->i_set_notify) (model, FALSE);
-	else
-		g_warning ("%s() method not supported\n", __FUNCTION__);
 }
 
 /**
@@ -395,9 +393,45 @@ gda_data_model_thaw (GdaDataModel *model)
 
 	if (GDA_DATA_MODEL_GET_CLASS (model)->i_set_notify)
 		(GDA_DATA_MODEL_GET_CLASS (model)->i_set_notify) (model, TRUE);
-	else
-		g_warning ("%s() method not supported\n", __FUNCTION__);
 }
+
+/**
+ * gda_data_model_set_notify:
+ * @model: a #GdaDataModel object.
+ * @do_notify_changes: Set to TRUE if you require notifications.
+ *
+ * Enable or disable notifications changes on the given data model.
+ * 
+ * Deprecated: 5.2: use gda_data_model_freeze() and gda_data_model_thaw() instead
+ *
+ * Virtual: i_set_notify
+ */
+void
+gda_data_model_set_notify (GdaDataModel *model, gboolean do_notify_changes)
+{
+	g_return_if_fail (GDA_IS_DATA_MODEL (model));
+	if (GDA_DATA_MODEL_GET_CLASS (model)->i_set_notify)
+		(GDA_DATA_MODEL_GET_CLASS (model)->i_set_notify) (model, do_notify_changes);
+}
+
+/**
+ * gda_data_model_get_notify:
+ * @model: a #GdaDataModel object.
+ *
+ * Returns the status of notifications changes on the given data model.
+ * 
+ * Virtual: i_get_notify
+ */
+gboolean
+gda_data_model_get_notify (GdaDataModel *model)
+{
+	g_return_val_if_fail (GDA_IS_DATA_MODEL (model), FALSE);
+	if (GDA_DATA_MODEL_GET_CLASS (model)->i_get_notify)
+		return (GDA_DATA_MODEL_GET_CLASS (model)->i_get_notify) (model);
+	else
+		return TRUE;
+}
+
 
 /**
  * gda_data_model_get_access_flags:
@@ -446,7 +480,7 @@ gda_data_model_get_n_rows (GdaDataModel *model)
  * gda_data_model_get_n_columns:
  * @model: a #GdaDataModel object.
  *
- * Returns: the number of columns in the given data model.
+ * Returns: the number of columns in the given data model, or -1 if unknown.
  *
  * Virtual: i_get_n_columns
  */
@@ -459,7 +493,6 @@ gda_data_model_get_n_columns (GdaDataModel *model)
 		return (GDA_DATA_MODEL_GET_CLASS (model)->i_get_n_columns) (model);
 	else {
 		/* method not supported */
-		g_warning ("%s() method not supported\n", __FUNCTION__);
 		return -1;
 	}
 }
@@ -477,7 +510,7 @@ gda_data_model_get_n_columns (GdaDataModel *model)
  * WARNING: the returned #GdaColumn object belongs to the @model model and
  * and should not be destroyed; any modification will affect the whole data model.
  *
- * Returns: (transfer none): the description of the column.
+ * Returns: (transfer none) (allow-none): the description of the column.
  *
  * Virtual: i_describe_column
  */
@@ -490,7 +523,6 @@ gda_data_model_describe_column (GdaDataModel *model, gint col)
 		return (GDA_DATA_MODEL_GET_CLASS (model)->i_describe_column) (model, col);
 	else {
 		/* method not supported */
-		g_warning ("%s() method not supported\n", __FUNCTION__);
 		return NULL;
 	}
 }
@@ -895,6 +927,93 @@ gda_data_model_create_iter (GdaDataModel *model)
 }
 
 /**
+ * gda_data_model_iter_at_row:
+ * @model: a #GdaDataModel object.
+ * @iter: a #GdaDataModelIter object.
+ * @row: a row to point to with @iter
+ *
+ * Moves @iter to the row number given by @row.
+ * 
+ * Deprecated: 5.2: use gda_data_model_iter_move_to_row() instead
+ *
+ * Virtual: i_iter_at_row
+ */
+gboolean
+gda_data_model_iter_at_row (GdaDataModel *model, GdaDataModelIter *iter, gint row)
+{
+	g_return_val_if_fail (GDA_IS_DATA_MODEL (model), FALSE);
+	g_return_val_if_fail (GDA_IS_DATA_MODEL_ITER (model), FALSE);
+
+	return gda_data_model_iter_move_to_row (iter, row);
+}
+
+/**
+ * gda_data_model_iter_next:
+ * @model: a #GdaDataModel object.
+ * @iter: a #GdaDataModelIter object.
+ *
+ * Moves @iter to the next row in @model.
+ * 
+ * Deprecated: 5.2: use gda_data_model_iter_move_next() instead
+ *
+ * Virtual: i_iter_next
+ */
+gboolean
+gda_data_model_iter_next (GdaDataModel *model, GdaDataModelIter *iter)
+{
+	g_return_val_if_fail (GDA_IS_DATA_MODEL (model), FALSE);
+	g_return_val_if_fail (GDA_IS_DATA_MODEL_ITER (model), FALSE);
+
+	return gda_data_model_iter_move_next (iter);
+}
+
+/**
+ * gda_data_model_iter_prev:
+ * @model: a #GdaDataModel object.
+ * @iter: a #GdaDataModelIter object.
+ *
+ * Moves @iter to the next row in @model.
+ *
+ * Deprecated: 5.2: use gda_data_model_iter_move_prev() instead
+ * 
+ * Virtual: i_iter_prev
+ */
+gboolean 
+gda_data_model_iter_prev (GdaDataModel *model, GdaDataModelIter *iter)
+{
+	g_return_val_if_fail (GDA_IS_DATA_MODEL (model), FALSE);
+	g_return_val_if_fail (GDA_IS_DATA_MODEL_ITER (model), FALSE);
+
+	return gda_data_model_iter_move_prev (iter);
+}
+
+
+/**
+ * gda_data_model_iter_set_value:
+ * @model: a #GdaDataModel object.
+ * @iter: a #GdaDataModelIter object.
+ * @col: the number of column to set value to
+ * @value: the to use to set on
+ * @error: a place to set errors
+ *
+ * Set @value to the given @column and row pointed by @iter in the given @model.
+ * 
+ * Deprecated: 5.2: use gda_data_model_iter_set_value_at() instead
+ *
+ * Virtual: i_iter_set_value
+ */
+gboolean 
+gda_data_model_iter_set_value (GdaDataModel *model, GdaDataModelIter *iter, gint col,
+			       const GValue *value, GError **error)
+{
+	g_return_val_if_fail (GDA_IS_DATA_MODEL (model), FALSE);
+	g_return_val_if_fail (GDA_IS_DATA_MODEL_ITER (model), FALSE);
+	
+	return gda_data_model_iter_set_value_at (iter, col, value, error);
+}
+
+
+/**
  * gda_data_model_append_values:
  * @model: a #GdaDataModel object.
  * @values: (element-type GLib.Value) (allow-none): #GList of #GValue* representing the row to add.  The
@@ -1106,6 +1225,8 @@ gda_data_model_send_hint (GdaDataModel *model, GdaDataModelHint hint, const GVal
  * Returns: (transfer none) (element-type GError) (array zero-terminated=1): a pointer to a %NULL terminated array of #GError, or %NULL.
  *
  * Since: 4.2.6
+ *
+ * Virtual: i_get_exceptions
  */
 GError **
 gda_data_model_get_exceptions (GdaDataModel *model)
@@ -1259,7 +1380,9 @@ gda_data_model_export_to_string (GdaDataModel *model, GdaDataModelIOFormat forma
 					g_warning (_("The '%s' parameter must hold a boolean value, ignored."), "INVALID_AS_NULL");
 			}
 
-			holder = gda_set_get_holder (options, "FIELDS_NAME");
+			holder = gda_set_get_holder (options, "NAMES_ON_FIRST_LINE");
+			if (!holder)
+				holder = gda_set_get_holder (options, "FIELDS_NAME");
 			if (holder) {
 				const GValue *value;
 				value = gda_holder_get_value (holder);
@@ -1348,12 +1471,12 @@ gda_data_model_export_to_string (GdaDataModel *model, GdaDataModelIOFormat forma
  * <itemizedlist>
  *   <listitem><para>"SEPARATOR": a string value of which the first character is used as a separator in case of CSV export
  *             </para></listitem>
- *   <listitem><para>"QUOTE": a string value of which the first character is used as a quote character in case of CSV export
- *             </para></listitem>
+ *   <listitem><para>"QUOTE": a string value of which the first character is used as a quote character in case of CSV export. The
+ *             default if not specified is the double quote character</para></listitem>
  *   <listitem><para>"FIELD_QUOTE": a boolean value which can be set to FALSE if no quote around the individual fields 
  *             is requeted, in case of CSV export</para></listitem>
+ *   <listitem><para>"NAMES_ON_FIRST_LINE": a boolean value which, if set to %TRUE and in case of a CSV export, will add a first line with the name each exported field (note that "FIELDS_NAME" is also accepted as a synonym)</para></listitem>
  *   <listitem><para>"NAME": a string value used to name the exported data if the export format is XML</para></listitem>
- *   <listitem><para>"FIELDS_NAME": a boolean value which, if set to %TRUE and in case of a CSV export, will add a first line with the name each exported field</para></listitem>
  *   <listitem><para>"OVERWRITE": a boolean value which tells if the file must be over-written if it already exists.</para></listitem>
  *   <listitem><para>"NULL_AS_EMPTY": a boolean value which, if set to %TRUE and in case of a CSV export, will render and NULL value as the empty string (instead of the 'NULL' string)</para></listitem>
  *   <listitem><para>"INVALID_AS_NULL": a boolean value which, if set to %TRUE, considers any invalid data (for example for the date related values) as NULL</para></listitem>
@@ -1488,9 +1611,15 @@ export_to_text_separated (GdaDataModel *model, const gint *cols, gint nb_cols,
 			else if (null_as_empty && gda_value_is_null (value))
 				txt = g_strdup ("");
 			else {
+				gboolean alloc = FALSE;
 				gchar *tmp;
-				
-				tmp = gda_value_stringify (value);
+
+				if (value && (G_VALUE_TYPE (value) == G_TYPE_STRING))
+					tmp = (gchar*) g_value_get_string (value);
+				else {
+					tmp = gda_value_stringify (value);
+					alloc = TRUE;
+				}
 				if (tmp) {
 					gsize len, size;
 					len = strlen (tmp);
@@ -1503,6 +1632,8 @@ export_to_text_separated (GdaDataModel *model, const gint *cols, gint nb_cols,
 						txt [len - 1] = 0;
 						memmove (txt, txt+1, len);
 					}
+					if (alloc)
+						g_free (tmp);
 				}
 				else {
 					if (field_quotes) {
@@ -1738,7 +1869,7 @@ add_xml_row (GdaDataModel *model, xmlNodePtr xml_row, GError **error)
 		if (!nullforced) {
             gchar* nodeval;
 			value = g_new0 (GValue, 1);
-			 nodeval = (gchar*)xmlNodeGetContent (xml_field);
+			nodeval = (gchar*)xmlNodeGetContent (xml_field);
 			if (nodeval) {
 				if (!gda_value_set_from_string (value, nodeval, gdatype))
 					gda_value_set_null (value);
@@ -1863,7 +1994,8 @@ gda_data_model_import_from_model (GdaDataModel *to, GdaDataModel *from,
 	GList *append_values = NULL; /* list of #GValue values to add to the @to model */
 	GType *append_types = NULL; /* array of the Glib type of the values to append */
 	GSList *plist;
-    gboolean mstatus;
+
+	gboolean mstatus;
 	g_return_val_if_fail (GDA_IS_DATA_MODEL (to), FALSE);
 	g_return_val_if_fail (GDA_IS_DATA_MODEL (from), FALSE);
 
@@ -1987,7 +2119,6 @@ gda_data_model_import_from_model (GdaDataModel *to, GdaDataModel *from,
 		to_nb_rows = gda_data_model_get_n_rows (to);
 	}
 
-	
 	mstatus = gda_data_model_iter_move_next (from_iter); /* move to first row */
 	if (!mstatus) {
 		gint crow;
@@ -2026,7 +2157,6 @@ gda_data_model_import_from_model (GdaDataModel *to, GdaDataModel *from,
 					value = (GValue *) (avlist->data);
 				}
 			}
-			g_assert (value);
 
 			values = g_list_prepend (values, value);
 
@@ -2352,7 +2482,8 @@ real_gda_data_model_dump_as_string (GdaDataModel *model, gboolean dump_attribute
 
 	gint col_offset = dump_rows ? 1 : 0;
 	GdaDataModel *ramodel = NULL;
-    GError **exceptions;
+
+	GError **exceptions;
 #ifdef HAVE_LOCALE_H
 #ifndef G_OS_WIN32
 	int utf8_mode;
@@ -2428,18 +2559,30 @@ real_gda_data_model_dump_as_string (GdaDataModel *model, gboolean dump_attribute
 					cols_size [i + col_offset] = MAX ((guint)cols_size [i + col_offset], strlen (ERROR_STRING));
 				}
 				else {
+					gboolean alloc = FALSE;
 					str = NULL;
 					if (null_as_empty) {
 						if (!value || gda_value_is_null (value))
-							str = g_strdup ("");
+							str = "";
 					}
-					if (!str)
-						str = value ? gda_value_stringify ((GValue*)value) : g_strdup ("_null_");
+					if (!str) {
+						if (value) {
+							if (G_VALUE_TYPE (value) == G_TYPE_STRING)
+								str = (gchar*) g_value_get_string (value);
+							else {
+								str = gda_value_stringify ((GValue*)value);
+								alloc = TRUE;
+							}
+						}
+						else
+							str = "_null_";
+					}
 					if (str) {
 						gint w;
 						string_get_dimensions (str, &w, NULL);
 						cols_size [i + col_offset] = MAX (cols_size [i + col_offset], w);
-						g_free (str);
+						if (alloc)
+							g_free (str);
 					}
 				}
 			}
@@ -2534,28 +2677,41 @@ real_gda_data_model_dump_as_string (GdaDataModel *model, gboolean dump_attribute
 		}
 		
 		for (i = 0; i < n_cols; i++) {
+			gboolean alloc = FALSE;
+			str = NULL;
 			if (!dump_attributes) {
 				value = gda_data_model_get_value_at (ramodel, i, j, NULL);
 				if (!value)
-					str = g_strdup (ERROR_STRING);
+					str = ERROR_STRING;
 				else {
-					str = NULL;
 					if (null_as_empty) {
 						if (!value || gda_value_is_null (value))
-							str = g_strdup ("");
+							str = "";
 					}
-					if (!str)
-						str = value ? gda_value_stringify ((GValue *)value) : g_strdup ("_null_");
+					if (!str) {
+						if (value) {
+							if (G_VALUE_TYPE (value) == G_TYPE_STRING)
+								str = (gchar*) g_value_get_string (value);
+							else {
+								str = gda_value_stringify ((GValue*)value);
+								alloc = TRUE;
+							}
+						}
+						else
+							str = "_null_";
+					}
 				}
 			}
 			else {
 				GdaValueAttribute attrs;
 				attrs = gda_data_model_get_attributes_at (ramodel, i, j);
 				str = g_strdup_printf ("%u", attrs);
+				alloc = TRUE;
 			}
 			if (str) {
 				cols_str [i + col_offset] = g_strsplit (str, "\n", -1);
-				g_free (str);
+				if (alloc)
+					g_free (str);
 				cols_height [i + col_offset] = g_strv_length (cols_str [i + col_offset]);
 				kmax = MAX (kmax, cols_height [i + col_offset]);
 			}
@@ -2640,7 +2796,6 @@ real_gda_data_model_dump_as_string (GdaDataModel *model, gboolean dump_attribute
 	else
 		g_string_append_printf (string, _("0 row"));
 
-	
 	exceptions = gda_data_model_get_exceptions (model);
 	if (exceptions) {
 		gint i;
@@ -2668,11 +2823,11 @@ real_gda_data_model_dump_as_string (GdaDataModel *model, gboolean dump_attribute
 		if (max_width > 0) {
 			/* truncate all lines */
 			GString *ns;
-            gchar *ptr, *sptr;
+            			gchar *ptr, *sptr;
 			gint len; /* number of characters since start of line */
 			ns = g_string_sized_new (strlen (str));
 
-			
+
 			for (ptr = str, sptr = ptr, len=0;
 			     *ptr;
 			     ptr = g_utf8_next_char (ptr), len++) {

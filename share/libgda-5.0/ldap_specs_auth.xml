@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-set-spec>
+  <parameters>
+    <parameter nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Username" descr="User name"></parameter>
+    <parameter xml:lang="ar" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Username" descr="User name"></parameter>
+    <parameter xml:lang="az" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Username" descr="User name"></parameter>
+    <parameter xml:lang="ca" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Nom d&apos;usuari" descr="User name"></parameter>
+    <parameter xml:lang="ca@valencia" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Nom d&apos;usuari" descr="User name"></parameter>
+    <parameter xml:lang="cs" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Uživatelské jméno" descr="Uživatelské jméno"></parameter>
+    <parameter xml:lang="da" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Brugernavn" descr="User name"></parameter>
+    <parameter xml:lang="de" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Benutzername" descr="Benutzername"></parameter>
+    <parameter xml:lang="dz" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="ལག་ལེན་པའི་མིང་།" descr="User name"></parameter>
+    <parameter xml:lang="el" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Όνομα χρήστη" descr="Όνομα χρήστη"></parameter>
+    <parameter xml:lang="en_CA" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Username" descr="User name"></parameter>
+    <parameter xml:lang="en_GB" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Username" descr="User name"></parameter>
+    <parameter xml:lang="eo" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Uzantonomo" descr="Uzantonomo"></parameter>
+    <parameter xml:lang="es" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Usuario" descr="Nombre del usuario"></parameter>
+    <parameter xml:lang="eu" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Erabiltzaile-izena" descr="User name"></parameter>
+    <parameter xml:lang="fa" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="نام کاربر" descr="User name"></parameter>
+    <parameter xml:lang="fi" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Käyttäjätunnus" descr="User name"></parameter>
+    <parameter xml:lang="fr" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Nom d&apos;utilisateur" descr="Nom d&apos;utilisateur"></parameter>
+    <parameter xml:lang="ga" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Úsáidtheoir" descr="User name"></parameter>
+    <parameter xml:lang="gl" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Nome de usuario" descr="Nome de usuario"></parameter>
+    <parameter xml:lang="hr" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Korisničko ime" descr="User name"></parameter>
+    <parameter xml:lang="hu" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Felhasználónév" descr="User name"></parameter>
+    <parameter xml:lang="id" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Nama pengguna" descr="Nama pengguna"></parameter>
+    <parameter xml:lang="it" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Nome utente" descr="Nome utente"></parameter>
+    <parameter xml:lang="ja" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="ユーザー名" descr="User name"></parameter>
+    <parameter xml:lang="ko" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="사용자이름" descr="User name"></parameter>
+    <parameter xml:lang="lt" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Naudotojo vardas" descr="User name"></parameter>
+    <parameter xml:lang="mk" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Username" descr="User name"></parameter>
+    <parameter xml:lang="ml" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="ഉപയോക്തൃ നാമം" descr="User name"></parameter>
+    <parameter xml:lang="ms" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Namapengguna" descr="User name"></parameter>
+    <parameter xml:lang="nb" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Brukernavn" descr="Brukernavn"></parameter>
+    <parameter xml:lang="ne" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="प्रयोगकर्ता नाम" descr="User name"></parameter>
+    <parameter xml:lang="nl" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Gebruikersnaam" descr="User name"></parameter>
+    <parameter xml:lang="oc" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Nom d&apos;utilizaire" descr="User name"></parameter>
+    <parameter xml:lang="pa" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="ਉਪਭੋਗਤਾ-ਨਾਮ" descr="User name"></parameter>
+    <parameter xml:lang="pl" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Nazwa użytkownika" descr="User name"></parameter>
+    <parameter xml:lang="pt" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Utilizador" descr="User name"></parameter>
+    <parameter xml:lang="pt_BR" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Usuário" descr="User name"></parameter>
+    <parameter xml:lang="ru" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Имя пользователя" descr="User name"></parameter>
+    <parameter xml:lang="rw" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Izina ry&apos;ukoresha" descr="User name"></parameter>
+    <parameter xml:lang="sk" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Meno používateľa" descr="User name"></parameter>
+    <parameter xml:lang="sl" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Uporabniško ime" descr="Uporabniško ime"></parameter>
+    <parameter xml:lang="sq" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Përdoruesi" descr="User name"></parameter>
+    <parameter xml:lang="sr" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Корисничко име" descr="User name"></parameter>
+    <parameter xml:lang="sr@Latn" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Korisničko ime" descr="User name"></parameter>
+    <parameter xml:lang="sv" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Användarnamn" descr="User name"></parameter>
+    <parameter xml:lang="tr" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Kullanıcı adı" descr="User name"></parameter>
+    <parameter xml:lang="uk" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Користувач" descr="User name"></parameter>
+    <parameter xml:lang="vi" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="Tên người dùng" descr="User name"></parameter>
+    <parameter xml:lang="zh_CN" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="用户名" descr="用户名"></parameter>
+    <parameter xml:lang="zh_HK" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="使用者名稱" descr="User name"></parameter>
+    <parameter xml:lang="zh_TW" nullok="TRUE" id="USERNAME" gdatype="gchararray" name="使用者名稱" descr="User name"></parameter>
+    <parameter plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Password" descr="Password"></parameter>
+    <parameter xml:lang="ar" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Password" descr="Password"></parameter>
+    <parameter xml:lang="az" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Password" descr="Password"></parameter>
+    <parameter xml:lang="ca" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Contrasenya" descr="Contrasenya"></parameter>
+    <parameter xml:lang="ca@valencia" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Contrasenya" descr="Contrasenya"></parameter>
+    <parameter xml:lang="cs" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Heslo" descr="Heslo"></parameter>
+    <parameter xml:lang="da" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Adgangskode" descr="Adgangskode"></parameter>
+    <parameter xml:lang="de" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Passwort" descr="Passwort"></parameter>
+    <parameter xml:lang="dz" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="ཆོག་ཡིག" descr="ཆོག་ཡིག"></parameter>
+    <parameter xml:lang="el" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Κωδικός" descr="Κωδικός"></parameter>
+    <parameter xml:lang="en_CA" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Password" descr="Password"></parameter>
+    <parameter xml:lang="en_GB" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Password" descr="Password"></parameter>
+    <parameter xml:lang="eo" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Pasvorto" descr="Pasvorto"></parameter>
+    <parameter xml:lang="es" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Contraseña" descr="Contraseña"></parameter>
+    <parameter xml:lang="eu" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Pasahitza" descr="Pasahitza"></parameter>
+    <parameter xml:lang="fa" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="گذرواژه" descr="گذرواژه"></parameter>
+    <parameter xml:lang="fi" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Salasana" descr="Salasana"></parameter>
+    <parameter xml:lang="fr" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Mot de passe" descr="Mot de passe"></parameter>
+    <parameter xml:lang="ga" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Password" descr="Password"></parameter>
+    <parameter xml:lang="gl" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Contrasinal" descr="Contrasinal"></parameter>
+    <parameter xml:lang="hr" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Lozinka" descr="Lozinka"></parameter>
+    <parameter xml:lang="hu" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Jelszó" descr="Jelszó"></parameter>
+    <parameter xml:lang="id" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Kata Sandi" descr="Kata Sandi"></parameter>
+    <parameter xml:lang="it" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Password" descr="Password"></parameter>
+    <parameter xml:lang="ja" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="パスワード" descr="パスワード"></parameter>
+    <parameter xml:lang="ko" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="비밀번호" descr="비밀번호"></parameter>
+    <parameter xml:lang="lt" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Slaptažodis" descr="Slaptažodis"></parameter>
+    <parameter xml:lang="mk" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Password" descr="Password"></parameter>
+    <parameter xml:lang="ml" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="അടയാളവാക്യം" descr="അടയാളവാക്യം"></parameter>
+    <parameter xml:lang="ms" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Katalaluan" descr="Katalaluan"></parameter>
+    <parameter xml:lang="nb" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Passord" descr="Passord"></parameter>
+    <parameter xml:lang="ne" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="पासवर्ड" descr="पासवर्ड"></parameter>
+    <parameter xml:lang="nl" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Wachtwoord" descr="Wachtwoord"></parameter>
+    <parameter xml:lang="oc" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Mot de pas" descr="Mot de pas"></parameter>
+    <parameter xml:lang="pa" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="ਗੁਪਤ-ਕੋਡ" descr="ਗੁਪਤ-ਕੋਡ"></parameter>
+    <parameter xml:lang="pl" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Hasło" descr="Hasło"></parameter>
+    <parameter xml:lang="pt" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Senha" descr="Senha"></parameter>
+    <parameter xml:lang="pt_BR" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Senha" descr="Senha"></parameter>
+    <parameter xml:lang="ru" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Пароль" descr="Пароль"></parameter>
+    <parameter xml:lang="rw" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Ijambobanga" descr="Ijambobanga"></parameter>
+    <parameter xml:lang="sk" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Heslo" descr="Heslo"></parameter>
+    <parameter xml:lang="sl" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Geslo" descr="Geslo"></parameter>
+    <parameter xml:lang="sq" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Fjalëkalimi" descr="Fjalëkalimi"></parameter>
+    <parameter xml:lang="sr" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Лозинка" descr="Лозинка"></parameter>
+    <parameter xml:lang="sr@Latn" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Lozinka" descr="Lozinka"></parameter>
+    <parameter xml:lang="sv" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Lösenord" descr="Lösenord"></parameter>
+    <parameter xml:lang="tr" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Password" descr="Password"></parameter>
+    <parameter xml:lang="uk" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Пароль" descr="Пароль"></parameter>
+    <parameter xml:lang="vi" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="Mật khẩu" descr="Mật khẩu"></parameter>
+    <parameter xml:lang="zh_CN" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="口令" descr="口令"></parameter>
+    <parameter xml:lang="zh_HK" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="密碼" descr="密碼"></parameter>
+    <parameter xml:lang="zh_TW" plugin="string:HIDDEN=true" nullok="TRUE" id="PASSWORD" gdatype="gchararray" name="密碼" descr="密碼"></parameter>
+  </parameters>
+</data-set-spec>

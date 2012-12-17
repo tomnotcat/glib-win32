@@ -1,10 +1,11 @@
 /*
  * Copyright (C) 2008 Massimo Cora <maxcvs@email.it>
  * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
+ * Copyright (C) 2011 Daniel Espinosa <despinosa@src.gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -93,7 +94,8 @@ enum
 	PROP_SOURCE_MODEL,
 	PROP_SOURCE_COLUMN,
 	PROP_GDA_TYPE,
-	PROP_NOT_NULL
+	PROP_NOT_NULL,
+	PROP_VALIDATE_CHANGES
 };
 
 
@@ -120,6 +122,8 @@ struct _GdaHolderPrivate
 	gint             source_col;
 
 	GdaMutex        *mutex;
+
+	gboolean         validate_changes;
 };
 
 /* module error */
@@ -203,7 +207,7 @@ gda_holder_class_init (GdaHolderClass *class)
 	parent_class = g_type_class_peek_parent (class);
 
 	/**
-	 * GdaHolder::source-changed
+	 * GdaHolder::source-changed:
 	 * @holder: the #GdaHolder
 	 * 
 	 * Gets emitted when the data model in which @holder's values should be has changed
@@ -216,7 +220,7 @@ gda_holder_class_init (GdaHolderClass *class)
                               NULL, NULL,
                               _gda_marshal_VOID__VOID, G_TYPE_NONE, 0);
 	/**
-	 * GdaHolder::changed
+	 * GdaHolder::changed:
 	 * @holder: the #GdaHolder
 	 * 
 	 * Gets emitted when @holder's value has changed
@@ -229,7 +233,7 @@ gda_holder_class_init (GdaHolderClass *class)
                               NULL, NULL,
                               _gda_marshal_VOID__VOID, G_TYPE_NONE, 0);
 	/**
-	 * GdaHolder::attribute-changed
+	 * GdaHolder::attribute-changed:
 	 * @holder: the #GdaHolder
 	 * @att_name: attribute's name
 	 * @att_value: attribute's value
@@ -246,7 +250,7 @@ gda_holder_class_init (GdaHolderClass *class)
 			      G_TYPE_STRING, G_TYPE_VALUE);
 
 	/**
-	 * GdaHolder::validate-change
+	 * GdaHolder::validate-change:
 	 * @holder: the object which received the signal
 	 * @new_value: the proposed new value for @holder
 	 * 
@@ -312,6 +316,18 @@ gda_holder_class_init (GdaHolderClass *class)
 							   "with the source-model property",
 							   0, G_MAXINT, 0,
 							   (G_PARAM_READABLE | G_PARAM_WRITABLE)));
+
+	/**
+	 * GdaHolder:validate-changes:
+	 *
+	 * Defines if the "validate-change" signal gets emitted when
+	 * the holder's value changes.
+	 *
+	 * Since: 5.2.0
+	 */
+	g_object_class_install_property (object_class, PROP_VALIDATE_CHANGES,
+					 g_param_spec_boolean ("validate-changes", NULL, "Defines if the validate-change signal is emitted on value change", TRUE,
+							       (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 	
 	/* extra */
 	gda_holder_attributes_manager = gda_attributes_manager_new (TRUE, holder_attribute_set_cb, NULL);
@@ -350,6 +366,8 @@ gda_holder_init (GdaHolder *holder)
 	holder->priv->source_col = 0;
 
 	holder->priv->mutex = gda_mutex_new ();
+
+	holder->priv->validate_changes = TRUE;
 }
 
 /**
@@ -406,7 +424,7 @@ gda_holder_copy (GdaHolder *orig)
 	}
 
 	if (allok) {
-        GValue *att_value;
+		GValue *att_value;
 		/* direct settings */
 		holder->priv->invalid_forced = orig->priv->invalid_forced;
 		if (orig->priv->invalid_error)
@@ -421,7 +439,6 @@ gda_holder_copy (GdaHolder *orig)
 		holder->priv->not_null = orig->priv->not_null;
 		gda_attributes_manager_copy (gda_holder_attributes_manager, (gpointer) orig, gda_holder_attributes_manager, (gpointer) holder);
 
-		
 		g_value_set_boolean ((att_value = gda_value_new (G_TYPE_BOOLEAN)), holder->priv->default_forced);
 		gda_holder_set_attribute_static (holder, GDA_ATTRIBUTE_IS_DEFAULT, att_value);
 		gda_value_free (att_value);
@@ -665,6 +682,9 @@ gda_holder_set_property (GObject *object,
 		case PROP_SOURCE_COLUMN:
 			holder->priv->source_col = g_value_get_int (value);
 			break;
+		case PROP_VALIDATE_CHANGES:
+			holder->priv->validate_changes = g_value_get_boolean (value);
+			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
 			break;
@@ -718,7 +738,10 @@ gda_holder_get_property (GObject *object,
 			break;
 		case PROP_SOURCE_COLUMN:
 			g_value_set_int (value, holder->priv->source_col);
-			break;	
+			break;
+		case PROP_VALIDATE_CHANGES:
+			g_value_set_boolean (value, holder->priv->validate_changes);
+			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
 			break;
@@ -966,8 +989,7 @@ real_gda_holder_set_value (GdaHolder *holder, GValue *value, gboolean do_copy, G
 	const GValue *current_val;
 	gboolean newnull;
 	gboolean was_valid;
-    GValue *att_value;
-    GError *lerror = NULL;
+    	GValue att_value = {0};
 #define DEBUG_HOLDER
 #undef DEBUG_HOLDER
 
@@ -1041,19 +1063,21 @@ real_gda_holder_set_value (GdaHolder *holder, GValue *value, gboolean do_copy, G
 	}
 
 	/* check if we are allowed to change value */
-	
-	g_signal_emit (holder, gda_holder_signals[VALIDATE_CHANGE], 0, value, &lerror);
-	if (lerror) {
-		/* change refused by signal callback */
+	if (holder->priv->validate_changes) {
+		GError *lerror = NULL;
+		g_signal_emit (holder, gda_holder_signals[VALIDATE_CHANGE], 0, value, &lerror);
+		if (lerror) {
+			/* change refused by signal callback */
 #ifdef DEBUG_HOLDER
-		g_print ("Holder change refused %p (ERROR %s)\n", holder,
-			 lerror->message);
+			g_print ("Holder change refused %p (ERROR %s)\n", holder,
+				 lerror->message);
 #endif
-		g_propagate_error (error, lerror);
-		if (!do_copy) 
-			gda_value_free (value);
-		gda_holder_unlock ((GdaLockable*) holder);
-		return FALSE;
+			g_propagate_error (error, lerror);
+			if (!do_copy) 
+				gda_value_free (value);
+			gda_holder_unlock ((GdaLockable*) holder);
+			return FALSE;
+		}
 	}
 
 	/* new valid status */
@@ -1075,10 +1099,10 @@ real_gda_holder_set_value (GdaHolder *holder, GValue *value, gboolean do_copy, G
 			 value && (G_VALUE_TYPE (value) == holder->priv->g_type))
 			holder->priv->default_forced = !gda_value_compare (holder->priv->default_value, value);
 	}
-	
-	g_value_set_boolean ((att_value = gda_value_new (G_TYPE_BOOLEAN)), holder->priv->default_forced);
-	gda_holder_set_attribute_static (holder, GDA_ATTRIBUTE_IS_DEFAULT, att_value);
-	gda_value_free (att_value);
+
+	g_value_init (&att_value, G_TYPE_BOOLEAN);
+	g_value_set_boolean (&att_value, holder->priv->default_forced);
+	gda_holder_set_attribute_static (holder, GDA_ATTRIBUTE_IS_DEFAULT, &att_value);
 
 	/* real setting of the value */
 	if (holder->priv->full_bind) {
@@ -1122,8 +1146,7 @@ real_gda_holder_set_const_value (GdaHolder *holder, const GValue *value,
 	const GValue *current_val;
 	GValue *value_to_return = NULL;
 	gboolean newnull;
-    GError *lerror = NULL;
-    GValue *att_value;
+    	GValue *att_value;
 #define DEBUG_HOLDER
 #undef DEBUG_HOLDER
 
@@ -1191,12 +1214,14 @@ real_gda_holder_set_const_value (GdaHolder *holder, const GValue *value,
 	}
 
 	/* check if we are allowed to change value */
-	
-	g_signal_emit (holder, gda_holder_signals[VALIDATE_CHANGE], 0, value, &lerror);
-	if (lerror) {
-		/* change refused by signal callback */
-		g_propagate_error (error, lerror);
-		return NULL;
+	if (holder->priv->validate_changes) {
+		GError *lerror = NULL;
+		g_signal_emit (holder, gda_holder_signals[VALIDATE_CHANGE], 0, value, &lerror);
+		if (lerror) {
+			/* change refused by signal callback */
+			g_propagate_error (error, lerror);
+			return NULL;
+		}
 	}
 
 	/* new valid status */
@@ -1218,7 +1243,7 @@ real_gda_holder_set_const_value (GdaHolder *holder, const GValue *value,
 			 value && (G_VALUE_TYPE (value) == holder->priv->g_type))
 			holder->priv->default_forced = !gda_value_compare (holder->priv->default_value, value);
 	}
-	
+
 	g_value_set_boolean ((att_value = gda_value_new (G_TYPE_BOOLEAN)), holder->priv->default_forced);
 	gda_holder_set_attribute_static (holder, GDA_ATTRIBUTE_IS_DEFAULT, att_value);
 	gda_value_free (att_value);
@@ -1425,7 +1450,7 @@ gda_holder_is_valid_e (GdaHolder *holder, GError **error)
  */
 gboolean
 gda_holder_set_value_to_default (GdaHolder *holder)
-{GValue *att_value;
+{	GValue *att_value;
 	g_return_val_if_fail (GDA_IS_HOLDER (holder), FALSE);
 	g_return_val_if_fail (holder->priv, FALSE);
 
@@ -1454,7 +1479,7 @@ gda_holder_set_value_to_default (GdaHolder *holder)
 		}
 	}
 
-	
+
 	g_value_set_boolean ((att_value = gda_value_new (G_TYPE_BOOLEAN)), TRUE);
 	gda_holder_set_attribute_static (holder, GDA_ATTRIBUTE_IS_DEFAULT, att_value);
 	gda_value_free (att_value);
@@ -1514,8 +1539,7 @@ gda_holder_get_default_value (GdaHolder *holder)
  */
 void
 gda_holder_set_default_value (GdaHolder *holder, const GValue *value)
-{
-    GValue *att_value;
+{	GValue *att_value;
 	g_return_if_fail (GDA_IS_HOLDER (holder));
 	g_return_if_fail (holder->priv);
 
@@ -1547,7 +1571,7 @@ gda_holder_set_default_value (GdaHolder *holder, const GValue *value)
 		holder->priv->default_value = gda_value_copy ((GValue *)value);
 	}
 	
-	
+
 	g_value_set_boolean ((att_value = gda_value_new (G_TYPE_BOOLEAN)), holder->priv->default_forced);
 	gda_holder_set_attribute_static (holder, GDA_ATTRIBUTE_IS_DEFAULT, att_value);
 	gda_value_free (att_value);
@@ -1919,14 +1943,13 @@ full_bound_holder_changed_cb (GdaHolder *alias_of, GdaHolder *holder)
 
 static void
 bound_holder_changed_cb (GdaHolder *alias_of, GdaHolder *holder)
-{
-    const GValue *cvalue;
+{	const GValue *cvalue;
 	GError *lerror = NULL;
 	gda_holder_lock ((GdaLockable*) holder);
 	gda_holder_lock ((GdaLockable*) alias_of);
 
 	g_assert (alias_of == holder->priv->simple_bind);
-	
+
 	cvalue = gda_holder_get_value (alias_of);
 	if (! gda_holder_set_value (holder, cvalue, &lerror)) {
 		if (lerror && ((lerror->domain != GDA_HOLDER_ERROR) || (lerror->code != GDA_HOLDER_VALUE_NULL_ERROR)))
@@ -2007,14 +2030,12 @@ gda_holder_get_attribute (GdaHolder *holder, const gchar *attribute)
  * then the string will not be freed at all).
  *
  * Attributes can have any name, but Libgda proposes some default names, 
- * see <link linkend="libgda-40-Attributes-manager.synopsis">this section</link>.
+ * see <link linkend="libgda-5.0-Attributes-manager.synopsis">this section</link>.
  *
  * For example one would use it as:
  *
- * <code>
- * gda_holder_set_attribute (holder, g_strdup (my_attribute), g_free, my_value);
- * gda_holder_set_attribute (holder, GDA_ATTRIBUTE_NAME, NULL, my_value);
- * </code>
+ * <code>gda_holder_set_attribute (holder, g_strdup (my_attribute), my_value, g_free);</code>
+ * <code>gda_holder_set_attribute (holder, GDA_ATTRIBUTE_NAME, my_value, NULL);</code>
  *
  * If there is already an attribute named @attribute set, then its value is replaced with the new value (@value is
  * copied), except if @value is %NULL, in which case the attribute is removed.

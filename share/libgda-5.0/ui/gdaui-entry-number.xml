@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-set-spec>
+  <parameters>
+    <parameter id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ar" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="az" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca@valencia" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="cs" id="THOUSAND_SEP" gdatype="gboolean" name="Použít oddělovače tisíců" descr="Použít oddělovače tisíců, jak jsou definovány v současném místním nastavení">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="da" id="THOUSAND_SEP" gdatype="gboolean" name="Brug adskillelstegn for 1.000" descr="Brug tusindadskillelsestegn som angivet af valgt sprog">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="de" id="THOUSAND_SEP" gdatype="gboolean" name="Tausender-Trenner verwenden" descr="Tausender-Trenner verwenden, wie in der aktuellen Spracheinstellung festgelegt">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="dz" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="el" id="THOUSAND_SEP" gdatype="gboolean" name="Χρήση διαχωριστών χιλιάδων" descr="Χρήση διαχωριστών χιλιάδων όπως ορίζεται από το τρέχον τοπικό">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_CA" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_GB" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="eo" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="es" id="THOUSAND_SEP" gdatype="gboolean" name="Usar separador de miles" descr="Usar separador de miles especificado por la configuración regional actual">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="eu" id="THOUSAND_SEP" gdatype="gboolean" name="Erabili 1000koen bereizleak" descr="Erabili milakoen bereizleak uneko lokalean zehaztuta dagoen bezala">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="fa" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="fi" id="THOUSAND_SEP" gdatype="gboolean" name="Käytä tuhaterotinta" descr="Käytä tuhaterotinta nykyisen maa-asetuston mukaisesti">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="fr" id="THOUSAND_SEP" gdatype="gboolean" name="Utiliser les séparateurs de milliers" descr="Utiliser le séparateur de milliers indiqué par l&apos;environnement linguistique actuel">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ga" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="gl" id="THOUSAND_SEP" gdatype="gboolean" name="Usar separadores de milleiros" descr="Usar separador de milleiros como se especifica na configuración rexional actual">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="hr" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="hu" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="id" id="THOUSAND_SEP" gdatype="gboolean" name="Gunakan pemisah ribuan" descr="Pakai pemisah ribuan seperti dinyatakan oleh locale kini">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="it" id="THOUSAND_SEP" gdatype="gboolean" name="Usa i separatori delle migliaia" descr="Usa i separatori delle migliaia come specificato dal locale corrente">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ja" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ko" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="lt" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="mk" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ml" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ms" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="nb" id="THOUSAND_SEP" gdatype="gboolean" name="Bruk tusenskilletegn" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ne" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="nl" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="oc" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="pa" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="pl" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt" id="THOUSAND_SEP" gdatype="gboolean" name="Usar separador de milhares" descr="Usar o separador de milhares como especificado no locale actual">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt_BR" id="THOUSAND_SEP" gdatype="gboolean" name="Usar separados de milhar" descr="Usa separadores de milhar como especificados na localidade atual">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="ru" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="rw" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="sk" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="sl" id="THOUSAND_SEP" gdatype="gboolean" name="Uporabi ločilo tisočic" descr="Uporabi ločilnik tisočic, kot to določajo jezikovne nastavitve">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="sq" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr@Latn" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="sv" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="tr" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="uk" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="vi" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_CN" id="THOUSAND_SEP" gdatype="gboolean" name="使用千位分隔符" descr="使用当前区域指定的千位分隔符">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_HK" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_TW" id="THOUSAND_SEP" gdatype="gboolean" name="Use 1000s separators" descr="Use thousands separator as specified by current locale">
+      <gda_value>FALSE</gda_value>
+    </parameter>
+    <parameter id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ar" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="az" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ca" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ca@valencia" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="cs" id="NB_DECIMALS" gdatype="guint" name="Desetinná místa" descr="Počet desetinných míst">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="da" id="NB_DECIMALS" gdatype="guint" name="Decimaler" descr="Antal decimaler">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="de" id="NB_DECIMALS" gdatype="guint" name="Dezimalstellen" descr="Anzahl der Dezimalstellen">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="dz" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="el" id="NB_DECIMALS" gdatype="guint" name="Δεκαδικά" descr="Αριθμός δεκαδικών">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="en_CA" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="en_GB" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="eo" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="es" id="NB_DECIMALS" gdatype="guint" name="Decimales" descr="Número de decimales">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="eu" id="NB_DECIMALS" gdatype="guint" name="Dezimalak" descr="Dezimalen kopurua">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="fa" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="fi" id="NB_DECIMALS" gdatype="guint" name="Desimaalit" descr="Desimaalien lukumäärä">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="fr" id="NB_DECIMALS" gdatype="guint" name="Décimales" descr="Nombre de décimales">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ga" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="gl" id="NB_DECIMALS" gdatype="guint" name="Decimais" descr="Número de decimais">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="hr" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="hu" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="id" id="NB_DECIMALS" gdatype="guint" name="Desimal" descr="Angka di belakang koma">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="it" id="NB_DECIMALS" gdatype="guint" name="Decimali" descr="Numero di decimali">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ja" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ko" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="lt" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="mk" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ml" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ms" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="nb" id="NB_DECIMALS" gdatype="guint" name="Desimaler" descr="Antall desimaler">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ne" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="nl" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="oc" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="pa" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="pl" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="pt" id="NB_DECIMALS" gdatype="guint" name="Decimais" descr="Número de decimais">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="pt_BR" id="NB_DECIMALS" gdatype="guint" name="Decimais" descr="Quantidade de casas decimais">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="ru" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="rw" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="sk" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="sl" id="NB_DECIMALS" gdatype="guint" name="Decimalke" descr="Število decimalnih mest">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="sq" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="sr" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="sr@Latn" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="sv" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="tr" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="uk" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="vi" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_CN" id="NB_DECIMALS" gdatype="guint" name="小数" descr="小数位数">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_HK" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_TW" id="NB_DECIMALS" gdatype="guint" name="Decimals" descr="Number of decimals">
+      <gda_value>2</gda_value>
+    </parameter>
+    <parameter source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="ar" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="az" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="ca" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="ca@valencia" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="cs" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Symbol měny" descr="Symbol měny"></parameter>
+    <parameter xml:lang="da" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Valutasymbol" descr="Et valutasymbol"></parameter>
+    <parameter xml:lang="de" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Währungssymbol" descr="Ein Währungssymbol"></parameter>
+    <parameter xml:lang="dz" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="el" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Σύμβολο νομίσματος" descr="Σύμβολο νομίσματος"></parameter>
+    <parameter xml:lang="en_CA" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="en_GB" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="eo" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="es" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Símbolo de divisa" descr="Un símbolo de divisa"></parameter>
+    <parameter xml:lang="eu" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Moneta-ikurra" descr="Moneta-ikurra"></parameter>
+    <parameter xml:lang="fa" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="fi" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Valuuttasymboli" descr="Valuuttasymboli"></parameter>
+    <parameter xml:lang="fr" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Symbole monétaire" descr="Un symbole monétaire"></parameter>
+    <parameter xml:lang="ga" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="gl" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Símbolo de divisa" descr="Un símbolo de divisa"></parameter>
+    <parameter xml:lang="hr" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="hu" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="id" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Simbol mata uang" descr="Suatu simbol mata uang"></parameter>
+    <parameter xml:lang="it" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Simbolo di valuta" descr="Un simbolo di valuta"></parameter>
+    <parameter xml:lang="ja" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="ko" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="lt" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="mk" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="ml" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="ms" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="nb" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Valutasymbol" descr="Et valutasymbol"></parameter>
+    <parameter xml:lang="ne" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="nl" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="oc" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="pa" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="pl" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="pt" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Símbolo de moeda" descr="Um símbolo de moeda"></parameter>
+    <parameter xml:lang="pt_BR" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Símbolo monetário" descr="Um símbolo de moeda financeira"></parameter>
+    <parameter xml:lang="ru" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="rw" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="sk" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="sl" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Simbol denarne enote" descr="Simbol denarne enote"></parameter>
+    <parameter xml:lang="sq" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="sr" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="sr@Latn" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="sv" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="tr" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="uk" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="vi" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="zh_CN" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="货币符号" descr="货币符号"></parameter>
+    <parameter xml:lang="zh_HK" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+    <parameter xml:lang="zh_TW" source="currencies:0" id="CURRENCY" gdatype="gchararray" name="Currency symbol" descr="A currency symbol"></parameter>
+  </parameters>
+  <sources>
+    <gda_array name="currencies">
+      <gda_array_field name="cur" gdatype="gchararray"/>
+      <gda_array_field name="cur2" gdatype="gchararray"/>
+      <gda_array_field name="text" gdatype="gchararray"/>
+      <gda_array_data/>
+    </gda_array>
+  </sources>
+</data-set-spec>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2009 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -155,7 +155,7 @@ gda_tree_mgr_tables_dispose (GObject *object)
 }
 
 /**
- * gda_tree_mgr_select_get_type:
+ * gda_tree_mgr_tables_get_type:
  *
  * Returns: the GType
  *
@@ -281,10 +281,10 @@ gda_tree_mgr_tables_update_children (GdaTreeManager *manager, GdaTreeNode *node,
 	GdaDataModel *model;
 	GSList *list = NULL;
 	GdaConnection *scnc;
-	GdaDataModelIter *iter;
     
 	gboolean schema_specified = FALSE;
 	gboolean schema_from_parent = FALSE;
+	GdaDataModelIter *iter;
 	if (!mgr->priv->cnc && !mgr->priv->mstore) {
 		g_set_error (error, GDA_TREE_MANAGER_ERROR, GDA_TREE_MANAGER_UNKNOWN_ERROR,
 			     "%s", _("No connection and no GdaMetaStore specified"));
@@ -341,8 +341,6 @@ gda_tree_mgr_tables_update_children (GdaTreeManager *manager, GdaTreeNode *node,
 		mgr->priv->stmt_all_visible = stmt2;
 	}
 
-	 schema_specified = FALSE;
-	 schema_from_parent = FALSE;
 	if (mgr->priv->schema) {
 		schema_specified = TRUE;
 		g_assert (gda_set_set_holder_value (mgr->priv->params, NULL, "schema", mgr->priv->schema));
@@ -374,7 +372,6 @@ gda_tree_mgr_tables_update_children (GdaTreeManager *manager, GdaTreeNode *node,
 			*out_error = TRUE;
 		return NULL;
 	}
-
 
 	iter = gda_data_model_create_iter (model);
 	for (; iter && gda_data_model_iter_move_next (iter);) {

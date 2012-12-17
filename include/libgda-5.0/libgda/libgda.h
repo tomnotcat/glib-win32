@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2000 Reinhard MÃ¼ller <reinhard@src.gnome.org>
  * Copyright (C) 2000 - 2004 Rodrigo Moya <rodrigo@gnome-db.org>
- * Copyright (C) 2001 Carlos Perell?Marín <carlos@gnome-db.org>
+ * Copyright (C) 2001 Carlos Perelló Marín <carlos@gnome-db.org>
  * Copyright (C) 2001 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2002 Andrew Hill <andru@src.gnome.org>
  * Copyright (C) 2002 - 2003 Gonzalo Paniagua Javier <gonzalo@ximian.com>
@@ -37,11 +37,9 @@
 #include <libgda/gda-connection-private.h>
 #include <libgda/gda-data-comparator.h>
 #include <libgda/gda-data-model-array.h>
-#include <libgda/gda-data-model-bdb.h>
-/*
+
 #include <libgda/gda-data-model-ldap.h>
 #include <libgda/gda-tree-mgr-ldap.h>
-*/
 #include <libgda/gda-data-model.h>
 #include <libgda/gda-data-model-iter.h>
 #include <libgda/gda-data-model-import.h>
@@ -49,7 +47,7 @@
 #include <libgda/gda-data-access-wrapper.h>
 #include <libgda/gda-data-proxy.h>
 #include <libgda/gda-data-select.h>
-/*#include <libgda/gda-data-pivot.h>*/
+#include <libgda/gda-data-pivot.h>
 #include <libgda/gda-lockable.h>
 #include <libgda/gda-log.h>
 #include <libgda/gda-quark-list.h>

@@ -224,7 +224,7 @@ gda_select_alter_select_for_empty (GdaStatement *stmt, G_GNUC_UNUSED GError **er
 	GdaStatement *estmt;
 	GdaSqlStatement *sqlst;
 	GdaSqlStatementSelect *stsel;
-	GdaSqlExpr *expr, *cond;
+    GdaSqlExpr *expr, *cond;
 	GdaSqlOperation *op;
 	g_assert (gda_statement_get_statement_type (stmt) == GDA_SQL_STATEMENT_SELECT);
 	g_object_get (G_OBJECT (stmt), "structure", &sqlst, NULL);
@@ -238,6 +238,7 @@ gda_select_alter_select_for_empty (GdaStatement *stmt, G_GNUC_UNUSED GError **er
 
 	/* set the WHERE condition to "1 = 0" */
 	cond = stsel->where_cond;
+
 	if (cond)
 		gda_sql_expr_free (cond);
 	cond = gda_sql_expr_new (GDA_SQL_ANY_PART (stsel));

@@ -469,7 +469,7 @@ gda_xa_transaction_commit (GdaXaTransaction *xa_trans, GSList **cnc_to_recover, 
 	 * PREPARE phase 
 	 */
 	for (list = xa_trans->priv->cnc_list; list; list = list->next) {
-		GdaConnection *cnc;
+		GdaConnection *cnc = NULL;
 		GdaServerProvider *prov;
 		const GdaBinary *branch;
 		
@@ -504,7 +504,7 @@ gda_xa_transaction_commit (GdaXaTransaction *xa_trans, GSList **cnc_to_recover, 
 	if (list) {
 		/* something went wrong during the PREPARE phase => rollback everything */
 		for (; list; list = list->prev) {
-			GdaConnection *cnc;
+			GdaConnection *cnc = NULL;
 			GdaServerProvider *prov;
 			
 			if (cnc == xa_trans->priv->non_xa_cnc) 
@@ -534,7 +534,7 @@ gda_xa_transaction_commit (GdaXaTransaction *xa_trans, GSList **cnc_to_recover, 
 	    ! gda_connection_commit_transaction (xa_trans->priv->non_xa_cnc, NULL, error)) {
 		/* something went wrong => rollback everything */
 		for (list = xa_trans->priv->cnc_list; list; list = list->next) {
-			GdaConnection *cnc;
+			GdaConnection *cnc = NULL;
 			GdaServerProvider *prov;
 			
 			if (cnc == xa_trans->priv->non_xa_cnc)
@@ -558,7 +558,7 @@ gda_xa_transaction_commit (GdaXaTransaction *xa_trans, GSList **cnc_to_recover, 
 	}
 
 	for (list = xa_trans->priv->cnc_list; list; list = list->next) {
-		GdaConnection *cnc;
+		GdaConnection *cnc = NULL;
 		GdaServerProvider *prov;
 		const GdaBinary *branch;
 		
@@ -771,7 +771,7 @@ gda_xa_transaction_string_to_id (const gchar *str)
 	const gchar *ptr;
 	int index = 0;
     gchar *endptr;
-	gint64 tmp;
+    gint64 tmp;
 	g_return_val_if_fail (str, NULL);
 
 	xid = g_new0 (GdaXaTransactionId, 1);
@@ -850,6 +850,7 @@ gda_xa_transaction_string_to_id (const gchar *str)
 	if (*ptr != ',') 
 		goto onerror;
 	ptr++;
+	
 	tmp = g_ascii_strtoll (ptr, &endptr, 10);
 	if (*endptr || (tmp < 0) || (tmp >= G_MAXUINT32))
 		goto onerror;

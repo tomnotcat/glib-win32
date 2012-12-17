@@ -2,6 +2,7 @@
  * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
+ * Copyright (C) 2012 Daniel Espinosa <despinosa@src.gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -89,7 +90,7 @@ objattrs_unref (ObjAttrs *attrs)
 }
 
 /**
- * gda_attributes_manager_new: (skip)
+ * gda_attributes_manager_new:
  * @for_objects: set to TRUE if attributes will be set on objects.
  * @signal_func: (allow-none): a function to be called whenever an attribute changes on an object (if @for_objects is TRUE), or %NULL
  * @signal_data: user data passed as last argument of @signal_func when it is called
@@ -195,8 +196,8 @@ manager_real_set (GdaAttributesManager *mgr, gpointer ptr,
 
 	if (objattrs->objects->next) {
 		/* create another ObjAttrs specifically for @ptr */
-        CopyData cdata;
 		ObjAttrs *objattrs2;
+		CopyData cdata;
 		objattrs2 = g_new0 (ObjAttrs, 1);
 		objattrs2->mgr = mgr;
 		objattrs2->objects = g_slist_prepend (NULL, ptr);
@@ -213,7 +214,6 @@ manager_real_set (GdaAttributesManager *mgr, gpointer ptr,
 			g_object_weak_ref (G_OBJECT (ptr), (GWeakNotify) obj_destroyed_cb, objattrs2);
 		}
 
-		
 		cdata.to_mgr = mgr;
 		cdata.ptr = ptr;
 		g_hash_table_foreach (objattrs->values_hash, (GHFunc) foreach_copy_func, &cdata);
@@ -330,7 +330,7 @@ gda_attributes_manager_copy (GdaAttributesManager *from_mgr, gpointer *from,
 			     GdaAttributesManager *to_mgr, gpointer *to)
 {
 	ObjAttrs *from_objattrs, *to_objattrs;
-    CopyData cdata;
+    	CopyData cdata;
 	gda_mutex_lock (from_mgr->mutex);
 	gda_mutex_lock (to_mgr->mutex);
 
@@ -356,7 +356,7 @@ gda_attributes_manager_copy (GdaAttributesManager *from_mgr, gpointer *from,
 	}
 
 	/* copy attributes */
-	
+
 	cdata.to_mgr = to_mgr;
 	cdata.ptr = to;
 	g_hash_table_foreach (from_objattrs->values_hash, (GHFunc) foreach_copy_func, &cdata);

@@ -1,9 +1,10 @@
 /*
  * Copyright (C) 2008 - 2010 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
+ * Copyright (C) 2012 Daniel Espinosa <despinosa@src.gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -677,9 +678,9 @@ add_declared_foreign_keys (GdaMetaStruct *mstruct, GdaMetaTable *mt, GError **er
 
 	nrows = gda_data_model_get_n_rows (model);
 	for (i = 0; i < nrows; i++) {
-        		gint j, cnrows;
 		GdaMetaDbObject *ref_dbo = NULL;
 		GdaMetaTableForeignKey *tfk = NULL;
+        gint j, cnrows;
 		const GValue *fk_catalog, *fk_schema, *fk_tname, *fk_name;
 		gboolean ignore = FALSE;
 
@@ -709,7 +710,7 @@ add_declared_foreign_keys (GdaMetaStruct *mstruct, GdaMetaTable *mt, GError **er
 		
 		/* ignore if some columns are not found in the schema
 		 * (maybe wrong or outdated FK decl) */
-
+		
 		cnrows = gda_data_model_get_n_rows (cmodel);
 		if (cnrows == 0)
 			ignore = TRUE;
@@ -1122,11 +1123,12 @@ _meta_struct_complement (GdaMetaStruct *mstruct, GdaMetaDbObjectType type,
 			
 			nrows = gda_data_model_get_n_rows (model);
 			for (i = 0; i < nrows; i++) {
-				GdaMetaTableForeignKey *tfk;
+				GdaMetaTableForeignKey *tfk = NULL;
+                GdaDataModel *fk_cols = NULL;
+				GdaDataModel *ref_pk_cols = NULL;
+				gboolean fkerror = FALSE;
 				const GValue *fk_catalog, *fk_schema, *fk_tname, *fk_name;
 				const GValue *upd_policy, *del_policy;
-                GdaDataModel *fk_cols, *ref_pk_cols;
-				gboolean fkerror = FALSE;
 
 				fk_catalog = gda_data_model_get_value_at (model, 0, i, error);
 				if (!fk_catalog) goto onfkerror;
@@ -1179,7 +1181,7 @@ _meta_struct_complement (GdaMetaStruct *mstruct, GdaMetaDbObjectType type,
 				/* FIXME: compute @cols_nb, and all the @*_array members (ref_pk_cols_array must be
 				 * initialized with -1 values everywhere */
 				sql = "SELECT k.column_name, c.ordinal_position FROM _key_column_usage k INNER JOIN _columns c ON (c.table_catalog = k.table_catalog AND c.table_schema = k.table_schema AND c.table_name=k.table_name AND c.column_name=k.column_name) WHERE k.table_catalog = ##tc::string AND k.table_schema = ##ts::string AND k.table_name = ##tname::string AND k.constraint_name = ##cname::string ORDER BY k.ordinal_position";
-				fkerror = FALSE;
+				
 				cvalue = gda_data_model_get_value_at (model, 3, i, error);
 				if (!cvalue) goto onfkerror;
 				fk_cols = gda_meta_store_extract (mstruct->priv->store, sql, error, 
@@ -1270,8 +1272,8 @@ _meta_struct_complement (GdaMetaStruct *mstruct, GdaMetaDbObjectType type,
 					g_object_unref (fk_cols);
 				if (ref_pk_cols)
 					g_object_unref (ref_pk_cols);
-				
-				mt->fk_list = g_slist_prepend (mt->fk_list, tfk);
+				if (tfk)
+					mt->fk_list = g_slist_prepend (mt->fk_list, tfk);
 				goto onerror;
 			}
 			mt->fk_list = g_slist_reverse (mt->fk_list);
@@ -1301,7 +1303,7 @@ _meta_struct_complement (GdaMetaStruct *mstruct, GdaMetaDbObjectType type,
 		GSList *list;
 		for (list = mstruct->priv->db_objects; list; list = list->next) {
 			GdaMetaDbObject *tmpdbo;
-            GdaMetaTable *mt;
+            			GdaMetaTable *mt;
 			GSList *klist;
 			tmpdbo = GDA_META_DB_OBJECT (list->data);
 			if (tmpdbo->obj_type != GDA_META_DB_TABLE)
@@ -2550,7 +2552,7 @@ copyerror:
 }
 
 /**
- * gda_meta_struct_add_db_object:
+ * _gda_meta_struct_add_db_object:
  * @mstruct: a #GdaMetaStruct object
  * @dbo: a #GdaMetaDbObject structure
  * @error: (allow-none): a place to store errors, or %NULL
@@ -2563,7 +2565,7 @@ copyerror:
  * Returns: (transfer none): a pointer to the #GdaMetaDbObject used in @mstruct to represent the added database object (may be @dbo or not)
  */
 GdaMetaDbObject *
-gda_meta_struct_add_db_object (GdaMetaStruct *mstruct, GdaMetaDbObject *dbo, GError **error)
+_gda_meta_struct_add_db_object (GdaMetaStruct *mstruct, GdaMetaDbObject *dbo, GError **error)
 {
 	GdaMetaDbObject *edbo;
 	GValue *v1 = NULL, *v2 = NULL, *v3 = NULL;

@@ -63,7 +63,7 @@ enum {
 };
 
 static gint gda_tree_signals[LAST_SIGNAL] = { 0, 0, 0, 0 };
-extern GdaAttributesManager *gda_tree_node_attributes_manager;
+extern GdaAttributesManager *_gda_tree_node_attributes_manager;
 
 /* properties */
 enum {
@@ -86,7 +86,7 @@ gda_tree_class_init (GdaTreeClass *klass)
 
 	/* signals */
 	/**
-	 * GdaTree::node-changed
+	 * GdaTree::node-changed:
 	 * @tree: the #GdaTree
 	 * @node: the #GdaTreeNode which has changed
 	 *
@@ -103,7 +103,7 @@ gda_tree_class_init (GdaTreeClass *klass)
 			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1, GDA_TYPE_TREE_NODE);
 	/**
-	 * GdaTree::node-inserted
+	 * GdaTree::node-inserted:
 	 * @tree: the #GdaTree
 	 * @node: the #GdaTreeNode which has inserted
 	 *
@@ -120,7 +120,7 @@ gda_tree_class_init (GdaTreeClass *klass)
 			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1, GDA_TYPE_TREE_NODE);
 	/**
-	 * GdaTree::node-has-child-toggled
+	 * GdaTree::node-has-child-toggled:
 	 * @tree: the #GdaTree
 	 * @node: the #GdaTreeNode which changed from having children to being a
 	 *        leaf or the other way around
@@ -139,7 +139,7 @@ gda_tree_class_init (GdaTreeClass *klass)
 			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1, GDA_TYPE_TREE_NODE);
 	/**
-	 * GdaTree::node-deleted
+	 * GdaTree::node-deleted:
 	 * @tree: the #GdaTree
 	 * @node_path: the position the node held in @tree as a tree path
 	 *
@@ -350,7 +350,7 @@ static void
 dump_root_attributes (GdaTreeNode *root)
 {
 	g_print ("DUMPING attributes for %p\n", root);
-	gda_attributes_manager_foreach (gda_tree_node_attributes_manager, root,
+	gda_attributes_manager_foreach (_gda_tree_node_attributes_manager, root,
 					(GdaAttributesManagerFunc) dump_attr_foreach_func, NULL);
 }
 #endif
@@ -373,8 +373,8 @@ gda_tree_clean (GdaTree *tree)
 
 	new_root = gda_tree_node_new (NULL);
 
-	gda_attributes_manager_copy (gda_tree_node_attributes_manager, (gpointer) tree->priv->root,
-				     gda_tree_node_attributes_manager, (gpointer) new_root);
+	gda_attributes_manager_copy (_gda_tree_node_attributes_manager, (gpointer) tree->priv->root,
+				     _gda_tree_node_attributes_manager, (gpointer) new_root);
 
 	take_root_node (tree, new_root);
 }
@@ -564,8 +564,7 @@ gda_tree_get_nodes_in_path (GdaTree *tree, const gchar *tree_path, gboolean use_
  */
 static GSList *
 real_gda_tree_get_nodes_in_path (GdaTree *tree, GSList *segments, gboolean use_names, GdaTreeNode **out_last_node)
-{	/* get the GdatreeNode for @tree_path */
-	GSList *seglist;
+{	GSList *seglist;
 	GdaTreeNode *node;
 	GdaTreeNode *parent;
 	if (out_last_node)
@@ -579,6 +578,7 @@ real_gda_tree_get_nodes_in_path (GdaTree *tree, GSList *segments, gboolean use_n
 			return gda_tree_node_get_children (tree->priv->root);
 	}
 
+	/* get the GdatreeNode for @tree_path */
 
 	for (seglist = segments, parent = tree->priv->root;
 	     seglist;
@@ -726,14 +726,14 @@ create_or_update_children (GSList *mgrlist, GdaTreeNode *parent, gboolean disabl
 	for (list = mgrlist; list; list = list->next) {
 		GdaTreeManager *manager = GDA_TREE_MANAGER (list->data);
 		gboolean recurs = FALSE;
-        		gboolean has_error = FALSE;
+        gboolean has_error = FALSE;
 		if (disable_recurs) {
 			g_object_get (G_OBJECT (manager), "recursive", &recurs, NULL);
 			if (recurs)
 				g_object_set (G_OBJECT (manager), "recursive", FALSE, NULL);
 		}
 		
-
+		
 		_gda_tree_manager_update_children (manager, parent, 
 						   _gda_tree_node_get_children_for_manager (parent, 
 											    manager), 
@@ -750,7 +750,7 @@ static GSList *split_absolute_path (const gchar *path, gboolean *out_error);
 static GSList *split_indexed_path (const gchar *path, gboolean *out_error);
 
 /**
- * decompose_path_as_segments
+ * decompose_path_as_segments:
  * @path: a path using '/'
  * @use_names: 
  *

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
@@ -75,7 +75,8 @@ enum
 	PROP_ID,
 	PROP_NAME,
 	PROP_DESCR,
-	PROP_HOLDERS
+	PROP_HOLDERS,
+	PROP_VALIDATE_CHANGES
 };
 
 /* signals */
@@ -103,6 +104,7 @@ struct _GdaSetPrivate
 	GHashTable      *holders_hash; /* key = GdaHoler ID, value = GdaHolder */
 	GArray          *holders_array;
 	gboolean         read_only;
+	gboolean         validate_changes;
 };
 
 static void 
@@ -130,11 +132,29 @@ gda_set_set_property (GObject *object,
 	case PROP_HOLDERS: {
 		/* add the holders */
 		GSList* holders;
-		for (holders = (GSList*) g_value_get_pointer(value); holders; holders = holders->next) 
+		for (holders = (GSList*) g_value_get_pointer (value); holders; holders = holders->next) 
 			gda_set_real_add_holder (set, GDA_HOLDER (holders->data));
 		compute_public_data (set);	
 		break;
 	}
+	case PROP_VALIDATE_CHANGES:
+		if (set->priv->validate_changes != g_value_get_boolean (value)) {
+			GSList *list;
+			set->priv->validate_changes = g_value_get_boolean (value);
+			for (list = set->holders; list; list = list->next) {
+				GdaHolder *holder = (GdaHolder*) list->data;
+				g_object_set ((GObject*) holder, "validate-changes",
+					      set->priv->validate_changes, NULL);
+				if (set->priv->validate_changes)
+					g_signal_connect ((GObject*) holder, "validate-change",
+							  G_CALLBACK (validate_change_holder_cb), set);
+				else
+					g_signal_handlers_disconnect_by_func ((GObject*) holder,
+									      G_CALLBACK (validate_change_holder_cb),
+									      set);
+			}
+		}
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
 		break;
@@ -162,6 +182,9 @@ gda_set_get_property (GObject *object,
 		break;
 	case PROP_DESCR:
 		g_value_set_string (value, set->priv->descr);
+		break;
+	case PROP_VALIDATE_CHANGES:
+		g_value_set_boolean (value, set->priv->validate_changes);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -252,7 +275,7 @@ gda_set_class_init (GdaSetClass *class)
 			      GDA_TYPE_HOLDER);
 
 	/**
-	 * GdaSet::validate-holder-change
+	 * GdaSet::validate-holder-change:
 	 * @set: the #GdaSet
 	 * @holder: the #GdaHolder which is going to change
 	 * @new_value: the proposed new value for @holder
@@ -272,7 +295,7 @@ gda_set_class_init (GdaSetClass *class)
 			      _gda_marshal_ERROR__OBJECT_VALUE, G_TYPE_ERROR, 2,
 			      GDA_TYPE_HOLDER, G_TYPE_VALUE);
 	/**
-	 * GdaSet::validate-set
+	 * GdaSet::validate-set:
 	 * @set: the #GdaSet
 	 * 
 	 * Gets emitted when gda_set_is_valid() is called, use
@@ -289,7 +312,7 @@ gda_set_class_init (GdaSetClass *class)
 			      validate_accumulator, NULL,
 			      _gda_marshal_ERROR__VOID, G_TYPE_ERROR, 0);
 	/**
-	 * GdaSet::holder-attr-changed
+	 * GdaSet::holder-attr-changed:
 	 * @set: the #GdaSet
 	 * @holder: the GdaHolder for which an attribute changed
 	 * @attr_name: attribute's name
@@ -306,7 +329,7 @@ gda_set_class_init (GdaSetClass *class)
 			      _gda_marshal_VOID__OBJECT_STRING_VALUE, G_TYPE_NONE, 3,
 			      GDA_TYPE_HOLDER, G_TYPE_STRING, G_TYPE_VALUE);
 	/**
-	 * GdaSet::public-data-changed
+	 * GdaSet::public-data-changed:
 	 * @set: the #GdaSet
 	 * 
 	 * Gets emitted when @set's public data (#GdaSetNode, #GdaSetGroup or #GdaSetSource values) have changed
@@ -320,7 +343,7 @@ gda_set_class_init (GdaSetClass *class)
 			      _gda_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
 	/**
-	 * GdaSet::holder-type-set
+	 * GdaSet::holder-type-set:
 	 * @set: the #GdaSet
 	 * @holder: the #GdaHolder for which the #GType has been set
 	 *
@@ -339,7 +362,7 @@ gda_set_class_init (GdaSetClass *class)
 			      GDA_TYPE_HOLDER);
 
 	/**
-	 * GdaSet::source-model-changed
+	 * GdaSet::source-model-changed:
 	 * @set: the #GdaSet
 	 * @source: the #GdaSetSource for which the @data_model attribute has changed
 	 *
@@ -381,7 +404,18 @@ gda_set_class_init (GdaSetClass *class)
 					 g_param_spec_pointer ("holders", "GSList of GdaHolders", 
 							       "GdaHolder objects the set should contain", (
 								G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY)));
-  
+	/**
+	 * GdaSet:validate-changes:
+	 *
+	 * Defines if the "validate-set" signal gets emitted when
+	 * any holder in the data set changes. This property also affects the
+	 * GdaHolder:validate-changes property.
+	 *
+	 * Since: 5.2.0
+	 */
+	g_object_class_install_property (object_class, PROP_VALIDATE_CHANGES,
+					 g_param_spec_boolean ("validate-changes", NULL, "Defines if the validate-set signal is emitted", TRUE,
+							       (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 	object_class->dispose = gda_set_dispose;
 	object_class->finalize = gda_set_finalize;
 }
@@ -397,6 +431,7 @@ gda_set_init (GdaSet *set)
 	set->priv->holders_hash = g_hash_table_new (g_str_hash, g_str_equal);
 	set->priv->holders_array = NULL;
 	set->priv->read_only = FALSE;
+	set->priv->validate_changes = TRUE;
 }
 
 
@@ -993,8 +1028,9 @@ gda_set_remove_holder (GdaSet *set, GdaHolder *holder)
 	g_return_if_fail (set->priv);
 	g_return_if_fail (g_slist_find (set->holders, holder));
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (holder),
-					      G_CALLBACK (validate_change_holder_cb), set);
+	if (set->priv->validate_changes)
+		g_signal_handlers_disconnect_by_func (G_OBJECT (holder),
+						      G_CALLBACK (validate_change_holder_cb), set);
 	if (! set->priv->read_only) {
 		g_signal_handlers_disconnect_by_func (G_OBJECT (holder),
 						      G_CALLBACK (changed_holder_cb), set);
@@ -1099,8 +1135,9 @@ gda_set_dispose (GObject *object)
 	/* free the holders list */
 	if (set->holders) {
 		for (list = set->holders; list; list = list->next) {
-			g_signal_handlers_disconnect_by_func (G_OBJECT (list->data),
-							      G_CALLBACK (validate_change_holder_cb), set);
+			if (set->priv->validate_changes)
+				g_signal_handlers_disconnect_by_func (G_OBJECT (list->data),
+								      G_CALLBACK (validate_change_holder_cb), set);
 			if (! set->priv->read_only) {
 				g_signal_handlers_disconnect_by_func (G_OBJECT (list->data),
 								      G_CALLBACK (changed_holder_cb), set);
@@ -1332,8 +1369,9 @@ gda_set_real_add_holder (GdaSet *set, GdaHolder *holder)
 			set->priv->holders_array = NULL;
 		}
 		g_object_ref (holder);
-		g_signal_connect (G_OBJECT (holder), "validate-change",
-				  G_CALLBACK (validate_change_holder_cb), set);
+		if (set->priv->validate_changes)
+			g_signal_connect (G_OBJECT (holder), "validate-change",
+					  G_CALLBACK (validate_change_holder_cb), set);
 		if (! set->priv->read_only) {
 			g_signal_connect (G_OBJECT (holder), "changed",
 					  G_CALLBACK (changed_holder_cb), set);
@@ -1624,7 +1662,7 @@ gda_set_get_source_for_model (GdaSet *set, GdaDataModel *model)
 }
 
 /**
- * gda_set_replace_source_model
+ * gda_set_replace_source_model:
  * @set: a #GdaSet object
  * @source: a pointer to a #GdaSetSource in @set
  * @model: a #GdaDataModel
@@ -1640,15 +1678,15 @@ gda_set_get_source_for_model (GdaSet *set, GdaDataModel *model)
  */
 void
 gda_set_replace_source_model (GdaSet *set, GdaSetSource *source, GdaDataModel *model)
-{	GSList *list;
-	gint ncols, i;
+{gint ncols, i;
+    	GSList *list;
 	g_return_if_fail (GDA_IS_SET (set));
 	g_return_if_fail (source);
 	g_return_if_fail (g_slist_find (set->sources_list, source));
 	g_return_if_fail (GDA_IS_DATA_MODEL (model));
 	
 	/* compare models */
-
+	
 	ncols = gda_data_model_get_n_columns (source->data_model);
 	if (ncols != gda_data_model_get_n_columns (model)) {
 		g_warning (_("Replacing data model must have the same characteristics as the "
@@ -1693,3 +1731,60 @@ gda_set_replace_source_model (GdaSet *set, GdaSetSource *source, GdaDataModel *m
 	g_print ("<< 'SOURCE_MODEL_CHANGED' from %s\n", __FUNCTION__);
 #endif
 }
+
+#ifdef GDA_DEBUG_NO
+static void holder_dump (GdaHolder *holder);
+static void set_node_dump (GdaSetNode *node);
+static void set_source_dump (GdaSetSource *source);
+static void set_group_dump (GdaSetGroup *group);
+
+static void
+holder_dump (GdaHolder *holder)
+{
+	g_print ("  GdaHolder %p (%s)\n", holder, holder ? gda_holder_get_id (holder) : "---");
+}
+
+static void
+set_source_dump (GdaSetSource *source)
+{
+	g_print ("  GdaSetSource %p\n", source);
+	if (source) {
+		g_print ("    - data_model: %p\n", source->data_model);
+		GSList *list;
+		for (list = source->nodes; list; list = list->next)
+			g_print ("    - node: %p\n", list->data);
+	}
+}
+
+static void
+set_group_dump (GdaSetGroup *group)
+{
+	g_print ("  GdaSetGroup %p\n", group);
+	if (group) {
+		GSList *list;
+		for (list = group->nodes; list; list = list->next)
+			g_print ("    - node: %p\n", list->data);
+		g_print ("    - GdaSetSource: %p\n", group->nodes_source);
+	}
+}
+
+static void
+set_node_dump (GdaSetNode *node)
+{
+	g_print ("  GdaSetNode: %p\n", node);
+	g_print ("   - holder: %p (%s)\n", node->holder, node->holder ? gda_holder_get_id (node->holder) : "ERROR : no GdaHolder!");
+	g_print ("   - source_model: %p\n", node->source_model);
+	g_print ("   - source_column: %d\n", node->source_column);
+}
+
+void
+gda_set_dump (GdaSet *set)
+{
+	g_print ("=== GdaSet %p ===\n", set);
+	g_slist_foreach (set->holders, (GFunc) holder_dump, NULL);
+	g_slist_foreach (set->nodes_list, (GFunc) set_node_dump, NULL);
+	g_slist_foreach (set->sources_list, (GFunc) set_source_dump, NULL);
+	g_slist_foreach (set->groups_list, (GFunc) set_group_dump, NULL);
+	g_print ("=== GdaSet %p END ===\n", set);
+}
+#endif

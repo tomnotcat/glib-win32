@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 - 2010 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2006 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2007 Armin Burgmeier <armin@openismus.com>
  * Copyright (C) 2007 Murray Cumming <murrayc@murrayc.com>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
@@ -191,13 +191,12 @@ gda_handler_bin_get_sql_from_value (GdaDataHandler *iface, const GValue *value)
 		else {
 			GdaBlob *blob;
 			GdaBinary *bin;
-            			gchar *str, *str2;
+			gchar *str, *str2;
 			blob = (GdaBlob*) gda_value_get_blob ((GValue *) value);
 			bin = (GdaBinary *) blob;
 			if (blob->op &&
 			    (bin->binary_length != gda_blob_op_get_length (blob->op)))
 				gda_blob_op_read_all (blob->op, blob);
-
 
 			str = gda_binary_to_string (bin, 0);
 			str2 = gda_default_escape_string (str);

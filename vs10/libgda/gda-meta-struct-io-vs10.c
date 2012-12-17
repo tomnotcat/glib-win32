@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2008 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2010 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -169,9 +169,9 @@ create_table_object (GdaMetaStruct *mstruct, const GValue *catalog, const gchar 
 	GString *full_table_name;
 	GValue *v1 = NULL, *v2 = NULL, *v3 = NULL;
 	gchar *tmp;
-	GdaMetaTable *mtable;
+    GdaMetaTable *mtable;
 	xmlNodePtr cnode;
-	GArray *pk_cols_array;
+	GArray *pk_cols_array ;
 	gint colsindex = 0;
 	table_name = xmlGetProp (node, BAD_CAST "name");
 	if (!table_name) {
@@ -215,17 +215,17 @@ create_table_object (GdaMetaStruct *mstruct, const GValue *catalog, const gchar 
 	dbobj->obj_name = g_strdup ((gchar *) table_name);
 	dbobj->obj_full_name = full_table_name->str;
 	g_string_free (full_table_name, FALSE);
-	dbobj = gda_meta_struct_add_db_object (mstruct, dbobj, error);
+	dbobj = _gda_meta_struct_add_db_object (mstruct, dbobj, error);
 	if (!dbobj)
 		goto onerror;
 	
 	/* walk through the columns and Fkey nodes */
 	mtable = GDA_META_TABLE (dbobj);
+
 	pk_cols_array = g_array_new (FALSE, FALSE, sizeof (gint));
 	colsindex = 0;
 	for (cnode = node->children; cnode; cnode = cnode->next) {
-                                /* a field */
-			GdaMetaTableColumn *tcol;
+        			GdaMetaTableColumn *tcol;
 		if (!strcmp ((gchar *) cnode->name, "column")) {
 			xmlChar *cname, *ctype, *xstr, *extra;
                         gboolean pkey = FALSE;
@@ -255,6 +255,7 @@ create_table_object (GdaMetaStruct *mstruct, const GValue *catalog, const gchar 
                         }
                         ctype = xmlGetProp (cnode, BAD_CAST "type");
 
+                        /* a field */
 
 
 			tcol = g_new0 (GdaMetaTableColumn, 1);
@@ -287,13 +288,13 @@ create_table_object (GdaMetaStruct *mstruct, const GValue *catalog, const gchar 
 		else if (!strcmp ((gchar *) cnode->name, "fkey")) {
 			xmlNodePtr fnode;
 			xmlChar *ref_table;
-            			GValue *rv2 = NULL, *rv3;
-                        			GdaMetaTableForeignKey *mfkey;
-			GArray *fk_names_array ;
+            GdaMetaTableForeignKey *mfkey;
+			GArray *fk_names_array;
 			GArray *ref_pk_names_array;
-            			GdaMetaDbObject *ref_obj;
+            GdaMetaDbObject *ref_obj;
 			gchar *name_part, *schema_part, *catalog_part = NULL;
 			gchar *tmp;
+            GValue *rv2 = NULL, *rv3;
 			ref_table = xmlGetProp (cnode, BAD_CAST "ref_table");
 			if (!ref_table) {
 				g_set_error (error, GDA_META_STRUCT_ERROR,
@@ -326,7 +327,7 @@ create_table_object (GdaMetaStruct *mstruct, const GValue *catalog, const gchar 
 				xmlFree (ref_table);
 				goto onerror;
 			}
-
+			
 			if (schema_part)
 				g_value_set_string ((rv2 = gda_value_new (G_TYPE_STRING)), schema_part);
 			g_value_set_string ((rv3 = gda_value_new (G_TYPE_STRING)), name_part);
@@ -341,7 +342,7 @@ create_table_object (GdaMetaStruct *mstruct, const GValue *catalog, const gchar 
 				ref_obj->obj_name = name_part;
 				ref_obj->obj_schema = schema_part;
 				xmlFree (ref_table);
-				ref_obj = gda_meta_struct_add_db_object (mstruct, ref_obj, error);
+				ref_obj = _gda_meta_struct_add_db_object (mstruct, ref_obj, error);
 				if (! ref_obj) 
 					goto onerror;
 			}

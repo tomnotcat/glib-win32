@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-set-spec>
+  <parameters>
+    <parameter plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="ar" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="az" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="ca" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="ca@valencia" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="cs" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Heslová fráze" descr="Šifrovací heslová fráze"></parameter>
+    <parameter xml:lang="da" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Adgangsfrase" descr="Krypteringsadgangsfrase"></parameter>
+    <parameter xml:lang="de" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Kennwort" descr="Verschlüsselungskennwort"></parameter>
+    <parameter xml:lang="dz" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="el" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Συνθηματικό" descr="Συνθηματικό κρυπτογράφησης"></parameter>
+    <parameter xml:lang="en_CA" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="en_GB" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="eo" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Pasfrazo" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="es" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Contraseña" descr="Cifrado de la contraseña"></parameter>
+    <parameter xml:lang="eu" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Pasaesaldia" descr="Enkriptazioaren pasaesaldia"></parameter>
+    <parameter xml:lang="fa" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="fi" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="fr" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Phrase de passe" descr="Phrase de passe du chiffrement"></parameter>
+    <parameter xml:lang="ga" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="gl" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Frase de paso" descr="Frase de paso de cifrado"></parameter>
+    <parameter xml:lang="hr" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="hu" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="id" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Frase sandi" descr="Frasa sandi enkripsi"></parameter>
+    <parameter xml:lang="it" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Passphrase crittografica"></parameter>
+    <parameter xml:lang="ja" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="ko" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="lt" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="mk" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="ml" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="ms" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="nb" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="ne" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="nl" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="oc" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="pa" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="pl" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="pt" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="pt_BR" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Frase secreta" descr="Frase secreta de criptgrafia"></parameter>
+    <parameter xml:lang="ru" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="rw" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="sk" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="sl" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Šifrirno geslo" descr="Šifrirno geslo"></parameter>
+    <parameter xml:lang="sq" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="sr" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="sr@Latn" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="sv" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="tr" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="uk" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="vi" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="zh_CN" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="口令" descr="加密口令"></parameter>
+    <parameter xml:lang="zh_HK" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+    <parameter xml:lang="zh_TW" plugin="string:HIDDEN=true" nullok="FALSE" id="PASSWORD" gdatype="gchararray" name="Passphrase" descr="Encryption passphrase"></parameter>
+  </parameters>
+</data-set-spec>

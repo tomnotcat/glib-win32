@@ -1,9 +1,10 @@
 /*
  * Copyright (C) 2008 - 2009 Bas Driessen <bas.driessen@xobas.com>
- * Copyright (C) 2008 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2008 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
+ * Copyright (C) 2012 Daniel Espinosa <despinosa@src.gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -702,15 +703,8 @@ gda_data_select_set_property (GObject *object,
 			break;
 		}
 		case PROP_ALL_STORED:
-			if (g_value_get_boolean (value)) {
-				if ((model->advertized_nrows < 0) && CLASS (model)->fetch_nb_rows)
-					CLASS (model)->fetch_nb_rows (model);
-
-				if (model->nb_stored_rows != model->advertized_nrows) {
-					if (CLASS (model)->store_all)
-						CLASS (model)->store_all (model, NULL);
-				}
-			}
+			if (g_value_get_boolean (value))
+				gda_data_select_prepare_for_offline (model, NULL);
 			break;
 		case PROP_PARAMS: {
 			GdaSet *set;
@@ -827,17 +821,24 @@ gda_data_select_get_property (GObject *object,
  *
  * Stores @row into @model, externally advertized at row number @rownum (if no row has been removed).
  * The reference to @row is stolen.
+ *
+ * This function is used by database provider's implementations
  */
 void
 gda_data_select_take_row (GdaDataSelect *model, GdaRow *row, gint rownum)
 {
 	gint tmp, *ptr;
+	GdaRow *erow;
 	g_return_if_fail (GDA_IS_DATA_SELECT (model));
 	g_return_if_fail (GDA_IS_ROW (row));
 
 	tmp = rownum;
-	if (g_hash_table_lookup (model->priv->sh->index, &tmp))
-		g_error ("INTERNAL error: row %d already exists, aborting", rownum);
+	erow = g_hash_table_lookup (model->priv->sh->index, &tmp);
+	if (erow) {
+		if (row != erow)
+			g_object_unref (row);
+		return;
+	}
 
 	ptr = g_new (gint, 2);
 	ptr [0] = rownum;
@@ -890,7 +891,7 @@ gda_data_select_get_connection (GdaDataSelect *model)
 }
 
 /**
- * gda_data_select_set_columns
+ * gda_data_select_set_columns:
  * @model: a #GdaDataSelect data model
  * @columns: (transfer full): a lis of #GdaColumn objects
  *
@@ -944,7 +945,7 @@ compute_modif_set (GdaDataSelect *model, GError **error)
 
 	for (i = 0; i < NB_QUERIES; i++) {
 		GdaSet *set;
-        GSList *list;
+		GSList *list;
 		if (! model->priv->sh->modif_internals->modif_stmts [i])
 			continue;
 		if (! gda_statement_get_parameters (model->priv->sh->modif_internals->modif_stmts [i], &set, error)) {
@@ -955,7 +956,6 @@ compute_modif_set (GdaDataSelect *model, GError **error)
 
 		gda_set_merge_with_set (model->priv->sh->modif_internals->modif_set, set);
 
-		
 		for (list = set->holders; list; list = list->next) {
 			GdaHolder *holder;
 			holder = gda_set_get_holder (model->priv->sh->modif_internals->modif_set,
@@ -1019,9 +1019,9 @@ param_name_to_int (const gchar *pname, gint *result, gboolean *old_val)
  * gda_data_select_set_modification_statement_sql:
  * @model: a #GdaDataSelect data model
  * @sql: an SQL text
- * @error: a place to store errors, or %NULL
+ * @error: (allow-none): a place to store errors, or %NULL
  *
- * Offers the same feature as gda_data_select_set_modification_statement() but using an SQL statement
+ * Offers the same feature as gda_data_select_set_modification_statement() but using an SQL statement.
  *
  * Returns: TRUE if no error occurred.
  */
@@ -1101,20 +1101,41 @@ check_acceptable_statement (GdaDataSelect *model, GError **error)
  * gda_data_select_set_modification_statement:
  * @model: a #GdaDataSelect data model
  * @mod_stmt: a #GdaStatement (INSERT, UPDATE or DELETE)
- * @error: a place to store errors, or %NULL
+ * @error: (allow-none): a place to store errors, or %NULL
  *
  * Informs @model that it should allow modifications to the data in some columns and some rows
  * using @mod_stmt to propagate those modifications into the database.
  *
  * If @mod_stmt is:
  * <itemizedlist>
- *  <listitem><para>an UPDATE statement, then all the rows in @model will be modifyable</para></listitem>
+ *  <listitem><para>an UPDATE statement, then all the rows in @model will be writable</para></listitem>
  *  <listitem><para>a DELETE statement, then it will be possible to delete rows in @model</para></listitem>
  *  <listitem><para>in INSERT statement, then it will be possible to add some rows to @model</para></listitem>
  *  <listitem><para>any other statement, then this method will return an error</para></listitem>
  * </itemizedlist>
  *
- * This method can be called several times to specify different types of modification.
+ * This method can be called several times to specify different types of modification statements. 
+ *
+ * Each modification statement will be executed when one or more values are modified in the data model;
+ * each statement should then include variables which will be set to either the old value or the
+ * new value of a column at the specified modified row (but can also contain other variables). Each variable
+ * named as "+&lt;number&gt;" will be mapped to the new value of the number'th column (starting at 0), and
+ * each variable named as "-&lt;number&gt;" will be mapped to the old value of the number'th column.
+ *
+ * Examples of the SQL equivalent of each statement are (for example if "mytable" has the "id" field as
+ * primary key, and if that field is auto incremented and if the data model is the result of
+ * executing "<![CDATA[SELECT * from mytable]]>").
+ *
+ * <itemizedlist>
+ *  <listitem><para>"<![CDATA[INSERT INTO mytable (name) VALUES (##+1::string)]]>": the column ID can not be set
+ *   for new rows</para></listitem>
+ *  <listitem><para>"<![CDATA[DELETE FROM mytable WHERE id=##-0::int]]>"</para></listitem>
+ *  <listitem><para>"<![CDATA[UPDATE mytable SET name=##+1::string WHERE id=##-0::int]]>": the column ID cannot be
+ *   modified</para></listitem>
+ * </itemizedlist>
+ *
+ * Also see the gda_data_select_set_row_selection_condition_sql() for more information about the WHERE
+ * part of the UPDATE and DELETE statement types.
  *
  * If @mod_stmt is an UPDATE or DELETE statement then it should have a WHERE part which identifies
  * a unique row in @model (please note that this property can't be checked but may result
@@ -1129,7 +1150,7 @@ check_acceptable_statement (GdaDataSelect *model, GError **error)
  * or gda_data_select_set_row_selection_condition_sql() have not yet been successfully be called before, then
  * the WHERE part of @mod_stmt will be used as if one of these functions had been called.
  *
- * Returns: TRUE if no error occurred.
+ * Returns: %TRUE if no error occurred.
  */
 gboolean
 gda_data_select_set_modification_statement (GdaDataSelect *model, GdaStatement *mod_stmt, GError **error)
@@ -1413,12 +1434,12 @@ gda_data_select_set_modification_statement (GdaDataSelect *model, GdaStatement *
 /**
  * gda_data_select_compute_modification_statements:
  * @model: a #GdaDataSelect data model
- * @error: a place to store errors, or %NULL
+ * @error: (allow-none): a place to store errors, or %NULL
  *
  * Makes @model try to compute INSERT, UPDATE and DELETE statements to be used when modifying @model's contents.
  * Note: any modification statement set using gda_data_select_set_modification_statement() will first be unset
  *
- * This function is similar to calling gda_data_select_compute_modification_statements_ext with
+ * This function is similar to calling gda_data_select_compute_modification_statements_ext() with
  * @cond_type set to %GDA_DATA_SELECT_COND_PK
  *
  * Returns: %TRUE if no error occurred. If %FALSE is returned, then some modification statement may still have been computed
@@ -1434,7 +1455,7 @@ gda_data_select_compute_modification_statements (GdaDataSelect *model, GError **
  * gda_data_select_compute_modification_statements_ext:
  * @model: a #GdaDataSelect data model
  * @cond_type: the type of condition for the modifications where one row only should be identified
- * @error: a place to store errors, or %NULL
+ * @error: (allow-none): a place to store errors, or %NULL
  *
  * Makes @model try to compute INSERT, UPDATE and DELETE statements to be used when modifying @model's contents.
  * Note: any modification statement set using gda_data_select_set_modification_statement() will first be unset
@@ -1485,7 +1506,7 @@ gda_data_select_compute_modification_statements_ext (GdaDataSelect *model,
 	for (mtype = FIRST_QUERY; mtype < NB_QUERIES; mtype++) {
 		/* take into account the column type of "[+-]xxx" parameters */
 		if (modif_stmts[mtype])
-			_gda_modify_statement_param_types (modif_stmts[mtype], model);
+			_gda_modify_statement_param_types (modif_stmts[mtype], (GdaDataModel*) model);
 #ifdef GDA_DEBUG_NO
 		if (modif_stmts[mtype]) {
 			gchar *sql;
@@ -1533,7 +1554,7 @@ row_selection_condition_foreach_func (GdaSqlAnyPart *part, G_GNUC_UNUSED gpointe
  * gda_data_select_set_row_selection_condition: (skip)
  * @model: a #GdaDataSelect data model
  * @expr: (transfer none): a #GdaSqlExpr expression
- * @error: a place to store errors, or %NULL
+ * @error: (allow-none): a place to store errors, or %NULL
  *
  * Offers the same features as gda_data_select_set_row_selection_condition_sql() but using a #GdaSqlExpr
  * structure instead of an SQL syntax.
@@ -1572,7 +1593,7 @@ gda_data_select_set_row_selection_condition  (GdaDataSelect *model, GdaSqlExpr *
  * gda_data_select_set_row_selection_condition_sql:
  * @model: a #GdaDataSelect data model
  * @sql_where: an SQL condition (without the WHERE keyword)
- * @error: a place to store errors, or %NULL
+ * @error: (allow-none): a place to store errors, or %NULL
  *
  * Specifies the SQL condition corresponding to the WHERE part of a SELECT statement which would
  * return only 1 row (the expression of the primary key).
@@ -1647,7 +1668,7 @@ gda_data_select_set_row_selection_condition_sql (GdaDataSelect *model, const gch
 /**
  * gda_data_select_compute_row_selection_condition:
  * @model: a #GdaDataSelect object
- * @error: a place to store errors, or %NULL
+ * @error: (allow-none): a place to store errors, or %NULL
  *
  * Offers the same features as gda_data_select_set_row_selection_condition() but the expression
  * is computed from the meta data associated to the connection being used when @model was created.
@@ -1867,7 +1888,7 @@ static const GValue *
 gda_data_select_get_value_at (GdaDataModel *model, gint col, gint row, GError **error)
 {
 	GdaRow *prow;
-	gint int_row, irow;
+	gint int_row;
 	GdaDataSelect *imodel;
     DelayedSelectStmt *dstmt = NULL;
     GValue *retval;
@@ -1909,9 +1930,9 @@ gda_data_select_get_value_at (GdaDataModel *model, gint col, gint row, GError **
 		dstmt = g_hash_table_lookup (imodel->priv->sh->upd_rows, &int_row);
 	if (dstmt) {
 		if (! dstmt->row) {
+			gint i, ncols;
+            GType *types ;
             GdaDataModel *tmpmodel;
-            GType *types = NULL;
-            gint i, ncols;
 			if (dstmt->exec_error) {
 				if (error)
 					g_propagate_error (error, g_error_copy (dstmt->exec_error));
@@ -1926,7 +1947,7 @@ gda_data_select_get_value_at (GdaDataModel *model, gint col, gint row, GError **
 					g_propagate_error (error, g_error_copy (dstmt->exec_error));
 				return NULL;
 			}
-			
+			 types = NULL;
 			if (imodel->prep_stmt && imodel->prep_stmt->types) {
 				types = g_new (GType, imodel->prep_stmt->ncols + 1);
 				memcpy (types, imodel->prep_stmt->types, /* Flawfinder: ignore */
@@ -1963,7 +1984,6 @@ gda_data_select_get_value_at (GdaDataModel *model, gint col, gint row, GError **
 				return NULL;
 			}
 
-			
 			ncols = gda_data_model_get_n_columns (tmpmodel);
 			prow = gda_row_new (ncols);
 			for (i = 0; i < ncols; i++) {
@@ -2025,7 +2045,6 @@ gda_data_select_get_attributes_at (GdaDataModel *model, gint col, gint row)
 	GdaValueAttribute flags = GDA_VALUE_ATTR_IS_UNCHANGED;
 	GdaDataSelect *imodel;
     GdaColumn *gdacol;
-
 	imodel = (GdaDataSelect *) model;
 	g_return_val_if_fail (imodel->priv, 0);
 	gdacol = g_slist_nth_data (imodel->priv->sh->columns, col);
@@ -2054,7 +2073,7 @@ gda_data_select_get_attributes_at (GdaDataModel *model, gint col, gint row)
 					gchar *tmp;
 					gint i;
 					for (i = 0; i < ncols; i++) {
-						tmp = g_strdup_printf ("+%d", col);
+						tmp = g_strdup_printf ("+%d", i);
 						if (gda_set_get_holder (set, tmp))
 							imodel->priv->sh->modif_internals->cols_mod[m][i] = TRUE;
 						g_free (tmp);
@@ -2108,7 +2127,7 @@ gda_data_select_iter_next (GdaDataModel *model, GdaDataModelIter *iter)
 	GdaDataSelect *imodel;
 	GdaRow *prow = NULL;
 	gint target_iter_row;
-	gint irow, int_row;
+	gint int_row;
 
 	imodel = (GdaDataSelect *) model;
 	g_return_val_if_fail (imodel->priv, FALSE);
@@ -2154,7 +2173,7 @@ gda_data_select_iter_prev (GdaDataModel *model, GdaDataModelIter *iter)
 	GdaDataSelect *imodel;
 	GdaRow *prow = NULL;
 	gint target_iter_row;
-	gint irow, int_row;
+	gint int_row;
 
 	imodel = (GdaDataSelect *) model;
 	g_return_val_if_fail (imodel->priv, FALSE);
@@ -2202,7 +2221,7 @@ gda_data_select_iter_at_row (GdaDataModel *model, GdaDataModelIter *iter, gint r
 {
 	GdaDataSelect *imodel;
 	GdaRow *prow = NULL;
-	gint irow, int_row, *ptr;
+	gint int_row;
 
 	imodel = (GdaDataSelect *) model;
 	g_return_val_if_fail (imodel->priv, FALSE);
@@ -2351,8 +2370,7 @@ compute_single_update_stmt (GdaDataSelect *model, BVector *bv, GError **error)
 		GdaSqlExpr *expr = (GdaSqlExpr *) elist->data;
 		gint num;
 		gboolean old_val;
-        		/* remove that field */
-		GSList *nelist, *nflist;
+        GSList *nelist, *nflist;
 		if (! expr->param_spec || !param_name_to_int (expr->param_spec->name, &num, &old_val) || old_val) {
 			/* ignore this field to be updated */
 			elist = elist->next;
@@ -2366,7 +2384,8 @@ compute_single_update_stmt (GdaDataSelect *model, BVector *bv, GError **error)
 			flist = flist->next;
 			continue;
 		}
-
+		/* remove that field */
+		
 		nelist = elist->next;
 		nflist = flist->next;
 		gda_sql_expr_free (expr);
@@ -2445,7 +2464,7 @@ compute_single_insert_stmt (GdaDataSelect *model, BVector *bv, GError **error)
 		GdaSqlExpr *expr = (GdaSqlExpr *) elist->data;
 		gint num;
 		gboolean old_val;
-        GSList *nelist, *nflist;
+        		GSList *nelist, *nflist;
 		if (! expr->param_spec || !param_name_to_int (expr->param_spec->name, &num, &old_val) || old_val) {
 			/* ignore this field to be inserted */
 			elist = elist->next;
@@ -2460,7 +2479,7 @@ compute_single_insert_stmt (GdaDataSelect *model, BVector *bv, GError **error)
 			continue;
 		}
 		/* remove that field */
-		
+
 		nelist = elist->next;
 		nflist = flist->next;
 		gda_sql_expr_free (expr);
@@ -2527,7 +2546,8 @@ compute_single_select_stmt (GdaDataSelect *model, GError **error)
 	GdaStatement *ret_stmt = NULL;
 	GdaSqlStatement *sel_sqlst;
 	GdaSqlExpr *row_cond = NULL;
-    GdaSqlStatementSelect *sel;
+    
+	GdaSqlStatementSelect *sel;
 	sel_stmt = model->priv->sh->sel_stmt;
 	if (! sel_stmt) {
 		g_set_error (error, GDA_DATA_SELECT_ERROR, GDA_DATA_SELECT_MODIFICATION_STATEMENT_ERROR,
@@ -2584,7 +2604,6 @@ compute_single_select_stmt (GdaDataSelect *model, GError **error)
 		return NULL;
 	}
 
-	
 
 	sel = (GdaSqlStatementSelect*) sel_sqlst->contents;
 	g_free (sel_sqlst->sql);
@@ -2824,9 +2843,8 @@ gda_data_select_set_value_at (GdaDataModel *model, gint col, gint row, const GVa
 	gint ncols;
 	GdaHolder *holder;
 	gchar *str;
-    /* BVector */
-	BVector *bv;
     GSList *list;
+    	BVector *bv;
 	imodel = (GdaDataSelect *) model;
 	g_return_val_if_fail (imodel->priv, FALSE);
 
@@ -2879,7 +2897,8 @@ gda_data_select_set_value_at (GdaDataModel *model, gint col, gint row, const GVa
 	else
 		gda_holder_force_invalid (holder);
 
-	
+	/* BVector */
+
 	bv = g_new (BVector, 1);
 	bv->size = col + 1;
 	bv->data = g_new0 (guchar, bv->size);
@@ -2897,8 +2916,7 @@ gda_data_select_iter_set_value  (GdaDataModel *model, GdaDataModelIter *iter, gi
 	GdaHolder *holder;
 	gchar *str;
     	GSList *list;
-    /* BVector */
-	BVector *bv;
+        	BVector *bv;
 	imodel = (GdaDataSelect *) model;
 	g_return_val_if_fail (imodel->priv, FALSE);
 
@@ -2947,7 +2965,8 @@ gda_data_select_iter_set_value  (GdaDataModel *model, GdaDataModelIter *iter, gi
 	else
 		gda_holder_force_invalid (holder);
 
-	
+	/* BVector */
+
 	bv = g_new (BVector, 1);
 	bv->size = col + 1;
 	bv->data = g_new0 (guchar, bv->size);
@@ -2978,10 +2997,9 @@ gda_data_select_set_values (GdaDataModel *model, gint row, GList *values, GError
 	GdaHolder *holder;
 	gchar *str;
 	GList *list;
-    	/* BVector */
-	BVector *bv;
+    BVector *bv;
 	gboolean has_mods = FALSE;
-    GSList *slist;
+    	GSList *slist;
 	imodel = (GdaDataSelect *) model;
 
 	/* arguments check */
@@ -3011,6 +3029,8 @@ gda_data_select_set_values (GdaDataModel *model, gint row, GList *values, GError
 		return FALSE;
 	}
 
+	/* BVector */
+	
 
 	bv = g_new (BVector, 1);
 	bv->size = nvalues;
@@ -3028,7 +3048,7 @@ gda_data_select_set_values (GdaDataModel *model, gint row, GList *values, GError
 	}
 
 	/* invalidate all the imodel->priv->sh->modif_internals->modif_set's value holders */
-	
+
 	for (slist = imodel->priv->sh->modif_internals->modif_set->holders; slist; slist = slist->next) {
 		GdaHolder *h = (GdaHolder*) slist->data;
 		if (param_name_to_int (gda_holder_get_id (h), NULL, NULL))
@@ -3067,14 +3087,12 @@ gda_data_select_append_values (GdaDataModel *model, const GList *values, GError 
 	GdaHolder *holder;
 	gchar *str;
 	const GList *list;
-    	/* compute INSERT statement */
-	GdaStatement *stmt;
+	BVector *bv;
+    	GdaStatement *stmt;
+        GdaSet *last_insert;
     DelayedSelectStmt *dstmt;
     gint *tmp;
-	/* BVector */
-	BVector *bv;
 	gboolean has_mods = FALSE, free_bv = TRUE;
-    GdaSet *last_insert;
 	imodel = (GdaDataSelect *) model;
 
 	g_return_val_if_fail (imodel->priv, -1);
@@ -3108,6 +3126,7 @@ gda_data_select_append_values (GdaDataModel *model, const GList *values, GError 
 	int_row = external_to_internal_row (imodel, row, error);
 	imodel->advertized_nrows--;
 
+	/* BVector */
 
 
 	bv = g_new (BVector, 1);
@@ -3128,6 +3147,7 @@ gda_data_select_append_values (GdaDataModel *model, const GList *values, GError 
 		return -1;
 	}
 
+	/* compute INSERT statement */
 
 	if (! imodel->priv->sh->modif_internals->ins_stmts)
 		imodel->priv->sh->modif_internals->ins_stmts = g_hash_table_new_full ((GHashFunc) bvector_hash,
@@ -3297,13 +3317,13 @@ gda_data_select_remove_row (GdaDataModel *model, gint row, GError **error)
 		holder = gda_set_get_holder (imodel->priv->sh->modif_internals->modif_set, str);
 		g_free (str);
 		if (holder) {
-            const GValue *cvalue;
+            			const GValue *cvalue;
 			if (!g_slist_find (imodel->priv->sh->modif_internals->modif_params[DEL_QUERY],
 					   holder)) {
 				gda_holder_force_invalid (holder);
 				continue;
 			}
-			
+
 			cvalue = gda_data_model_get_value_at (model, i, row, error);
 			if (!cvalue)
 				return FALSE;
@@ -3419,14 +3439,14 @@ compute_insert_select_params_mapping (GdaSet *sel_params, GdaSet *ins_values, Gd
 	array = g_array_new (FALSE, TRUE, sizeof (gint));
 	for (sel_list = sel_params->holders; sel_list; sel_list = sel_list->next) {
 		CorrespData cdata;
-		const gchar *pid = gda_holder_get_id (GDA_HOLDER (sel_list->data));
-        gint spnum, ipnum;
+        		gint spnum, ipnum;
 		gboolean spold, ipold;
-        GSList *ins_list;
+		GSList *ins_list;
+		const gchar *pid = gda_holder_get_id (GDA_HOLDER (sel_list->data));
 		cdata.hid = pid;
 		cdata.colid = NULL;
 
-		
+
 		if (! param_name_to_int (pid, &spnum, &spold) || !spold)
 			continue;
 
@@ -3441,7 +3461,6 @@ compute_insert_select_params_mapping (GdaSet *sel_params, GdaSet *ins_values, Gd
 			gda_sql_identifier_prepare_for_compare ((gchar*) cdata.colid);
 		/*g_print ("SEL param '%s' <=> column named '%s'\n", cdata.hid, cdata.colid);*/
 
-		
 		cdata.hid = NULL;
 		for (ins_list = ins_values->holders; ins_list; ins_list = ins_list->next) {
 			gchar *name;
@@ -3499,6 +3518,7 @@ compute_insert_select_params_mapping_foreach_func (GdaSqlAnyPart *part, CorrespD
 	    op->operands->next->next)
 		return TRUE;
 
+	
 	e1 = (GdaSqlExpr *) op->operands->data;
 	e2 = (GdaSqlExpr *) op->operands->next->data;
 	if (e2->value && e1->param_spec) {
@@ -3607,7 +3627,7 @@ set_column_properties_from_select_stmt (GdaDataSelect *model, GdaConnection *cnc
 /**
  * gda_data_select_compute_columns_attributes:
  * @model: a #GdaDataSelect data model
- * @error: a place to store errors, or %NULL
+ * @error: (allow-none): a place to store errors, or %NULL
  *
  * Computes correct attributes for each of @model's columns, which includes the "NOT NULL" attribute, the
  * default value, the precision and scale for numeric values.
@@ -3640,7 +3660,7 @@ gda_data_select_compute_columns_attributes (GdaDataSelect *model, GError **error
 /**
  * gda_data_select_rerun:
  * @model: a #GdaDataSelect data model
- * @error: a place to store errors, or %NULL
+ * @error: (allow-none): a place to store errors, or %NULL
  *
  * Requests that @model be re-run to have an updated result. If an error occurs,
  * then @model will not be changed.
@@ -3651,27 +3671,26 @@ gda_data_select_compute_columns_attributes (GdaDataSelect *model, GError **error
  */
 gboolean
 gda_data_select_rerun (GdaDataSelect *model, GError **error)
-{
-    GdaDataSelect *new_model;
+{	GdaDataSelect *new_model;
 	GdaStatement *select;
-    GType *types = NULL;
-    GdaDataSelect *old_model;
-    GTypeQuery tq;
+    	GType *types = NULL;
+        	GTypeQuery tq;
 	gpointer copy;
 	gint offset = sizeof (GObject);
 	gint size;
-    	/* we need to keep some data from the old model */
-	GdaDataSelectInternals *mi;
-    GSList *l1, *l2;
-    GSList *list;
+    GdaDataSelect *old_model;
+    	GSList *l1, *l2;
+        	GdaDataSelectInternals *mi;
+    	GSList *list;
 	g_return_val_if_fail (GDA_IS_DATA_SELECT (model), FALSE);
 
-	
+
+
 	select = check_acceptable_statement (model, error);
 	if (!select)
 		return FALSE;
 	g_assert (model->prep_stmt);
-	
+
 	if (model->prep_stmt->types) {
 		types = g_new (GType, model->prep_stmt->ncols + 1);
 		memcpy (types, model->prep_stmt->types, /* Flawfinder: ignore */
@@ -3684,6 +3703,14 @@ gda_data_select_rerun (GdaDataSelect *model, GError **error)
 										   types,
 										   error);
 	g_free (types);
+
+	/* post treatment */
+	if (new_model && (model->priv->sh->usage_flags & GDA_STATEMENT_MODEL_OFFLINE) &&
+	    ! gda_data_select_prepare_for_offline (new_model, error)) {
+		g_object_unref (new_model);
+		return FALSE;
+	}
+
 	if (!new_model) {
 		/* FIXME: clear all the rows in @model, and emit the "reset" signal */
 		return FALSE;
@@ -3704,7 +3731,7 @@ gda_data_select_rerun (GdaDataSelect *model, GError **error)
 		model->priv->ext_params_changed_sig_id = 0;
 	}
 
-	
+
 	g_type_query (G_OBJECT_TYPE (model), &tq);
 	size = tq.instance_size - offset;
 	copy = g_malloc (size);
@@ -3712,6 +3739,7 @@ gda_data_select_rerun (GdaDataSelect *model, GError **error)
 	memcpy ((gint8*) new_model + offset, (gint8*) model + offset, size); /* Flawfinder: ignore */
 	memcpy ((gint8*) model + offset, copy, size); /* Flawfinder: ignore */
 
+	/* we need to keep some data from the old model */
 
 	model->priv->sh->reset_with_ext_params_change = old_model->priv->sh->reset_with_ext_params_change;
 	model->priv->sh->notify_changes = old_model->priv->sh->notify_changes;
@@ -3729,7 +3757,7 @@ gda_data_select_rerun (GdaDataSelect *model, GError **error)
 					  G_CALLBACK (ext_params_holder_changed_cb), model);
 
 	/* keep the same GdaColumn pointers */
-	
+
 	l1 = old_model->priv->sh->columns;
 	old_model->priv->sh->columns = model->priv->sh->columns;
 	model->priv->sh->columns = l1;
@@ -3746,7 +3774,7 @@ gda_data_select_rerun (GdaDataSelect *model, GError **error)
 
 	/* copy all the param's holders' values from model->priv->sh->ext_params to
 	   to model->priv->sh->modif_internals->exec_set */
-	
+
 	if (model->priv->sh->ext_params) {
 		for (list = model->priv->sh->ext_params->holders; list; list = list->next) {
 			GdaHolder *h;
@@ -3770,5 +3798,90 @@ gda_data_select_rerun (GdaDataSelect *model, GError **error)
 	/* signal a reset */
 	gda_data_model_reset ((GdaDataModel*) model);
 
+	return TRUE;
+}
+
+/**
+ * gda_data_select_prepare_for_offline:
+ * @model: a #GdaDataSelect object
+ * @error: (allow-none): a place to store errors, or %NULL
+ *
+ * Use this method to make sure all the data contained in the data model are stored on the client
+ * side (and that no subsquent call to the server will be necessary to access that data), at the cost of
+ * a higher memory consumption.
+ *
+ * This method is useful in the following situations:
+ * <itemizedlist>
+ *   <listitem><para>You need to disconnect from the server and continue to use the data in the data model</para></listitem>
+ *   <listitem><para>You need to make sure the data in the data model can be used even though the connection to the server may be used for other purposes (for example executing other queries)</para></listitem>
+ * </itemizedlist>
+ *
+ * Note that this method will fail if:
+ * <itemizedlist>
+ *   <listitem><para>the data model contains any blobs (because blobs reading requires acces to the server);
+ *     binary values are Ok, though.</para></listitem>
+ *   <listitem><para>the data model has been modified since it was created</para></listitem>
+ * </itemizedlist>
+ *
+ * Returns: %TRUE if no error occurred
+ *
+ * Since: 5.2.0
+ */
+gboolean
+gda_data_select_prepare_for_offline (GdaDataSelect *model, GError **error)
+{	gint i, ncols;
+	g_return_val_if_fail (GDA_IS_DATA_SELECT (model), FALSE);
+
+	/* checks */
+
+	if (! (model->priv->sh->usage_flags & GDA_STATEMENT_MODEL_RANDOM_ACCESS)) {
+		g_set_error (error, GDA_DATA_SELECT_ERROR, GDA_DATA_SELECT_ACCESS_ERROR,
+			     "%s", _("Data model does not support random access"));
+		return FALSE;
+	}
+	if (model->priv->sh->upd_rows || model->priv->sh->del_rows) {
+		g_set_error (error, GDA_DATA_SELECT_ERROR, GDA_DATA_SELECT_ACCESS_ERROR,
+			     "%s", _("Data model has been modified"));
+		return FALSE;
+	}
+	ncols = gda_data_model_get_n_columns ((GdaDataModel*) model);
+	for (i = 0; i < ncols; i++) {
+		GdaColumn *gdacol;
+		gdacol = gda_data_model_describe_column ((GdaDataModel*) model, i);
+		if (gda_column_get_g_type (gdacol) == GDA_TYPE_BLOB) {
+			g_set_error (error, GDA_DATA_SELECT_ERROR, GDA_DATA_SELECT_ACCESS_ERROR,
+			     "%s", _("Data model contains BLOBs"));
+			return FALSE;
+		}
+	}
+
+	/* fetching data */
+	if (model->advertized_nrows < 0) {
+		if (CLASS (model)->fetch_nb_rows)
+			CLASS (model)->fetch_nb_rows (model);
+		if (model->advertized_nrows < 0) {
+			g_set_error (error, GDA_DATA_SELECT_ERROR, GDA_DATA_SELECT_ACCESS_ERROR,
+				     "%s", _("Can't get the number of rows of data model"));
+			return FALSE;
+		}
+	}
+
+	if (model->nb_stored_rows != model->advertized_nrows) {
+		if (CLASS (model)->store_all) {
+			if (! CLASS (model)->store_all (model, error))
+				return FALSE;
+		}
+	}
+
+	/* final check/complement */
+	for (i = 0; i < model->advertized_nrows; i++) {
+		if (!g_hash_table_lookup (model->priv->sh->index, &i)) {
+			GdaRow *prow;
+			if (! CLASS (model)->fetch_at (model, &prow, i, error))
+				return FALSE;
+			g_assert (prow);
+			gda_data_select_take_row (model, prow, i);
+		}
+	}
 	return TRUE;
 }

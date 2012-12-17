@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serv_op>
+  <parameters id="TABLE_DESC_P">
+    <parameter source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="ar" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="جدول" descr="Table to delete"></parameter>
+    <parameter xml:lang="az" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="ca" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Taula" descr="Table to delete"></parameter>
+    <parameter xml:lang="ca@valencia" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Taula" descr="Table to delete"></parameter>
+    <parameter xml:lang="cs" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabulka" descr="Tabulka, která se má smazat"></parameter>
+    <parameter xml:lang="da" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabel" descr="Tabel der skal slettes"></parameter>
+    <parameter xml:lang="de" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabelle" descr="Zu löschende Tabelle"></parameter>
+    <parameter xml:lang="dz" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="ཐིག་ཁྲམ།" descr="བཏོན་གཏང་ནི་ཐིག་ཁྲམ།"></parameter>
+    <parameter xml:lang="el" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Πίνακας" descr="Πίνακας για διαγραφή"></parameter>
+    <parameter xml:lang="en_CA" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="en_GB" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="eo" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabelo" descr="Table to delete"></parameter>
+    <parameter xml:lang="es" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabla" descr="Tabla para eliminar"></parameter>
+    <parameter xml:lang="eu" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Taula" descr="Taula ezabatzeko"></parameter>
+    <parameter xml:lang="fa" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="جدول" descr="Table to delete"></parameter>
+    <parameter xml:lang="fi" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Taulu" descr="Poistettava taulu"></parameter>
+    <parameter xml:lang="fr" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table à supprimer"></parameter>
+    <parameter xml:lang="ga" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="gl" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Táboa" descr="Táboa a eliminar"></parameter>
+    <parameter xml:lang="hr" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tablica" descr="Table to delete"></parameter>
+    <parameter xml:lang="hu" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="id" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabel" descr="Tabel yang akan dihapus"></parameter>
+    <parameter xml:lang="it" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabella" descr="Tabella da cancellare"></parameter>
+    <parameter xml:lang="ja" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="テーブル" descr="Table to delete"></parameter>
+    <parameter xml:lang="ko" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="lt" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Lentelė" descr="Ištrinama lentelė"></parameter>
+    <parameter xml:lang="mk" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="ml" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="ms" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Jadual" descr="Table to delete"></parameter>
+    <parameter xml:lang="nb" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabell" descr="Tabell som skal slettes"></parameter>
+    <parameter xml:lang="ne" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="तालिका" descr="मेट्ने तालिका"></parameter>
+    <parameter xml:lang="nl" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabel" descr="Table to delete"></parameter>
+    <parameter xml:lang="oc" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tablèu" descr="Table to delete"></parameter>
+    <parameter xml:lang="pa" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="ਸਾਰਣੀ" descr="Table to delete"></parameter>
+    <parameter xml:lang="pl" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabela" descr="Table to delete"></parameter>
+    <parameter xml:lang="pt" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabela" descr="Tabela a eliminar"></parameter>
+    <parameter xml:lang="pt_BR" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabela" descr="Tabela a excluir"></parameter>
+    <parameter xml:lang="ru" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Таблица" descr="Table to delete"></parameter>
+    <parameter xml:lang="rw" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Imbonerahamwe" descr="Table to delete"></parameter>
+    <parameter xml:lang="sk" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabuľka" descr="Table to delete"></parameter>
+    <parameter xml:lang="sl" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Razpredelnica" descr="Razpredelnica za brisanje"></parameter>
+    <parameter xml:lang="sq" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabela" descr="Table to delete"></parameter>
+    <parameter xml:lang="sr" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Табела" descr="Table to delete"></parameter>
+    <parameter xml:lang="sr@Latn" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabela" descr="Table to delete"></parameter>
+    <parameter xml:lang="sv" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Tabell" descr="Tabell att ta bort"></parameter>
+    <parameter xml:lang="tr" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Table" descr="Table to delete"></parameter>
+    <parameter xml:lang="uk" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Таблиця" descr="Table to delete"></parameter>
+    <parameter xml:lang="vi" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="Bảng" descr="Bảng cần xoá bỏ"></parameter>
+    <parameter xml:lang="zh_CN" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="表" descr="要删除的表"></parameter>
+    <parameter xml:lang="zh_HK" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="表格" descr="要刪除的表格"></parameter>
+    <parameter xml:lang="zh_TW" source="_DICT_TABLES_" nullok="FALSE" id="TABLE_NAME" gdatype="gchararray" name="表格" descr="要刪除的表格"></parameter>
+    <parameter id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="ar" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="az" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="ca" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="ca@valencia" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="cs" id="TABLE_IFEXISTS" gdatype="gboolean" name="Pokud existuje" descr="Odstranit tabulku, jen když existuje"></parameter>
+    <parameter xml:lang="da" id="TABLE_IFEXISTS" gdatype="gboolean" name="Hvis den findes" descr="Smid kun tabel hvis den findes"></parameter>
+    <parameter xml:lang="de" id="TABLE_IFEXISTS" gdatype="gboolean" name="Falls vorhanden" descr="Tabelle einfügen, nur wenn sie existiert"></parameter>
+    <parameter xml:lang="dz" id="TABLE_IFEXISTS" gdatype="gboolean" name="གནས་ཡོད་པ་ཅིན་" descr="གནས་ཡོད་པ་ཅིན་རྐྱངམ་ཅིག་ཐིག་ཁྲམ་བཀོག་བཞག"></parameter>
+    <parameter xml:lang="el" id="TABLE_IFEXISTS" gdatype="gboolean" name="Εάν υπάρχει" descr="Κατάργηση πίνακα μόνο εάν υπάρχει"></parameter>
+    <parameter xml:lang="en_CA" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="en_GB" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="eo" id="TABLE_IFEXISTS" gdatype="gboolean" name="Se ekzistas" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="es" id="TABLE_IFEXISTS" gdatype="gboolean" name="Si existe" descr="Eliminar la tabla sólo si existe"></parameter>
+    <parameter xml:lang="eu" id="TABLE_IFEXISTS" gdatype="gboolean" name="Existitzen bada" descr="Jaregin taula aurrez existitzen bada soilik"></parameter>
+    <parameter xml:lang="fa" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="fi" id="TABLE_IFEXISTS" gdatype="gboolean" name="Jos olemassa" descr="Poista taulu vain, jos se on olemassa"></parameter>
+    <parameter xml:lang="fr" id="TABLE_IFEXISTS" gdatype="gboolean" name="Si existant" descr="Supprimer la table seulement si elle existe"></parameter>
+    <parameter xml:lang="ga" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="gl" id="TABLE_IFEXISTS" gdatype="gboolean" name="Se existe" descr="Eliminar a táboa só se existe"></parameter>
+    <parameter xml:lang="hr" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="hu" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="id" id="TABLE_IFEXISTS" gdatype="gboolean" name="Bila ada" descr="Drop tabel hanya bila ada"></parameter>
+    <parameter xml:lang="it" id="TABLE_IFEXISTS" gdatype="gboolean" name="Se esiste" descr="Elimina la tabella solo se esiste"></parameter>
+    <parameter xml:lang="ja" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="ko" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="lt" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="mk" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="ml" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="ms" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="nb" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="ne" id="TABLE_IFEXISTS" gdatype="gboolean" name="यदि अवस्थित छ भने" descr="यदि यो अवस्थित हुन्छ भने तालिका मात्र ड्रप गर्नुहोस्"></parameter>
+    <parameter xml:lang="nl" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="oc" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="pa" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="pl" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="pt" id="TABLE_IFEXISTS" gdatype="gboolean" name="Se existir" descr="Descartar tabela apenas se existir"></parameter>
+    <parameter xml:lang="pt_BR" id="TABLE_IFEXISTS" gdatype="gboolean" name="Se existir" descr="Descarta a tabela somente se existir"></parameter>
+    <parameter xml:lang="ru" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="rw" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="sk" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="sl" id="TABLE_IFEXISTS" gdatype="gboolean" name="Če obstaja" descr="Spusti razpredelnico le, če obstaja"></parameter>
+    <parameter xml:lang="sq" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="sr" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="sr@Latn" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="sv" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="tr" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="uk" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="vi" id="TABLE_IFEXISTS" gdatype="gboolean" name="Nếu tồn tại" descr="Thả bảng chỉ nếu nó tồn tại"></parameter>
+    <parameter xml:lang="zh_CN" id="TABLE_IFEXISTS" gdatype="gboolean" name="如果存在" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="zh_HK" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+    <parameter xml:lang="zh_TW" id="TABLE_IFEXISTS" gdatype="gboolean" name="If exists" descr="Drop table only if it exists"></parameter>
+  </parameters>
+</serv_op>

@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-set-spec>
+  <parameters>
+    <parameter nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="ar" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="az" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="ca" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="ca@valencia" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="cs" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Základní název" descr="Základní rozlišovací název, počáteční bod pro hledání"></parameter>
+    <parameter xml:lang="da" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="de" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Basisname" descr="Eindeutiger Name der obersten Ebene, Ausgangspunkt für die Suchvorgänge"></parameter>
+    <parameter xml:lang="dz" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="el" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Όνομα βάσης" descr="Όνομα διακριτής βάσης, αρχικό σημείο για αναζητήσεις"></parameter>
+    <parameter xml:lang="en_CA" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="en_GB" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="eo" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="es" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nombre de la base de datos" descr="Nombre base distintivo, punto de partida para las búsquedas"></parameter>
+    <parameter xml:lang="eu" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="fa" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="fi" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="fr" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nom de base" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="ga" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="gl" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nome da base de datos" descr="Nome base distintivo, punto de partida para as buscas"></parameter>
+    <parameter xml:lang="hr" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="hu" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="id" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nama basis" descr="Distinguished name basis, titik awal pencarian"></parameter>
+    <parameter xml:lang="it" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, punto di inizio per le ricerche"></parameter>
+    <parameter xml:lang="ja" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="ko" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="lt" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="mk" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="ml" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="ms" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="nb" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="ne" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="nl" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="oc" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="pa" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="pl" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="pt" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="pt_BR" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="ru" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="rw" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="sk" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="sl" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Osnovno ime" descr="Osnovno razločno ime, začetna točka iskanja"></parameter>
+    <parameter xml:lang="sq" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="sr" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="sr@Latn" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="sv" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="tr" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="uk" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="vi" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="zh_CN" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="基名" descr="基础的可区别名称，搜索的起点"></parameter>
+    <parameter xml:lang="zh_HK" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter xml:lang="zh_TW" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Base name" descr="Base distinguished name, starting point for the searches"></parameter>
+    <parameter id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="ar" id="HOST" gdatype="gchararray" name="خادم قاعدة بيانات" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="az" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="ca" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="ca@valencia" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="cs" id="HOST" gdatype="gchararray" name="Databázový server" descr="Počítač, na kterém server LDAP běží"></parameter>
+    <parameter xml:lang="da" id="HOST" gdatype="gchararray" name="Databaseserver" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="de" id="HOST" gdatype="gchararray" name="Datenbankserver" descr="Rechner, auf dem der LDAP-Server läuft"></parameter>
+    <parameter xml:lang="dz" id="HOST" gdatype="gchararray" name="གནས་སྡུད་གཞི་རྟེན་སར་བར།" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="el" id="HOST" gdatype="gchararray" name="Εξυπηρετητής βάσης δεδομένων" descr="Ο οικοδεσπότης στον οποίον ο εξυπηρετητής LDAP τρέχει"></parameter>
+    <parameter xml:lang="en_CA" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="en_GB" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="eo" id="HOST" gdatype="gchararray" name="Datumbaza servilo" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="es" id="HOST" gdatype="gchararray" name="Servidor de bases de datos" descr="Equipo en el que el servidor LDAP se está ejecutando"></parameter>
+    <parameter xml:lang="eu" id="HOST" gdatype="gchararray" name="Datu-base zerbitzaria" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="fa" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="fi" id="HOST" gdatype="gchararray" name="Tietokantapalvelin" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="fr" id="HOST" gdatype="gchararray" name="Serveur de base de données" descr="Hôte sur lequel fonctionne le serveur LDAP"></parameter>
+    <parameter xml:lang="ga" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="gl" id="HOST" gdatype="gchararray" name="Servidor de bases de datos" descr="Máquina na que se está a executar o servidor LDAP"></parameter>
+    <parameter xml:lang="hr" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="hu" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="id" id="HOST" gdatype="gchararray" name="Server basis data" descr="Host tempat server LDAP berjalan"></parameter>
+    <parameter xml:lang="it" id="HOST" gdatype="gchararray" name="Server database" descr="Host su cui è in esecuzione il server LDAP"></parameter>
+    <parameter xml:lang="ja" id="HOST" gdatype="gchararray" name="データベース・サーバー" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="ko" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="lt" id="HOST" gdatype="gchararray" name="Duomenų bazės serveris" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="mk" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="ml" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="ms" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="nb" id="HOST" gdatype="gchararray" name="Databasetjener" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="ne" id="HOST" gdatype="gchararray" name="डाटाबेस सर्भर" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="nl" id="HOST" gdatype="gchararray" name="Databaseserver" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="oc" id="HOST" gdatype="gchararray" name="Servidor de basa de donadas" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="pa" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="pl" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="pt" id="HOST" gdatype="gchararray" name="Servidor de base de dados" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="pt_BR" id="HOST" gdatype="gchararray" name="Servidor de banco de dados" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="ru" id="HOST" gdatype="gchararray" name="Сервер баз данных" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="rw" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="sk" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="sl" id="HOST" gdatype="gchararray" name="Strežnik podatkovnih zbirk" descr="Gostitelj na katerem teče strežnik LDAP"></parameter>
+    <parameter xml:lang="sq" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="sr" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="sr@Latn" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="sv" id="HOST" gdatype="gchararray" name="Databasserver" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="tr" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="uk" id="HOST" gdatype="gchararray" name="Database server" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="vi" id="HOST" gdatype="gchararray" name="Máy phục vụ cơ sở dữ liệu" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="zh_CN" id="HOST" gdatype="gchararray" name="数据库服务器" descr="正在运行 LDAP 服务器的主机"></parameter>
+    <parameter xml:lang="zh_HK" id="HOST" gdatype="gchararray" name="資料庫伺服器" descr="Host on which the LDAP server is running"></parameter>
+    <parameter xml:lang="zh_TW" id="HOST" gdatype="gchararray" name="資料庫伺服器" descr="Host on which the LDAP server is running"></parameter>
+    <parameter id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="ar" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="az" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="ca" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="ca@valencia" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="cs" id="PORT" gdatype="gint" name="Port" descr="Port databázového serveru (ponechte prázdné, pokud chcete použít výchozí hodnotu)"></parameter>
+    <parameter xml:lang="da" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="de" id="PORT" gdatype="gint" name="Port" descr="Port des Datenbankservers (leer lassen, um Vorgabe zu verwenden)"></parameter>
+    <parameter xml:lang="dz" id="PORT" gdatype="gint" name="འདྲེན་ལམ།" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="el" id="PORT" gdatype="gint" name="Θύρα" descr="Η θύρα εξυπηρετητή βάσης δεδομένων (αφήστε αυτό το πεδίο κενό για να χρησιμοποιήσετε την προεπιλεγμένη θύρα)"></parameter>
+    <parameter xml:lang="en_CA" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="en_GB" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="eo" id="PORT" gdatype="gint" name="Pordo" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="es" id="PORT" gdatype="gint" name="Puerto" descr="Puerto del servidor de base de datos (deje este campo vacío para usar el puerto pretederminado)"></parameter>
+    <parameter xml:lang="eu" id="PORT" gdatype="gint" name="Ataka" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="fa" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="fi" id="PORT" gdatype="gint" name="Portti" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="fr" id="PORT" gdatype="gint" name="Port" descr="Port du serveur de base de données (laissez le champ vide pour la valeur par défaut)"></parameter>
+    <parameter xml:lang="ga" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="gl" id="PORT" gdatype="gint" name="Porto" descr="Porto do servidor de bases de datos (deixar este campo en branco para usar o porto predeterminado)"></parameter>
+    <parameter xml:lang="hr" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="hu" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="id" id="PORT" gdatype="gint" name="Port" descr="Port server basis data (biarkan ruas ini kosong untuk memakai port baku)"></parameter>
+    <parameter xml:lang="it" id="PORT" gdatype="gint" name="Porta" descr="La porta del server del database (lasciare questo campo vuoto per usare la porta predefinita)"></parameter>
+    <parameter xml:lang="ja" id="PORT" gdatype="gint" name="ポート" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="ko" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="lt" id="PORT" gdatype="gint" name="Prievadas" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="mk" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="ml" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="ms" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="nb" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="ne" id="PORT" gdatype="gint" name="पोर्ट" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="nl" id="PORT" gdatype="gint" name="Poort" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="oc" id="PORT" gdatype="gint" name="Pòrt" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="pa" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="pl" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="pt" id="PORT" gdatype="gint" name="Porto" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="pt_BR" id="PORT" gdatype="gint" name="Porta" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="ru" id="PORT" gdatype="gint" name="Порт" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="rw" id="PORT" gdatype="gint" name="Umuyoboro" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="sk" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="sl" id="PORT" gdatype="gint" name="Vrata" descr="Vrata podatkovnega strežnika (prazno polje določa privzeto vrednost)"></parameter>
+    <parameter xml:lang="sq" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="sr" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="sr@Latn" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="sv" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="tr" id="PORT" gdatype="gint" name="Port" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="uk" id="PORT" gdatype="gint" name="Порт" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="vi" id="PORT" gdatype="gint" name="Cổng" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="zh_CN" id="PORT" gdatype="gint" name="端口" descr="数据库服务器端口(不填这个字段来使用默认端口)"></parameter>
+    <parameter xml:lang="zh_HK" id="PORT" gdatype="gint" name="連接埠" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter xml:lang="zh_TW" id="PORT" gdatype="gint" name="連接埠" descr="Database server port (leave this field empty to use the default port)"></parameter>
+    <parameter id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="ar" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="az" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="ca" id="USE_SSL" gdatype="gboolean" name="Requereix SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="ca@valencia" id="USE_SSL" gdatype="gboolean" name="Requereix SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="cs" id="USE_SSL" gdatype="gboolean" name="Vyžadovat SSL" descr="Zda používat nebo nepoužívat SSL pro navázání spojení"></parameter>
+    <parameter xml:lang="da" id="USE_SSL" gdatype="gboolean" name="Kræv SSL" descr="Hvorvidt der skal bruges SSL for at etablere forbindelsen"></parameter>
+    <parameter xml:lang="de" id="USE_SSL" gdatype="gboolean" name="Erfordert SSL" descr="Legt fest, ob SSL für den Verbindungsaufbau verwendet werden soll"></parameter>
+    <parameter xml:lang="dz" id="USE_SSL" gdatype="gboolean" name="ཨེསི་ཨེསི་ཨེལ་དགོས་མཁོ་ཡོདཔ།" descr="མཐུད་ལམ་གཞི་བཙུགས་འབད་ནི་ཨེསི་ཨེསི་ཨེལ་ལག་ལེན་འཐབ་ནི་ཨིན་རུང་མེན་རུང་།"></parameter>
+    <parameter xml:lang="el" id="USE_SSL" gdatype="gboolean" name="Απαιτείται SSL" descr="Εάν θα χρησιμοποιηθεί ή όχι SSL για δημιουργία σύνδεσης"></parameter>
+    <parameter xml:lang="en_CA" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="en_GB" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="eo" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="es" id="USE_SSL" gdatype="gboolean" name="Requiere SSL" descr="Indica si se debe usar o no SSL para establecer la conexión"></parameter>
+    <parameter xml:lang="eu" id="USE_SSL" gdatype="gboolean" name="SSL behar du" descr="Konexioak ezartzean SSL erabili edo ez"></parameter>
+    <parameter xml:lang="fa" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="fi" id="USE_SSL" gdatype="gboolean" name="Vaadi SSL:ää" descr="Käytetäänkö SSL-salausta yhteyden muodostamisessa"></parameter>
+    <parameter xml:lang="fr" id="USE_SSL" gdatype="gboolean" name="Utiliser une connexion sécurisée" descr="Indique si l&apos;on doit utiliser une connexion sécurisée par SSL"></parameter>
+    <parameter xml:lang="ga" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="gl" id="USE_SSL" gdatype="gboolean" name="Requirir SSL" descr="Usar ou non SSL para estabelecer a conexión"></parameter>
+    <parameter xml:lang="hr" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="hu" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="id" id="USE_SSL" gdatype="gboolean" name="Perlu SSL" descr="Apakah memakai SSL atau tidak untuk menjalin koneksi"></parameter>
+    <parameter xml:lang="it" id="USE_SSL" gdatype="gboolean" name="Richiede SSL" descr="Uso di SSL per l&apos;instaurazione della connessione"></parameter>
+    <parameter xml:lang="ja" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="ko" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="lt" id="USE_SSL" gdatype="gboolean" name="Būtinas SSL" descr="Nustato, ar prisijungimo metu bus naudojamas SSL kodavimas"></parameter>
+    <parameter xml:lang="mk" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="ml" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="ms" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="nb" id="USE_SSL" gdatype="gboolean" name="Krev SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="ne" id="USE_SSL" gdatype="gboolean" name="SSL आवश्यक पर्छ" descr="जडान स्थापानाका लागि SSL प्रयोग गर्न पर्छ वा पर्दैन"></parameter>
+    <parameter xml:lang="nl" id="USE_SSL" gdatype="gboolean" name="Vereist SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="oc" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="pa" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="pl" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="pt" id="USE_SSL" gdatype="gboolean" name="Requerer SSL" descr="Utilizar ou não SSL para estabelecer ligação"></parameter>
+    <parameter xml:lang="pt_BR" id="USE_SSL" gdatype="gboolean" name="Exige SSL" descr="Se utiliza ou não SSL para estabelecer a conexão"></parameter>
+    <parameter xml:lang="ru" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="rw" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="sk" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="sl" id="USE_SSL" gdatype="gboolean" name="Zahtevan SSL" descr="Ali naj bo uporabljen SSL za ustvarjanje povezave"></parameter>
+    <parameter xml:lang="sq" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="sr" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="sr@Latn" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="sv" id="USE_SSL" gdatype="gboolean" name="Kräver SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="tr" id="USE_SSL" gdatype="gboolean" name="Require SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="uk" id="USE_SSL" gdatype="gboolean" name="Потребує SSL" descr="Whether or not to use SSL to establish the connection"></parameter>
+    <parameter xml:lang="vi" id="USE_SSL" gdatype="gboolean" name="Cần thiết SSL" descr="Có nên dùng SSL để thiết lập kết nối hay không"></parameter>
+    <parameter xml:lang="zh_CN" id="USE_SSL" gdatype="gboolean" name="要求 SSL" descr="是否使用 SSL 创建连接"></parameter>
+    <parameter xml:lang="zh_HK" id="USE_SSL" gdatype="gboolean" name="需要 SSL" descr="是否要使用 SSL 建立連線"></parameter>
+    <parameter xml:lang="zh_TW" id="USE_SSL" gdatype="gboolean" name="需要 SSL" descr="是否要使用 SSL 建立連線"></parameter>
+    <parameter source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ar" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="az" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ca" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ca@valencia" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="cs" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Typ kontroly certifikátu" descr="Určuje jaké kontroly se mají provést na serverových certifikátech v sezení SSL/TLS"></parameter>
+    <parameter xml:lang="da" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="de" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Zertifikat-Überprüfungstyp" descr="Gibt an, auf welche Weise Serverzertifikate in einer SSL/TLS-Sitzung überprüft werden sollen"></parameter>
+    <parameter xml:lang="dz" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="el" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Τύπος ελέγχου πιστοποιητικού" descr="Καθορίζει τους εκτελούμενους ελέγχους στα πιστοποιητικά του εξυπηρετητή σε μια σύνοδο SSL/TLS"></parameter>
+    <parameter xml:lang="en_CA" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="en_GB" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="eo" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="es" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Tipo de comprobación del certificado" descr="Especifica las comprobaciones que realizar en los certificados del servidor en una sesión SSL/TLS"></parameter>
+    <parameter xml:lang="eu" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="fa" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="fi" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="fr" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ga" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="gl" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Comprobar o tipo de certificado" descr="Especifica as comprobacións que realizar nos certificados do servidor nunha sección SSL/TLS"></parameter>
+    <parameter xml:lang="hr" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="hu" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="id" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Tipe pemeriksaan sertifikat" descr="Menyatakan pemeriksaan apa yang dilaksanakan pada sertifikat server dalam suatu sesi SSL/TLS"></parameter>
+    <parameter xml:lang="it" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Tipo di controllo certificato" descr="Specifica cosa controlla di eseguire su un server certificati in una sessione SSL/TLS"></parameter>
+    <parameter xml:lang="ja" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ko" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="lt" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="mk" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ml" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ms" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="nb" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ne" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="nl" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="oc" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="pa" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="pl" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="pt" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="pt_BR" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ru" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="rw" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sk" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sl" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Vrsta preverjanja potrdila" descr="Določa, katera preverjanja strežniških potrdil je treba opraviti v sejah SSL/TLS"></parameter>
+    <parameter xml:lang="sq" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sr" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sr@Latn" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sv" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="tr" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="uk" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="vi" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="zh_CN" source="methods:0" id="TLS_REQCERT" gdatype="string" name="证书检查类型" descr="指定在 SSL/TLS 会话中对服务器证书执行何种检查"></parameter>
+    <parameter xml:lang="zh_HK" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter xml:lang="zh_TW" source="methods:0" id="TLS_REQCERT" gdatype="string" name="Certificate check type" descr="Specifies what checks to perform on server certificates in a SSL/TLS session"></parameter>
+    <parameter plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ar" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="az" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ca" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ca@valencia" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="cs" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Soubor s certifikáty" descr="Určuje soubor, který obsahuje certifikáty pro všechny rozpoznané certifikační autority v sezení SSL/TLS"></parameter>
+    <parameter xml:lang="da" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="de" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Zertifikatdatei" descr="Gibt die Datei an, welche alle Zertifikate aller erkannten Zertifizierungsstellen beinhaltet, in einer SSL/TLS-Sitzung"></parameter>
+    <parameter xml:lang="dz" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="el" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Αρχείο πιστοποιητικών" descr="Καθορίζει το αρχείο που περιέχει πιστοποιητικά για όλες τις αναγνωρισμένες αρχές πιστοποιητικών, σε μια σύνοδο SSL/TLS"></parameter>
+    <parameter xml:lang="en_CA" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="en_GB" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="eo" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="es" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Archivo de certificados" descr="Especifica el archivo que contiene certificados para las Autoridades Certificadoras reconocidas, en una sesión SSL/TLS"></parameter>
+    <parameter xml:lang="eu" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="fa" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="fi" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="fr" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ga" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="gl" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Arquivo de certificados" descr="Especifica o ficheiro que contén certificados para as Autoridades Certificadoras recoñecidas, nunha sesión SSL/TLS"></parameter>
+    <parameter xml:lang="hr" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="hu" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="id" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Berkas sertifikat" descr="Menyatakan berkas yang memuat sertifikat bagi semua Certificate Authority yang dikenal, dalam suatu sesi SSL/TLS"></parameter>
+    <parameter xml:lang="it" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="File certificati" descr="Specifica il file che contiene i certificati per tutte le CA riconosciute, in una sessione SSL/TLS"></parameter>
+    <parameter xml:lang="ja" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ko" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="lt" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="mk" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ml" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ms" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="nb" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ne" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="nl" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="oc" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="pa" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="pl" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="pt" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="pt_BR" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="ru" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="rw" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sk" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sl" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Datoteka potrdila" descr="Določa datoteko, ki vsebuje potrdila za vse prepoznane izdajatelje potrdil v seji SSL/TLS"></parameter>
+    <parameter xml:lang="sq" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sr" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sr@Latn" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="sv" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="tr" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="uk" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="vi" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="zh_CN" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="证书文件" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="zh_HK" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter xml:lang="zh_TW" plugin="filesel:MODE=OPEN" id="TLS_CACERT" gdatype="string" name="Certificates file" descr="Specifies the file that contains certificates for all of the recognized Certificate Authorities, in a SSL/TLS session"></parameter>
+    <parameter id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ar" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="az" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca@valencia" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="cs" id="USE_CACHE" gdatype="gboolean" name="Ukládat data serveru do mezipaměti" descr="Použít mezipaměť k uchování některých statistických dat serveru (soubory mezipaměti jsou jsou v uživatelské složce mezipaměti), výchozí je ZAPNUTO">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="da" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="de" id="USE_CACHE" gdatype="gboolean" name="Serverdaten zwischespeichern" descr="Einen Zwischespeicher zum Ablegen einiger statischer Serverdaten verwenden. Die gespeicherten Daten befinden sich im Benutzerordner. Vorgabe ist »wahr«">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="dz" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="el" id="USE_CACHE" gdatype="gboolean" name="Δεδομένα εξυπηρετητή κρυφής μνήμης" descr="Χρήση κρυφής μνήμης για αποθήκευση κάποιων δεδομένων εξυπηρετητή (τα αρχεία κρυφής μνήμης είναι στον κατάλογο κρυφής μνήμης του χρήστη), προεπιλογή είναι ΑΛΗΘΕΣ">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_CA" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_GB" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="eo" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="es" id="USE_CACHE" gdatype="gboolean" name="Datos del servidor caché" descr="Usar una memoria caché para almacenar algunos datos del servidor estático (los archivos almacenados en la memoria caché están en la carpeta caché del usuario), de manera predeterminada es cierto">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="eu" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fa" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fi" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fr" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ga" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="gl" id="USE_CACHE" gdatype="gboolean" name="Datos do servidor caché" descr="Usar unha memoria caché para almacenar algúns datos do servidor estático (os ficheiros almacenados na memoria caché están no cartafol caché do usuario), de maneira predeterminada é certo">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="hr" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="hu" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="id" id="USE_CACHE" gdatype="gboolean" name="Singgahkan data server" descr="Pakai singgahan (cache) untuk menyimpan sebagian data server statik (berkas yang disinggahkan ada pada direktori singgahan pengguna), bawaan adalah TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="it" id="USE_CACHE" gdatype="gboolean" name="Dati server cache" descr="Usa una cache per memorizzare alcuni dati statici del server (i file nella cache sono nella directory della cache dell&apos;utente), il valore predefinito è TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ja" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ko" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="lt" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="mk" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ml" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ms" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="nb" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ne" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="nl" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="oc" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pa" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pl" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt_BR" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ru" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="rw" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sk" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sl" id="USE_CACHE" gdatype="gboolean" name="Podatki strežnika predpomnika" descr="Uporabi predpomnilnik za shranjevanje statičnih podatkov strežnika (te datoteke so v uporabnikovi mapi predpomnilnika), privzeto je določena izbrana možnost.">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sq" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr@Latn" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sv" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="tr" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="uk" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="vi" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_CN" id="USE_CACHE" gdatype="gboolean" name="缓存服务器数据" descr="使用存储来存储一些静态服务器数据(缓存的文件在用户的缓存目录中)，默认为 TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_HK" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_TW" id="USE_CACHE" gdatype="gboolean" name="Cache server data" descr="Use a cache to store some static server data (the cached files are in the user's cache directory), default is TRUE">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="ar" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="az" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="ca" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="ca@valencia" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="cs" id="TIME_LIMIT" gdatype="gint" name="Omezení času" descr="Časový limit, po kterém by operace hledání měla být ukončena serverem (pro neomezený čas ponechte nedefinované nebo 0)"></parameter>
+    <parameter xml:lang="da" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="de" id="TIME_LIMIT" gdatype="gint" name="Zeitbegrenzung" descr="Zeitgrenze, nach welcher ein Suchvorgang vom Server abgebrochen werden soll (lassen Sie es undefiniert oder setzen Sie es auf »0« für unbegrenzt)"></parameter>
+    <parameter xml:lang="dz" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="el" id="TIME_LIMIT" gdatype="gint" name="Όριο χρόνου" descr="Όριο χρόνου μετά το οποίο μια λειτουργία αναζήτησης πρέπει να τελειώσει από τον εξυπηρετητή (αφήστε αόριστο ή 0 για απεριόριστο)"></parameter>
+    <parameter xml:lang="en_CA" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="en_GB" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="eo" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="es" id="TIME_LIMIT" gdatype="gint" name="Límite de tiempo" descr="Límite de tiempo después del cual el servidor debe termina una operación de búsqueda (dejar sin definir o a 0 para que sea ilimitado)"></parameter>
+    <parameter xml:lang="eu" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="fa" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="fi" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="fr" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="ga" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="gl" id="TIME_LIMIT" gdatype="gint" name="Límite de tempo" descr="Límite de tempo despois do cal unha operación de busca debería rematar no servidor (déixeo como non definido ou a 0 para que non haxa límite)"></parameter>
+    <parameter xml:lang="hr" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="hu" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="id" id="TIME_LIMIT" gdatype="gint" name="Batas waktu" descr="Batas waktu yang bila suatu operasi pencarian melewatinya akan diakhiri oleh server (biarkan tak terisi atau 0 untuk tanpa batas)"></parameter>
+    <parameter xml:lang="it" id="TIME_LIMIT" gdatype="gint" name="Limite di tempo" descr="Il limite di tempo dopo il quale un&apos;operazione di ricerca deve essere interrotta dal server (lasciare non definito o 0 per illimitata)"></parameter>
+    <parameter xml:lang="ja" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="ko" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="lt" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="mk" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="ml" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="ms" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="nb" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="ne" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="nl" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="oc" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="pa" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="pl" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="pt" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="pt_BR" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="ru" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="rw" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="sk" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="sl" id="TIME_LIMIT" gdatype="gint" name="Časovna omejitev" descr="Časovna omejitev iskanja pred prekinitvijo na strani strežnika (nedoločeno ali vrednost 0, določata neomejen čas)"></parameter>
+    <parameter xml:lang="sq" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="sr" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="sr@Latn" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="sv" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="tr" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="uk" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="vi" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="zh_CN" id="TIME_LIMIT" gdatype="gint" name="时间限制" descr="搜索操作的时间限制，超时后，搜索操作应被服务器终止(不填或设为 0 则无限制)"></parameter>
+    <parameter xml:lang="zh_HK" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter xml:lang="zh_TW" id="TIME_LIMIT" gdatype="gint" name="Time limit" descr="Time limit after which a search operation should be terminated by the server (leave undefined or 0 for unlimited)"></parameter>
+    <parameter id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="ar" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="az" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="ca" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="ca@valencia" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="cs" id="SIZE_LIMIT" gdatype="gint" name="Omezení velikosti" descr="Maximální počet záznamů, které mohou být vráceny při operaci hledání"></parameter>
+    <parameter xml:lang="da" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="de" id="SIZE_LIMIT" gdatype="gint" name="Größenbeschränkung" descr="Größtmögliche Anzahl Einträge, die auf eine Suchanfrage zurückgegeben werden können"></parameter>
+    <parameter xml:lang="dz" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="el" id="SIZE_LIMIT" gdatype="gint" name="Όριο μεγέθους" descr="Μέγιστος αριθμός καταχωρίσεων που μπορεί να επιστραφεί σε μια λειτουργία αναζήτησης"></parameter>
+    <parameter xml:lang="en_CA" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="en_GB" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="eo" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="es" id="SIZE_LIMIT" gdatype="gint" name="Límite de tamaño" descr="El número máximo de entradas que se pueden devolver en una operación de búsqueda"></parameter>
+    <parameter xml:lang="eu" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="fa" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="fi" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="fr" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="ga" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="gl" id="SIZE_LIMIT" gdatype="gint" name="Límite de tamaño" descr="Número máximo de entradas que se poden devolver para unha operación de busca"></parameter>
+    <parameter xml:lang="hr" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="hu" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="id" id="SIZE_LIMIT" gdatype="gint" name="Batas ukuran" descr="Cacah maksimum entri yang dapat dikembalikan pada suatu operasi pencarian"></parameter>
+    <parameter xml:lang="it" id="SIZE_LIMIT" gdatype="gint" name="Limite di dimensione" descr="Numero massimo di voci che possono essere restituite da una operazione di ricerca"></parameter>
+    <parameter xml:lang="ja" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="ko" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="lt" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="mk" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="ml" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="ms" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="nb" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="ne" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="nl" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="oc" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="pa" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="pl" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="pt" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="pt_BR" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="ru" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="rw" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="sk" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="sl" id="SIZE_LIMIT" gdatype="gint" name="Omeji velikosti" descr="Največje število vnosov, ki jih je mogoče izpisati ob iskanju"></parameter>
+    <parameter xml:lang="sq" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="sr" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="sr@Latn" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="sv" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="tr" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="uk" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="vi" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="zh_CN" id="SIZE_LIMIT" gdatype="gint" name="大小限制" descr="搜索操作中返回的最大记录数目"></parameter>
+    <parameter xml:lang="zh_HK" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+    <parameter xml:lang="zh_TW" id="SIZE_LIMIT" gdatype="gint" name="Size limit" descr="Maximum number of entries that can be returned on a search operation"></parameter>
+  </parameters>
+  <sources>
+    <gda_array name="methods">
+      <gda_array_field name="id" gdatype="gchararray"/>
+      <gda_array_field name="text" gdatype="gchararray"/>
+      <gda_array_data>
+        <gda_array_row>
+          <gda_value>NEVER</gda_value>
+          <gda_value>Never: certificate not requested or checked</gda_value>
+          <gda_value xml:lang="cs">Never: certifikát není požadován nebo kontrolován</gda_value>
+          <gda_value xml:lang="de">Never: Zertifikat nicht angefragt oder überprüft</gda_value>
+          <gda_value xml:lang="el">Ποτέ: δεν ζητήθηκε ή δεν ελέγχθηκε το πιστοποιητικό</gda_value>
+          <gda_value xml:lang="es">Nuca: certificado no solicitado o comprobado</gda_value>
+          <gda_value xml:lang="gl">Nunca: certificado non solicitado ou comprobado</gda_value>
+          <gda_value xml:lang="id">Tak pernah: sertifikat tak diminta atau diperiksa</gda_value>
+          <gda_value xml:lang="it">Mai: certificato non richiesto né controllato</gda_value>
+          <gda_value xml:lang="sl">Nikoli: potrdilo ni zahtevano ali preverjeno.</gda_value>
+          <gda_value xml:lang="zh_CN">从不：不要求或不检查证书</gda_value>
+        </gda_array_row>
+        <gda_array_row>
+          <gda_value>ALLOW</gda_value>
+          <gda_value>Allow: certificate requested, none or a bad one accepted.</gda_value>
+          <gda_value xml:lang="cs">Allow: certifikát je požadován, přijat je i žádný nebo chybný</gda_value>
+          <gda_value xml:lang="de">Allow: Zertifikat angefragt, nicht oder unzureichend akzeptiert.</gda_value>
+          <gda_value xml:lang="el">Να επιτρέπεται: το πιστοποιητικό ζητήθηκε, κανένα ή ένα κακό έγινε αποδεκτό.</gda_value>
+          <gda_value xml:lang="es">Permitir: certificado solicitado, aceptado ninguno o uno erróneo.</gda_value>
+          <gda_value xml:lang="gl">Permitir: certificado solicitado, ningún ou malo aceptado.</gda_value>
+          <gda_value xml:lang="id">Ijinkan: sertifikat diminta, yang nihil atau buruk diterima.</gda_value>
+          <gda_value xml:lang="it">Permetti: certificato richiesto, accettati nessuno o uno incorretto.</gda_value>
+          <gda_value xml:lang="sl">Dovoli: potrdilo je zahtevano, vendar ga ni ali pa je sprejeto neustrezno potrdilo.</gda_value>
+          <gda_value xml:lang="zh_CN">允许：要求证书，接受无证书或无效证书。</gda_value>
+        </gda_array_row>
+        <gda_array_row>
+          <gda_value>TRY</gda_value>
+          <gda_value>Try: certificate requested, none accepted, otherwise checked.</gda_value>
+          <gda_value xml:lang="cs">Try: certifikát je požadován, žádný je přijat, jinak se provede kontrola</gda_value>
+          <gda_value xml:lang="de">Try: Zertifikat angefragt, nicht akzeptiert, anderweitig überprüft.</gda_value>
+          <gda_value xml:lang="el">Δοκιμή: το πιστοποιητικό ζητήθηκε, κανένα αποδεκτό, ελέγχθηκε αλλιώς.</gda_value>
+          <gda_value xml:lang="es">Intentar: certificado solicitado, ninguno aceptado, si no, comprobado.</gda_value>
+          <gda_value xml:lang="gl">Tentar: certificado solicitado, ningún aceptado, se nón, comprobado.</gda_value>
+          <gda_value xml:lang="id">Coba: sertifikat diminta, tak ada yang diterima, namun diperiksa.</gda_value>
+          <gda_value xml:lang="it">Prova: certificato richiesto, nessuno accettato, altrimenti controllato.</gda_value>
+          <gda_value xml:lang="sl">Poskusi: potrdilo je zahtevano, ni sprejeto, sicer preverjeno.</gda_value>
+          <gda_value xml:lang="zh_CN">尝试：要求证书，接受无证书，否则进行检查。</gda_value>
+        </gda_array_row>
+        <gda_array_row>
+          <gda_value>DEMAND</gda_value>
+          <gda_value>Demand: certificate requested and checked</gda_value>
+          <gda_value xml:lang="cs">Demand: certifikát je požadován a kontrolován</gda_value>
+          <gda_value xml:lang="de">Demand: Zertifikat angefragt und überprüft</gda_value>
+          <gda_value xml:lang="el">Αίτηση: το πιστοποιητικό ζητήθηκε και ελέγχθηκε</gda_value>
+          <gda_value xml:lang="es">Demanda: certificado solicitado y comprobado</gda_value>
+          <gda_value xml:lang="gl">Demanda: certificado solicitado e comprobado</gda_value>
+          <gda_value xml:lang="id">Tuntut: sertifikat diminta dan diperiksa</gda_value>
+          <gda_value xml:lang="it">Richiedi: certificato richiesto e controllato</gda_value>
+          <gda_value xml:lang="sl">Zahtevaj: potrdilo je zahtevano in preverjeno.</gda_value>
+          <gda_value xml:lang="zh_CN">要求：要求证书并进行检查</gda_value>
+        </gda_array_row>
+      </gda_array_data>
+    </gda_array>
+  </sources>
+</data-set-spec>

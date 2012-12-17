@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2008 - 2010 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2009 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
@@ -84,9 +84,10 @@ _gda_sql_statement_compound_copy (gpointer src)
 	dest = gda_sql_statement_compound_new ();
 	dest->compound_type = compound->compound_type;
 	for (list = compound->stmt_list; list; list = list->next) {
-		dest->stmt_list = g_slist_prepend (dest->stmt_list,
-						   gda_sql_statement_copy ((GdaSqlStatement*) list->data));
-		gda_sql_any_part_set_parent (((GdaSqlStatement*) dest->stmt_list->data)->contents, dest);
+		GdaSqlStatement *sqlst;
+		sqlst = gda_sql_statement_copy ((GdaSqlStatement*) list->data);
+		gda_sql_any_part_set_parent (sqlst->contents, dest);
+		dest->stmt_list = g_slist_prepend (dest->stmt_list, sqlst);
 	}
 	dest->stmt_list = g_slist_reverse (dest->stmt_list);
 
@@ -193,7 +194,13 @@ _gda_sql_statement_compound_reduce (GdaSqlAnyPart *compound_or_select)
 		GdaSqlStatementCompound *compound = (GdaSqlStatementCompound*) part;
 		if (compound->stmt_list && !compound->stmt_list->next) {
 			GdaSqlAnyPart *rpart;
-			rpart = GDA_SQL_ANY_PART (((GdaSqlStatement *) compound->stmt_list->data)->contents);
+			GdaSqlStatement *substmt;
+			substmt = (GdaSqlStatement *) compound->stmt_list->data;
+
+			rpart = GDA_SQL_ANY_PART (substmt->contents);
+			substmt->contents = NULL;
+			gda_sql_statement_free (substmt);
+
 			g_slist_free (compound->stmt_list);
 			compound->stmt_list = NULL;
 			_gda_sql_statement_compound_free (compound);
@@ -221,7 +228,7 @@ gda_sql_statement_compound_set_type (GdaSqlStatement *stmt, GdaSqlStatementCompo
 
 gint
 _gda_sql_statement_compound_get_n_cols (GdaSqlStatementCompound *compound, GError **error)
-{GdaSqlStatement *sqlstmt ;
+{GdaSqlStatement *sqlstmt;
 	if (!compound || !compound->stmt_list) {
 		g_set_error (error, GDA_SQL_ERROR, GDA_SQL_STRUCTURE_CONTENTS_ERROR,
 			      "%s", _("COMPOUND statement contains an undefined COMPOUND statement"));
@@ -229,7 +236,7 @@ _gda_sql_statement_compound_get_n_cols (GdaSqlStatementCompound *compound, GErro
 	}
 	
 	/* @compound's children */
-	 sqlstmt = (GdaSqlStatement*) compound->stmt_list->data;
+	sqlstmt = (GdaSqlStatement*) compound->stmt_list->data;
 	if (sqlstmt->stmt_type == GDA_SQL_STATEMENT_SELECT) {
 		if (!sqlstmt->contents) {
 			g_set_error (error, GDA_SQL_ERROR, GDA_SQL_STRUCTURE_CONTENTS_ERROR,

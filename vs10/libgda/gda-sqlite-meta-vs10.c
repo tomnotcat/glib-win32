@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
+ * Copyright (C) 2012 Daniel Espinosa <despinosa@src.gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -721,18 +722,20 @@ _gda_sqlite_meta_schemata (G_GNUC_UNUSED GdaServerProvider *prov, GdaConnection 
 		if (!schema_name_n || 
 		    !gda_value_compare (schema_name_n, cvalue)) {
 			const gchar *cstr;
-			GValue *v1;
+			GValue *v1, *v2;
 
 			cstr = g_value_get_string (cvalue); /* VMA */
 			if (!cstr || !strncmp (cstr, TMP_DATABASE_NAME, 4))
 				continue;
 
 			g_value_set_boolean ((v1 = gda_value_new (G_TYPE_BOOLEAN)), FALSE);
-			retval = append_a_row (model, error, 4, 
+			g_value_set_boolean ((v2 = gda_value_new (G_TYPE_BOOLEAN)), TRUE);
+			retval = append_a_row (model, error, 5, 
 					       FALSE, catalog_value,
 					       TRUE, new_caseless_value (cvalue), 
 					       FALSE, NULL,
-					       TRUE, v1);
+					       TRUE, v1,
+					       TRUE, v2);
 		}
 	}
 	g_object_unref (tmpmodel);
@@ -921,7 +924,7 @@ _gda_sqlite_meta_tables_views (G_GNUC_UNUSED GdaServerProvider *prov, GdaConnect
 {
 	GdaDataModel *tables_model, *views_model;
 	gboolean retval = TRUE;
-    	GdaMetaContext c2;
+	GdaMetaContext c2;
 	tables_model = gda_meta_store_create_modify_data_model (store, "_tables");
 	g_assert (tables_model);
 	views_model = gda_meta_store_create_modify_data_model (store, "_views");
@@ -929,7 +932,6 @@ _gda_sqlite_meta_tables_views (G_GNUC_UNUSED GdaServerProvider *prov, GdaConnect
 
 	if (! fill_tables_views_model (cnc, tables_model, views_model, table_schema, table_name_n, error))
 		retval = FALSE;
-
 
 	c2 = *context; /* copy contents, just because we need to modify @context->table_name */
 	if (retval) {
@@ -1134,13 +1136,12 @@ _gda_sqlite_meta__columns (G_GNUC_UNUSED GdaServerProvider *prov, GdaConnection 
 	nrows = gda_data_model_get_n_rows (tmpmodel);
 	for (i = 0; i < nrows; i++) {
 		/* iterate through the schemas */
-		GdaDataModel *tables_model;
-		const gchar *schema_name;
-        		gchar *str;
+        gchar *str;
 		GType col_types[] = {G_TYPE_STRING, G_TYPE_STRING, G_TYPE_NONE};
 		GdaStatement *stmt;
-		
 		gint tnrows, ti;
+		GdaDataModel *tables_model;
+		const gchar *schema_name;
 		const GValue *cvalue = gda_data_model_get_value_at (tmpmodel, 1, i, error);
 		if (!cvalue) {
 			retval = FALSE;
@@ -1150,7 +1151,8 @@ _gda_sqlite_meta__columns (G_GNUC_UNUSED GdaServerProvider *prov, GdaConnection 
 		if (!strcmp (schema_name, TMP_DATABASE_NAME))
 			continue; /* nothing to do */
 		
-
+		
+		
 		str = g_strdup_printf (SELECT_TABLES_VIEWS, schema_name);
 		stmt = gda_sql_parser_parse_string (internal_parser, str, NULL, NULL);
 		g_free (str);
@@ -1253,9 +1255,6 @@ fill_constraints_tab_model (GdaConnection *cnc, SqliteConnectionData *cdata, Gda
 				G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_NONE};
 	gboolean has_pk = FALSE;
     GType unique_col_types[] = {G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT, G_TYPE_NONE};
-		/*
-	 * FOREIGN KEYS
-	 */
 	GType fk_col_types[] = {G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_NONE};
 	gint fkid = -1;
 	schema_name = g_value_get_string (p_table_schema);
@@ -1401,7 +1400,10 @@ fill_constraints_tab_model (GdaConnection *cnc, SqliteConnectionData *cdata, Gda
 	if (!retval)
 		return FALSE;
 
-
+	/*
+	 * FOREIGN KEYS
+	 */
+	
 	stmt = get_statement (I_PRAGMA_FK_LIST, schema_name, g_value_get_string (p_table_name), error);
 	tmpmodel = gda_connection_statement_execute_select_full (cnc, stmt, pragma_set, 
 								 GDA_STATEMENT_MODEL_RANDOM_ACCESS, 
@@ -1489,12 +1491,13 @@ _gda_sqlite_meta__constraints_tab (G_GNUC_UNUSED GdaServerProvider *prov, GdaCon
 		/* iterate through the schemas */
 		GdaDataModel *tables_model;
 		const gchar *schema_name;
+		const GValue *cvalue = gda_data_model_get_value_at (tmpmodel, 1, i, error);
         		
 		gchar *str;
 		GType col_types[] = {G_TYPE_STRING, G_TYPE_STRING, G_TYPE_NONE};
 		GdaStatement *stmt;
-        		gint tnrows, ti;
-		const GValue *cvalue = gda_data_model_get_value_at (tmpmodel, 1, i, error);
+        
+		gint tnrows, ti;
 		if (!cvalue) {
 			retval = FALSE;
 			break;
@@ -1516,7 +1519,6 @@ _gda_sqlite_meta__constraints_tab (G_GNUC_UNUSED GdaServerProvider *prov, GdaCon
 			retval = FALSE;
 			break;
 		}
-
 
 		tnrows = gda_data_model_get_n_rows (tables_model);
 		for (ti = 0; ti < tnrows; ti++) {
@@ -1584,13 +1586,13 @@ fill_constraints_ref_model (GdaConnection *cnc, G_GNUC_UNUSED SqliteConnectionDa
 	const gchar *schema_name;
 	gint i;
 	GdaStatement *stmt;
-    	GType fk_col_types[] = {G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_NONE};
+
+	GType fk_col_types[] = {G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_NONE};
 	gint fkid = -1;
 	/*
 	 * Setup stmt to execute
 	 */
 	schema_name = g_value_get_string (p_table_schema);
-
 
 	stmt = get_statement (I_PRAGMA_FK_LIST, schema_name, g_value_get_string (p_table_name), error);
 	tmpmodel = gda_connection_statement_execute_select_full (cnc, stmt, pragma_set, 
@@ -1611,7 +1613,7 @@ fill_constraints_ref_model (GdaConnection *cnc, G_GNUC_UNUSED SqliteConnectionDa
 		}
 		if ((fkid  == -1) || (fkid != g_value_get_int (cvalue))) {
 			gchar *constname;
-			GValue *v2, *v3, *v4, *v5;
+			GValue *v2, *v3, *v4, *v5 = NULL;
 
 			fkid = g_value_get_int (cvalue);
 
@@ -1683,11 +1685,13 @@ _gda_sqlite_meta__constraints_ref (G_GNUC_UNUSED GdaServerProvider *prov, GdaCon
 		/* iterate through the schemas */
 		GdaDataModel *tables_model;
 		const gchar *schema_name;
-        		gchar *str;
+        		
+		gchar *str;
 		GType col_types[] = {G_TYPE_STRING, G_TYPE_STRING, G_TYPE_NONE};
 		GdaStatement *stmt;
-        		gint tnrows, ti;
 		const GValue *cvalue = gda_data_model_get_value_at (tmpmodel, 1, i, error);
+        
+		gint tnrows, ti;
 		if (!cvalue) {
 			retval = FALSE;
 			break;
@@ -1695,7 +1699,6 @@ _gda_sqlite_meta__constraints_ref (G_GNUC_UNUSED GdaServerProvider *prov, GdaCon
 		schema_name = g_value_get_string (cvalue); 
 		if (!strcmp (schema_name, TMP_DATABASE_NAME))
 			 continue; /* nothing to do */
-		
 
 		
 		str = g_strdup_printf (SELECT_TABLES_VIEWS, schema_name);
@@ -1710,7 +1713,6 @@ _gda_sqlite_meta__constraints_ref (G_GNUC_UNUSED GdaServerProvider *prov, GdaCon
 			retval = FALSE;
 			break;
 		}
-
 
 		tnrows = gda_data_model_get_n_rows (tables_model);
 		for (ti = 0; ti < tnrows; ti++) {
@@ -1899,7 +1901,7 @@ fill_key_columns_model (GdaConnection *cnc, SqliteConnectionData *cdata, GdaData
 		 */
 		GType fk_col_types[] = {G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_NONE};
 		gint fkid = -1;
-		gint ord_pos;
+		gint ord_pos = 1;
 		stmt = get_statement (I_PRAGMA_FK_LIST, schema_name, g_value_get_string (p_table_name), error);
 		tmpmodel = gda_connection_statement_execute_select_full (cnc, stmt, pragma_set, 
 									 GDA_STATEMENT_MODEL_RANDOM_ACCESS, 
@@ -2032,7 +2034,8 @@ _gda_sqlite_meta__key_columns (G_GNUC_UNUSED GdaServerProvider *prov, GdaConnect
 		GdaDataModel *tables_model;
 		const gchar *schema_name;
 		const GValue *cvalue = gda_data_model_get_value_at (tmpmodel, 1, i, error);
-        		gchar *str;
+        
+		gchar *str;
 		GType col_types[] = {G_TYPE_STRING, G_TYPE_STRING, G_TYPE_NONE};
 		GdaStatement *stmt;
 		gint tnrows, ti;
@@ -2044,7 +2047,6 @@ _gda_sqlite_meta__key_columns (G_GNUC_UNUSED GdaServerProvider *prov, GdaConnect
 		if (!strcmp (schema_name, TMP_DATABASE_NAME))
 			 continue; /* nothing to do */
 		
-
 		
 		str = g_strdup_printf (SELECT_TABLES_VIEWS, schema_name);
 		stmt = gda_sql_parser_parse_string (internal_parser, str, NULL, NULL);
@@ -2384,7 +2386,8 @@ _gda_sqlite_meta_index_cols (G_GNUC_UNUSED GdaServerProvider *prov, G_GNUC_UNUSE
 }
 
 /*
- * @...: a list of TRUE/FALSE, GValue*  -- if TRUE then the following GValue must be freed
+ * @...: a list of TRUE/FALSE, GValue*  -- if TRUE then the following GValue will be freed by
+ * this function
  */
 static gboolean 
 append_a_row (GdaDataModel *to_model, GError **error, gint nb, ...)

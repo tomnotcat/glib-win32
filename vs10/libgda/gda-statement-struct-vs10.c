@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008 - 2009 Bas Driessen <bas.driessen@xobas.com>
- * Copyright (C) 2008 - 2010 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2010 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
  *
@@ -1052,7 +1052,9 @@ gda_sql_any_part_check_structure (GdaSqlAnyPart *node, GError **error)
 		case GDA_SQL_OPERATOR_TYPE_EQ:
 		case GDA_SQL_OPERATOR_TYPE_IS:
 		case GDA_SQL_OPERATOR_TYPE_LIKE:
+		case GDA_SQL_OPERATOR_TYPE_NOTLIKE:
 		case GDA_SQL_OPERATOR_TYPE_ILIKE:
+		case GDA_SQL_OPERATOR_TYPE_NOTILIKE:
 		case GDA_SQL_OPERATOR_TYPE_GT:
 		case GDA_SQL_OPERATOR_TYPE_LT:
 		case GDA_SQL_OPERATOR_TYPE_GEQ:

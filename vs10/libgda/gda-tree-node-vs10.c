@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2009 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
+ * Copyright (C) 2011 Murray Cumming <murrayc@murrayc.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -77,7 +78,7 @@ enum {
 };
 
 static GObjectClass *parent_class = NULL;
-GdaAttributesManager *gda_tree_node_attributes_manager;
+GdaAttributesManager *_gda_tree_node_attributes_manager;
 
 static void m_node_changed (GdaTreeNode *reporting, GdaTreeNode *node);
 static void m_node_inserted (GdaTreeNode *reporting, GdaTreeNode *node);
@@ -97,7 +98,7 @@ gda_tree_node_class_init (GdaTreeNodeClass *klass)
 
 	/* signals */
 	/**
-	 * GdaTreeNode::node-changed
+	 * GdaTreeNode::node-changed:
 	 * @reporting: the #GdaTreeNode which emits the signal (may be a parent of @node, or @node itself)
 	 * @node: the #GdaTreeNode which has changed
 	 *
@@ -114,7 +115,7 @@ gda_tree_node_class_init (GdaTreeNodeClass *klass)
 			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1, GDA_TYPE_TREE_NODE);
 	/**
-	 * GdaTreeNode::node-inserted
+	 * GdaTreeNode::node-inserted:
 	 * @reporting: the #GdaTreeNode which emits the signal (may be a parent of @node, or @node itself)
 	 * @node: the #GdaTreeNode which has been inserted
 	 *
@@ -131,7 +132,7 @@ gda_tree_node_class_init (GdaTreeNodeClass *klass)
 			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1, GDA_TYPE_TREE_NODE);
 	/**
-	 * GdaTreeNode::node-has-child-toggled
+	 * GdaTreeNode::node-has-child-toggled:
 	 * @reporting: the #GdaTreeNode which emits the signal (may be a parent of @node, or @node itself)
 	 * @node: the #GdaTreeNode which changed from having children to being a
 	 *        leaf or the other way around
@@ -150,7 +151,7 @@ gda_tree_node_class_init (GdaTreeNodeClass *klass)
 			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1, GDA_TYPE_TREE_NODE);
 	/**
-	 * GdaTreeNode::node-deleted
+	 * GdaTreeNode::node-deleted:
 	 * @reporting: the #GdaTreeNode which emits the signal (a parent of the removed node)
 	 * @relative_path: the path the node held, relative to @reporting
 	 *
@@ -188,7 +189,7 @@ gda_tree_node_class_init (GdaTreeNodeClass *klass)
 	object_class->dispose = gda_tree_node_dispose;
 
 	/* extra */
-	gda_tree_node_attributes_manager = gda_attributes_manager_new (TRUE, NULL, NULL);
+	_gda_tree_node_attributes_manager = gda_attributes_manager_new (TRUE, NULL, NULL);
 }
 
 static void
@@ -344,7 +345,7 @@ gda_tree_node_set_property (GObject *object,
         if (tnode->priv) {
                 switch (param_id) {
 		case PROP_NAME:
-			gda_attributes_manager_set (gda_tree_node_attributes_manager, tnode, GDA_ATTRIBUTE_NAME, value);
+			gda_attributes_manager_set (_gda_tree_node_attributes_manager, tnode, GDA_ATTRIBUTE_NAME, value);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -365,7 +366,7 @@ gda_tree_node_get_property (GObject *object,
 	if (tnode->priv) {
 		switch (param_id) {
 		case PROP_NAME: {
-			const GValue *cvalue = gda_attributes_manager_get (gda_tree_node_attributes_manager, tnode,
+			const GValue *cvalue = gda_attributes_manager_get (_gda_tree_node_attributes_manager, tnode,
 									   GDA_ATTRIBUTE_NAME);
 			g_value_set_string (value, cvalue ? g_value_get_string (cvalue): NULL);
 			break;
@@ -390,7 +391,7 @@ gda_tree_node_dump_header (GdaTreeNode *node)
 {
 	const GValue *cvalue;
 
-	cvalue = gda_attributes_manager_get (gda_tree_node_attributes_manager, node,
+	cvalue = gda_attributes_manager_get (_gda_tree_node_attributes_manager, node,
 					     GDA_ATTRIBUTE_NAME);
 	if (g_getenv ("GDA_TREE_DUMP_ALL_ATTRIBUTES")) {
 		GString *string;
@@ -400,7 +401,7 @@ gda_tree_node_dump_header (GdaTreeNode *node)
 		else
 			g_string_append (string, "Unnamed node");
 		g_string_append_c (string, ':');
-		gda_attributes_manager_foreach (gda_tree_node_attributes_manager, node,
+		gda_attributes_manager_foreach (_gda_tree_node_attributes_manager, node,
 						(GdaAttributesManagerFunc) attributes_foreach_func, string);
 		return g_string_free (string, FALSE);
 	}
@@ -425,8 +426,7 @@ gda_tree_node_dump_children (GdaTreeNode *node, const gchar *prefix, GString *in
 		GdaTreeNodesList *tn = GDA_TREE_NODES_LIST (parts->data);
 		for (list = tn->nodes; list; list = list->next) {
 			GdaTreeNode *child_node = GDA_TREE_NODE (list->data);
-            			/* contents */
-			gchar *ch_prefix;
+            			gchar *ch_prefix;
 			klass = (GdaTreeNodeClass*) G_OBJECT_GET_CLASS (child_node);
 			
 			/* header */
@@ -441,6 +441,7 @@ gda_tree_node_dump_children (GdaTreeNode *node, const gchar *prefix, GString *in
 				g_string_append_printf (in_string, "%s%sGdaTreeNode (%s) %p\n", prefix, prefix2, 
 							G_OBJECT_TYPE_NAME(child_node), child_node);
 			
+			/* contents */
 
 			if (list->next || parts->next)
 				ch_prefix = g_strdup_printf ("%s|   ", prefix);
@@ -686,7 +687,7 @@ gda_tree_node_fetch_attribute (GdaTreeNode *node, const gchar *attribute)
 	const GValue *cvalue;
 	g_return_val_if_fail (GDA_IS_TREE_NODE (node), NULL);
 
-	cvalue = gda_attributes_manager_get (gda_tree_node_attributes_manager, node, attribute);
+	cvalue = gda_attributes_manager_get (_gda_tree_node_attributes_manager, node, attribute);
 	if (!cvalue && node->priv->parent)
 		cvalue = gda_tree_node_fetch_attribute (node->priv->parent, attribute);
 	return cvalue;
@@ -713,7 +714,7 @@ gda_tree_node_get_node_attribute (GdaTreeNode *node, const gchar *attribute)
 {
 	g_return_val_if_fail (GDA_IS_TREE_NODE (node), NULL);
 
-	return gda_attributes_manager_get (gda_tree_node_attributes_manager, node, attribute);
+	return gda_attributes_manager_get (_gda_tree_node_attributes_manager, node, attribute);
 }
 
 /**
@@ -750,7 +751,7 @@ gda_tree_node_set_node_attribute (GdaTreeNode *node, const gchar *attribute, con
 	g_return_if_fail (GDA_IS_TREE_NODE (node));
 	g_return_if_fail (attribute);
 
-	cvalue = gda_attributes_manager_get (gda_tree_node_attributes_manager, node, attribute);
+	cvalue = gda_attributes_manager_get (_gda_tree_node_attributes_manager, node, attribute);
 	if ((value && cvalue && !gda_value_differ (cvalue, value)) ||
 	    (!value && !cvalue))
 		return;
@@ -767,7 +768,7 @@ gda_tree_node_set_node_attribute (GdaTreeNode *node, const gchar *attribute, con
 			nuc = TRUE;
 
 		if (ouc != nuc) {
-			gda_attributes_manager_set_full (gda_tree_node_attributes_manager, node,
+			gda_attributes_manager_set_full (_gda_tree_node_attributes_manager, node,
 							 attribute, value, destroy);
 			g_signal_emit (node, gda_tree_node_signals[NODE_HAS_CHILD_TOGGLED], 0, node);
 			g_signal_emit (node, gda_tree_node_signals[NODE_CHANGED], 0, node);
@@ -775,7 +776,7 @@ gda_tree_node_set_node_attribute (GdaTreeNode *node, const gchar *attribute, con
 		}
 	}
 
-	gda_attributes_manager_set_full (gda_tree_node_attributes_manager, node, attribute,
+	gda_attributes_manager_set_full (_gda_tree_node_attributes_manager, node, attribute,
 					 value, destroy);
 	g_signal_emit (node, gda_tree_node_signals[NODE_CHANGED], 0, node);
 }
@@ -887,7 +888,7 @@ gda_tree_node_get_child_name (GdaTreeNode *node, const gchar *name)
 			GSList *list;
 			for (list = tn->nodes; list; list = list->next) {
 				const GValue *cvalue;
-				cvalue = gda_attributes_manager_get (gda_tree_node_attributes_manager, list->data,
+				cvalue = gda_attributes_manager_get (_gda_tree_node_attributes_manager, list->data,
 								     GDA_ATTRIBUTE_NAME);
 				if (cvalue) {
 					const gchar *cname = g_value_get_string (cvalue);

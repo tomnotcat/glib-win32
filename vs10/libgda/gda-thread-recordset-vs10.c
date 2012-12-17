@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2009 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -157,7 +157,7 @@ GdaDataModel *
 _gda_thread_recordset_new (GdaConnection *cnc, GdaThreadWrapper *wrapper, GdaDataModel *sub_model)
 {
 	GdaThreadRecordset *model;
-    	gint ncols, i, nblobs;
+	gint ncols, i, nblobs;
 	gint *blobs_conv = NULL;
 	model = GDA_THREAD_RECORDSET (g_object_new (GDA_TYPE_THREAD_RECORDSET,
 						    "connection", cnc, NULL));

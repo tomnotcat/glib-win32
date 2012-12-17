@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2007 - 2011 Vivien Malerba <malerba@gnome-db.org>
- * Copyright (C) 2008 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2007 - 2012 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
@@ -31,6 +31,13 @@
 
 struct _GdaVconnectionDataModelPrivate {
 	GSList *table_data_list; /* list of GdaVConnectionTableData structures */
+
+#if GLIB_CHECK_VERSION(2,32,0)
+	GMutex        lock_context;
+#else
+	GMutex       *lock_context;
+#endif
+	GdaStatement *executed_stmt;
 };
 
 static void gda_vconnection_data_model_class_init (GdaVconnectionDataModelClass *klass);
@@ -75,7 +82,7 @@ static void
 vtable_dropped (GdaVconnectionDataModel *cnc, const gchar *table_name)
 {
 	GdaVConnectionTableData *td;
-	td = gda_vconnection_get_table_data_by_name (cnc, table_name);
+	td = _gda_vconnection_get_table_data_by_name (cnc, table_name);
 	if (td)
 		cnc->priv->table_data_list = g_slist_remove (cnc->priv->table_data_list, td);
 	_gda_connection_signal_meta_table_update ((GdaConnection *)cnc, table_name);
@@ -136,6 +143,11 @@ gda_vconnection_data_model_init (GdaVconnectionDataModel *cnc, G_GNUC_UNUSED Gda
 {
 	cnc->priv = g_new (GdaVconnectionDataModelPrivate, 1);
 	cnc->priv->table_data_list = NULL;
+#if GLIB_CHECK_VERSION(2,32,0)
+	g_mutex_init (& (cnc->priv->lock_context));
+#else
+	cnc->priv->lock_context = g_mutex_new ();
+#endif
 
 	g_object_set (G_OBJECT (cnc), "cnc-string", "_IS_VIRTUAL=TRUE", NULL);
 }
@@ -156,6 +168,11 @@ gda_vconnection_data_model_dispose (GObject *object)
 		}
 		gda_connection_close_no_warning ((GdaConnection *) cnc);
 
+#if GLIB_CHECK_VERSION(2,32,0)
+		g_mutex_clear (& (cnc->priv->lock_context));
+#else
+		g_mutex_free (cnc->priv->lock_context);
+#endif
 		g_free (cnc->priv);
 		cnc->priv = NULL;
 	}
@@ -208,10 +225,10 @@ spec_destroy_func (GdaVconnectionDataModelSpec *spec)
 
 static GList *
 create_columns (GdaVconnectionDataModelSpec *spec, G_GNUC_UNUSED GError **error)
-{	GList *columns = NULL;
+{
+	GList *columns = NULL;
 	guint i, ncols;
 	g_return_val_if_fail (spec->data_model, NULL);
-
 
 	ncols = gda_data_model_get_n_columns (spec->data_model);
 	for (i = 0; i < ncols; i++) {
@@ -284,7 +301,7 @@ gda_vconnection_data_model_add (GdaVconnectionDataModel *cnc, GdaVconnectionData
 	char *zErrMsg = NULL;
 	gboolean retval = TRUE;
 	SqliteConnectionData *scnc;
-	GdaVConnectionTableData *td;
+    	GdaVConnectionTableData *td;
 	static gint counter = 0;
 
 	g_return_val_if_fail (GDA_IS_VCONNECTION_DATA_MODEL (cnc), FALSE);
@@ -330,7 +347,7 @@ gda_vconnection_data_model_add (GdaVconnectionDataModel *cnc, GdaVconnectionData
 			     GDA_SERVER_PROVIDER_INTERNAL_ERROR,
 			     "%s", zErrMsg);
 		SQLITE3_CALL (sqlite3_free) (zErrMsg);
-		gda_vconnection_data_model_table_data_free (td);
+		_gda_vconnection_data_model_table_data_free (td);
 		cnc->priv->table_data_list = g_slist_remove (cnc->priv->table_data_list, td);
 		retval = FALSE;
 	}
@@ -377,7 +394,7 @@ get_rid_of_vtable (GdaVconnectionDataModel *cnc, GdaVConnectionTableData *td, gb
 	g_signal_emit (G_OBJECT (cnc), gda_vconnection_data_model_signals[VTABLE_DROPPED], 0,
 		       td->table_name);
 	/*g_print ("Virtual connection: removed table %s (%p)\n", td->table_name, td->spec->data_model);*/
-	gda_vconnection_data_model_table_data_free (td);
+	_gda_vconnection_data_model_table_data_free (td);
 
 	return allok;
 }
@@ -401,7 +418,7 @@ gda_vconnection_data_model_remove (GdaVconnectionDataModel *cnc, const gchar *ta
 	g_return_val_if_fail (GDA_IS_VCONNECTION_DATA_MODEL (cnc), FALSE);
 	g_return_val_if_fail (table_name && *table_name, FALSE);
 
-	td = gda_vconnection_get_table_data_by_name (cnc, table_name);
+	td = _gda_vconnection_get_table_data_by_name (cnc, table_name);
 	if (!td) {
 		g_set_error (error, GDA_SERVER_PROVIDER_ERROR,
 			     GDA_SERVER_PROVIDER_MISUSE_ERROR,
@@ -431,7 +448,7 @@ gda_vconnection_data_model_get (GdaVconnectionDataModel *cnc, const gchar *table
 	g_return_val_if_fail (GDA_IS_VCONNECTION_DATA_MODEL (cnc), NULL);
 	if (!table_name || !(*table_name))
 		return NULL;
-	td = gda_vconnection_get_table_data_by_name (cnc, table_name);
+	td = _gda_vconnection_get_table_data_by_name (cnc, table_name);
 	if (td)
 		return td->spec;
 	else
@@ -458,7 +475,7 @@ gda_vconnection_data_model_get_model (GdaVconnectionDataModel *cnc, const gchar 
 	if (!table_name || !(*table_name))
 		return NULL;
 
-	td = gda_vconnection_get_table_data_by_name (cnc, table_name);
+	td = _gda_vconnection_get_table_data_by_name (cnc, table_name);
 	if (td)
 		return td->spec->data_model;
 	else
@@ -484,7 +501,7 @@ gda_vconnection_data_model_get_table_name (GdaVconnectionDataModel *cnc, GdaData
 		return NULL;
 	g_return_val_if_fail (GDA_IS_DATA_MODEL (model), NULL);
 
-	td = gda_vconnection_get_table_data_by_model (cnc, model);
+	td = _gda_vconnection_get_table_data_by_model (cnc, model);
 	if (td)
 		return td->table_name;
 	else
@@ -526,7 +543,7 @@ gda_vconnection_data_model_foreach (GdaVconnectionDataModel *cnc,
  * private 
  */
 GdaVConnectionTableData *
-gda_vconnection_get_table_data_by_name (GdaVconnectionDataModel *cnc, const gchar *table_name)
+_gda_vconnection_get_table_data_by_name (GdaVconnectionDataModel *cnc, const gchar *table_name)
 {
 	GSList *list;
 	gchar *quoted;
@@ -544,7 +561,7 @@ gda_vconnection_get_table_data_by_name (GdaVconnectionDataModel *cnc, const gcha
 }
 
 GdaVConnectionTableData *
-gda_vconnection_get_table_data_by_unique_name (GdaVconnectionDataModel *cnc, const gchar *unique_name)
+_gda_vconnection_get_table_data_by_unique_name (GdaVconnectionDataModel *cnc, const gchar *unique_name)
 {
 	GSList *list;
 	for (list = cnc->priv->table_data_list; list; list = list->next) {
@@ -555,7 +572,7 @@ gda_vconnection_get_table_data_by_unique_name (GdaVconnectionDataModel *cnc, con
 }
 
 GdaVConnectionTableData *
-gda_vconnection_get_table_data_by_model (GdaVconnectionDataModel *cnc, GdaDataModel *model)
+_gda_vconnection_get_table_data_by_model (GdaVconnectionDataModel *cnc, GdaDataModel *model)
 {
 	GSList *list;
 	for (list = cnc->priv->table_data_list; list; list = list->next) {
@@ -566,7 +583,7 @@ gda_vconnection_get_table_data_by_model (GdaVconnectionDataModel *cnc, GdaDataMo
 }
 
 void
-gda_vconnection_data_model_table_data_free (GdaVConnectionTableData *td)
+_gda_vconnection_data_model_table_data_free (GdaVConnectionTableData *td)
 {
 	ParamType i;
 
@@ -586,5 +603,123 @@ gda_vconnection_data_model_table_data_free (GdaVConnectionTableData *td)
 		if (td->modif_stmt[i])
 			g_object_unref (td->modif_stmt[i]);
 	}
+
+	if (td->context.hash)
+		g_hash_table_destroy (td->context.hash);
 	g_free (td);
+}
+
+static void
+vcontext_object_weak_notify_cb (VContext *context, GObject *old_context_object)
+{
+	g_assert (context);
+	g_mutex_lock (context->vtable->context.mutex);
+	context->context_object = NULL;
+	g_hash_table_remove (context->vtable->context.hash, old_context_object);
+	g_mutex_unlock (context->vtable->context.mutex);
+}
+
+static void
+vcontext_free (VContext *context)
+{
+	if (context->context_object)
+		g_object_weak_unref (context->context_object,
+				     (GWeakNotify) vcontext_object_weak_notify_cb, context);
+	if (context->context_data) {
+		guint i;
+		for (i = 0; i < context->context_data->len; i++) {
+			VirtualFilteredData *data;
+			data = g_array_index (context->context_data, VirtualFilteredData*, i);
+			_gda_vconnection_virtual_filtered_data_unref (data);
+		}
+		g_array_free (context->context_data, TRUE);
+	}
+	g_free (context);
+#ifdef DEBUG_VCONTEXT
+	g_print ("VCFree %p\n", context);
+#endif
+}
+
+void
+_gda_vconnection_set_working_obj (GdaVconnectionDataModel *cnc, GObject *obj)
+{
+	GSList *list;
+	if (obj) {
+#if GLIB_CHECK_VERSION(2,32,0)
+		g_mutex_lock (& (cnc->priv->lock_context));
+#else
+		g_mutex_lock (cnc->priv->lock_context);
+#endif
+		for (list = cnc->priv->table_data_list; list; list = list->next) {
+			GdaVConnectionTableData *td = (GdaVConnectionTableData*) list->data;
+			VContext *vc = NULL;
+			
+			g_assert (!td->context.current_vcontext);
+#if GLIB_CHECK_VERSION(2,32,0)
+			td->context.mutex = &(cnc->priv->lock_context);
+#else
+			td->context.mutex = cnc->priv->lock_context;
+#endif
+			if (! td->context.hash)
+				td->context.hash = g_hash_table_new_full (g_direct_hash, g_direct_equal,
+									  NULL, (GDestroyNotify) vcontext_free);
+			else
+				vc = g_hash_table_lookup (td->context.hash, obj);
+
+			if (! vc) {
+				vc = g_new0 (VContext, 1);
+				vc->context_object = obj;
+				vc->context_data = g_array_new (FALSE, FALSE,
+								sizeof (VirtualFilteredData*));
+				vc->vtable = td;
+				g_object_weak_ref (obj, (GWeakNotify) vcontext_object_weak_notify_cb, vc);
+				g_hash_table_insert (td->context.hash, obj, vc);
+#ifdef DEBUG_VCONTEXT
+				g_print ("VCNew %p\n", vc);
+#endif
+			}
+			td->context.current_vcontext = vc;
+		}
+	}
+	else {
+		for (list = cnc->priv->table_data_list; list; list = list->next) {
+			GdaVConnectionTableData *td = (GdaVConnectionTableData*) list->data;
+			/* REM: td->context.current_vcontext may already be NULL in case
+			 * an exception already occurred */
+			td->context.current_vcontext = NULL;
+		}
+#if GLIB_CHECK_VERSION(2,32,0)
+		g_mutex_unlock (& (cnc->priv->lock_context));
+#else
+		g_mutex_unlock (cnc->priv->lock_context);
+#endif
+	}
+}
+
+void
+_gda_vconnection_change_working_obj (GdaVconnectionDataModel *cnc, GObject *obj)
+{
+	GSList *list;
+
+	for (list = cnc->priv->table_data_list; list; list = list->next) {
+		GdaVConnectionTableData *td = (GdaVConnectionTableData*) list->data;
+		VContext *ovc, *nvc;
+		if (!td->context.hash)
+			continue;
+
+		g_assert (td->context.current_vcontext);
+
+		ovc = td->context.current_vcontext;
+		nvc = g_new0 (VContext, 1);
+		nvc->context_object = obj;
+		nvc->vtable = ovc->vtable;
+		nvc->context_data = ovc->context_data;
+		ovc->context_data = NULL;
+		g_object_weak_ref (obj, (GWeakNotify) vcontext_object_weak_notify_cb, nvc);
+		g_hash_table_insert (td->context.hash, obj, nvc);
+#ifdef DEBUG_VCONTEXT
+		g_print ("VCNew %p\n", nvc);
+#endif
+		g_hash_table_remove (td->context.hash, ovc->context_object);
+	}
 }

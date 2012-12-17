@@ -269,7 +269,6 @@ _gda_tree_manager_update_children (GdaTreeManager *manager, GdaTreeNode *node, c
 				   gboolean *out_error, GError **error)
 {
 	GSList *nodes_list = NULL;
-    	/* calling sub managers for each new node */
 	GSList *list;
 	g_return_if_fail (GDA_IS_TREE_MANAGER (manager));
 	g_return_if_fail (GDA_IS_TREE_NODE (node));
@@ -286,6 +285,7 @@ _gda_tree_manager_update_children (GdaTreeManager *manager, GdaTreeNode *node, c
 	}
 	_gda_tree_node_add_children (node, manager, nodes_list);
 
+	/* calling sub managers for each new node */
 
 	for (list = nodes_list; list; list = list->next) {
 		GSList *sl;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 - 2010 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2009 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -208,8 +208,7 @@ gda_tree_mgr_label_update_children (GdaTreeManager *manager, GdaTreeNode *node, 
 		return list;
 	}
 
-	 mgr = GDA_TREE_MGR_LABEL (manager);
-
+	mgr = GDA_TREE_MGR_LABEL (manager);
 
 	snode = gda_tree_manager_create_node (manager, node, mgr->priv->label ? mgr->priv->label : _("No name"));
 	return g_slist_prepend (NULL, snode);

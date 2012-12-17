@@ -8,7 +8,7 @@
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
- * Copyright (C) 2011 Daniel Espinosa <esodan@gmail.com>
+ * Copyright (C) 2011 - 2012 Daniel Espinosa <despinosa@src.gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -83,7 +83,7 @@ enum
 	PROP_SPEC_FILE
 };
 
-extern xmlDtdPtr gda_server_op_dtd;
+extern xmlDtdPtr _gda_server_op_dtd;
 static GObjectClass *parent_class = NULL;
 
 typedef struct _Node {
@@ -146,7 +146,7 @@ gda_server_operation_class_init (GdaServerOperationClass *klass)
 
 	/* signals */
 	/**
-	 * GdaServerOperation::sequence-item-added
+	 * GdaServerOperation::sequence-item-added:
 	 * @op: the #GdaServerOperation
 	 * @seq_path: the path to the new sequence item
 	 * @item_index: the index (starting from 0) of the new sequence item in the sequence
@@ -162,7 +162,7 @@ gda_server_operation_class_init (GdaServerOperationClass *klass)
 			      _gda_marshal_VOID__STRING_INT, G_TYPE_NONE,
 			      2, G_TYPE_STRING, G_TYPE_INT);
 	/**
-	 * GdaServerOperation::sequence-item-remove
+	 * GdaServerOperation::sequence-item-remove:
 	 * @op: the #GdaServerOperation
 	 * @seq_path: the path to the sequence item to be removed
 	 * @item_index: the index (starting from 0) of the sequence item in the sequence
@@ -684,15 +684,15 @@ use_xml_spec (GdaServerOperation *op, xmlDocPtr doc, const gchar *xmlfile)
 	xmlDoValidityCheckingDefaultValue = 1;
 	
 	/* replace the DTD with ours */
-	if (gda_server_op_dtd) {
+	if (_gda_server_op_dtd) {
 		old_dtd = doc->intSubset;
-		doc->intSubset = gda_server_op_dtd;
+		doc->intSubset = _gda_server_op_dtd;
 	}
 #ifndef G_OS_WIN32
 	if (doc->intSubset && !xmlValidateDocument (validc, doc)) {
 		gchar *str;
 		
-		if (gda_server_op_dtd)
+		if (_gda_server_op_dtd)
 			doc->intSubset = old_dtd;
 		xmlFreeDoc (doc);
 		g_free (validc);
@@ -723,7 +723,7 @@ use_xml_spec (GdaServerOperation *op, xmlDocPtr doc, const gchar *xmlfile)
 	
 	xmlDoValidityCheckingDefaultValue = xmlcheck;
 	g_free (validc);
-	if (gda_server_op_dtd)
+	if (_gda_server_op_dtd)
 		doc->intSubset = old_dtd;
 	op->priv->xml_spec_doc = doc;
 
@@ -1459,13 +1459,13 @@ gboolean
 gda_server_operation_load_data_from_xml (GdaServerOperation *op, xmlNodePtr node, GError **error)
 {
 	xmlNodePtr cur;
-	/* remove any sequence items */
-	GSList *list;
+    	GSList *list;
 	g_return_val_if_fail (GDA_IS_SERVER_OPERATION (op), FALSE);
 	g_return_val_if_fail (op->priv, FALSE);
 	if (!node)
 		return FALSE;
 
+	/* remove any sequence items */
 
 	list = op->priv->allnodes;
 	while (list) {
@@ -1998,7 +1998,7 @@ gda_server_operation_del_item_from_sequence (GdaServerOperation *op, const gchar
  *
  * Get the value for the node at the @path path
  *
- * Returns: (transfer none): a constant #GValue if a value has been defined, or %NULL if the value is undefined or if the @path is not defined or @path does not hold any value.
+ * Returns: (transfer none) (allow-none): a constant #GValue if a value has been defined, or %NULL if the value is undefined or if the @path is not defined or @path does not hold any value.
  *
  * Since: 4.2.6
  *

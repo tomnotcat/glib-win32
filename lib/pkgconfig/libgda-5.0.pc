@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libgda-5.0
+Description: GDA (GNOME Data Access) library
+Requires: gobject-2.0 gthread-2.0 libxml-2.0
+Version: 5.1.1
+Libs: -L${libdir} -lgda-5.0
+Cflags: -I${includedir}/libgda-5.0 -I${includedir}/libgda-5.0/libgda 

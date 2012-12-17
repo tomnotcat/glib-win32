@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008 - 2010 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2010 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
@@ -490,12 +490,14 @@ gda_sql_parser_parse_string (GdaSqlParser *parser, const gchar *sql, const gchar
 		switch (parser->priv->context->token_type) {
 		case L_SQLCOMMENT:
 			gda_value_free (value);
+			value = NULL;
 			break;
 		case L_SPACE:
 			if (parser->priv->context->in_param_spec ||
 			    (parser->priv->mode == GDA_SQL_PARSER_MODE_PARSE)) {
 				/* ignore space */
 				gda_value_free (value);
+				value = NULL;
 				break;
 			}
 		default:
@@ -575,10 +577,12 @@ gda_sql_parser_parse_string (GdaSqlParser *parser, const gchar *sql, const gchar
 				  parser_trans [parser->priv->context->token_type]);*/
 				_parse (parser->priv->lemon_parser,
 					parser_trans [parser->priv->context->token_type], value, &piface);
+				value = NULL;
 				break;
 			case GDA_SQL_PARSER_MODE_DELIMIT:
 				_delimit (parser->priv->lemon_delimiter,
 					  delim_trans [parser->priv->context->token_type], value, &piface);
+				value = NULL;
 				break;
 			default:
 				TO_IMPLEMENT;
@@ -594,8 +598,11 @@ gda_sql_parser_parse_string (GdaSqlParser *parser, const gchar *sql, const gchar
 		if (parser->priv->error_pos != 0)
 			break;
 	}
-	if (parser->priv->context->token_type == L_ILLEGAL)
+	if (parser->priv->context->token_type == L_ILLEGAL) {
+		if (value)
+			gda_value_free (value);
 		gda_sql_parser_set_syntax_error (parser);
+	}
 
 	/* send the EOF token to the LEMON parser */
 	switch (parser->priv->mode) {
@@ -880,7 +887,7 @@ str_caseequal (gconstpointer v1, gconstpointer v2)
 	const gchar *string1 = v1;
 	const gchar *string2 = v2;
 
-	return g_ascii_strcasecmp (string1, string2) == 0;
+	return g_strcasecmp (string1, string2) == 0;
 }
 
 static guint
@@ -1033,7 +1040,7 @@ token_as_string (gchar *ptr, gint len)
 	return retval;
 }
 
-static void
+static gboolean
 handle_composed_2_keywords (GdaSqlParser *parser, GValue *retval, gint second, gint replacer);
 
 /*
@@ -1260,10 +1267,8 @@ getToken (GdaSqlParser *parser)
 				else
 					break;
 			}
-			else if (c == '\\') {
-				if (z[i+1] == delim)
-					i++;
-			}
+			else if (c == '\\')
+				i++;
 		}
 		if (c) {
 			if (delim == '"')
@@ -1291,17 +1296,24 @@ getToken (GdaSqlParser *parser)
 	case '0': case '1': case '2': case '3': case '4':
 	case '5': case '6': case '7': case '8': case '9': {
 		parser->priv->context->token_type = L_INTEGER;
-		for (i=0; isdigit (z[i]); i++){}
-		if (z[i] == '.') {
-			i++;
-			while (isdigit (z[i])) {i++;}
-			parser->priv->context->token_type = L_FLOAT;
+		if ((z[0] == '0') && ((z[1] == 'x') || (z[1] == 'X')) && (z[2] != 0)) {
+			/* hexadecimal */
+			for (i=2; isxdigit (z[i]); i++){}
 		}
-		if ((z[i]=='e' || z[i]=='E') &&
-		    (isdigit (z[i+1]) || ((z[i+1]=='+' || z[i+1]=='-') && isdigit (z[i+2])))) {
-			i += 2;
-			while (isdigit (z[i])) {i++;}
-			parser->priv->context->token_type = L_FLOAT;
+		else {
+			for (i=0; isdigit (z[i]); i++){}
+			if (z[i] == '.') {
+				i++;
+				while (isdigit (z[i])) {i++;}
+				parser->priv->context->token_type = L_FLOAT;
+			}
+			if ((z[i]=='e' || z[i]=='E') &&
+			    (isdigit (z[i+1]) ||
+			     ((z[i+1]=='+' || z[i+1]=='-') && isdigit (z[i+2])))) {
+				i += 2;
+				while (isdigit (z[i])) {i++;}
+				parser->priv->context->token_type = L_FLOAT;
+			}
 		}
 		if (parser->priv->mode != GDA_SQL_PARSER_MODE_DELIMIT) {
 			while (IdChar (z[i])) {
@@ -1377,13 +1389,13 @@ getToken (GdaSqlParser *parser)
 					}
 					if (j == tag_len) {
 						/* tags matched */
-                        gchar *tmp, *ptr;
+                        						gchar *tmp, *ptr;
 						parser->priv->context->token_type = L_STRING;
 						consumed_chars = i;
 
 						retval = token_as_string (parser->priv->context->next_token_start, consumed_chars);
 						/* remove comments from returned string */
-						
+
 						tmp = (gchar*) g_value_get_string (retval);
 						for (ptr = tmp; *ptr; ptr++) {
 							if (((ptr == tmp) || (*(ptr-1) == '\n')) && (*ptr == '-') && (ptr[1] == '-')) {
@@ -1517,8 +1529,11 @@ getToken (GdaSqlParser *parser)
 		handle_composed_2_keywords (parser, retval, L_LOOP, L_ENDLOOP);
 	else if (parser->priv->context->token_type == L_IS)
 		handle_composed_2_keywords (parser, retval, L_NULL, L_ISNULL);
-	else if (parser->priv->context->token_type == L_NOT)
-		handle_composed_2_keywords (parser, retval, L_NULL, L_NOTNULL);
+	else if (parser->priv->context->token_type == L_NOT) {
+		handle_composed_2_keywords (parser, retval, L_NULL, L_NOTNULL) ||
+			handle_composed_2_keywords (parser, retval, L_LIKE, L_NOTLIKE) ||
+			handle_composed_2_keywords (parser, retval, L_ILIKE, L_NOTILIKE);
+	}
 	else if (parser->priv->context->token_type == L_SIMILAR)
 		handle_composed_2_keywords (parser, retval, L_TO, L_SIMILAR);
 
@@ -1536,13 +1551,15 @@ getToken (GdaSqlParser *parser)
 	return retval;
 }
 
-static void
+static gboolean
 handle_composed_2_keywords (GdaSqlParser *parser, GValue *retval, gint second, gint replacer)
 {
 	gint npushed, nmatched;
 	GValue *v = NULL;
+	gboolean match;
 	nmatched = fetch_forward (parser, &npushed, second, &v, 0);
-	if (nmatched == 1) {
+	match = (nmatched == 1);
+	if (match) {
 		gchar *newstr;
 		merge_tokenizer_contexts (parser, npushed);
 		parser->priv->context->token_type = replacer;
@@ -1555,6 +1572,7 @@ handle_composed_2_keywords (GdaSqlParser *parser, GValue *retval, gint second, g
 		g_value_reset (v);
 		g_free (v);
 	}
+	return match;
 }
 
 static GValue *

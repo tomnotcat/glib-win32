@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 - 2010 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2009 - 2011 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -194,9 +194,9 @@ gda_sqlite_blob_op_read (GdaBlobOp *op, GdaBlob *blob, glong offset, glong size)
 	GdaSqliteBlobOp *bop;
 	GdaBinary *bin;
 	int rc;
-	/* fetch blob data using C API into bin->data, and set bin->binary_length */
 	int rsize;
 	int len;
+
 	g_return_val_if_fail (GDA_IS_SQLITE_BLOB_OP (op), -1);
 	bop = GDA_SQLITE_BLOB_OP (op);
 	g_return_val_if_fail (bop->priv, -1);
@@ -216,7 +216,7 @@ gda_sqlite_blob_op_read (GdaBlobOp *op, GdaBlob *blob, glong offset, glong size)
 	bin->data = g_new0 (guchar, size);
 	bin->binary_length = 0;
 
-
+	/* fetch blob data using C API into bin->data, and set bin->binary_length */
 
 	len = SQLITE3_CALL (sqlite3_blob_bytes) (bop->priv->sblob);
 	if (len < 0)

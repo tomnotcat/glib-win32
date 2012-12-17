@@ -45,9 +45,10 @@ find_sqlite_in_dir (const gchar *dir_name, const gchar *name_part)
 	}
 	
 	while ((name = g_dir_read_name (dir))) {
-		const gchar *ptr1, *ptr2;		
-		gchar *path;
-				gpointer func;
+		const gchar *ptr1, *ptr2;
+        gchar *path;
+		
+		gpointer func;
 		ptr1 = g_strrstr (name, "." G_MODULE_SUFFIX);
 		if (! ptr1)
 			continue;
@@ -56,7 +57,7 @@ find_sqlite_in_dir (const gchar *dir_name, const gchar *name_part)
 			continue;
 		if (ptr1 < ptr2)
 			continue;
-
+		
 		
 		path = g_build_path (G_DIR_SEPARATOR_S, dir_name, name, NULL);
 		handle = g_module_open (path, G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL);
@@ -65,7 +66,6 @@ find_sqlite_in_dir (const gchar *dir_name, const gchar *name_part)
 			/*g_warning (_("Error: %s"), g_module_error ());*/
 			continue;
 		}
-
 
 		if (g_module_symbol (handle, "sqlite3_open", &func)) {
 #ifdef GDA_DEBUG_NO

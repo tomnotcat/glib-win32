@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008 Bas Driessen <bas.driessen@xobas.com>
- * Copyright (C) 2008 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2008 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
  *
@@ -131,7 +131,7 @@ gda_statement_class_init (GdaStatementClass * klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	/**
-	 * GdaStatement::reset
+	 * GdaStatement::reset:
 	 * @stmt: the #GdaStatement object
 	 *
 	 * Gets emitted whenever the @stmt has changed
@@ -145,7 +145,7 @@ gda_statement_class_init (GdaStatementClass * klass)
 			      g_cclosure_marshal_VOID__VOID, G_TYPE_NONE,
 			      0);
 	/**
-	 * GdaStatement::checked
+	 * GdaStatement::checked:
 	 * @stmt: the #GdaStatement object
 	 *
 	 * Gets emitted whenever the structure and contents
@@ -584,7 +584,8 @@ gda_statement_get_parameters (GdaStatement *stmt, GdaSet **out_params, GError **
  */
 const GType *
 _gda_statement_get_requested_types (GdaStatement *stmt)
-{	GdaSqlStatementSelect *selst;
+{
+	GdaSqlStatementSelect *selst;
 	GSList *list;
 	GArray *array = NULL;
 	if (! stmt->priv || ! stmt->priv->internal_struct)
@@ -593,7 +594,6 @@ _gda_statement_get_requested_types (GdaStatement *stmt)
 		return stmt->priv->requested_types;
 	if (stmt->priv->internal_struct->stmt_type != GDA_SQL_STATEMENT_SELECT)
 		return NULL;
-
 
  rewind:
 	selst = (GdaSqlStatementSelect*) stmt->priv->internal_struct->contents;
@@ -1673,16 +1673,17 @@ default_render_field (GdaSqlField *field, GdaSqlRenderingContext *context, GErro
 
 static gchar *
 default_render_table (GdaSqlTable *table, GdaSqlRenderingContext *context, GError **error)
-{	gint i;
+{
+	gchar **ids_array;
+    	
+	gint i;
 	GString *string;
 	GdaConnectionOptions cncoptions = 0;
-    	gchar **ids_array;
 	g_return_val_if_fail (table, NULL);
 	g_return_val_if_fail (GDA_SQL_ANY_PART (table)->type == GDA_SQL_ANY_SQL_TABLE, NULL);
 
 	/* can't have: table->table_name not a valid SQL identifier */
 	if (!gda_sql_any_part_check_structure (GDA_SQL_ANY_PART (table), error)) return NULL;
-
 
 	ids_array = gda_sql_identifier_split (table->table_name);
 	if (!ids_array) {
@@ -1690,7 +1691,6 @@ default_render_table (GdaSqlTable *table, GdaSqlRenderingContext *context, GErro
 			     "%s", _("Malformed table name"));
 		return NULL;
 	}
-	
 
 	if (context->cnc)
 		g_object_get (G_OBJECT (context->cnc), "options", &cncoptions, NULL);
@@ -1804,8 +1804,14 @@ default_render_operation (GdaSqlOperation *op, GdaSqlRenderingContext *context, 
 	case GDA_SQL_OPERATOR_TYPE_LIKE:
 		str = g_strdup_printf ("%s LIKE %s", SQL_OPERAND (sql_list->data)->sql, SQL_OPERAND (sql_list->next->data)->sql);
 		break;
+	case GDA_SQL_OPERATOR_TYPE_NOTLIKE:
+		str = g_strdup_printf ("%s NOT LIKE %s", SQL_OPERAND (sql_list->data)->sql, SQL_OPERAND (sql_list->next->data)->sql);
+		break;
 	case GDA_SQL_OPERATOR_TYPE_ILIKE:
 		str = g_strdup_printf ("%s ILIKE %s", SQL_OPERAND (sql_list->data)->sql, SQL_OPERAND (sql_list->next->data)->sql);
+		break;
+	case GDA_SQL_OPERATOR_TYPE_NOTILIKE:
+		str = g_strdup_printf ("%s NOT ILIKE %s", SQL_OPERAND (sql_list->data)->sql, SQL_OPERAND (sql_list->next->data)->sql);
 		break;
 	case GDA_SQL_OPERATOR_TYPE_GT:
 		str = g_strdup_printf ("%s > %s", SQL_OPERAND (sql_list->data)->sql, SQL_OPERAND (sql_list->next->data)->sql);
@@ -2175,13 +2181,13 @@ default_render_select_join (GdaSqlSelectJoin *join, GdaSqlRenderingContext *cont
 	}
 
 	/* find joinned target */
-   from = (GdaSqlSelectFrom *) GDA_SQL_ANY_PART (join)->parent;
+    	from = (GdaSqlSelectFrom *) GDA_SQL_ANY_PART (join)->parent;
 	if (!from || (GDA_SQL_ANY_PART (from)->type != GDA_SQL_ANY_SQL_SELECT_FROM)) {
 		g_set_error (error, GDA_SQL_ERROR, GDA_SQL_STRUCTURE_CONTENTS_ERROR,
 			     "%s", _("Join is not in a FROM statement"));
 		goto err;
 	}
-	
+
 	target = g_slist_nth_data (from->targets, join->position);
 	if (!target || (GDA_SQL_ANY_PART (target)->type != GDA_SQL_ANY_SQL_SELECT_TARGET)) {
 		g_set_error (error, GDA_SQL_ERROR, GDA_SQL_STRUCTURE_CONTENTS_ERROR,

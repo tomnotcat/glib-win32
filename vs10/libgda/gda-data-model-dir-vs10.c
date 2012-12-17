@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007 - 2011 Vivien Malerba <malerba@gnome-db.org>
- * Copyright (C) 2008 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
@@ -35,7 +35,6 @@
 /* Use the RSA reference implementation included in the RFC-1321, http://www.freesoft.org/CIE/RFC/1321/ */
 #include "global.h"
 #include "md5.h"
-#include <io.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -47,7 +46,7 @@
 #else
 #include <windows.h>
 #endif
-
+#include <io.h>
 #define __GDA_INTERNAL__
 #include "dir-blob-op.h"
 
@@ -323,10 +322,10 @@ gda_data_model_dir_set_property (GObject *object,
 		}
 
 		if (model->priv->basedir) {
+            		GdaColumn *column;
 			/* create columns */
-            GdaColumn *column;
 			model->priv->columns = NULL;
-			
+	
 
 			/* COL_DIRNAME */
 			column = gda_column_new ();
@@ -413,14 +412,14 @@ update_data_model_real (GdaDataModelDir *model, const gchar *rel_path)
 			/* ignore hidden files */
 			if (*raw_filename != '.') {
 				gchar *utf8_filename;
-                FileRow *row;
+                				FileRow *row;
 #ifndef G_OS_WIN32
 				/* FIXME: correctly do the conversion */
 				utf8_filename = g_strdup (raw_filename);
 #else
 				utf8_filename = g_strdup (raw_filename);
 #endif
-				
+
 				model->priv->upd_row ++;
 
 				if (model->priv->upd_row < (int)model->priv->rows->len) {
@@ -501,15 +500,15 @@ update_file_md5sum (FileRow *row, const gchar *complete_filename)
 {
 	gboolean changed = TRUE;
 	GValue *value = NULL;
-    MD5_CTX context;
-    HANDLE view;
+    	/* MD5 computation */
+	MD5_CTX context;
 	unsigned char digest[16]; /* Flawfinder: ignore */
 	GString *md5str;
 	gint i;
 	int fd;
         gpointer map;
         guint length;
-
+        HANDLE view;
 	/* file mapping in mem */
 	length = g_value_get_uint (row->size_value);
 	if (length == 0)
@@ -537,8 +536,7 @@ update_file_md5sum (FileRow *row, const gchar *complete_filename)
 	}
 #endif /* !G_OS_WIN32 */
 
-	/* MD5 computation */
-	
+
 
 	MD5Init (&context);
 	MD5Update (&context, map, length);
@@ -632,12 +630,12 @@ update_file_mime (FileRow *row, const gchar *complete_filename)
 
 static void
 update_data_model (GdaDataModelDir *model)
-{gsize i;
+{	gsize i;
 	model->priv->upd_row = -1;
 	update_data_model_real (model, "");
 
 	/* clean extra rows */
-	
+
 	for (i = model->priv->upd_row + 1; i < model->priv->rows->len; i++) {
 		FileRow *row = g_ptr_array_index (model->priv->rows, model->priv->rows->len - 1);
 		file_row_free (row);
@@ -847,17 +845,17 @@ gda_data_model_dir_get_value_at (GdaDataModel *model, gint col, gint row, GError
 		case COL_DATA:
 			value = frow->data_value;
 			if (! value) {
-                GdaBlob *blob;
+                				GdaBlob *blob;
 				GdaBlobOp *op;
 				gchar *filename;
 				value = gda_value_new (GDA_TYPE_BLOB);
-				
+
 
 				blob = g_new0 (GdaBlob, 1);
 
 				/* file mapping in mem */
 				filename = compute_filename (imodel, frow);
-				op = gda_dir_blob_op_new (filename);
+				op = _gda_dir_blob_op_new (filename);
 				g_free (filename);
 				gda_blob_set_op (blob, op);
 				g_object_unref (op);
@@ -1051,7 +1049,7 @@ gda_data_model_dir_set_values (GdaDataModel *model, gint row, GList *values, GEr
 							GdaBlob *blob;
 							blob = (GdaBlob *) gda_value_get_blob (frow->data_value);
 							if (blob && blob->op)
-								gda_dir_blob_set_filename (GDA_DIR_BLOB_OP (blob->op),
+								_gda_dir_blob_set_filename (GDA_DIR_BLOB_OP (blob->op),
 											   new_filename);
 						}
 					}
@@ -1127,7 +1125,7 @@ gda_data_model_dir_set_values (GdaDataModel *model, gint row, GList *values, GEr
 					GdaBlob *blob;
 					blob = (GdaBlob *) gda_value_get_blob (frow->data_value);
 					if (blob && blob->op)
-						gda_dir_blob_set_filename (GDA_DIR_BLOB_OP (blob->op),
+						_gda_dir_blob_set_filename (GDA_DIR_BLOB_OP (blob->op),
 									   new_filename);
 				}
 			}
@@ -1153,7 +1151,7 @@ gda_data_model_dir_set_values (GdaDataModel *model, gint row, GList *values, GEr
 				GdaBlobOp *op;
 				gchar *filename;
 				filename = compute_filename (imodel, frow);
-				op = gda_dir_blob_op_new (filename);
+				op = _gda_dir_blob_op_new (filename);
 				if (gda_blob_op_write_all (op, blob) < 0) {
 					gchar *str;
 					str = g_strdup_printf (_("Could not overwrite contents of file '%s'"), filename);
@@ -1199,13 +1197,13 @@ gda_data_model_dir_append_values (GdaDataModel *model, const GList *values, GErr
 	GdaDataModelDir *imodel;
 	const gchar *dirname = NULL, *filename = NULL;
 	GdaBinary *bin_data = NULL;
-    GList *list;
+
+	GList *list;
 	gint col;
 	g_return_val_if_fail (GDA_IS_DATA_MODEL_DIR (model), -1);
 	imodel = (GdaDataModelDir *) model;
 	g_return_val_if_fail (imodel->priv, -1);
 
-	
 
 	if (!values)
 		return -1;
@@ -1393,11 +1391,10 @@ gda_data_model_dir_remove_row (GdaDataModel *model, gint row, GError **error)
  */
 static gboolean
 dir_equal (const gchar *path1, const gchar *path2)
-{
-    const gchar *p1, *p2;
+{	const gchar *p1, *p2;
 	g_assert (path1);
 	g_assert (path2);
-	
+
 	for (p1 = path1, p2 = path2; *p1 && *p2; ) {
 		if (*p1 != *p2)
 			return FALSE;

@@ -757,7 +757,7 @@ GQuark gda_thread_wrapper_error_quark (void)
 }
 
 /**
- * gda_thread_wrapper_get_type
+ * gda_thread_wrapper_get_type:
  * 
  * Registers the #GdaThreadWrapper class on the GLib type system.
  * 
@@ -828,7 +828,7 @@ gda_thread_wrapper_get_property (GObject *object,
 }
 
 /**
- * gda_thread_wrapper_new
+ * gda_thread_wrapper_new:
  *
  * Creates a new #GdaThreadWrapper object
  *
@@ -1014,7 +1014,7 @@ gda_thread_wrapper_execute (GdaThreadWrapper *wrapper, GdaThreadWrapperFunc func
 
 	if (g_thread_self () == wrapper->priv->worker_thread) {
         guint jid;
-		Pipe *jpipe;
+        Pipe *jpipe;
 		job->processed = TRUE;
                 if (job->func)
                         job->u.exe.result = job->func (job->arg, &(job->u.exe.error));
@@ -1106,7 +1106,7 @@ gda_thread_wrapper_execute_void (GdaThreadWrapper *wrapper, GdaThreadWrapperVoid
 
 	if (g_thread_self () == wrapper->priv->worker_thread) {
         guint jid;
-        Pipe *jpipe;
+		Pipe *jpipe;
 		job->processed = TRUE;
                 if (job->func)
                         job->u.exe.result = job->func (job->arg, &(job->u.exe.error));
@@ -1117,8 +1117,8 @@ gda_thread_wrapper_execute_void (GdaThreadWrapper *wrapper, GdaThreadWrapperVoid
 #ifdef THREAD_WRAPPER_DEBUG
 		g_print ("... IMMEDIATELY done VOID job %d => %p\n", job->job_id, job->u.exe.result);
 #endif
-		 jid = job->job_id;
-		 jpipe = pipe_ref (job->notif);
+		jid = job->job_id;
+		jpipe = pipe_ref (job->notif);
                 g_async_queue_push (job->reply_queue, job);
 		write_notification (wrapper, td, jpipe, GDA_THREAD_NOTIFICATION_JOB, jid);
         }
@@ -1129,7 +1129,7 @@ gda_thread_wrapper_execute_void (GdaThreadWrapper *wrapper, GdaThreadWrapperVoid
 }
 
 /**
- * gda_thread_wrapper_cancel
+ * gda_thread_wrapper_cancel:
  * @wrapper: a #GdaThreadWrapper object
  * @id: the ID of a job as returned by gda_thread_wrapper_execute() or gda_thread_wrapper_execute_void()
  * 
@@ -1200,7 +1200,7 @@ gda_thread_wrapper_cancel (GdaThreadWrapper *wrapper, guint id)
 }
 
 /**
- * gda_thread_wrapper_iterate
+ * gda_thread_wrapper_iterate:
  * @wrapper: a #GdaThreadWrapper object
  * @may_block: whether the call may block
  *
@@ -1394,7 +1394,7 @@ gda_thread_wrapper_fetch_result (GdaThreadWrapper *wrapper, gboolean may_lock, g
 }
 
 /**
- * gda_thread_wrapper_get_waiting_size
+ * gda_thread_wrapper_get_waiting_size:
  * @wrapper: a #GdaThreadWrapper object
  *
  * Use this method to query the number of functions which have been queued to be executed
@@ -1458,9 +1458,9 @@ worker_thread_closure_marshal (GClosure *closure,
 			       G_GNUC_UNUSED gpointer marshal_data)
 {
 	SignalSpec *sigspec = (SignalSpec *) closure->data;
-    Pipe *jpipe;
+    	gsize i;
     Job *job;
-	gsize i;
+    Pipe *jpipe;
 	/* if the signal is not emitted from the working thread then don't do anything */
 	if (g_thread_self () !=  sigspec->worker_thread)
 		return;
@@ -1475,6 +1475,7 @@ worker_thread_closure_marshal (GClosure *closure,
 	    g_static_private_get (&worker_thread_current_queue) != sigspec->reply_queue)
 		return;
 #endif
+
 
 	/*
 	  for (i = 1; i < n_param_values; i++) {
@@ -1522,12 +1523,12 @@ worker_thread_closure_marshal_anythread (GClosure *closure,
 	SignalSpec *sigspec = (SignalSpec *) closure->data;
 
 	gsize i;
+    Pipe *jpipe;
 	/*
 	  for (i = 1; i < n_param_values; i++) {
 		g_print ("\t%d => %s\n", i, gda_value_stringify (param_values + i));
 	}
 	*/
-    Pipe *jpipe;
 	Job *job= g_new0 (Job, 1);
 	job->type = JOB_TYPE_SIGNAL;
 	job->u.signal.spec = signal_spec_ref (sigspec);
@@ -1545,7 +1546,7 @@ worker_thread_closure_marshal_anythread (GClosure *closure,
 		g_value_copy (src, dest);
 	}
 
-	 jpipe = pipe_ref (sigspec->notif);
+	jpipe = pipe_ref (sigspec->notif);
 	g_async_queue_push (sigspec->reply_queue, job);
 	if (! write_notification (NULL, NULL, jpipe, GDA_THREAD_NOTIFICATION_SIGNAL, 0)) {
 		Job *je = g_new0 (Job, 1);
@@ -1680,7 +1681,7 @@ find_signal_r_func (G_GNUC_UNUSED GThread *thread, ThreadData *td, gulong *id)
 }
 
 /**
- * gda_thread_wrapper_disconnect
+ * gda_thread_wrapper_disconnect:
  * @wrapper: a #GdaThreadWrapper object
  * @id: a handler ID, as returned by gda_thread_wrapper_connect_raw()
  *
@@ -1770,7 +1771,7 @@ gda_thread_wrapper_disconnect (GdaThreadWrapper *wrapper, gulong id)
 }
 
 /**
- * gda_thread_wrapper_steal_signal
+ * gda_thread_wrapper_steal_signal:
  * @wrapper: a #GdaThreadWrapper object
  * @id: a signal ID
  *
@@ -1783,7 +1784,8 @@ gda_thread_wrapper_disconnect (GdaThreadWrapper *wrapper, gulong id)
 
 void
 gda_thread_wrapper_steal_signal (GdaThreadWrapper *wrapper, gulong id)
-{	gulong theid;
+{
+	gulong theid = id;
 	ThreadData *old_td, *new_td = NULL;
         g_return_if_fail (GDA_IS_THREAD_WRAPPER (wrapper));
         g_return_if_fail (wrapper->priv);
@@ -1795,7 +1797,6 @@ gda_thread_wrapper_steal_signal (GdaThreadWrapper *wrapper, gulong id)
 	gda_mutex_lock (wrapper->priv->mutex);
 #endif
 
-	theid = id;
 	old_td = g_hash_table_find (wrapper->priv->threads_hash,
 				    (GHRFunc) find_signal_r_func, &theid);
 	if (!old_td) {

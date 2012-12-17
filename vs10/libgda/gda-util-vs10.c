@@ -5,8 +5,8 @@
  * Copyright (C) 2003 Paisa Seeluangsawat <paisa@users.sf.net>
  * Copyright (C) 2004 Caolan McNamara <caolanm@redhat.com>
  * Copyright (C) 2004 Jürg Billeter <j@bitron.ch>
- * Copyright (C) 2004 - 2010 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2005 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2004 - 2011 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2005 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2007 - 2009 Armin Burgmeier <armin@openismus.com>
  * Copyright (C) 2008 - 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2008 Phil Longstaff <plongstaff@rogers.com>
@@ -574,14 +574,14 @@ gda_utility_data_model_dump_data_to_xml (GdaDataModel *model, xmlNodePtr parent,
 const gchar *
 gda_utility_data_model_find_column_description (GdaDataSelect *model, const gchar *field_name)
 {
-	GdaStatement *statement;
-	GSList *fields;
 	GdaSqlStatement *sql_statement;
+	GSList *fields;
     GdaConnection *connection;
+	GdaStatement *statement;
 	g_return_val_if_fail (GDA_IS_DATA_SELECT (model), NULL);
 	g_return_val_if_fail (field_name, NULL);
 
-	 connection = gda_data_select_get_connection ((GdaDataSelect *) model);
+	connection = gda_data_select_get_connection ((GdaDataSelect *) model);
 
 	g_object_get (G_OBJECT (model), "select-stmt", &statement, NULL);
 	if (!statement)
@@ -676,7 +676,7 @@ gda_utility_holder_load_attributes (GdaHolder *holder, xmlNodePtr node, GSList *
 
 	/* set restricting source if specified */
 	if (str && sources) {
-		gchar *ptr1, *ptr2 = NULL, *tok;
+		gchar *ptr1, *ptr2 = NULL, *tok = NULL;
 		gchar *source;
 			
 		source = g_strdup ((gchar*)str);
@@ -988,7 +988,7 @@ gda_compute_unique_table_row_condition_with_cnc (GdaConnection *cnc, GdaSqlState
 			GdaSqlOperation *op;
 			GdaSqlExpr *opexpr;
 			GdaSqlParamSpec *pspec;
-						gchar *str;
+				gchar *str;		
 			/* equal condition */
 			if (and_cond) {
 				opexpr = gda_sql_expr_new (GDA_SQL_ANY_PART (and_cond));
@@ -1146,14 +1146,13 @@ gda_compute_dml_statements (GdaConnection *cnc, GdaStatement *select_stmt, gbool
 	GdaMetaStruct *mstruct;
 	gboolean retval = TRUE;
 	GdaSqlSelectTarget *target;
-
+	gchar *tmp;
 	GdaSqlStatement *sql_ist = NULL;
         GdaSqlStatementInsert *ist = NULL;
         GdaSqlStatement *sql_ust = NULL;
         GdaSqlStatementUpdate *ust = NULL;
         GdaSqlStatement *sql_dst = NULL;
         GdaSqlStatementDelete *dst = NULL;
-        	gchar *tmp;
 	GSList *expr_list;
 	gint colindex;
 	GSList *insert_values_list = NULL;
@@ -1239,13 +1238,13 @@ gda_compute_dml_statements (GdaConnection *cnc, GdaStatement *select_stmt, gbool
 	if (!retval)
 		goto cleanup;
 
+
 	fields_hash = g_hash_table_new ((GHashFunc) gda_identifier_hash, (GEqualFunc) gda_identifier_equal);
 	for (expr_list = stsel->expr_list, colindex = 0; 
 	     expr_list;
 	     expr_list = expr_list->next, colindex++) {
 		GdaSqlSelectField *selfield = (GdaSqlSelectField *) expr_list->data;
-        		/* parameter for the inserted value */
-		GdaSqlExpr *expr;
+        		GdaSqlExpr *expr;
 		GdaMetaTableColumn *tcol;
 		if ((selfield->validity_meta_object != target->validity_meta_object) ||
 		    !selfield->validity_meta_table_column)
@@ -1269,6 +1268,7 @@ gda_compute_dml_statements (GdaConnection *cnc, GdaStatement *select_stmt, gbool
 			ust->fields_list = g_slist_append (ust->fields_list, field);
 		}
 
+		/* parameter for the inserted value */
 
 
 		tcol = selfield->validity_meta_table_column;
@@ -1360,7 +1360,6 @@ gda_compute_select_statement_from_update (GdaStatement *update_stmt, GError **er
 	GdaSqlStatement *sel_stmt;
 	GdaSqlStatementUpdate *ust;
 	GdaSqlStatementSelect *sst;
-	/* FROM */
 	GdaSqlSelectTarget *target;
 	g_return_val_if_fail (update_stmt, NULL);
 	g_object_get (G_OBJECT (update_stmt), "structure", &upd_stmt, NULL);
@@ -1379,6 +1378,7 @@ gda_compute_select_statement_from_update (GdaStatement *update_stmt, GError **er
 		return NULL;
 	}
 
+	/* FROM */
 
 	sst->from = gda_sql_select_from_new (GDA_SQL_ANY_PART (sst));
 	target = gda_sql_select_target_new (GDA_SQL_ANY_PART (sst->from));
@@ -1406,11 +1406,10 @@ typedef struct  {
 
 static gboolean
 null_param_foreach_func (GdaSqlAnyPart *part, NullData *data , GError **error)
-{
-    	GdaHolder *holder;
+{	GdaHolder *holder;
 	GdaSqlParamSpec *pspec;
+	const GValue *cvalue;
     	GdaSqlOperation *op;
-        	const GValue *cvalue;
 	GdaSqlExpr *oexpr = NULL;
 	if ((part->type != GDA_SQL_ANY_EXPR) || !((GdaSqlExpr*) part)->param_spec)
 		return TRUE;
@@ -1421,11 +1420,10 @@ null_param_foreach_func (GdaSqlAnyPart *part, NullData *data , GError **error)
 	     (((GdaSqlOperation*) part->parent)->operator_type != GDA_SQL_OPERATOR_TYPE_DIFF)))
 		return TRUE;
 
-    pspec = ((GdaSqlExpr*) part)->param_spec;
+	pspec = ((GdaSqlExpr*) part)->param_spec;
 	holder = gda_set_get_holder (data->params, pspec->name);
 	if (!holder)
 		return TRUE;
-	
 
 	cvalue = gda_holder_get_value (holder);
 	if (!cvalue || (G_VALUE_TYPE (cvalue) != GDA_TYPE_NULL))
@@ -1460,10 +1458,10 @@ static gboolean
 null_param_unknown_foreach_func (GdaSqlAnyPart *part, NullData *data, GError **error)
 {
 	GdaSqlExpr *expr;
+    GdaHolder *holder;
+	GdaSqlParamSpec *pspec ;
+    const GValue *cvalue;
     	GSList *tmplist = NULL;
-        	const GValue *cvalue;
-            GdaHolder *holder;
-	GdaSqlParamSpec *pspec;
 	if ((part->type != GDA_SQL_ANY_EXPR) || !((GdaSqlExpr*) part)->param_spec)
 		return TRUE;
 
@@ -1475,7 +1473,7 @@ null_param_unknown_foreach_func (GdaSqlAnyPart *part, NullData *data, GError **e
 	if (!holder)
 		return TRUE;
 	
-
+	
 	cvalue = gda_holder_get_value (holder);
 	if (!cvalue || (G_VALUE_TYPE (cvalue) != GDA_TYPE_NULL))
 		return TRUE;
@@ -1526,7 +1524,7 @@ null_param_unknown_foreach_func (GdaSqlAnyPart *part, NullData *data, GError **e
 }
 
 /**
- * gda_rewrite_sql_statement_for_null_parameters: (skip):
+ * gda_rewrite_sql_statement_for_null_parameters: (skip)
  * @sqlst: (transfer full): a #GdaSqlStatement
  * @params: a #GdaSet to be used as parameters when executing @stmt
  * @out_modified: (allow-none): a place to store the boolean which tells if @stmt has been modified or not, or %NULL
@@ -1910,10 +1908,10 @@ stmt_rewrite_update_default_keyword (GdaSqlStatementUpdate *upd, GdaSet *params,
 
 static gboolean
 foreach_modify_param_type (GdaSqlAnyPart *part, GdaDataModel *model, G_GNUC_UNUSED GError **error)
-{	GdaSqlParamSpec *pspec;
+{
+	GdaSqlParamSpec *pspec;
 	if (part->type != GDA_SQL_ANY_EXPR)
 		return TRUE;
-
 
 	pspec = ((GdaSqlExpr*) part)->param_spec;
 	if (!pspec || !pspec->name)
@@ -1933,8 +1931,8 @@ foreach_modify_param_type (GdaSqlAnyPart *part, GdaDataModel *model, G_GNUC_UNUS
 	return TRUE;
 }
 
-/**
- * gda_modify_statement_param_types:
+/*
+ * _gda_modify_statement_param_types:
  * @stmt: a #GdaStatement
  * @model: a #GdaDataModel
  *
@@ -1945,8 +1943,7 @@ foreach_modify_param_type (GdaSqlAnyPart *part, GdaDataModel *model, G_GNUC_UNUS
  */
 void
 _gda_modify_statement_param_types (GdaStatement *stmt, GdaDataModel *model)
-{
-    	GdaSqlStatement *sqlst;
+{	GdaSqlStatement *sqlst;
 	g_return_if_fail (GDA_IS_STATEMENT (stmt));
 	g_return_if_fail (GDA_IS_DATA_MODEL (model));
 
@@ -2121,10 +2118,10 @@ gda_completion_list_get (GdaConnection *cnc, const gchar *sql, gint start, gint 
 	GArray *compl = NULL;
 	gchar *text;
 	const GValue *cvalue;
-    	gchar *obj_schema, *obj_name;
-	GValue *schema_value = NULL;
 		GdaDataModel *model;
 	GdaMetaStore *store;
+	gchar *obj_schema, *obj_name;
+	GValue *schema_value = NULL;
 	if (!cnc) 
 		return NULL;
 	g_return_val_if_fail (GDA_IS_CONNECTION (cnc), NULL);
@@ -2159,8 +2156,8 @@ gda_completion_list_get (GdaConnection *cnc, const gchar *sql, gint start, gint 
 	
 	if (!*text)
 		goto compl_finished;
-	
 
+	
 	if (!_split_identifier_string (g_strdup (text), &obj_schema, &obj_name) && 
 	    !_split_identifier_string (g_strdup_printf ("%s\"", text), &obj_schema, &obj_name)) {
 		if (text [strlen(text) - 1] == '.') {
@@ -3236,12 +3233,12 @@ gda_parse_iso8601_time (GdaTime *timegda, const gchar *value)
  */
 gboolean
 gda_parse_iso8601_timestamp (GdaTimestamp *timestamp, const gchar *value)
-{	gboolean retval = TRUE;
+{
+	gboolean retval = TRUE;
 	char *endptr;
 	GDate gdate;
 	GdaTime timegda;
 	g_return_val_if_fail (timestamp, FALSE);
-
 
 
 	memset (timestamp, 0, sizeof (GdaTimestamp));

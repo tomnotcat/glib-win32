@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2006 - 2008 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2006 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2006 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2007 Leonardo Boshell <lb@kmc.com.co>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
@@ -32,7 +32,7 @@
 #include "gda-enums.h"
 #include "gda-data-select.h"
 
-extern GdaAttributesManager *gda_column_attributes_manager;
+extern GdaAttributesManager *_gda_column_attributes_manager;
 extern GdaAttributesManager *gda_holder_attributes_manager;
 
 /* 
@@ -140,7 +140,7 @@ gda_data_model_iter_class_init (GdaDataModelIterClass *class)
 	parent_class = g_type_class_peek_parent (class);
 
 	/**
-	 * GdaDataModelIter::row-changed
+	 * GdaDataModelIter::row-changed:
 	 * @iter: the #GdaDataModelIter
 	 * @row: the new iter's row
 	 *
@@ -154,7 +154,7 @@ gda_data_model_iter_class_init (GdaDataModelIterClass *class)
                               NULL, NULL,
                               g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
 	/**
-	 * GdaDataModelIter::end-of-data
+	 * GdaDataModelIter::end-of-data:
 	 * @iter: the #GdaDataModelIter
 	 *
 	 * Gets emitted when @iter has reached the end of available data (which means the previous
@@ -183,7 +183,7 @@ gda_data_model_iter_class_init (GdaDataModelIterClass *class)
 					 g_param_spec_object ("data-model", NULL, "Data model for which the iter is for", 
                                                                GDA_TYPE_DATA_MODEL, 
 							       (G_PARAM_READABLE | G_PARAM_WRITABLE |
-								G_PARAM_CONSTRUCT_ONLY)));
+								G_PARAM_CONSTRUCT)));
 	g_object_class_install_property (object_class, PROP_FORCED_MODEL,
 					 g_param_spec_object ("forced-model", NULL, "Overrides the data model the iter "
 							      "is attached to (reserved for internal usage)", 
@@ -245,26 +245,123 @@ model_row_removed_cb (G_GNUC_UNUSED GdaDataModel *model, gint row, GdaDataModelI
 }
 
 static void
+define_holder_for_data_model_column (GdaDataModel *model, gint col, GdaDataModelIter *iter)
+{
+	gchar *str;
+	GdaHolder *param;
+	GdaColumn *column;
+
+	column = gda_data_model_describe_column (model, col);
+	param = (GdaHolder *) g_object_new (GDA_TYPE_HOLDER, 
+					    "g-type", 
+					    gda_column_get_g_type (column), NULL);
+
+	/*g_print ("COL %d allow null=%d\n", col, gda_column_get_allow_null (column));*/
+	gda_holder_set_not_null (param, !gda_column_get_allow_null (column));
+	g_object_get (G_OBJECT (column), "id", &str, NULL);
+	if (str) {
+		g_object_set (G_OBJECT (param), "id", str, NULL);
+		g_free (str);
+	}
+	else {
+		const gchar *cstr;
+		gchar *tmp;
+
+		/* ID attribute */
+		cstr = gda_column_get_description (column);
+		if (!cstr)
+			cstr = gda_column_get_name (column);
+		if (cstr)
+			tmp = (gchar *) cstr;
+		else
+			tmp = g_strdup_printf ("col%d", col);
+
+		if (gda_set_get_holder ((GdaSet *) iter, tmp)) {
+			gint e;
+			for (e = 1; ; e++) {
+				gchar *tmp2 = g_strdup_printf ("%s_%d", tmp, e);
+				if (! gda_set_get_holder ((GdaSet *) iter, tmp2)) {
+					g_object_set (G_OBJECT (param), "id", tmp2, NULL);
+					g_free (tmp2);
+					break;
+				}
+				g_free (tmp2);
+			}
+		}
+		else
+			g_object_set (G_OBJECT (param), "id", tmp, NULL);
+
+		if (!cstr)
+			g_free (tmp);
+
+		/* other attributes */
+		cstr = gda_column_get_description (column);
+		if (cstr)
+			g_object_set (G_OBJECT (param), "description", cstr, NULL);
+		cstr = gda_column_get_name (column);
+		if (cstr)
+			g_object_set (G_OBJECT (param), "name", cstr, NULL);
+	}
+	if (gda_column_get_default_value (column))
+		gda_holder_set_default_value (param, gda_column_get_default_value (column));
+	else if (gda_column_get_auto_increment (column)) {
+		GValue *v = gda_value_new_null ();
+		gda_holder_set_default_value (param, v);
+		gda_value_free (v);
+	}
+	/* copy extra attributes */
+	gda_attributes_manager_copy (_gda_column_attributes_manager, (gpointer) column,
+				     gda_holder_attributes_manager, (gpointer) param);
+	gda_set_add_holder ((GdaSet *) iter, param);
+	g_object_set_data (G_OBJECT (param), "model_col", GINT_TO_POINTER (col + 1));
+	g_object_unref (param);
+}
+
+static void
 model_reset_cb (GdaDataModel *model, GdaDataModelIter *iter)
 {
 	gint row;
-    gint i;
+	gint i, nbcols;
 	GSList *list;
 	row = gda_data_model_iter_get_row (iter);
 	
 	/* adjust GdaHolder's type if a column's type has changed from GDA_TYPE_NULL
 	 * to something else */
-	
+
+	nbcols = gda_data_model_get_n_columns (model);
+	if (GDA_IS_DATA_PROXY (model))
+		nbcols = nbcols / 2;
+
 	for (i = 0, list = ((GdaSet*) iter)->holders;
-	     list;
+	     (i < nbcols) && list;
 	     i++, list = list->next) {
+		GdaColumn *col;
+		col = gda_data_model_describe_column (model, i);
+
 		if (gda_holder_get_g_type ((GdaHolder *) list->data) == GDA_TYPE_NULL) {
-			GdaColumn *col;
-			col = gda_data_model_describe_column (model, i);
 			if (gda_column_get_g_type (col) != GDA_TYPE_NULL)
 				g_object_set (G_OBJECT (list->data), "g-type",
 					      gda_column_get_g_type (col), NULL);
 		}
+		else if (gda_holder_get_g_type ((GdaHolder *) list->data) !=
+			 gda_column_get_g_type (col))
+			break;
+	}
+
+	if (list) {
+		/* remove remaining GdaHolder objects */
+		GSList *l2;
+		l2 = g_slist_copy (list);
+		for (list = l2; list; list = list->next)
+			gda_set_remove_holder ((GdaSet*) iter, (GdaHolder *) list->data);
+		g_slist_free (l2);
+		row = -1; /* force actual reset of iterator's position */
+	}
+
+	if (i < nbcols) {
+		for (; i < nbcols; i++)
+			define_holder_for_data_model_column (model, i, iter);
+		row = -1; /* force actual reset of iterator's position */
 	}
 
 	gda_data_model_iter_invalidate_contents (iter);
@@ -427,109 +524,40 @@ gda_data_model_iter_set_property (GObject *object,
 		switch (param_id) {
 		case PROP_DATA_MODEL: {
 			GdaDataModel *model;
-			gint col, ncols;
-			GdaHolder *param;
-			GdaColumn *column;
 
 			GObject* ptr = g_value_get_object (value);
 			g_return_if_fail (ptr && GDA_IS_DATA_MODEL (ptr));
 			model = GDA_DATA_MODEL (ptr);
-			
-			/* REM: model is actually set in the next property's code (there is no break statement) */
-
-			/* compute parameters */
-			ncols = gda_data_model_get_n_columns (model);
-			for (col = 0; col < ncols; col++) {
-				gchar *str;
-				column = gda_data_model_describe_column (model, col);
-				param = (GdaHolder *) g_object_new (GDA_TYPE_HOLDER, 
-								    "g-type", 
-								    gda_column_get_g_type (column), NULL);
-
-				/*g_print ("COL %d allow null=%d\n", col, gda_column_get_allow_null (column));*/
-				gda_holder_set_not_null (param, !gda_column_get_allow_null (column));
-				g_object_get (G_OBJECT (column), "id", &str, NULL);
-				if (str) {
-					g_object_set (G_OBJECT (param), "id", str, NULL);
-					g_free (str);
-				}
-				else {
-					const gchar *cstr;
-					gchar *tmp;
-
-					/* ID attribute */
-					cstr = gda_column_get_description (column);
-					if (!cstr)
-						cstr = gda_column_get_name (column);
-					if (cstr)
-						tmp = (gchar *) cstr;
-					else
-						tmp = g_strdup_printf ("col%d", col);
-
-					if (gda_set_get_holder ((GdaSet *) iter, tmp)) {
-						gint e;
-						for (e = 1; ; e++) {
-							gchar *tmp2 = g_strdup_printf ("%s_%d", tmp, e);
-							if (! gda_set_get_holder ((GdaSet *) iter, tmp2)) {
-								g_object_set (G_OBJECT (param), "id", tmp2, NULL);
-								g_free (tmp2);
-								break;
-							}
-							g_free (tmp2);
-						}
-					}
-					else
-						g_object_set (G_OBJECT (param), "id", tmp, NULL);
-
-					if (!cstr)
-						g_free (tmp);
-
-					/* other attributes */
-					cstr = gda_column_get_description (column);
-					if (cstr)
-						g_object_set (G_OBJECT (param), "description", cstr, NULL);
-					cstr = gda_column_get_name (column);
-					if (cstr)
-						g_object_set (G_OBJECT (param), "name", cstr, NULL);
-				}
-				if (gda_column_get_default_value (column))
-					gda_holder_set_default_value (param, gda_column_get_default_value (column));
-				else if (gda_column_get_auto_increment (column)) {
-					GValue *v = gda_value_new_null ();
-					gda_holder_set_default_value (param, v);
-					gda_value_free (v);
-				}
-				/* copy extra attributes */
-				gda_attributes_manager_copy (gda_column_attributes_manager, (gpointer) column,
-							     gda_holder_attributes_manager, (gpointer) param);
-				gda_set_add_holder ((GdaSet *) iter, param);
-				g_object_set_data (G_OBJECT (param), "model_col", GINT_TO_POINTER (col + 1));
-				g_object_unref (param);
-			}
-		}
-		case PROP_FORCED_MODEL: {
-			GdaDataModel* ptr = g_value_get_object (value);
-			g_return_if_fail (GDA_IS_DATA_MODEL (ptr));
-
 			if (iter->priv->data_model) {
-				if (iter->priv->data_model == GDA_DATA_MODEL (ptr))
+				if (iter->priv->data_model == model)
 					return;
-				g_signal_handler_disconnect (iter->priv->data_model, iter->priv->model_changes_signals [0]);
-				g_signal_handler_disconnect (iter->priv->data_model, iter->priv->model_changes_signals [1]);
-				g_signal_handler_disconnect (iter->priv->data_model, iter->priv->model_changes_signals [2]);
+				g_signal_handler_disconnect (iter->priv->data_model,
+							     iter->priv->model_changes_signals [0]);
+				g_signal_handler_disconnect (iter->priv->data_model,
+							     iter->priv->model_changes_signals [1]);
+				g_signal_handler_disconnect (iter->priv->data_model,
+							     iter->priv->model_changes_signals [2]);
 				g_object_remove_weak_pointer (G_OBJECT (iter->priv->data_model), 
 							      (gpointer*) &(iter->priv->data_model)); 	
 			}
 
-			iter->priv->data_model = GDA_DATA_MODEL (ptr);
+			iter->priv->data_model = model;
 			g_object_add_weak_pointer (G_OBJECT (iter->priv->data_model),
 						   (gpointer*) &(iter->priv->data_model));
-			iter->priv->model_changes_signals [0] = g_signal_connect (G_OBJECT (ptr), "row-updated",
-										  G_CALLBACK (model_row_updated_cb), iter);
-			iter->priv->model_changes_signals [1] = g_signal_connect (G_OBJECT (ptr), "row-removed",
-										  G_CALLBACK (model_row_removed_cb), iter);
-			iter->priv->model_changes_signals [2] = g_signal_connect (G_OBJECT (ptr), "reset",
+
+			iter->priv->model_changes_signals [0] = g_signal_connect (G_OBJECT (model), "row-updated",
+										  G_CALLBACK (model_row_updated_cb),
+										  iter);
+			iter->priv->model_changes_signals [1] = g_signal_connect (G_OBJECT (model), "row-removed",
+										  G_CALLBACK (model_row_removed_cb),
+										  iter);
+			iter->priv->model_changes_signals [2] = g_signal_connect (G_OBJECT (model), "reset",
 										  G_CALLBACK (model_reset_cb), iter);
+			model_reset_cb (GDA_DATA_MODEL (ptr), iter);
+			break;
+		}
+		case PROP_FORCED_MODEL: {
+			g_warning ("Deprecated property, not to be used");
 			break;
                 }
 		case PROP_CURRENT_ROW:
@@ -561,7 +589,10 @@ gda_data_model_iter_get_property (GObject *object,
 	if (iter->priv) {
 		switch (param_id) {
 		case PROP_DATA_MODEL:
+			g_value_set_object (value, G_OBJECT (iter->priv->data_model));
+			break;
 		case PROP_FORCED_MODEL:
+			g_warning ("Deprecated property, not to be used");
 			g_value_set_object (value, G_OBJECT (iter->priv->data_model));
 			break;
 		case PROP_CURRENT_ROW:

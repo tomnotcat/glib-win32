@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2007 - 2011 Vivien Malerba <malerba@gnome-db.org>
- * Copyright (C) 2008 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2007 - 2012 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
@@ -446,7 +446,7 @@ dict_table_create_filter (GdaVconnectionDataModelSpec *spec, GdaVconnectionDataM
 	GdaSqlBuilder *b;
 	gint i;
 	gchar *hash;
-    	gint argpos;
+    gint argpos;
 	GdaSqlBuilderId *op_ids;
 	GdaStatement *stmt;
 	compute_column_specs (spec);
@@ -478,14 +478,12 @@ dict_table_create_filter (GdaVconnectionDataModelSpec *spec, GdaVconnectionDataM
 					      NULL);
 
 	/* WHERE part */
-
+	
 	op_ids = g_new (GdaSqlBuilderId, info->nConstraint);
 	for (i = 0, argpos = 0; i < info->nConstraint; i++) {
-        
+		const struct GdaVirtualConstraint *cons;
 		GdaSqlBuilderId fid, pid, eid;
 		gchar *pname;
-
-		const struct GdaVirtualConstraint *cons;
 		cons = &(info->aConstraint [i]);
 		if (cons->iColumn >= lspec->ncols) {
 			g_warning ("Internal error: column known by SQLite's virtual table %d is not known for "
@@ -493,6 +491,7 @@ dict_table_create_filter (GdaVconnectionDataModelSpec *spec, GdaVconnectionDataM
 				   g_value_get_string (lspec->table_name), lspec->ncols);
 			continue;
 		}
+
 
 		if (lspec->col_gtypes[cons->iColumn] == GDA_TYPE_BLOB) /* ignore BLOBs */
 			continue;
@@ -730,7 +729,7 @@ dict_table_create_model_func (GdaVconnectionDataModelSpec *spec, G_GNUC_UNUSED i
 	GdaStatement *stmt = NULL;
 	GdaSet *params = NULL;
 	LocalSpec *lspec = (LocalSpec *) spec;
-	GError *lerror = NULL;
+    	GError *lerror = NULL;
 	if (idxStr) {
 		gint i;
 		GSList *list;
@@ -806,7 +805,7 @@ attach_hub_connection (GdaVconnectionHub *hub, HubConnection *hc, GError **error
 	GdaMetaStore *store;
 	GdaMetaContext context;
 	GdaConnectionOptions options;
-	GdaDataModel *model;
+    	GdaDataModel *model;
 	gint i, nrows;
 	store = gda_connection_get_meta_store (hc->cnc);
 	g_assert (store);

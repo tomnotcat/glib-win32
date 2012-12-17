@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-set-spec>
+  <parameters>
+    <parameter nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="ar" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="az" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="ca" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nom de la base de dades" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="ca@valencia" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nom de la base de dades" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="cs" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Název databáze" descr="Název databáze, která se má použít (bez .db)"></parameter>
+    <parameter xml:lang="da" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Databasenavn" descr="Navnet på databasen der skal bruges (uden endelsen .db)"></parameter>
+    <parameter xml:lang="de" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Datenbankname" descr="Name der zu verwendenden Datenbank (ohne .db)"></parameter>
+    <parameter xml:lang="dz" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="གནས་སྡུད་གཞི་རྟེན་མིང་།" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="el" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Όνομα βάσης δεδομένων" descr="Το όνομα της βάσης δεδομένων για χρήση (χωρίς το .db)"></parameter>
+    <parameter xml:lang="en_CA" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="en_GB" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="eo" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Datumbaznomo" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="es" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nombre de la base de datos" descr="El nombre de la base de datos que usar (sin el .db)"></parameter>
+    <parameter xml:lang="eu" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Datu-basearen izena" descr="Datu-basearen izena erabiltzeko (.db luzapenik gabe)"></parameter>
+    <parameter xml:lang="fa" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="fi" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Tietokannan nimi" descr="Käytettävän tietokannan nimi (ilman .db-päätettä)"></parameter>
+    <parameter xml:lang="fr" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nom de la base de données" descr="Nom d&apos;une base de données à utiliser (sans .db)"></parameter>
+    <parameter xml:lang="ga" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="gl" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nome da base de datos" descr="O nome a usar para a base de datos (sen .db)"></parameter>
+    <parameter xml:lang="hr" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="hu" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Adatbázis neve" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="id" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nama basis data" descr="Nama basis data yang dipakai (tanpa akhiran .db)"></parameter>
+    <parameter xml:lang="it" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nome database" descr="Nome di un database da usare (senza l&apos;estensione .db)"></parameter>
+    <parameter xml:lang="ja" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="データベース名" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="ko" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="lt" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Duomenų bazės vardas" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="mk" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="ml" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="ms" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="nb" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Databasenavn" descr="Navn på databasen som skal brukes (uten .db)"></parameter>
+    <parameter xml:lang="ne" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="डाटाबेस नाम" descr="(.dbबाहेक) प्रयोग गर्न डाटाबेसको नाम"></parameter>
+    <parameter xml:lang="nl" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database naam" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="oc" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="pa" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="pl" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="pt" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nome da base de dados" descr="Nome da base de dados a ser utilizada (sem .db)"></parameter>
+    <parameter xml:lang="pt_BR" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Nome do banco de dados" descr="O nome do banco de dados a ser utilizado (sem extensão .db)"></parameter>
+    <parameter xml:lang="ru" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Название базы данных" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="rw" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="sk" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="sl" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Ime podatkovne zbirke" descr="Ime podatkovne zbirke za uporabo (brez pripone .db)"></parameter>
+    <parameter xml:lang="sq" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="sr" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="sr@Latn" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="sv" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Databasnamn" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="tr" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Database name" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="uk" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Назва бази даних" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="vi" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="Tên cơ sở dữ liệu" descr="Tên của cơ sở dữ liệu cần dùng (không có phần mở rộng « .db »"></parameter>
+    <parameter xml:lang="zh_CN" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="数据库名" descr="要使用的数据库的名字 (不带 .db)"></parameter>
+    <parameter xml:lang="zh_HK" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="資料庫名稱" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter xml:lang="zh_TW" nullok="FALSE" id="DB_NAME" gdatype="gchararray" name="資料庫名稱" descr="The name of a database to use (without the .db)"></parameter>
+    <parameter plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="ar" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="دليل" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="az" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="ca" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directori" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="ca@valencia" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directori" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="cs" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Složka" descr="Složka, ve které je soubor s databází uchován"></parameter>
+    <parameter xml:lang="da" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Mappe" descr="Mappe hvor databasefilen er gemt"></parameter>
+    <parameter xml:lang="de" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Ordner" descr="Ordner, in dem die Datenbankdatei gespeichert ist"></parameter>
+    <parameter xml:lang="dz" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="སྣོད་ཐོ།" descr="གནས་སྡུད་གཞི་རྟེན་ཡིག་སྣོད་འདི་གསོག་འཇོག་འབད་ཡོད་མི་སྣོད་ཐོ།"></parameter>
+    <parameter xml:lang="el" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Κατάλογος" descr="Κατάλογος αποθήκευσης του αρχείου της βάσης δεδομένων"></parameter>
+    <parameter xml:lang="en_CA" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="en_GB" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="eo" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Dosierujo" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="es" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Carpeta" descr="Carpeta donde se almacena el archivo con la base de datos"></parameter>
+    <parameter xml:lang="eu" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Direktorioa" descr="Datu-basearen fitxategia gordeta dagoen direktorioa"></parameter>
+    <parameter xml:lang="fa" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="fi" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Hakemisto" descr="Kansio, johon tietokantatiedosto on tallennettu"></parameter>
+    <parameter xml:lang="fr" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Répertoire" descr="Répertoire contenant le fichier de base de données"></parameter>
+    <parameter xml:lang="ga" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Fillteán" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="gl" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directorio" descr="Directorio onde está o ficheiro de base de datos"></parameter>
+    <parameter xml:lang="hr" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="hu" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="id" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Direktori" descr="Direktori tempat berkas basis data disimpan"></parameter>
+    <parameter xml:lang="it" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Cartella" descr="Cartella dove è memorizzato il database"></parameter>
+    <parameter xml:lang="ja" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="ディレクトリ" descr="データベースが配置されるディレクトリ"></parameter>
+    <parameter xml:lang="ko" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="lt" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Katalogas" descr="Katalogas, kuriame saugoma duomenų bazės byla"></parameter>
+    <parameter xml:lang="mk" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="ml" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="ms" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="nb" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Katalog" descr="Katalog hvor databasefilen er lagret"></parameter>
+    <parameter xml:lang="ne" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="डाइरेक्टरी" descr="डाटाबेस फाइल भण्डारण गरिएको ठाउँमा डाइरेक्टरी"></parameter>
+    <parameter xml:lang="nl" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Map" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="oc" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Repertòri" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="pa" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="pl" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="pt" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directório" descr="Directório onde o ficheiro da base de dados está guardado"></parameter>
+    <parameter xml:lang="pt_BR" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Diretório" descr="Diretório em que o arquivo de banco de dados está armazenado"></parameter>
+    <parameter xml:lang="ru" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Каталог" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="rw" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Ububiko" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="sk" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="sl" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Mapa" descr="Mapa v kateri je shranjena datoteka podatkovne zbirke"></parameter>
+    <parameter xml:lang="sq" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="sr" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="sr@Latn" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="sv" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Katalog" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="tr" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Directory" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="uk" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Каталог" descr="Directory where the database file is stored"></parameter>
+    <parameter xml:lang="vi" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="Thư mục" descr="Thư mục chứa tập tin co sở dữ liệu"></parameter>
+    <parameter xml:lang="zh_CN" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="目录" descr="存储数据库文件的目录"></parameter>
+    <parameter xml:lang="zh_HK" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="目錄" descr="儲存資料庫檔案的目錄"></parameter>
+    <parameter xml:lang="zh_TW" plugin="filesel:MODE=PICKFOLDER" nullok="FALSE" id="DB_DIR" gdatype="gchararray" name="目錄" descr="儲存資料庫檔案的目錄"></parameter>
+    <parameter nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ar" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="az" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca@valencia" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="cs" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Dodatečné funkce" descr="Povolit použití rozšiřujících funkcí (gda_upper, …)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="da" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Ekstra funktioner" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="de" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Weitere Funktionen" descr="Zusätzliche Funktionen aktivieren (gda_upper …)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="dz" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="el" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Πρόσθετες συναρτήσεις" descr="Ενεργοποίηση χρήσης πρόσθετων συναρτήσεων (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_CA" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_GB" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="eo" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="es" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Funciones adicionales" descr="Activar el uso de algunas funciones adicionales (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="eu" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Funtzio gehigarriak" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fa" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fi" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Lisäfunktiot" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fr" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Fonctions supplémentaires" descr="Activer l&apos;utilisation de fonctions supplémentaires (gda_upper, …)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ga" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="gl" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Funcións adicionais" descr="Activar o uso de algunhas funcións adicionais (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="hr" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="hu" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="id" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Fungsi ekstra" descr="Perbolehkan pemakaian fungsi ekstra (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="it" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Funzioni extra" descr="Abilita l&apos;uso di funzioni extra (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ja" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ko" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="lt" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="mk" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ml" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ms" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="nb" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Ekstra funksjoner" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ne" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="अतिरिक्त प्रकार्य" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="nl" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="oc" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Foncion" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pa" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pl" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Funções extra" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt_BR" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Funções extras" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ru" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="rw" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sk" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sl" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Dodatne funkcije" descr="Omogoči uporabo posebnih funkcij (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sq" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr@Latn" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sv" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extrafunktioner" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="tr" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="uk" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="vi" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Hàm thêm" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_CN" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="额外函数" descr="允许使用额外的函数(gda_upper等)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_HK" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_TW" nullok="TRUE" id="EXTRA_FUNCTIONS" gdatype="gboolean" name="Extra functions" descr="Enable usage of extra functions (gda_upper, ...)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ar" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="az" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca@valencia" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="cs" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Definovat REGEXP" descr="Definovat funkci REGEXP">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="da" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="de" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Regulären Ausdruck definieren" descr="Die REGEXP-Funktion definieren">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="dz" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="el" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Ορισμός REGEXP" descr="Ορισμός της συνάρτησης REGEXP">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_CA" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_GB" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="eo" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="es" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Definir REGEXP" descr="Definir la función REGEXP">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="eu" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fa" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fi" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fr" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ga" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="gl" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Definir REGEXP" descr="Definir a función REGEXP">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="hr" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="hu" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="id" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Definisikan REGEXP" descr="Mendefinisikan fungsi REGEXP">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="it" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Definisci le REGEXP" descr="Definisci la funzione REGEXP">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ja" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ko" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="lt" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="mk" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ml" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ms" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="nb" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ne" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="nl" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="oc" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pa" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pl" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt_BR" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Definir expressão regular" descr="Define a função de expressão regular">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ru" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="rw" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sk" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sl" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Določi logični izraz" descr="Določanje funkcije logičnega izraza">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sq" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr@Latn" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sv" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="tr" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="uk" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="vi" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_CN" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="定义 REGEXP" descr="定义 REGEXP 函数">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_HK" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_TW" nullok="TRUE" id="REGEXP" gdatype="gboolean" name="Define REGEXP" descr="Define the REGEXP function">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ar" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="az" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ca@valencia" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="cs" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Lokalizovaná porovnávání" descr="Povolit použití některé z rozšiřujících metod porovnávání (LOCALE a DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="da" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="de" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Lokalisierte Vergleiche" descr="Nutzung zusätzlicher Methoden zur Zusammenführung aktivieren (LOCALE und DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="dz" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="el" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Τοπικές συγκρίσεις" descr="Ενεργοποίηση χρήσης πρόσθετων μεθόδων ταξινόμησης (LOCALE και DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_CA" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="en_GB" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="eo" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="es" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Comparaciones regionalizadas" descr="Activar el uso de métodos de cotejamiento adicionales (LOCALE y DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="eu" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fa" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fi" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="fr" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Activer l&apos;utilisation de méthodes de collation supplémentaires (LOCALE et DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ga" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="gl" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Comparacións localizadas" descr="Activar o uso de métodos de cotexamento adicionais (LOCALE e DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="hr" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="hu" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="id" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Perbandingan terlokalisasi" descr="Perbolehkan pemakaian metoda kolasi ekstra (LOCALE dan DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="it" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Confronti localizzati" descr="Abilita l&apos;uso di metodi extra collation (LOCALE e DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ja" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ko" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="lt" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="mk" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ml" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ms" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="nb" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ne" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="nl" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="oc" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pa" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pl" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="pt_BR" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="ru" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="rw" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sk" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sl" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Krajevno prilagojene primerjave" descr="Omogoči uporabo posebnih načinov zbiranja (LOCALE in DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sq" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sr@Latn" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="sv" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="tr" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="uk" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="vi" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_CN" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="本地化的比较" descr="允许使用额外的排序方法(LOCALE 和 DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_HK" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter xml:lang="zh_TW" nullok="TRUE" id="EXTRA_COLLATIONS" gdatype="gboolean" name="Localized comparisons" descr="Enable usage of extra collation methods (LOCALE and DCASE)">
+      <gda_value>TRUE</gda_value>
+    </parameter>
+    <parameter nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="ar" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="az" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="ca" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="ca@valencia" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="cs" nullok="TRUE" id="FK" gdatype="gboolean" name="S cizími klíči" descr="Dbát na dodržování cizích klíčů"></parameter>
+    <parameter xml:lang="da" nullok="TRUE" id="FK" gdatype="gboolean" name="Med fremmede nøgler" descr="Håndhæv fremmede nøgler"></parameter>
+    <parameter xml:lang="de" nullok="TRUE" id="FK" gdatype="gboolean" name="Mit Fremdschlüsseln" descr="Fremdschlüssel erzwingen"></parameter>
+    <parameter xml:lang="dz" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="el" nullok="TRUE" id="FK" gdatype="gboolean" name="Με ξένα κλειδιά" descr="Εφαρμογή ξένων κλειδιών"></parameter>
+    <parameter xml:lang="en_CA" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="en_GB" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="eo" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="es" nullok="TRUE" id="FK" gdatype="gboolean" name="Con claves externas" descr="Forzar claves externas"></parameter>
+    <parameter xml:lang="eu" nullok="TRUE" id="FK" gdatype="gboolean" name="Kanpoko gakoekin" descr="Derrigortu kanpoko gakoak"></parameter>
+    <parameter xml:lang="fa" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="fi" nullok="TRUE" id="FK" gdatype="gboolean" name="Viiteavaimin" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="fr" nullok="TRUE" id="FK" gdatype="gboolean" name="Avec clés étrangères" descr="Imposer les clés étrangères"></parameter>
+    <parameter xml:lang="ga" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="gl" nullok="TRUE" id="FK" gdatype="gboolean" name="Con claves foráneas" descr="Forzar claves externas"></parameter>
+    <parameter xml:lang="hr" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="hu" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="id" nullok="TRUE" id="FK" gdatype="gboolean" name="Dengan foreign key" descr="Paksakan foreign key"></parameter>
+    <parameter xml:lang="it" nullok="TRUE" id="FK" gdatype="gboolean" name="Con chiavi esterne" descr="Forza le chiavi esterne"></parameter>
+    <parameter xml:lang="ja" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="ko" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="lt" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="mk" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="ml" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="ms" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="nb" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="ne" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="nl" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="oc" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="pa" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="pl" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="pt" nullok="TRUE" id="FK" gdatype="gboolean" name="Com chaves externas" descr="Forçar chaves externas"></parameter>
+    <parameter xml:lang="pt_BR" nullok="TRUE" id="FK" gdatype="gboolean" name="Com chaves estrangeiras" descr="Fortalecer chaves estrangeiras"></parameter>
+    <parameter xml:lang="ru" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="rw" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="sk" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="sl" nullok="TRUE" id="FK" gdatype="gboolean" name="S tujimi ključi" descr="Vsili tuje ključe"></parameter>
+    <parameter xml:lang="sq" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="sr" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="sr@Latn" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="sv" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="tr" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="uk" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="vi" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="zh_CN" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="强制外键"></parameter>
+    <parameter xml:lang="zh_HK" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter xml:lang="zh_TW" nullok="TRUE" id="FK" gdatype="gboolean" name="With foreign keys" descr="Enforce foreign keys"></parameter>
+    <parameter nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="ar" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="az" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="ca" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="ca@valencia" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="cs" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Povolit rozšíření" descr="Povolit SQLite načítat rozšíření pomocí funkce load_extension()"></parameter>
+    <parameter xml:lang="da" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="de" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Erweiterungen zulassen" descr="SQLite das Laden von Erweiterungen mit der Funktion load_extension() erlauben"></parameter>
+    <parameter xml:lang="dz" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="el" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Να επιτρέπονται επεκτάσεις" descr="Να επιτρέπεται στο SQLite να φορτώσει επεκτάσεις χρησιμοποιώντας τη συνάρτηση load_extension()"></parameter>
+    <parameter xml:lang="en_CA" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="en_GB" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="eo" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="es" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Permitir extensiones" descr="Permitir a SQLite cargar extensiones usando la función load_extension()"></parameter>
+    <parameter xml:lang="eu" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="fa" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="fi" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="fr" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="ga" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="gl" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Extensións permitidas" descr="Permitir a SQLite cargar extensións usando a función load_extension()"></parameter>
+    <parameter xml:lang="hr" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="hu" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="id" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Ijinkan ekstensi" descr="Ijinkan SQLite untuk memuat ekstensi memakai fungis load_extensions()"></parameter>
+    <parameter xml:lang="it" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Permetti le estensioni" descr="Permetti a SQLite di caricare le estensioni usando la funzione load_extension()"></parameter>
+    <parameter xml:lang="ja" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="ko" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="lt" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="mk" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="ml" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="ms" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="nb" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="ne" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="nl" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="oc" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="pa" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="pl" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="pt" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="pt_BR" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="ru" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="rw" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="sk" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="sl" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Dovoli razširitve" descr="Dovoli nalaganje razširitev preko SQLite s funkcijo load_extension()"></parameter>
+    <parameter xml:lang="sq" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="sr" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="sr@Latn" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="sv" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="tr" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="uk" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="vi" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="zh_CN" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="允许扩展" descr="允许 SQLite 使用 load_extension() 函数加载扩展"></parameter>
+    <parameter xml:lang="zh_HK" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+    <parameter xml:lang="zh_TW" nullok="TRUE" id="EXTENSIONS" gdatype="gboolean" name="Allow extensions" descr="Allow SQLite to load extensions using the load_extension() function"></parameter>
+  </parameters>
+</data-set-spec>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-set-spec>
+  <parameters>
+    <parameter id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="ar" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="az" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="ca" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="ca@valencia" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="cs" id="MAX_SIZE" gdatype="gint" name="Maximální délka" descr="Maximální přípustná délka textu"></parameter>
+    <parameter xml:lang="da" id="MAX_SIZE" gdatype="gint" name="Maksimal længde" descr="Maksimal accepteret længde på teksten"></parameter>
+    <parameter xml:lang="de" id="MAX_SIZE" gdatype="gint" name="Maximallänge" descr="Maximal akzeptierte Länge des Texts"></parameter>
+    <parameter xml:lang="dz" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="el" id="MAX_SIZE" gdatype="gint" name="Μέγιστο μήκος" descr="Μέγιστο αποδεκτό μήκος του κειμένου"></parameter>
+    <parameter xml:lang="en_CA" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="en_GB" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="eo" id="MAX_SIZE" gdatype="gint" name="Maksimuma longo" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="es" id="MAX_SIZE" gdatype="gint" name="Longitud máxima" descr="Longitud máxima aceptable del texto"></parameter>
+    <parameter xml:lang="eu" id="MAX_SIZE" gdatype="gint" name="Gehienezko luzera" descr="Testuaren gehienezko luzera onargarria"></parameter>
+    <parameter xml:lang="fa" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="fi" id="MAX_SIZE" gdatype="gint" name="Enimmäispituus" descr="Tekstin pisin hyväksyttävä pituus"></parameter>
+    <parameter xml:lang="fr" id="MAX_SIZE" gdatype="gint" name="Longueur maximale" descr="Taille maximum acceptable du texte"></parameter>
+    <parameter xml:lang="ga" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="gl" id="MAX_SIZE" gdatype="gint" name="Lonxitude máxima" descr="Lonxitude máxima aceptábel para o texto"></parameter>
+    <parameter xml:lang="hr" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="hu" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="id" id="MAX_SIZE" gdatype="gint" name="Panjang maksimum" descr="Panjang maksimal teks yang dapat diterima"></parameter>
+    <parameter xml:lang="it" id="MAX_SIZE" gdatype="gint" name="Lunghezza massima" descr="Lunghezza massima accettabile del testo"></parameter>
+    <parameter xml:lang="ja" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="ko" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="lt" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="mk" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="ml" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="ms" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="nb" id="MAX_SIZE" gdatype="gint" name="Maksimal lengde" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="ne" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="nl" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="oc" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="pa" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="pl" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="pt" id="MAX_SIZE" gdatype="gint" name="Comprimento máximo" descr="Tamanho máximo aceitável para o texto"></parameter>
+    <parameter xml:lang="pt_BR" id="MAX_SIZE" gdatype="gint" name="Comprimento máximo" descr="O máximo comprimento aceitável do texto"></parameter>
+    <parameter xml:lang="ru" id="MAX_SIZE" gdatype="gint" name="Максимальная длина" descr="Максимально допустимая длина текста"></parameter>
+    <parameter xml:lang="rw" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="sk" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="sl" id="MAX_SIZE" gdatype="gint" name="Največja dolžina" descr="Največja dolžina polja besedila"></parameter>
+    <parameter xml:lang="sq" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="sr" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="sr@Latn" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="sv" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="tr" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="uk" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="vi" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="zh_CN" id="MAX_SIZE" gdatype="gint" name="最大长度" descr="可接受的最大文本长度"></parameter>
+    <parameter xml:lang="zh_HK" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter xml:lang="zh_TW" id="MAX_SIZE" gdatype="gint" name="Maximum length" descr="Maximum acceptable length of the text"></parameter>
+    <parameter id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="ar" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="az" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="ca" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="ca@valencia" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="cs" id="MULTILINE" gdatype="gboolean" name="Víceřádkový" descr="Zobrazit pouze jeden řádek a nebo celý textový editor"></parameter>
+    <parameter xml:lang="da" id="MULTILINE" gdatype="gboolean" name="Flerlinje" descr="Vis kun en linje, eller en komplet tekstredigering"></parameter>
+    <parameter xml:lang="de" id="MULTILINE" gdatype="gboolean" name="Mehrzeilig" descr="Nur eine Zeile oder einen vollständigen Texteditor anzeigen"></parameter>
+    <parameter xml:lang="dz" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="el" id="MULTILINE" gdatype="gboolean" name="Πολλαπλή γραμμή" descr="Εμφάνιση μόνο μιας γραμμής, ή ενός πλήρους επεξεργαστή κειμένου"></parameter>
+    <parameter xml:lang="en_CA" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="en_GB" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="eo" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="es" id="MULTILINE" gdatype="gboolean" name="Multilínea" descr="Mostrar sólo una línea o un editor de texto completo"></parameter>
+    <parameter xml:lang="eu" id="MULTILINE" gdatype="gboolean" name="Lerro anitzak" descr="Erakutsi lerro bakarra, edo testu osoko editorea"></parameter>
+    <parameter xml:lang="fa" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="fi" id="MULTILINE" gdatype="gboolean" name="Monirivinen" descr="Näytä vain yksi rivi tai täysin tekstimuokkain"></parameter>
+    <parameter xml:lang="fr" id="MULTILINE" gdatype="gboolean" name="Multiligne" descr="Afficher seulement une ligne ou un éditeur de texte complet"></parameter>
+    <parameter xml:lang="ga" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="gl" id="MULTILINE" gdatype="gboolean" name="Multiliña" descr="Mostrar só unha liña ou un editor de texto completo"></parameter>
+    <parameter xml:lang="hr" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="hu" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="id" id="MULTILINE" gdatype="gboolean" name="Multibaris" descr="Tampilkan hanya satu baris, atau suatu penyunting teks lengkap"></parameter>
+    <parameter xml:lang="it" id="MULTILINE" gdatype="gboolean" name="Multilinea" descr="Mostra solo uno per riga, o un editor testo completo"></parameter>
+    <parameter xml:lang="ja" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="ko" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="lt" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="mk" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="ml" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="ms" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="nb" id="MULTILINE" gdatype="gboolean" name="Flere linjer" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="ne" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="nl" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="oc" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="pa" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="pl" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="pt" id="MULTILINE" gdatype="gboolean" name="Múltiplas Linhas" descr="Mostrar apenas uma linha, ou o editor de texto completo"></parameter>
+    <parameter xml:lang="pt_BR" id="MULTILINE" gdatype="gboolean" name="Multilinha" descr="Se exibe apenas uma linha ou um editor completo de texto"></parameter>
+    <parameter xml:lang="ru" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="rw" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="sk" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="sl" id="MULTILINE" gdatype="gboolean" name="Več vrstični vnos" descr="Prikaži le eno vrstico ali pa celotno urejeno besedilo"></parameter>
+    <parameter xml:lang="sq" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="sr" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="sr@Latn" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="sv" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="tr" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="uk" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="vi" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="zh_CN" id="MULTILINE" gdatype="gboolean" name="多行" descr="只显示一行，或一个完整的文本编辑器"></parameter>
+    <parameter xml:lang="zh_HK" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter xml:lang="zh_TW" id="MULTILINE" gdatype="gboolean" name="Multiline" descr="Display only one line, or a complete text editor"></parameter>
+    <parameter id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="ar" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="az" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="ca" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="ca@valencia" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="cs" id="HIDDEN" gdatype="gboolean" name="Skrytý" descr="Pokud je ZAPNUTO, znaky budou zobrazovány všechny stejně pomocí jednoho „neviditelného“ znaku, což se hodí pro zadávání hesel"></parameter>
+    <parameter xml:lang="da" id="HIDDEN" gdatype="gboolean" name="Skjult" descr="Hvis angivet som TRUE bliver alle tegn vist med brug af et enkelt &quot;usynligt&quot; tegn, egnet til at indtaste adgangskoder"></parameter>
+    <parameter xml:lang="de" id="HIDDEN" gdatype="gboolean" name="Verborgen" descr="Falls »wahr«, werden alle Zeichen als einzelnes »unsichtbares« Zeichen dargestellt, zur Eingabe von Passwörtern"></parameter>
+    <parameter xml:lang="dz" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="el" id="HIDDEN" gdatype="gboolean" name="Κρυφό" descr="Εάν οριστεί σε TRUE, εμφανίζονται όλοι οι χαρακτήρες χρησιμοποιώντας ένα μοναδικό &apos;αόρατο&apos; χαρακτήρα, κατάλληλο για εισαγωγή κωδικών πρόσβασης"></parameter>
+    <parameter xml:lang="en_CA" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="en_GB" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="eo" id="HIDDEN" gdatype="gboolean" name="Kaŝite" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="es" id="HIDDEN" gdatype="gboolean" name="Oculto" descr="Si está establecido todos los caracteres se muestran usando un único carácter «invisible», apropiado para introducir contraseñas"></parameter>
+    <parameter xml:lang="eu" id="HIDDEN" gdatype="gboolean" name="Ezkutukoa" descr="TRUE (egia) gisa ezartzen bada, karaktere guztiak bistaratuko dira karaktere &apos;ikuskaitz&apos; bat erabiliz, pasahitzak sartzeko oso erabilgarria"></parameter>
+    <parameter xml:lang="fa" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="fi" id="HIDDEN" gdatype="gboolean" name="Piilotettu" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="fr" id="HIDDEN" gdatype="gboolean" name="Masqué" descr="Si défini comme VRAI, les caractères sont affichés à l&apos;aide d&apos;un seul caractère « invisible », adapté à la saisie de mots de passe"></parameter>
+    <parameter xml:lang="ga" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="gl" id="HIDDEN" gdatype="gboolean" name="Oculto" descr="Se se estabelece a TRUE todos os caracteres móstranse usando un carácter único «invisíbel», que é quen de de introducir contrasinais."></parameter>
+    <parameter xml:lang="hr" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="hu" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="id" id="HIDDEN" gdatype="gboolean" name="Tersembunyi" descr="Bila berisi TRUE, semua karakter ditampilkan memakai karaktar &apos;tak nampak&apos; tunggal, cocok untuk memasukkan sandi"></parameter>
+    <parameter xml:lang="it" id="HIDDEN" gdatype="gboolean" name="Nascosto" descr="Se impostato a VERO, i caratteri vengono tutti mostrati usando un singolo carattere &quot;invisibile&quot;, adatto all&apos;immissione password"></parameter>
+    <parameter xml:lang="ja" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="ko" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="lt" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="mk" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="ml" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="ms" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="nb" id="HIDDEN" gdatype="gboolean" name="Skjult" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="ne" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="nl" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="oc" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="pa" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="pl" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="pt" id="HIDDEN" gdatype="gboolean" name="Escondido" descr="Se definido como VERDADEIRO, caracteres são todos mostrados usando apenas um caracter &apos;invisível&apos;, adequado para introduzir palavras passe"></parameter>
+    <parameter xml:lang="pt_BR" id="HIDDEN" gdatype="gboolean" name="Oculto" descr="Se definido como VERDADEIRO, os caracteres serão todos exibidos como um único caractere &quot;invisível&quot;; adequado para digitação de senhas"></parameter>
+    <parameter xml:lang="ru" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="rw" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="sk" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="sl" id="HIDDEN" gdatype="gboolean" name="Skrito" descr="Izbrana možnost omogoča prikaz znakov z enoznačnim &apos;nevidnim&apos; znakom za uporabo pri vnosu gesel"></parameter>
+    <parameter xml:lang="sq" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="sr" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="sr@Latn" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="sv" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="tr" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="uk" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="vi" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="zh_CN" id="HIDDEN" gdatype="gboolean" name="隐藏" descr="若设为 TRUE，所有字符均将显示为一个“不可见”的字符，适用于输入密码"></parameter>
+    <parameter xml:lang="zh_HK" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+    <parameter xml:lang="zh_TW" id="HIDDEN" gdatype="gboolean" name="Hidden" descr="If set to TRUE, characters are all displayed using a single 'invisible' character, suitable to enter passwords"></parameter>
+  </parameters>
+</data-set-spec>

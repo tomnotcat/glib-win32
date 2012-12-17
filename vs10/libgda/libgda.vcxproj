@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBGDA_EXPORTS;GETTEXT_PACKAGE="libgda-5.0";LIBGDA_ABI_NAME="libgda-5.0";ABI_VERSION="5.0";PACKAGE_VERSION="5.1";LIBGDAPREFIX="";LIBGDADATA="";LIBGDALIB="";LIBGDABIN="";LIBGDASBIN="";LIBGDASYSCONF="";LIBGDALIBEXEC="";SEARCH_LIB_PATH="";PNAME="SQLCipher";CLASS_PREFIX="GdaSQLCipher";SIZEOF_UNSIGNED_INT=4;SQLITE_ENABLE_COLUMN_METADATA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libxml2;libgda-5.0.3;libgda-5.0.3\libgda;libgda-5.0.3\libgda\sqlite;libgda-5.0.3\libgda\sqlite\sqlite-src;libgda-5.0.3\libgda\sqlite\virtual;libgda-5.0.3\libgda\handlers;libgda-5.0.3\libgda\thread-wrapper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libxml2;libgda-5.1.1;libgda-5.1.1\libgda;libgda-5.1.1\libgda\sqlite;libgda-5.1.1\libgda\sqlite\sqlite-src;libgda-5.1.1\libgda\sqlite\virtual;libgda-5.1.1\libgda\handlers;libgda-5.1.1\libgda\thread-wrapper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -76,7 +76,7 @@ Copy "..\Debug\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBGDA_EXPORTS;GETTEXT_PACKAGE="libgda-5.0";LIBGDA_ABI_NAME="libgda-5.0";ABI_VERSION="5.0";PACKAGE_VERSION="5.1";LIBGDAPREFIX="";LIBGDADATA="";LIBGDALIB="";LIBGDABIN="";LIBGDASBIN="";LIBGDASYSCONF="";LIBGDALIBEXEC="";SEARCH_LIB_PATH="";PNAME="SQLCipher";CLASS_PREFIX="GdaSQLCipher";SIZEOF_UNSIGNED_INT=4;SQLITE_ENABLE_COLUMN_METADATA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libxml2;libgda-5.0.3;libgda-5.0.3\libgda;libgda-5.0.3\libgda\sqlite;libgda-5.0.3\libgda\sqlite\sqlite-src;libgda-5.0.3\libgda\sqlite\virtual;libgda-5.0.3\libgda\handlers;libgda-5.0.3\libgda\thread-wrapper</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\..\include;..\..\include\glib-2.0;..\..\lib\glib-2.0\include;..\..\include\libxml2;libgda-5.1.1;libgda-5.1.1\libgda;libgda-5.1.1\libgda\sqlite;libgda-5.1.1\libgda\sqlite\sqlite-src;libgda-5.1.1\libgda\sqlite\virtual;libgda-5.1.1\libgda\handlers;libgda-5.1.1\libgda\thread-wrapper</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -94,76 +94,6 @@ Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="libgda-5.0.3\libgda\csv.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\dir-blob-op.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-attributes-manager.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-batch.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-blob-op.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-column.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-config.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-connection-event.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-connection-internal.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-connection-private.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-connection-sqlite.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-connection.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-custom-marshal.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-access-wrapper.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-comparator.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-handler.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-meta-wrapper.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-model-array.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-model-dir.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-model-dsn-list.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-model-iter-extra.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-model-iter.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-model-private.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-model.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-pivot.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-proxy.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-select-extra.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-data-select.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-debug-macros.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-decl.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-enums.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-holder.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-lockable.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-log.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-marshal.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-meta-store-extra.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-meta-store.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-meta-struct-private.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-meta-struct.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-mutex.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-quark-list.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-repetitive-statement.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-row.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-server-operation-private.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-server-provider-extra.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-server-provider-private.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-server-provider.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-set.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-sql-builder.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-statement-extra.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-statement-priv.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-statement.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-transaction-status-private.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-transaction-status.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-tree-manager.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-tree-mgr-columns.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-tree-mgr-label.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-tree-mgr-schemas.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-tree-mgr-select.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-tree-mgr-tables.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-tree-node.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-tree.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-types.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-util.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-value.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\gda-xa-transaction.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\global.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\libgda-global-variables.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\libgda.h" />
-    <ClInclude Include="libgda-5.0.3\libgda\md5.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +123,7 @@ Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
     <ClCompile Include="gda-meta-store-vs10.c" />
     <ClCompile Include="gda-meta-struct-io-vs10.c" />
     <ClCompile Include="gda-meta-struct-vs10.c" />
+    <ClCompile Include="gda-quark-list-vs10.c" />
     <ClCompile Include="gda-server-operation-vs10.c" />
     <ClCompile Include="gda-server-provider-extra-vs10.c" />
     <ClCompile Include="gda-set-vs10.c" />
@@ -223,56 +154,55 @@ Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
     <ClCompile Include="gda-vconnection-hub-vs10.c" />
     <ClCompile Include="gda-vprovider-data-model-vs10.c" />
     <ClCompile Include="gda-xa-transaction-vs10.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\binreloc\gda-binreloc.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\dir-blob-op.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-batch.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-blob-op.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-column.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-connection-event.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-custom-marshal.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-data-comparator.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-data-handler.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-enum-types.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-init.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-lockable.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-log.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-marshal.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-mutex.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-quark-list.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-repetitive-statement.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-row.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-server-provider.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-transaction-status.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\gda-types.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\handlers\gda-handler-boolean.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\handlers\gda-handler-string.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\handlers\gda-handler-time.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\handlers\gda-handler-type.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\libcsv.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\md5c.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\providers-support\gda-pstmt.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\delimiter.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-sql-parser-enum-types.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-statement-struct-delete.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-statement-struct-insert.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-statement-struct-parts.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-statement-struct-pspec.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-statement-struct-select.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-statement-struct-trans.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-statement-struct-unknown.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-statement-struct-update.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\gda-statement-struct-util.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sql-parser\parser.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-ddl.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-handler-bin.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-handler-boolean.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-pstmt.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\gda-sqlite-util.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\virtual\gda-virtual-connection.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\virtual\gda-virtual-provider.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\sqlite\virtual\gda-vprovider-hub.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\thread-wrapper\gda-thread-blob-op.c" />
-    <ClCompile Include="libgda-5.0.3\libgda\thread-wrapper\gda-thread-meta.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\binreloc\gda-binreloc.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\dir-blob-op.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-batch.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-blob-op.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-column.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-connection-event.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-custom-marshal.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-data-comparator.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-data-handler.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-enum-types.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-init.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-lockable.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-log.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-marshal.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-mutex.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-repetitive-statement.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-row.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-server-provider.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-transaction-status.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\gda-types.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\handlers\gda-handler-boolean.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\handlers\gda-handler-string.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\handlers\gda-handler-time.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\handlers\gda-handler-type.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\libcsv.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\md5c.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\providers-support\gda-pstmt.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\delimiter.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-sql-parser-enum-types.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-statement-struct-delete.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-statement-struct-insert.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-statement-struct-parts.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-statement-struct-pspec.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-statement-struct-select.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-statement-struct-trans.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-statement-struct-unknown.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-statement-struct-update.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\gda-statement-struct-util.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sql-parser\parser.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sqlite\gda-sqlite-ddl.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sqlite\gda-sqlite-handler-bin.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sqlite\gda-sqlite-handler-boolean.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sqlite\gda-sqlite-pstmt.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sqlite\gda-sqlite-util.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sqlite\virtual\gda-virtual-connection.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sqlite\virtual\gda-virtual-provider.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\sqlite\virtual\gda-vprovider-hub.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\thread-wrapper\gda-thread-blob-op.c" />
+    <ClCompile Include="libgda-5.1.1\libgda\thread-wrapper\gda-thread-meta.c" />
     <ClCompile Include="sqlite3-vs10.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

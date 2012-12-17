@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2006 - 2008 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2006 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2006 - 2011 Murray Cumming <murrayc@murrayc.com>
+ * Copyright (C) 2006 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2007 Brecht Sanders <brecht@edustria.be>
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2010 David King <davidk@openismus.com>
@@ -54,10 +54,10 @@ extern gchar *gda_lang_locale;
 #include <libgda/gda-data-model-private.h> /* For gda_data_model_add_data_from_xml_node() */
 #include <libgda/gda-util.h>
 #include <libgda/gda-data-model-array.h>
+#include <io.h>
 
 #include <libxml/xmlreader.h>
 #include "csv.h"
-#include <io.h>
 
 typedef enum {
 	FORMAT_XML_DATA,
@@ -330,7 +330,6 @@ gda_data_model_import_data_model_init (GdaDataModelIface *iface)
 static void
 gda_data_model_import_init (GdaDataModelImport *model, G_GNUC_UNUSED GdaDataModelImportClass *klass)
 {
-	g_return_if_fail (GDA_IS_DATA_MODEL_IMPORT (model));
 	model->priv = g_new0 (GdaDataModelImportPrivate, 1);
 	model->priv->random_access = FALSE; /* cursor mode is the default */
 	model->priv->columns = NULL;
@@ -557,8 +556,8 @@ gda_data_model_import_set_property (GObject *object,
 			else {
 				/* file mmaping */
 				struct stat _stat;
-                HANDLE hFile;
                 HANDLE view;
+                HANDLE hFile;
 				if (fstat (model->priv->src.mapped.fd, &_stat) < 0) {
 					/* error */
 					add_error (model, strerror(errno));
@@ -782,8 +781,8 @@ gda_data_model_import_get_property (GObject *object,
  *      <itemizedlist>
  *         <listitem><para>ENCODING (string): specifies the encoding of the data in the file</para></listitem>
  *         <listitem><para>SEPARATOR (string): specifies the CSV separator (comma as default)</para></listitem>
- *         <listitem><para>QUOTE (string): specifies the character used to as quote park (double quote as default)</para></listitem>
- *         <listitem><para>TITLE_AS_FIRST_LINE (boolean): consider that the first line of the file contains columns' titles</para></listitem>
+ *         <listitem><para>QUOTE (string): specifies the character used as quote (double quote as default)</para></listitem>
+ *         <listitem><para>NAMES_ON_FIRST_LINE (boolean): consider that the first line of the file contains columns' titles (note that the TITLE_AS_FIRST_LINE option is also accepted as a synonym)</para></listitem>
  *         <listitem><para>G_TYPE_&lt;column number&gt; (GType): specifies the type of value expected in column &lt;column number&gt;</para></listitem>
  *      </itemizedlist>
  *   </para></listitem>
@@ -870,12 +869,13 @@ init_csv_import (GdaDataModelImport *model)
 {
 	gboolean title_first_line = FALSE;
 	gint nbcols;
-    
+
 	GSList *row;
 	gint col;
 	const GValue *cvalue;
 	if (model->priv->options)
-		title_first_line = find_option_as_boolean (model, "TITLE_AS_FIRST_LINE", FALSE);
+		title_first_line = find_option_as_boolean (model, "NAMES_ON_FIRST_LINE", FALSE) ||
+			find_option_as_boolean (model, "TITLE_AS_FIRST_LINE", FALSE);
 
 	g_assert (model->priv->format == FORMAT_CSV);
 
@@ -1973,9 +1973,10 @@ gda_data_model_import_iter_next (GdaDataModel *model, GdaDataModelIter *iter)
 		     plist && vlist;
 		     plist = plist->next, vlist = vlist->next) {
 			GError *lerror = NULL;
-			if (! gda_holder_set_value (GDA_HOLDER (plist->data),
-						    (GValue *) vlist->data, &lerror))
+			if (! gda_holder_take_value ((GdaHolder*) plist->data,
+						     (GValue *) vlist->data, &lerror))
 				gda_holder_force_invalid_e (GDA_HOLDER (plist->data), lerror);
+			vlist->data = NULL;
 		}
 		if (plist || vlist) {
 			if (plist) {
@@ -2043,7 +2044,7 @@ gda_data_model_import_iter_prev (GdaDataModel *model, GdaDataModelIter *iter)
 		     plist && vlist;
 		     plist = plist->next, vlist = vlist->next) {
 			GError *lerror = NULL;
-			if (! gda_holder_set_value (GDA_HOLDER (plist->data),
+			if (! gda_holder_set_value ((GdaHolder*) plist->data,
 						    (GValue *) vlist->data, &lerror))
 				gda_holder_force_invalid_e (GDA_HOLDER (plist->data), lerror);
 		}

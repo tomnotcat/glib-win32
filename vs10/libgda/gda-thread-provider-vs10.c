@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009 Bas Driessen <bas.driessen@xobas.com>
- * Copyright (C) 2009 - 2010 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2009 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -340,7 +340,7 @@ gda_thread_provider_create_connection (GdaServerProvider *provider)
 typedef struct {
 	const gchar *dsn;
 
-	const gchar *prov_name;
+	gchar *prov_name;
 	const gchar *cnc_string;
 
 	const gchar *auth_string;
@@ -374,26 +374,25 @@ create_connection_data (GdaServerProvider *provider, GdaConnection *cnc, GdaQuar
 {
 	GdaThreadWrapper *wr = NULL;
 	gboolean wr_created = FALSE;
-    	gchar *dsn, *auth_string, *cnc_string;
-	GdaConnectionOptions options;
-	NewConnectionData *data = NULL;
-	static GStaticMutex mutex = G_STATIC_MUTEX_INIT;
-    	/* open sub connection */
-	GdaConnection *sub_cnc;
+    	GdaConnection *sub_cnc;
 	GError *error = NULL;
 	guint jid;
+    	GdaConnectionOptions options;
+	NewConnectionData *data = NULL;
+    	gchar *dsn, *auth_string, *cnc_string;
     	ThreadConnectionData *cdata;
+	static GStaticMutex mutex = G_STATIC_MUTEX_INIT;
 	g_static_mutex_lock (&mutex);
 
 	/* test if connection has to be opened using a DSN or a connection string */
+
 
 	g_object_get (cnc, "dsn", &dsn, 
 		      "auth-string", &auth_string,
 		      "cnc-string", &cnc_string, 
 		      "options", &options,
 		      NULL);
-	if (dsn) {
-        		
+	if (dsn) {		
 		GdaDsnInfo *dsninfo;
 		data = g_new0 (NewConnectionData, 1);
 		data->dsn = dsn;
@@ -404,17 +403,16 @@ create_connection_data (GdaServerProvider *provider, GdaConnection *cnc, GdaQuar
 						  dsninfo->provider);
 	}
 	else if (cnc_string) {
+		const gchar *tmp;
 		data = g_new0 (NewConnectionData, 1);
 		if (params) {
-			data->prov_name = gda_quark_list_find (params, "PROVIDER_NAME");
-			if (data->prov_name)
-				data->prov_name = g_strdup (data->prov_name);
+			tmp = gda_quark_list_find (params, "PROVIDER_NAME");
+			data->prov_name = tmp ? g_strdup (tmp) : NULL;
 		}
 		else {
 			params = gda_quark_list_new_from_string (cnc_string);
-			data->prov_name = gda_quark_list_find (params, "PROVIDER_NAME");
-			if (data->prov_name)
-				data->prov_name = g_strdup (data->prov_name);
+			tmp = gda_quark_list_find (params, "PROVIDER_NAME");
+			data->prov_name = tmp ? g_strdup (tmp) : NULL;
 			gda_quark_list_free (params);
 			params = NULL;
 		}
@@ -441,6 +439,7 @@ create_connection_data (GdaServerProvider *provider, GdaConnection *cnc, GdaQuar
 		g_static_mutex_unlock (&mutex);
 	}
 	
+	/* open sub connection */
 
 	g_assert (data);
 	data->auth_string = auth_string;
@@ -507,8 +506,8 @@ gda_thread_provider_open_connection (GdaServerProvider *provider, GdaConnection 
 				     G_GNUC_UNUSED guint *task_id, GdaServerProviderAsyncCallback async_cb,
 				     G_GNUC_UNUSED gpointer cb_data)
 {
-    ThreadConnectionData *cdata;
-    	gpointer result;
+	ThreadConnectionData *cdata;
+	gpointer result;
 	GError *error = NULL;
 	guint jid;
 	g_return_val_if_fail (GDA_IS_THREAD_PROVIDER (provider), FALSE);
@@ -521,13 +520,11 @@ gda_thread_provider_open_connection (GdaServerProvider *provider, GdaConnection 
                 return FALSE;
 	}
 
-	
 	cdata =_gda_thread_connection_get_data (cnc);
 	if (!cdata)
 		cdata = create_connection_data (provider, cnc, params);
 	if (!cdata)
 		return FALSE;
-
 
 	jid = gda_thread_wrapper_execute (cdata->wrapper,
 					  (GdaThreadWrapperFunc) sub_thread_open_connection, cdata->sub_connection,
@@ -1645,6 +1642,7 @@ gda_thread_provider_statement_prepare (GdaServerProvider *provider, GdaConnectio
 typedef struct {
 	GdaServerProvider *prov;
 	GdaConnection *cnc;
+	guint exec_slowdown;
 	GdaStatement *stmt;
 	GdaSet *params;
 	GdaStatementModelUsage model_usage;
@@ -1662,12 +1660,11 @@ sub_thread_execute_statement (ExecuteStatementData *data, GError **error)
 	/* WARNING: function executed in sub thread! */
 	GObject *retval;
 	
-#ifdef GDA_DEBUG_NO
-	g_print ("%p Starting sleep in %s()...\n", g_thread_self (), __FUNCTION__);
-	sleep (10);
-	g_print ("%p finished sleeping in %s().\n", g_thread_self (), __FUNCTION__);
-#endif
-
+	if (data->exec_slowdown) {
+		g_print ("Starting sleeping in thread %p...\n", g_thread_self ());
+		g_usleep (data->exec_slowdown);
+		g_print ("End sleeping in thread %p\n", g_thread_self ());
+	}
 	retval = PROV_CLASS (data->prov)->statement_execute (data->prov,
 							     data->cnc,
 							     data->stmt,
@@ -1682,11 +1679,19 @@ sub_thread_execute_statement (ExecuteStatementData *data, GError **error)
 #endif
 
 	if (GDA_IS_DATA_MODEL (retval)) {
-		/* substitute the GdaDataSelect with a GdaThreadRecordset */
-		GdaDataModel *model;
-		model = _gda_thread_recordset_new (data->real_cnc, data->wrapper, GDA_DATA_MODEL (retval));
-		g_object_unref (retval);
-		retval = (GObject*) model;
+		if (GDA_IS_DATA_SELECT (retval) && (data->model_usage & GDA_STATEMENT_MODEL_OFFLINE) &&
+		    ! gda_data_select_prepare_for_offline ((GdaDataSelect*) retval, error)) {
+			g_object_unref (retval);
+			retval = NULL;
+		}
+
+		if (retval) {
+			/* substitute the GdaDataSelect with a GdaThreadRecordset */
+			GdaDataModel *model;
+			model = _gda_thread_recordset_new (data->real_cnc, data->wrapper, GDA_DATA_MODEL (retval));
+			g_object_unref (retval);
+			retval = (GObject*) model;
+		}
 	}
 
 	return retval;
@@ -1715,13 +1720,14 @@ gda_thread_provider_statement_execute (GdaServerProvider *provider, GdaConnectio
 			     "%s", _("Connection is closed"));
 		return NULL;
 	}
-	
+
 	if (async_cb) {
-		ExecuteStatementData *wdata;
-        	ThreadConnectionAsyncTask *atd;
+		ExecuteStatementData *wdata;		
+		ThreadConnectionAsyncTask *atd;
 		wdata = g_new0 (ExecuteStatementData, 1);
 		wdata->prov = cdata->cnc_provider;
 		wdata->cnc = cdata->sub_connection;
+		g_object_get (cnc, "execution-slowdown", &(wdata->exec_slowdown), NULL);
 		wdata->stmt = stmt;
 		wdata->params = params;
 		wdata->model_usage = model_usage;
@@ -1730,8 +1736,7 @@ gda_thread_provider_statement_execute (GdaServerProvider *provider, GdaConnectio
 		
 		wdata->real_cnc = cnc;
 		wdata->wrapper = cdata->wrapper;
-		
-	
+
 		atd = g_new0 (ThreadConnectionAsyncTask, 1);
 		atd->async_cb = async_cb;
 		atd->cb_data = cb_data;
@@ -1751,6 +1756,7 @@ gda_thread_provider_statement_execute (GdaServerProvider *provider, GdaConnectio
 
 		wdata.prov = cdata->cnc_provider;
 		wdata.cnc = cdata->sub_connection;
+		g_object_get (cnc, "execution-slowdown", &(wdata.exec_slowdown), NULL);
 		wdata.stmt = stmt;
 		wdata.params = params;
 		wdata.model_usage = model_usage;

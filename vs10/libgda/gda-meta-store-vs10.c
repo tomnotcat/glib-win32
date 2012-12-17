@@ -1,10 +1,10 @@
 /*
  * Copyright (C) 2008 - 2009 Bas Driessen <bas.driessen@xobas.com>
  * Copyright (C) 2008 - 2011 Murray Cumming <murrayc@murrayc.com>
- * Copyright (C) 2008 - 2011 Vivien Malerba <malerba@gnome-db.org>
+ * Copyright (C) 2008 - 2012 Vivien Malerba <malerba@gnome-db.org>
  * Copyright (C) 2010 David King <davidk@openismus.com>
  * Copyright (C) 2010 Jonh Wendell <jwendell@gnome.org>
- * Copyright (C) 2011 Daniel Espinosa <esodan@gmail.com>
+ * Copyright (C) 2011 - 2012 Daniel Espinosa <despinosa@src.gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,8 +33,9 @@
  *      version 1 for libgda between 4.0.0 and 4.1.3
  *      version 2 for libgda >= 4.1.4: added the "_table_indexes" and "_index_column_usage" tables
  *      version 3 for libgda >= 4.2.4: added the "__declared_fk" table
+ *      version 4 for libgda >= 5.2.0: added "schema_default" to "_schemata" table
  */
-#define CURRENT_SCHEMA_VERSION "3"
+#define CURRENT_SCHEMA_VERSION "4"
 
 #include <string.h>
 #include <glib/gi18n-lib.h>
@@ -63,6 +64,202 @@
 #include <libgda/gda-connection-sqlite.h>
 #include "gda-types.h"
 #include "gda-data-meta-wrapper.h"
+
+static GdaMetaContext* 
+gda_meta_context_copy (GdaMetaContext *ctx)
+{
+	GdaMetaContext *n = gda_meta_context_new (gda_meta_context_get_table (ctx));
+	gda_meta_context_set_columns (n, ctx->columns, NULL);
+	return n;
+}
+
+/*
+   Register GdaMetaContext type
+*/
+GType
+gda_meta_context_get_type (void)
+{
+	static GType type = 0;
+
+	if (G_UNLIKELY (type == 0)) {
+		static GStaticMutex registering = G_STATIC_MUTEX_INIT;
+		g_static_mutex_lock (&registering);
+                if (type == 0)
+			type = g_boxed_type_register_static ("GdaMetaContext",
+							     (GBoxedCopyFunc) gda_meta_context_copy,
+							     (GBoxedFreeFunc) gda_meta_context_free);
+		g_static_mutex_unlock (&registering);
+	}
+
+	return type;
+}
+
+/*
+	IMPLEMENTATION NOTES:
+	In this implementation, for 5.2, the new API for GdaMetaContext struct doesn't touch size, column_names and
+	column_values members, but added a HashTable member in order to make more easy to access to column/value
+	elements.
+	
+	Take care about to use gda_meta_context_free or g_free on this struct if you don't use the new API because 
+	unexpected results.
+	
+	Changes include: table string is copied and columns are stored in a GHashTable witch it's reference counting
+	is incremented. When is freed, table string is freed and hash ref is decremented.
+*/
+
+
+/**
+ * gda_meta_context_new:
+ * 
+ * Creates a new #GdaMetaContext struct with a #GHashTable to store column/value pairs.
+ *
+ * Return: (transfer full): a new #GdaMetaContext struct with a new created hash to
+ * store column name/value pairs.
+ *
+ * Since: 5.2
+ */
+GdaMetaContext*
+gda_meta_context_new ()
+{
+	GdaMetaContext *ctx = g_new0 (GdaMetaContext, 1);
+	ctx->table_name = g_strdup ("");
+	ctx->columns = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify) g_free, 
+							(GDestroyNotify) gda_value_free);
+	return ctx;
+}
+
+/**
+ * gda_meta_context_set_table:
+ * @ctx: a #GdaMetaContext struct to set table to
+ * @table: a string with the table's name to use in context
+ * 
+ * Set table's name to use in the context. The table is one of <link linkend="information_schema">database
+ * schema</link> used to store meta information about the database. Use "_tables" to update meta information
+ * about database's tables.
+ *
+ * Since: 5.2
+ */
+void
+gda_meta_context_set_table (GdaMetaContext *ctx, const gchar *table_name)
+{
+	g_return_if_fail (ctx && table_name);
+	ctx->table_name = g_strdup (table_name);
+}
+
+/**
+ * gda_meta_context_get_table:
+ * @ctx: a #GdaMetaContext struct to get table's name from
+ * 
+ * Get table's name to used in the context.
+ *
+ * Return: (transfer none): A string with the table's name used in the context.
+ *
+ * Since: 5.2
+ */
+const gchar*
+gda_meta_context_get_table (GdaMetaContext *ctx)
+{
+	g_return_val_if_fail (ctx, NULL);
+	return ctx->table_name;
+}
+
+/**
+ * gda_meta_context_set_column:
+ * @ctx: a #GdaMetaContext struct to add column/value pais to
+ * @column: (transfer none): the column's name
+ * @value: (transfer none): the column's value
+ * @cnc: (allow-none): a #GdaConnection to be used when identifier are normalized, or NULL
+ * 
+ * Sets a new column/value pair to the given context @ctx. Column, must be a column in the given table's
+ * name setted by #gda_meta_context_set_table () (a table in the <link linkend="information_schema">database
+ * schema</link>). If the given @column already exists it's value is overwrited.
+ *
+ * Column's name and value is copied and destroyed when #gda_meta_context_free is called.
+ *
+ * Since: 5.2
+ */
+void
+gda_meta_context_set_column (GdaMetaContext *ctx, const gchar* column, const GValue* value, GdaConnection *cnc)
+{	GValue *v;
+	g_return_if_fail (ctx && column && value);
+
+	if (G_VALUE_HOLDS_STRING((GValue*)value)) {
+		v = gda_value_new (G_TYPE_STRING);
+		g_value_take_string (v, gda_sql_identifier_quote (g_value_get_string ((GValue*)value), cnc, NULL,
+										TRUE, FALSE));
+		g_hash_table_insert (ctx->columns, (gpointer) g_strdup (column), (gpointer) v);
+	}
+	else
+		g_hash_table_insert (ctx->columns, (gpointer) g_strdup (column), (gpointer) gda_value_copy (value));
+}
+
+/**
+ * gda_meta_context_set_columns:
+ * @ctx: a #GdaMetaContext struct to set colums to
+ * @columns: (element-type utf8 GLib.Value): a #GHashTable with the table's columns' name and their values
+ * to use in context.
+ * @cnc: (allow-none): a #GdaConnection to used to normalize identifiers quoting, or NULL
+ * 
+ * Set columns to use in the context. The #GHashTable use column's name as key and a #GValue as value,
+ * to represent its value.
+ * 
+ * @columns incements its reference counting. Is recommended to use #gda_meta_context_free in order to free them.
+ *
+ * Since: 5.2
+ */
+void
+gda_meta_context_set_columns (GdaMetaContext *ctx, GHashTable *columns, GdaConnection *cnc)
+{	GHashTableIter iter;
+	gpointer key, value;
+	gint i = 0; // FIXME: Code to remove
+	g_return_if_fail (ctx && columns && cnc);
+	g_return_if_fail (GDA_IS_CONNECTION (cnc));
+	g_hash_table_unref (ctx->columns);
+	ctx->columns = g_hash_table_ref (columns);
+	// FIXME: Old but necesary initialization
+	// FIXME: Remove code that use column_names and column_values arrays
+	if (ctx->column_names)
+		g_free (ctx->column_names);
+	if (ctx->column_values)
+		g_free (ctx->column_values);
+	ctx->column_names = g_new (gchar*, g_hash_table_size (ctx->columns));
+	ctx->column_values = g_new (GValue*, g_hash_table_size (ctx->columns));
+	
+
+	g_hash_table_iter_init (&iter, ctx->columns);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		// Normalize identifier quote
+		if (G_VALUE_HOLDS_STRING((GValue*)value)) {
+			GValue *v = gda_value_new (G_TYPE_STRING);
+			g_value_take_string (v, gda_sql_identifier_quote (g_value_get_string ((GValue*)value), cnc, NULL,
+											TRUE, FALSE));
+			g_hash_table_insert (ctx->columns, key, (gpointer) v);
+		}
+
+		// FIXME: Code to remove
+		ctx->column_names[i] = (gchar*) key;
+		ctx->column_values[i] = (GValue*) value;
+		i++;
+	}
+}
+
+/**
+ * gda_meta_context_free:
+ * @ctx: a #GdaMetaContext struct to free
+ * 
+ * Frees any resources taken by @ctx struct.
+ *
+ * Since: 5.2
+ */
+void
+gda_meta_context_free (GdaMetaContext *ctx)
+{
+	g_return_if_fail (ctx);
+	g_free (ctx->table_name);
+	g_hash_table_unref (ctx->columns);
+	g_free (ctx);
+	// REMIND: ctx->column_names and ctx->column_values must not be freed
+}
 
 /*
  * Main static functions
@@ -114,7 +311,7 @@ enum {
  * contains predefined statements for data selection and modifications
  */
 typedef struct {
-	GSList       *columns;
+	GSList       *columns; /* list of TableColumn */
 
 	/* data access statements */
 	GdaStatement *current_all;
@@ -385,9 +582,9 @@ gda_meta_store_class_init (GdaMetaStoreClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	/**
-	 * GdaMetaStore::suggest-update
+	 * GdaMetaStore::suggest-update:
 	 * @store: the #GdaMetaStore instance that emitted the signal
-	 * @suggest: the suggested update, as a #GdaMetaContext structure
+	 * @suggest: (type Gda.MetaContext): the suggested update, as a #GdaMetaContext structure
 	 *
 	 * This signal is emitted when the contents of a table should be updated (data to update or insert only;
 	 * deleting data is done automatically). This signal is used for internal purposes by the #GdaConnection
@@ -403,11 +600,11 @@ gda_meta_store_class_init (GdaMetaStoreClass *klass)
 		G_STRUCT_OFFSET (GdaMetaStoreClass, suggest_update),
 		suggest_update_accumulator, NULL,
 		_gda_marshal_ERROR__METACONTEXT, G_TYPE_ERROR,
-		1, GDA_TYPE_META_CONTEXT);
+		1, G_TYPE_POINTER);
 	/**
-	 * GdaMetaStore::meta-changed
+	 * GdaMetaStore::meta-changed:
 	 * @store: the #GdaMetaStore instance that emitted the signal
-	 * @changes: (element-type Gda.MetaStoreChange): a list of changes made, as a #GSList of pointers to #GdaMetaStoreChange (which must not be modified)
+	 * @changes: (type GLib.SList) (element-type Gda.MetaStoreChange): a list of changes made, as a #GSList of pointers to #GdaMetaStoreChange (which must not be modified)
 	 *
 	 * This signal is emitted when the @store's contents have changed (the changes are in the @changes list)
 	 */
@@ -418,9 +615,9 @@ gda_meta_store_class_init (GdaMetaStoreClass *klass)
 		G_STRUCT_OFFSET (GdaMetaStoreClass, meta_changed),
 		NULL, NULL,
 		_gda_marshal_VOID__SLIST, G_TYPE_NONE,
-		1, GDA_TYPE_SLIST);
+		1, G_TYPE_POINTER);
 	/**
-	 * GdaMetaStore::meta-reset
+	 * GdaMetaStore::meta-reset:
 	 * @store: the #GdaMetaStore instance that emitted the signal
 	 *
 	 * This signal is emitted when the @store's contents have been reset completely and when
@@ -893,9 +1090,8 @@ initialize_cnc_struct (GdaMetaStore *store, GError **error)
 {
 	gboolean schema_present;
 	GdaMetaStoreClass *klass;
-    	/* set version info to CURRENT_SCHEMA_VERSION */
-	GdaSet *params;
-    GSList *list;
+    	GSList *list;
+        	GdaSet *params;
 	gboolean allok = TRUE;
 	GdaServerProvider *prov;
 	g_return_val_if_fail (GDA_IS_CONNECTION (store->priv->cnc), FALSE);
@@ -913,7 +1109,7 @@ initialize_cnc_struct (GdaMetaStore *store, GError **error)
 
 	/* assume schema not present => create it */
 	klass = (GdaMetaStoreClass *) G_OBJECT_GET_CLASS (store);
-	allok = TRUE;
+
 	if (!prepare_server_operations (store, error))
 		return FALSE;
 
@@ -933,6 +1129,7 @@ initialize_cnc_struct (GdaMetaStore *store, GError **error)
 	if (!allok)
 		return FALSE;
 
+	/* set version info to CURRENT_SCHEMA_VERSION */
 
 	if (! gda_statement_get_parameters (klass->cpriv->prep_stmts[STMT_SET_VERSION], &params, NULL)) {
 		g_set_error (error, GDA_META_STORE_ERROR, GDA_META_STORE_INCORRECT_SCHEMA_ERROR,
@@ -1102,6 +1299,20 @@ create_server_operation_for_view (G_GNUC_UNUSED GHashTable *specific_hash,
 	return NULL;
 }
 
+/*
+ * Returns: -1 if column not found
+ */
+static gint
+column_name_to_index (TableInfo *tinfo, const gchar *column_name)
+{
+	GSList *list;
+	gint i;
+	for (i = 0, list = tinfo->columns; list; list = list->next, i++)
+		if (!strcmp (TABLE_COLUMN (list->data)->column_name, column_name))
+			return i;
+	return -1;
+}
+
 static DbObject *create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr node, GError **error);
 static DbObject *create_view_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr node, GError **error);
 static GSList *reorder_db_objects (GSList *objects, GHashTable *hash);
@@ -1121,7 +1332,7 @@ create_db_objects (GdaMetaStoreClass *klass, GdaMetaStore *store)
 	GError **error = &lerror;
 	gchar *file;
 	xmlDocPtr doc = NULL;
-
+    	GSList *list;
 	/* load information schema's structure XML file */
 	file = gda_gbr_get_file_path (GDA_DATA_DIR, LIBGDA_ABI_NAME, "information_schema.xml", NULL);
 	if (g_file_test (file, G_FILE_TEST_EXISTS))
@@ -1154,25 +1365,25 @@ create_db_objects (GdaMetaStoreClass *klass, GdaMetaStore *store)
 		if (!strcmp ((gchar *) node->name, "specifics")) {
 			xmlNodePtr snode;
 			for (snode = node->children; snode; snode = snode->next) {
-                xmlChar *pname;
-                xmlNodePtr rnode;
-				gboolean pname_used;
+                				xmlNodePtr rnode;
+				gboolean pname_used = FALSE;
+                				xmlChar *pname;
 				if (strcmp ((gchar *) snode->name, "provider"))
 					continue;
-				
+
 				pname = xmlGetProp (snode, BAD_CAST "name");
 				if (!pname) {
 					g_warning ("<provider> section ignored because no provider name specified");
 					continue; /* ignore this section */
 				}
 
-				pname_used = FALSE;
+
 				for (rnode = snode->children; rnode; rnode = rnode->next) {
 					if (!strcmp ((gchar *) rnode->name, "replace") ||
 					    !strcmp ((gchar *) rnode->name, "ignore")) {
 						xmlChar *context;
-                        ProviderSpecificKey *key ;
-                        ProviderSpecificValue *val;
+                        ProviderSpecificKey *key;
+						ProviderSpecificValue *val;
 						context = xmlGetProp (rnode, BAD_CAST "context");
 						if (!context) {
 							g_warning ("<%s> section ignored because no context specified",
@@ -1227,20 +1438,69 @@ create_db_objects (GdaMetaStoreClass *klass, GdaMetaStore *store)
 			g_error ("Information schema structure error: %s",
 				 lerror && lerror->message ? lerror->message : "No detail");
 	}
-}
 
-/*
- * Returns: -1 if column not found
- */
-static gint
-column_name_to_index (TableInfo *tinfo, const gchar *column_name)
-{
-	GSList *list;
-	gint i;
-	for (i = 0, list = tinfo->columns; list; list = list->next, i++)
-		if (!strcmp (TABLE_COLUMN (list->data)->column_name, column_name))
-			return i;
-	return -1;
+	/* make sure that for each Table DbObject, every TableFKey in @fk_list references a primary key of the referenced table */
+
+	for (list = klass->cpriv->db_objects; list; list = list->next) {
+		DbObject *dbo;
+		TableInfo *tinfo;
+		GSList *fklist;
+		dbo = DB_OBJECT (list->data);
+
+		if (dbo->obj_type != GDA_SERVER_OPERATION_CREATE_TABLE)
+			continue;
+
+		tinfo = TABLE_INFO (dbo);
+		for (fklist = tinfo->fk_list; fklist; fklist = fklist->next) {
+			TableFKey *tfk;
+			TableInfo *reftinfo;
+			gint i;
+			tfk = (TableFKey*) fklist->data;
+			if (tfk->table_info != dbo)
+				g_error ("Information schema structure error for table '%s': "
+					 "Foreign key structure attached to wrong table", dbo->obj_name);
+			if (!tfk->depend_on || (tfk->depend_on->obj_type != GDA_SERVER_OPERATION_CREATE_TABLE))
+				g_error ("Information schema structure error for table '%s': "
+					 "Foreign key references an object '%s' which is not a table",
+					 dbo->obj_name, tfk->depend_on ? tfk->depend_on->obj_name : "nothing referenced");
+			reftinfo = TABLE_INFO (tfk->depend_on);
+			if (tfk->cols_nb <= 0)
+				g_error ("Information schema structure error for table '%s': "
+					 "Foreign key is not composed of at least one column", dbo->obj_name);
+			if (!tfk->fk_cols_array || !tfk->fk_names_array ||
+			    !tfk->ref_pk_cols_array || !tfk->ref_pk_names_array)
+				g_error ("Information schema structure error for table '%s': "
+					 "Foreign key is not completely defined", dbo->obj_name);
+			for (i = 0; i < tfk->cols_nb; i++) {
+				gint j;
+				for (j = 0; j < tfk->cols_nb; j++) {
+					if ((i != j) && (tfk->ref_pk_cols_array [i] == tfk->ref_pk_cols_array [j]))
+						g_error ("Information schema structure error for table '%s': "
+							 "column is referenced twice, at position %d and %d", dbo->obj_name,
+							 tfk->ref_pk_cols_array [i], tfk->ref_pk_cols_array [j]);
+				}
+			}
+			for (i = 0; i < tfk->cols_nb; i++) {
+				TableColumn *tcol;
+				tcol = g_slist_nth_data (reftinfo->columns, tfk->ref_pk_cols_array [i]);
+				if (!tcol)
+					g_error ("Information schema structure error for table '%s': "
+						 "cannot identify column at position %d", dbo->obj_name, tfk->ref_pk_cols_array [i]);
+				if (!tcol->pkey)
+					g_error ("Information schema structure error for table '%s': "
+						 "referenced column at position %d is not part of a primary key",
+						 dbo->obj_name, tfk->ref_pk_cols_array [i]);
+				if (column_name_to_index (reftinfo, tfk->ref_pk_names_array [i]) != tfk->ref_pk_cols_array [i])
+					g_error ("Information schema structure error for table '%s': "
+						 "referenced column at position %d has wrong associated name '%s'",
+						 dbo->obj_name, tfk->ref_pk_cols_array [i], tfk->ref_pk_names_array [i]);
+			}
+			if (tfk->cols_nb != reftinfo->pk_cols_nb)
+				g_error ("Information schema structure error for table '%s': "
+					 "Foreign key does only reference part of reterenced table's primary key",
+					 dbo->obj_name);
+		}
+	}
 }
 
 static void compute_view_dependencies (GdaMetaStoreClass *klass, GdaMetaStore *store,
@@ -1248,10 +1508,10 @@ static void compute_view_dependencies (GdaMetaStoreClass *klass, GdaMetaStore *s
 static DbObject *
 create_view_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr node, GError **error)
 {
-	DbObject *dbobj;
+	DbObject *dbobj = NULL;
 	xmlChar *view_name;
 	gchar *complete_obj_name = NULL;
-    xmlNodePtr cnode;
+	xmlNodePtr cnode;
 	view_name = xmlGetProp (node, BAD_CAST "name");
 	if (!view_name) {
 		g_set_error (error, GDA_META_STORE_ERROR, GDA_META_STORE_META_CONTEXT_ERROR,
@@ -1287,11 +1547,10 @@ create_view_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr no
 	dbobj->obj_type = GDA_SERVER_OPERATION_CREATE_VIEW;
 
 	/* walk through the view attributes */
-	
+
 	for (cnode = node->children; cnode; cnode = cnode->next) {
 		xmlChar *def;
-        		/* use a parser to analyze the view dependencies */
-		GdaStatement *stmt;
+        		GdaStatement *stmt;
 		const gchar *remain;
 		if (strcmp ((gchar *) cnode->name, "definition"))
 			continue;
@@ -1302,6 +1561,7 @@ create_view_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr no
 			goto onerror;
 		}
 
+		/* use a parser to analyze the view dependencies */
 
 		stmt = gda_sql_parser_parse_string (klass->cpriv->parser, (gchar *) def, &remain, error);
 		if (!stmt) {
@@ -1360,25 +1620,18 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 	DbObject *dbobj;
 	xmlChar *table_name;
 	gchar *complete_obj_name;
-	/* current_all */
 	gchar *sql;
-    	xmlNodePtr cnode;
-	gint colindex = 0;
-	GSList *insert_values_list = NULL;
-	/* INSERT, UPDATE and DELETE statements */
-	GdaSqlStatement *sql_ist;
+    	GdaSqlStatement *sql_ist;
 	GdaSqlStatementInsert *ist;
 	GdaSqlStatement *sql_ust;
 	GdaSqlStatementUpdate *ust;
 	GdaSqlStatement *sql_dst;
 	GdaSqlStatementDelete *dst;
-    GType ptype;
-                        GdaSqlParamSpec *pspec;
-                        GdaSqlExpr *expr;
-                        TableColumn *tcol = NULL;
-			GSList *tlist;
-            	/* determine parameters */
-	GdaSet *params;
+    	xmlNodePtr cnode;
+	gint colindex = 0;
+	GSList *insert_values_list = NULL;
+    	GdaSet *params;
+
 	table_name = xmlGetProp (node, BAD_CAST "name");
 	if (!table_name) {
 		g_set_error (error, GDA_META_STORE_ERROR, GDA_META_STORE_SCHEMA_OBJECT_DESCR_ERROR,
@@ -1414,6 +1667,7 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 	dbobj->obj_type = GDA_SERVER_OPERATION_CREATE_TABLE;
 	TABLE_INFO (dbobj)->gtype_column = -1;
 
+	/* current_all */
 
 	sql = g_strdup_printf ("SELECT * FROM %s", complete_obj_name);
 	TABLE_INFO (dbobj)->current_all = compute_prepared_stmt (klass->cpriv->parser, sql);
@@ -1435,6 +1689,8 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 			     complete_obj_name);
 		goto onerror;
 	}
+
+	/* INSERT, UPDATE and DELETE statements */
 
 
 	sql_ist = gda_sql_statement_new (GDA_SQL_STATEMENT_INSERT);
@@ -1459,20 +1715,23 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 	dst->table->table_name = g_strdup ((gchar *) complete_obj_name);
 
 	/* walk through the columns and Fkey nodes */
-	 colindex = 0;
-	insert_values_list = NULL;
+
 	for (cnode = node->children; cnode; cnode = cnode->next) {
 		if (!strcmp ((gchar *) cnode->name, "column")) {
 			xmlChar *cname, *ctype, *xstr;
                         gboolean pkey = FALSE;
                         gboolean nullok = FALSE;
+                                                GType ptype;
+                        GdaSqlParamSpec *pspec;
+                        GdaSqlExpr *expr;
+                        TableColumn *tcol = NULL;
+			GSList *tlist;
 			gboolean autoinc = FALSE;
-                        /* a field */
                         GdaSqlField *field;
                         cname = xmlGetProp (cnode, BAD_CAST "name");
                         if (!cname)
                                 g_error ("Missing column name (table=%s)", complete_obj_name);
-			if (g_str_has_suffix (cname, "gtype"))
+			if (g_str_has_suffix ((const gchar*) cname, "gtype"))
 				TABLE_INFO (dbobj)->gtype_column = colindex;
 
                         xstr = xmlGetProp (cnode, BAD_CAST "pkey");
@@ -1495,6 +1754,7 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
                         }
                         ctype = xmlGetProp (cnode, BAD_CAST "type");
 
+                        /* a field */
 
                         field = gda_sql_field_new (GDA_SQL_ANY_PART (ist));
                         field->field_name = g_strdup ((gchar *) cname);
@@ -1522,6 +1782,7 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 
 			/* parameter */
                         pspec = g_new0 (GdaSqlParamSpec, 1);
+                        
                         ptype = ctype ? gda_g_type_from_string ((gchar *) ctype) : G_TYPE_STRING;
 			if (ptype == G_TYPE_INVALID)
 				ptype = GDA_TYPE_NULL;
@@ -1593,6 +1854,7 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 
 			/* TableColumn */
 			tcol = NULL;
+
 			for (tlist = TABLE_INFO (dbobj)->columns; tlist; tlist = tlist->next) {
 				if (((TableColumn*) tlist->data)->column_name &&
 				    !strcmp (((TableColumn*) tlist->data)->column_name, (gchar*) cname)) {
@@ -1636,9 +1898,9 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 		else if (!strcmp ((gchar *) cnode->name, "fkey")) {
 			xmlNodePtr fnode;
 			xmlChar *ref_table;
-            	DbObject *ref_obj;
-                TableFKey *tfk;
-                gint fkcolindex = 0;
+			DbObject *ref_obj;      
+            gint fkcolindex;
+            TableFKey *tfk;
 			ref_table = xmlGetProp (cnode, BAD_CAST "ref_table");
 			if (!ref_table) {
 				g_set_error (error, GDA_META_STORE_ERROR,
@@ -1649,7 +1911,7 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 			}
 
 			/* referenced DbObject */
-		
+
 			if (store)
 				ref_obj = g_hash_table_lookup (store->priv->p_db_objects_hash, ref_table);
 			else
@@ -1674,7 +1936,7 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 
 			/* TableFKey structure */
 			tfk = g_new0 (TableFKey, 1);
-
+  
 			tfk->table_info = dbobj;
 			tfk->depend_on = ref_obj;
 
@@ -1688,7 +1950,7 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 			tfk->ref_pk_cols_array = g_new0 (gint, tfk->cols_nb);
 			tfk->ref_pk_names_array = g_new0 (gchar*, tfk->cols_nb);
 
-			fkcolindex = 0;
+			 fkcolindex = 0;
 			for (fnode = cnode->children; fnode; fnode = fnode->next) {
 				xmlChar *col, *ref_col;
 				if (strcmp ((gchar *) fnode->name, "part"))
@@ -1756,6 +2018,7 @@ create_table_object (GdaMetaStoreClass *klass, GdaMetaStore *store, xmlNodePtr n
 	g_free (str);
 #endif
 
+	/* determine parameters */
 
 	if (!gda_statement_get_parameters (TABLE_INFO (dbobj)->insert, &(TABLE_INFO (dbobj)->params), NULL))
 		g_error ("Internal fatal error: could not get INSERT statement's parameters (table=%s)",
@@ -1842,10 +2105,10 @@ compute_view_dependencies (GdaMetaStoreClass *klass, GdaMetaStore *store,
 		
 		for (targets = selst->from->targets; targets; targets = targets->next) {
 			GdaSqlSelectTarget *t = (GdaSqlSelectTarget *) targets->data;
-            DbObject *ref_obj = NULL;
+            			DbObject *ref_obj = NULL;
 			if (!t->table_name)
 				continue;
-			
+
 			if (store)
 				ref_obj = g_hash_table_lookup (store->priv->p_db_objects_hash, t->table_name);
 			else
@@ -1946,13 +2209,14 @@ static gboolean
 complement_db_objects (GSList *objects, G_GNUC_UNUSED GHashTable *hash, GError **error)
 {
 	GSList *list;
-	for (list = objects; list; list = list->next) {
-        TableInfo *info;
+    		TableInfo *info;
 		GSList *klist;
+	for (list = objects; list; list = list->next) {
 		if (DB_OBJECT (list->data)->obj_type != GDA_SERVER_OPERATION_CREATE_TABLE)
 			continue;
 
 		info = TABLE_INFO (DB_OBJECT (list->data));
+
 		for (klist = info->fk_list; klist; klist = klist->next) {
 			TableFKey *tfk = (TableFKey *) klist->data;
 			gint i;
@@ -1961,7 +2225,7 @@ complement_db_objects (GSList *objects, G_GNUC_UNUSED GHashTable *hash, GError *
 			/* fix TableFKey->ref_pk_cols_array */
 			for (i = 0; i < tfk->cols_nb; i++) {
 				gint col;
-                TableColumn *tcol;
+                				TableColumn *tcol;
 				col = column_name_to_index (TABLE_INFO (tfk->depend_on), tfk->ref_pk_names_array[i]);
 				if (col < 0) {
 					g_set_error (error, GDA_META_STORE_ERROR,
@@ -1974,7 +2238,7 @@ complement_db_objects (GSList *objects, G_GNUC_UNUSED GHashTable *hash, GError *
 				}
 				tfk->ref_pk_cols_array[i] = col;
 
-				
+
 				if (cond)
 					g_string_append (cond, " AND ");
 				else
@@ -2162,14 +2426,80 @@ create_a_dbobj (GdaMetaStore *store, const gchar *obj_name, GError **error)
 	return retval;
 }
 
+/*
+ * Create a database object from its name,
+ * to be used by functions implementing versions migrations
+ */
+static gboolean
+add_a_column (GdaMetaStore *store, const gchar *table_name, const gchar *column_name, GError **error)
+{
+	DbObject *dbobj;
+	GdaMetaStoreClass *klass;
+	GdaServerProvider *prov;
+	gboolean retval = FALSE;
+	GdaServerOperation *op;
+	GSList *list;
+	klass = (GdaMetaStoreClass *) G_OBJECT_GET_CLASS (store);
+	dbobj = g_hash_table_lookup (klass->cpriv->db_objects_hash, table_name);
+	if (!dbobj) {
+		g_set_error (error, GDA_META_STORE_ERROR, GDA_META_STORE_SCHEMA_OBJECT_NOT_FOUND_ERROR,
+			     _("Schema description does not contain the object '%s', check installation"),
+			     table_name);
+		return FALSE;
+	}
+	prov = gda_connection_get_provider (store->priv->cnc);
+	
+
+	op = gda_server_provider_create_operation (prov, store->priv->cnc, GDA_SERVER_OPERATION_ADD_COLUMN, NULL, error);
+	if (!op)
+		return FALSE;
+
+	if (! gda_server_operation_set_value_at (op, table_name, error, "/COLUMN_DEF_P/TABLE_NAME"))
+		goto out;
+
+	for (list = TABLE_INFO (dbobj)->columns; list; list = list->next) {
+		TableColumn *tcol = TABLE_COLUMN (list->data);
+		if (!strcmp (tcol->column_name, column_name)) {
+			const gchar *repl;
+			if (! gda_server_operation_set_value_at (op, tcol->column_name,
+								 error, "/COLUMN_DEF_P/COLUMN_NAME"))
+				goto out;
+			repl = provider_specific_match (klass->cpriv->provider_specifics, prov,
+							tcol->column_type ? tcol->column_type : "string",
+							"/FIELDS_A/@COLUMN_TYPE");
+			if (! gda_server_operation_set_value_at (op, repl ? repl : "string", error,
+								 "/COLUMN_DEF_P/COLUMN_TYPE"))
+				goto out;
+			if (! gda_server_operation_set_value_at (op, NULL, error,
+								 "/COLUMN_DEF_P/COLUMN_SIZE"))
+				goto out;
+			if (! gda_server_operation_set_value_at (op, tcol->nullok ? "FALSE" : "TRUE", error,
+								 "/COLUMN_DEF_P/COLUMN_NNUL"))
+				goto out;
+			break;
+		}
+	}
+	if (!list) {
+		g_set_error (error, GDA_META_STORE_ERROR, GDA_META_STRUCT_UNKNOWN_OBJECT_ERROR,
+			     _("Could not find description for column named '%s'"), column_name);
+		goto out;
+	}
+
+	retval = gda_server_provider_perform_operation (prov, store->priv->cnc, op, error);
+
+ out:
+	g_object_unref (op);
+	return retval;
+}
+
 /* migrate schema from version 1 to 2 */
 static void
 migrate_schema_from_v1_to_v2 (GdaMetaStore *store, GError **error)
-{	/* begin a transaction if possible */
-	gboolean transaction_started = FALSE;
+{	gboolean transaction_started = FALSE;
 	g_return_if_fail (GDA_IS_CONNECTION (store->priv->cnc));
 	g_return_if_fail (gda_connection_is_opened (store->priv->cnc));
 
+	/* begin a transaction if possible */
 
 	if (! check_transaction_started (store->priv->cnc, &transaction_started))
 		return;
@@ -2196,12 +2526,11 @@ migrate_schema_from_v1_to_v2 (GdaMetaStore *store, GError **error)
 /* migrate schema from version 2 to 3 */
 static void
 migrate_schema_from_v2_to_v3 (GdaMetaStore *store, GError **error)
-{
-    	/* begin a transaction if possible */
-	gboolean transaction_started = FALSE;
+{	gboolean transaction_started = FALSE;
 	g_return_if_fail (GDA_IS_CONNECTION (store->priv->cnc));
 	g_return_if_fail (gda_connection_is_opened (store->priv->cnc));
 
+	/* begin a transaction if possible */
 
 	if (! check_transaction_started (store->priv->cnc, &transaction_started))
 		return;
@@ -2217,6 +2546,34 @@ migrate_schema_from_v2_to_v3 (GdaMetaStore *store, GError **error)
 	if (transaction_started) {
 		/* handle transaction started if necessary */
 		if (store->priv->version != 3)
+			gda_connection_rollback_transaction (store->priv->cnc, NULL, NULL);
+		else
+			gda_connection_commit_transaction (store->priv->cnc, NULL, NULL);
+	}
+}
+
+/* migrate schema from version 2 to 3 */
+static void
+migrate_schema_from_v3_to_v4 (GdaMetaStore *store, GError **error)
+{gboolean transaction_started = FALSE;
+	g_return_if_fail (GDA_IS_CONNECTION (store->priv->cnc));
+	g_return_if_fail (gda_connection_is_opened (store->priv->cnc));
+
+	/* begin a transaction if possible */
+	
+	if (! check_transaction_started (store->priv->cnc, &transaction_started))
+		return;
+
+	if (! add_a_column (store, "_schemata", "schema_default", error))
+		goto out;
+
+	/* set version info to CURRENT_SCHEMA_VERSION */
+	update_schema_version (store, "4", error);
+
+ out:
+	if (transaction_started) {
+		/* handle transaction started if necessary */
+		if (store->priv->version != 4)
 			gda_connection_rollback_transaction (store->priv->cnc, NULL, NULL);
 		else
 			gda_connection_commit_transaction (store->priv->cnc, NULL, NULL);
@@ -2264,7 +2621,9 @@ handle_schema_version (GdaMetaStore *store, gboolean *schema_present, GError **e
 			case 2:
 				migrate_schema_from_v2_to_v3 (store, error);
 			case 3:
-				/* function call for migration from V3 will be here */
+				migrate_schema_from_v3_to_v4 (store, error);
+			case 4:
+				/* function call for migration from V4 will be here */
 				break;
 			default:
 				/* no downgrade to do */
@@ -2472,7 +2831,7 @@ gda_meta_store_extract (GdaMetaStore *store, const gchar *select_sql, GError **e
  * gda_meta_store_extract_v:
  * @store: a #GdaMetaStore object
  * @select_sql: a SELECT statement
- * @vars: (element-type gchar GObject.Value) (allow-none): a hash table with all variables names as keys and GValue* as
+ * @vars: (element-type utf8 GObject.Value) (allow-none): a hash table with all variables names as keys and GValue* as
  * value, representing values for all the variables mentioned in @select_sql. If there is no variable then this part can be
  * omitted.
  * @error: a place to store errors, or %NULL
@@ -2694,6 +3053,8 @@ gda_meta_store_modify_with_context (GdaMetaStore *store, GdaMetaContext *context
 
 	if (store->priv->init_error) {
 		g_propagate_error (error, g_error_copy (store->priv->init_error));
+		if (cond)
+			g_string_free (cond, TRUE);
 		return FALSE;
 	}
 
@@ -2740,7 +3101,7 @@ gda_meta_store_modify_v (GdaMetaStore *store, const gchar *table_name,
 	gboolean retval = TRUE;
 	GSList *all_changes = NULL;
 	gboolean started_transaction = FALSE;
-    
+
 	GdaDataModel *current = NULL;
 	gboolean *rows_to_del = NULL;
 	gint current_n_rows = 0, i;
@@ -2833,7 +3194,6 @@ gda_meta_store_modify_v (GdaMetaStore *store, const gchar *table_name,
 			gint erow = -1;
 			gboolean has_changed = FALSE;
 			GdaMetaStoreChange *change = NULL;
-			/* bind parameters for new values */
 			gint j;
 			if (!store->priv->override_mode) {
 				if (current) {
@@ -2861,6 +3221,7 @@ gda_meta_store_modify_v (GdaMetaStore *store, const gchar *table_name,
 				all_changes = g_slist_append (all_changes, change);
 			}
 
+			/* bind parameters for new values */
 
 			for (j = 0; j < new_n_cols; j++) {
 				gchar *pid = g_strdup_printf ("+%d", j);
@@ -2973,7 +3334,7 @@ gda_meta_store_modify_v (GdaMetaStore *store, const gchar *table_name,
 					TableFKey *tfk = (TableFKey*) list->data;
 					gint k;
 					GdaMetaContext context;
-                    GError *suggest_reports_error = NULL;
+					GError *suggest_reports_error = NULL;
 					context.table_name = tfk->table_info->obj_name;
 					context.size = tfk->cols_nb;
 					context.column_names = tfk->fk_names_array;
@@ -2999,7 +3360,7 @@ gda_meta_store_modify_v (GdaMetaStore *store, const gchar *table_name,
 					}
 					g_print ("\n");
 #endif
-					
+
 					g_signal_emit (store, gda_meta_store_signals[SUGGEST_UPDATE], 0, &context,
 						       &suggest_reports_error);
 					g_free (context.column_values);
@@ -3025,19 +3386,18 @@ gda_meta_store_modify_v (GdaMetaStore *store, const gchar *table_name,
 		/* treat rows to delete */
 		for (i = 0; i < current_n_rows; i++) {
 			if (rows_to_del [i]) {
+                				gint j;
+                                				GSList *list;
 				/* prepare change information */
 				GdaMetaStoreChange *change = NULL;
-                				/* reverse_fk_list */
-				GSList *list;
-                
-				/* DELETE */
-				gint j;
 				change = g_new0 (GdaMetaStoreChange, 1);
 				change->c_type = GDA_META_STORE_REMOVE;
 				change->table_name = g_strdup (table_name);
 				change->keys = g_hash_table_new_full (g_str_hash, g_str_equal,
 								      g_free, (GDestroyNotify) gda_value_free);
 				all_changes = g_slist_append (all_changes, change);
+
+				/* DELETE */
 
 				for (j = 0; j < current_n_cols; j++) {
 					gchar *pid = g_strdup_printf ("-%d", j);
@@ -3063,6 +3423,7 @@ gda_meta_store_modify_v (GdaMetaStore *store, const gchar *table_name,
 #ifdef DEBUG_STORE_MODIFY
 				g_print ("Delete existing row %d from table %s\n", i, table_name);
 #endif
+				/* reverse_fk_list */
 
 				for (list = schema_set->reverse_fk_list; list; list = list->next) {
 					TableFKey *tfk = (TableFKey*) list->data;
@@ -3193,10 +3554,8 @@ prepare_tables_infos (GdaMetaStore *store, TableInfo **out_table_infos, TableCon
 		      gint nvalues, const gchar **value_names, const GValue **values)
 {
 	GdaMetaStoreClass *klass = (GdaMetaStoreClass *) G_OBJECT_GET_CLASS (store);
-	/* bind parameters for *out_cond_infos */
-	gint i;
     DbObject *dbobj;
-
+    	gint i;
 	g_assert (out_table_infos);
 	g_assert (out_cond_infos);
 	g_assert (out_with_key);
@@ -3228,6 +3587,7 @@ prepare_tables_infos (GdaMetaStore *store, TableInfo **out_table_infos, TableCon
 	}
 	*out_table_infos = TABLE_INFO (dbobj);
 
+	/* bind parameters for *out_cond_infos */
 
 	for (i = 0; i < nvalues; i++) {
 		GdaHolder *h;
@@ -3575,9 +3935,7 @@ gda_meta_store_schema_get_structure (GdaMetaStore *store, GError **error)
 	GdaDataModel *model;
 	gint i, nrows;
 	GdaMetaStore *real_store;
-
-	/* complement the meta struct with some info about dependencies */
-	GSList *list, *all_db_obj_list;
+GSList *list, *all_db_obj_list;
 	GdaMetaStoreClass *klass;
 	g_return_val_if_fail (GDA_IS_META_STORE (store), NULL);
 	if (store->priv->init_error) {
@@ -3632,6 +3990,8 @@ gda_meta_store_schema_get_structure (GdaMetaStore *store, GError **error)
 	}
 	g_object_unref (model);
 
+	/* complement the meta struct with some info about dependencies */
+	
 
 	klass = (GdaMetaStoreClass *) G_OBJECT_GET_CLASS (store);
 	all_db_obj_list = g_slist_copy (klass->cpriv->db_objects);
@@ -3897,11 +4257,12 @@ gda_meta_store_schema_add_custom_object (GdaMetaStore *store, const gchar *xml_d
 	GdaMetaStore *pstore = NULL;
 	GdaMetaStruct *mstruct = NULL;
 	GError *lerror = NULL;
-	/* create a GdaMetaStruct */
-	GdaMetaDbObject *eobj;
-	gboolean needs_creation = TRUE;
+
 	GSList *pre_p_db_objects = NULL;
-    	xmlChar *prop;
+	xmlChar *prop;
+
+    	GdaMetaDbObject *eobj;
+	gboolean needs_creation = TRUE;
 	g_return_val_if_fail (GDA_IS_META_STORE (store), FALSE);
 	g_return_val_if_fail (xml_description && *xml_description, FALSE);
 
@@ -3980,6 +4341,7 @@ gda_meta_store_schema_add_custom_object (GdaMetaStore *store, const gchar *xml_d
 		TO_IMPLEMENT;
 	}
 
+	/* create a GdaMetaStruct */
 
 	pstore = gda_connection_get_meta_store (store->priv->cnc);
 	mstruct = gda_meta_struct_new (pstore, GDA_META_STRUCT_FEATURE_ALL);
@@ -4480,12 +4842,9 @@ gda_meta_store_declare_foreign_key (GdaMetaStore *store, GdaMetaStruct *mstruct,
 	GdaMetaTable *mtable = NULL, *ref_mtable = NULL;
 	GdaMetaDbObject *dbo = NULL, *ref_dbo = NULL;
 	GdaMetaStruct *u_mstruct = NULL;
-    	/* find database objects */
-	GValue *v1 = NULL, *v2 = NULL, *v3;
-    	GdaConnection *store_cnc;
+    GValue *v1 = NULL, *v2 = NULL, *v3;
+    GdaConnection *store_cnc;
 	gboolean intrans;
-
-    	/* declare FK */
 	guint l;
 	g_return_val_if_fail (GDA_IS_META_STORE (store), FALSE);
 	klass = (GdaMetaStoreClass *) G_OBJECT_GET_CLASS (store);
@@ -4502,7 +4861,8 @@ gda_meta_store_declare_foreign_key (GdaMetaStore *store, GdaMetaStruct *mstruct,
 	if (!mstruct)
 		u_mstruct = gda_meta_struct_new (store, GDA_META_STRUCT_FEATURE_NONE);
 
-
+	/* find database objects */
+	
 
 	if (catalog)
 		g_value_set_string ((v1 = gda_value_new (G_TYPE_STRING)), catalog);
@@ -4582,8 +4942,9 @@ gda_meta_store_declare_foreign_key (GdaMetaStore *store, GdaMetaStruct *mstruct,
 	if (! gda_set_set_holder_value (params, error, "fkname", fk_name))
                 goto out;
 
-	 gda_meta_store_get_internal_connection (store);
-	gda_connection_begin_transaction (store_cnc, NULL,
+	
+	store_cnc = gda_meta_store_get_internal_connection (store);
+	intrans = gda_connection_begin_transaction (store_cnc, NULL,
 						    GDA_TRANSACTION_ISOLATION_UNKNOWN,
 						    NULL);
 
@@ -4597,6 +4958,7 @@ gda_meta_store_declare_foreign_key (GdaMetaStore *store, GdaMetaStruct *mstruct,
 		goto out;
 	}
 
+	/* declare FK */
 
 	for (l = 0; l < nb_cols; l++) {
 		/* check that column name exists */
@@ -4704,11 +5066,10 @@ gda_meta_store_undeclare_foreign_key (GdaMetaStore *store, GdaMetaStruct *mstruc
 	GdaMetaStoreClass *klass;
 	GdaMetaDbObject *dbo = NULL, *ref_dbo = NULL;
 	GdaMetaStruct *u_mstruct = NULL;
-    
+GValue *v1 = NULL, *v2 = NULL, *v3;
+
 	GdaConnection *store_cnc;
 	gboolean intrans;
-	/* find database objects */
-	GValue *v1 = NULL, *v2 = NULL, *v3;
 	g_return_val_if_fail (GDA_IS_META_STORE (store), FALSE);
 	klass = (GdaMetaStoreClass *) G_OBJECT_GET_CLASS (store);
 	g_return_val_if_fail (!mstruct || GDA_IS_META_STRUCT (mstruct), FALSE);
@@ -4721,7 +5082,8 @@ gda_meta_store_undeclare_foreign_key (GdaMetaStore *store, GdaMetaStruct *mstruc
 	if (!mstruct)
 		u_mstruct = gda_meta_struct_new (store, GDA_META_STRUCT_FEATURE_NONE);
 
-
+	/* find database objects */
+	
 	if (catalog)
 		g_value_set_string ((v1 = gda_value_new (G_TYPE_STRING)), catalog);
 	if (schema)

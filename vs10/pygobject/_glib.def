@@ -1,0 +1,14 @@
+EXPORTS
+	pyglib_init
+	pyglib_enable_threads
+	pyglib_set_thread_block_funcs
+	pyglib_error_check
+	_pyglib_notify_on_enabling_threads
+	pyglib_option_group_new
+	pyglib_gil_state_release
+	pyglib_gil_state_ensure
+	pyglib_threads_enabled
+	pyglib_gerror_exception_check
+	pyglib_error_marshal
+	_pyglib_generic_ptr_richcompare
+	_pyglib_generic_long_richcompare

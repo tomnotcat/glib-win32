@@ -71,7 +71,7 @@ OrenDCChannel* oren_dcchannel_new (void);
 gboolean oren_dcchannel_open (OrenDCChannel *self,
                               OrenDCServer *server,
                               OrenNCReactor *reactor,
-                              OrenNCInetAddress *address,
+                              GPtrArray *address,
                               OrenNCSockaddr *parent_addr,
                               const gchar *channel_name,
                               gboolean enable_p2p);
@@ -86,8 +86,6 @@ OrenNCReactor* oren_dcchannel_get_reactor (OrenDCChannel *self);
 
 OrenDCServer* oren_dcchannel_get_server (OrenDCChannel *self);
 
-OrenNCSockaddr* oren_dcchannel_get_address (OrenDCChannel *self);
-
 OrenDCClient* oren_dcchannel_get_parent (OrenDCChannel *self);
 
 guint oren_dcchannel_get_user_count (OrenDCChannel *self);
@@ -96,6 +94,7 @@ void oren_dcchannel_add_user (OrenDCChannel *self,
                               guint8 protocol_version,
                               const gchar *client_version,
                               const gchar *network_type,
+                              OrenNCSocket *socket,
                               OrenNCSockaddr *from,
                               const gchar *user_name,
                               guint32 login_code);
@@ -142,6 +141,7 @@ void _oren_dcchannel_enable_p2p (OrenDCChannel *self,
                                  OrenDCUser *user);
 
 void _oren_dcchannel_send_packet_to (OrenDCChannel *self,
+                                     OrenNCSocket *socket,
                                      OrenNCSockaddr *address,
                                      OrenNCBuffer *buffer);
 

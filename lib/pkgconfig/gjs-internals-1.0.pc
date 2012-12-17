@@ -1,0 +1,17 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+bindir=${exec_prefix}/bin
+includedir=${prefix}/include
+datarootdir=${prefix}/share
+datadir=${datarootdir}
+
+jsdir=${datadir}/gjs-1.0
+jsnativedir=${libdir}/gjs-1.0
+
+Cflags: -I${includedir}/gjs-1.0
+Requires: gjs-1.0 gobject-introspection-1.0 mozjs185
+
+Name: gjs-internals-1.0
+Description: Internal API for gjs (for modules and embedders); uses mozjs
+Version: 1.32.0

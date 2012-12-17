@@ -108,11 +108,13 @@ gboolean oren_ncsession_send (OrenNCSession *self,
 gboolean oren_ncsession_recv (OrenNCSession *self,
                               OrenNCBuffer *buffer);
 
-void oren_ncsession_work (OrenNCSession *self,
-                          OrenNCSessionWork flags);
+gboolean oren_ncsession_work (OrenNCSession *self,
+                              OrenNCSessionWork flags);
 
 void _oren_ncsession_write_data_head (OrenNCBuffer *buffer,
                                       guint16 seq);
+
+void _oren_ncsession_set_test (OrenNCSession *self);
 
 G_END_DECLS
 

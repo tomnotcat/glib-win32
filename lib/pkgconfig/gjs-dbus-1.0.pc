@@ -1,0 +1,15 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+bindir=${exec_prefix}/bin
+includedir=${prefix}/include
+datarootdir=${prefix}/share
+datadir=${datarootdir}
+
+Cflags: -I${includedir}/gjs-1.0
+Requires: gjs-1.0 dbus-1
+Libs: -L${libdir} -lgjs-dbus
+
+Name: gjs-dbus-1.0
+Description: DBus utility library
+Version: 1.32.0

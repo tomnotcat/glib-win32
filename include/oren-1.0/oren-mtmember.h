@@ -52,6 +52,7 @@ GType oren_mtmember_get_type (void) G_GNUC_CONST;
 OrenMTMember* oren_mtmember_new (OrenMTSource *source,
                                  const gchar *member_name,
                                  guint32 member_id,
+                                 OrenNCSocket *socket,
                                  OrenNCSockaddr *observed_addr,
                                  OrenNCSockaddr *local_addr,
                                  guint16 network_type,

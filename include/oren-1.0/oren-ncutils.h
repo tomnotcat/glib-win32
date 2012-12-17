@@ -76,6 +76,15 @@ GPtrArray* _oren_create_inetaddr_array (gchar **strs);
 
 gchar* _oren_inetaddr_array_to_string (GPtrArray *addrs);
 
+GPtrArray* _oren_create_socket_array (GPtrArray *addrs, guint16 port);
+
+gboolean _oren_register_socket_handlers (OrenNCReactor *reactor,
+                                         GPtrArray *sockets,
+                                         OrenNCHandler *handler);
+
+OrenNCSocket* _oren_sockets_find_compatible (GPtrArray *sockets,
+                                             OrenNCSocket *socket);
+
 /* Utility log functions for scripts. */
 #ifndef oren_debug
 void oren_debug (const gchar *str);

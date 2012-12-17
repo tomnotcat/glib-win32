@@ -50,6 +50,7 @@ struct _OrenGPUserClass {
 GType oren_gpuser_get_type (void) G_GNUC_CONST;
 
 OrenGPUser* oren_gpuser_new (OrenDCChannel *channel,
+                             OrenNCSocket *socket,
                              OrenNCSockaddr *address,
                              OrenNCBuffer *buffer,
                              const gchar *user_name,

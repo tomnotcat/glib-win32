@@ -111,6 +111,8 @@ const gchar* oren_dcclient_server_name (OrenDCClient *self);
 
 const gchar* oren_dcclient_server_version (OrenDCClient *self);
 
+OrenNCSockaddr* oren_dcclient_server_addr (OrenDCClient *self);
+
 const gchar* oren_dcclient_get_signature (OrenDCClient *self);
 
 const gchar* oren_dcclient_get_channel_name (OrenDCClient *self);

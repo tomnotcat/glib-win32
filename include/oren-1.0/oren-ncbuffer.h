@@ -77,7 +77,7 @@ gsize oren_ncbuffer_get_write (OrenNCBuffer *self);
 
 void oren_ncbuffer_set_write (OrenNCBuffer *self, gsize pos);
 
-gconstpointer oren_ncbuffer_data_ptr (OrenNCBuffer *self);
+gpointer oren_ncbuffer_data_ptr (OrenNCBuffer *self);
 
 gsize oren_ncbuffer_data_length (OrenNCBuffer *self);
 
@@ -91,6 +91,10 @@ gpointer oren_ncbuffer_write_ptr (OrenNCBuffer *self,
                                   gsize require_space);
 
 void oren_ncbuffer_write_adv (OrenNCBuffer *self, gsize len);
+
+gpointer oren_ncbuffer_insert_ptr (OrenNCBuffer *self,
+                                   gsize pos,
+                                   gsize require_space);
 
 guint8 oren_ncbuffer_read_u8 (OrenNCBuffer *self);
 

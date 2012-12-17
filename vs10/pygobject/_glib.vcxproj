@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -59,9 +59,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Python27\libs;..\..\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;gthread-2.0.lib;gio-2.0.lib;libffi-6.lib;girepository.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>_glib.lib</ImportLibrary>
+      <ModuleDefinitionFile>_glib.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>Copy "..\debug\$(TargetName)$(TargetExt)"  "..\..\python27\Lib\gi\_glib\$(TargetName)$(TargetExt)"</Command>
+      <Command>Copy "..\debug\$(TargetName)$(TargetExt)"  "..\..\python27\Lib\gi\_glib\$(TargetName)$(TargetExt)"
+Copy "..\debug\$(TargetName)$(TargetExt)"  "..\..\python27\Lib\gi\$(TargetName)$(TargetExt)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,9 +85,12 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\Python27\libs;..\..\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;gthread-2.0.lib;gio-2.0.lib;libffi-6.lib;girepository.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>_glib.lib</ImportLibrary>
+      <ModuleDefinitionFile>_glib.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>Copy "..\release\$(TargetName)$(TargetExt)"  "..\..\python27\Lib\gi\_glib\$(TargetName)$(TargetExt)"</Command>
+      <Command>Copy "..\release\$(TargetName)$(TargetExt)"  "..\..\python27\Lib\gi\_glib\$(TargetName)$(TargetExt)"
+Copy "..\release\$(TargetName)$(TargetExt)"  "..\..\python27\Lib\gi\$(TargetName)$(TargetExt)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -113,6 +119,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="_glib.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="_glib.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+servicedir=${libdir}/oren-service-1.0
+
+Name: Oren
+Description: A Distributed Channel System
+Version: 1.3.0
+Requires: glib-2.0 gobject-2.0
+Libs: -L${libdir} -loren-1.0
+Cflags: -I${includedir}/oren-1.0

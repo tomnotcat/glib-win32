@@ -50,6 +50,7 @@ struct _OrenSMUserClass {
 GType oren_smuser_get_type (void) G_GNUC_CONST;
 
 OrenSMUser* oren_smuser_new (OrenDCChannel *channel,
+                             OrenNCSocket *socket,
                              OrenNCSockaddr *address,
                              OrenNCBuffer *buffer,
                              const gchar *user_name,

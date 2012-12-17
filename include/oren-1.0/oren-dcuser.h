@@ -54,6 +54,7 @@ struct _OrenDCUserClass {
 GType oren_dcuser_get_type (void) G_GNUC_CONST;
 
 OrenDCUser* oren_dcuser_new (OrenDCChannel *channel,
+                             OrenNCSocket *socket,
                              OrenNCSockaddr *address,
                              OrenNCBuffer *buffer,
                              const gchar *user_name,
@@ -106,6 +107,8 @@ gboolean _oren_dcuser_work (OrenDCUser *self,
                             guint timeout);
 
 void _oren_dcuser_teardown (OrenDCUser *self);
+
+OrenNCSocket* _oren_dcuser_get_socket (OrenDCUser *self);
 
 G_END_DECLS
 

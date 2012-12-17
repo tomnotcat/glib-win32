@@ -44,13 +44,15 @@ struct _OrenHttpRequest {
 
 struct _OrenHttpRequestClass {
     GObjectClass parent_class;
-    void (*response) (OrenHttpRequest *self, const gchar *content);
+    void (*response) (OrenHttpRequest *self, OrenNCBuffer *buffer);
     void (*error) (OrenHttpRequest *self, gint error);
 };
 
 GType oren_http_request_get_type (void) G_GNUC_CONST;
 
 OrenHttpRequest* oren_http_request_new (const gchar *url);
+
+OrenHttpRequest* oren_http_request_new_raw (const gchar *url);
 
 const gchar* oren_http_request_get_url (OrenHttpRequest *self);
 

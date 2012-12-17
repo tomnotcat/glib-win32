@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+idldir=${prefix}/share/idl/at-spi-1.0
+
+Name: libspi
+Description: Accessibility Technology software library
+Requires: libbonobo-2.0 atk
+Version: 1.32.0
+Libs: -L${libdir} -lspi
+Cflags: -I${includedir}/at-spi-1.0

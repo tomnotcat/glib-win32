@@ -46,6 +46,7 @@ struct _OrenMTSource {
 struct _OrenMTSourceClass {
     GObjectClass parent_class;
     void (*send_to) (OrenMTSource *self,
+                     OrenNCSocket *socket,
                      OrenNCSockaddr *address,
                      OrenNCBuffer *buffer);
 };
@@ -66,6 +67,7 @@ OrenMTTree* oren_mtsource_get_tree (OrenMTSource *self,
 
 OrenMTMember* oren_mtsource_add_member (OrenMTSource *self,
                                         const gchar *member_name,
+                                        OrenNCSocket *socket,
                                         OrenNCSockaddr *observed_addr,
                                         OrenNCSockaddr *local_addr,
                                         guint16 network_type);
@@ -100,6 +102,7 @@ void _oren_mtsource_on_join (OrenMTSource *self,
                              gboolean join);
 
 void _oren_mtsource_send_to (OrenMTSource *self,
+                             OrenNCSocket *socket,
                              OrenNCSockaddr *address,
                              OrenNCBuffer *buffer);
 

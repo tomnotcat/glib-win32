@@ -54,7 +54,7 @@ OrenSMChannel* oren_smchannel_new (void);
 gboolean oren_smchannel_open (OrenSMChannel *self,
                               OrenDCServer *server,
                               OrenNCReactor *reactor,
-                              OrenNCInetAddress *address,
+                              GPtrArray *address,
                               OrenNCSockaddr *parent_addr,
                               const gchar *channel_name,
                               gboolean enable_p2p);

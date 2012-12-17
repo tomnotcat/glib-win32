@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="Atk" version="1.0"/>
+  <include name="GLib" version="2.0"/>
+  <include name="GModule" version="2.0"/>
+  <include name="GObject" version="2.0"/>
+  <include name="Gdk" version="3.0"/>
+  <include name="GdkPixbuf" version="2.0"/>
+  <include name="Gimo" version="1.0"/>
+  <include name="Gio" version="2.0"/>
+  <include name="Gtk" version="3.0"/>
+  <include name="Oren" version="1.0"/>
+  <include name="Pango" version="1.0"/>
+  <include name="cairo" version="1.0"/>
+  <package name="UU-1.0"/>
+  <namespace name="UU"
+             version="1.0"
+             shared-library="uutk.dll"
+             c:identifier-prefixes="UU"
+             c:symbol-prefixes="uu">
+    <class name="WindowDecorator"
+           c:symbol-prefix="window_decorator"
+           c:type="UUWindowDecorator"
+           parent="GObject.Object"
+           glib:type-name="UUWindowDecorator"
+           glib:get-type="uu_window_decorator_get_type"
+           glib:type-struct="WindowDecoratorClass">
+      <constructor name="new" c:identifier="uu_window_decorator_new">
+        <return-value transfer-ownership="full">
+          <type name="WindowDecorator" c:type="UUWindowDecorator*"/>
+        </return-value>
+      </constructor>
+      <method name="attach" c:identifier="uu_window_decorator_attach">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="window" transfer-ownership="none">
+            <type name="Gtk.Window" c:type="GtkWindow*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="WindowDecoratorPrivate"
+              c:type="UUWindowDecoratorPrivate*"/>
+      </field>
+    </class>
+    <record name="WindowDecoratorClass"
+            c:type="UUWindowDecoratorClass"
+            glib:is-gtype-struct-for="WindowDecorator">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="WindowDecoratorPrivate"
+            c:type="UUWindowDecoratorPrivate"
+            disguised="1">
+    </record>
+    <function name="aes_decrypt" c:identifier="uu_aes_decrypt">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="data" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="aes_encrypt" c:identifier="uu_aes_encrypt">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="data" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="read_pixbuf" c:identifier="uu_read_pixbuf">
+      <doc xml:whitespace="preserve">Read an pixbuf from the buffer.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">a #GdkPixbuf or %NULL on error. Free the returned object with g_object_unref().</doc>
+        <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+      </return-value>
+      <parameters>
+        <parameter name="buffer" transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #OrenNCBuffer.</doc>
+          <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="write_pixbuf" c:identifier="uu_write_pixbuf">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="buffer" transfer-ownership="none">
+          <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
+        </parameter>
+        <parameter name="pixbuf" transfer-ownership="none">
+          <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+        </parameter>
+      </parameters>
+    </function>
+  </namespace>
+</repository>

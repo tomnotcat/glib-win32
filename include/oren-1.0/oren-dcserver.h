@@ -94,6 +94,7 @@ OrenDCChannel* oren_dcserver_get_channel (OrenDCServer *self,
                                           gboolean create_it);
 
 void _oren_dcserver_send_login_result (OrenDCServer *self,
+                                       OrenNCSocket *socket,
                                        guint8 version,
                                        guint8 is_alone,
                                        OrenNCBuffer *buffer,

@@ -57,7 +57,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;gthread-2.0.lib;gio-2.0.lib;libffi-6.lib;girepository.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;gthread-2.0.lib;gio-2.0.lib;libffi-6.lib;_glib.lib;girepository.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Python27\libs;..\..\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -81,14 +81,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\Python27\libs;..\..\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;gthread-2.0.lib;gio-2.0.lib;libffi-6.lib;girepository.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glib-2.0.lib;gobject-2.0.lib;gmodule-2.0.lib;gthread-2.0.lib;gio-2.0.lib;libffi-6.lib;girepository.lib;_glib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>Copy "..\release\$(TargetName)$(TargetExt)"  "..\..\python27\Lib\gi\_gobject\$(TargetName)$(TargetExt)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pygobject-3.4.2\gi\_glib\pyglib.c" />
     <ClCompile Include="pygobject-3.4.2\gi\_gobject\gobjectmodule.c" />
     <ClCompile Include="pygobject-3.4.2\gi\_gobject\pygboxed.c" />
     <ClCompile Include="pygobject-3.4.2\gi\_gobject\pygenum.c" />

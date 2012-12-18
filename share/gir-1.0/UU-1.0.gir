@@ -106,20 +106,6 @@ and/or use gtk-doc annotations.  -->
         </parameter>
       </parameters>
     </function>
-    <function name="set_blob_value_from_file"
-              c:identifier="uu_set_blob_value_from_file">
-      <return-value transfer-ownership="none">
-        <type name="gboolean" c:type="gboolean"/>
-      </return-value>
-      <parameters>
-        <parameter name="holder" transfer-ownership="none">
-          <type name="Gda.Holder" c:type="GdaHolder*"/>
-        </parameter>
-        <parameter name="filename" transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </parameter>
-      </parameters>
-    </function>
     <function name="write_pixbuf" c:identifier="uu_write_pixbuf">
       <return-value transfer-ownership="none">
         <type name="gboolean" c:type="gboolean"/>

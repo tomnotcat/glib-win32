@@ -1598,7 +1598,7 @@ gda_connection_open_sqlite (const gchar *directory, const gchar *filename, gbool
 {
 	GdaConnection *cnc;
 	gchar *fname;
-	gint fd;
+	FILE *fd;
 
 	gchar *tmp1, *tmp2, *cncstring;
 	if (!directory)
@@ -1609,17 +1609,16 @@ gda_connection_open_sqlite (const gchar *directory, const gchar *filename, gbool
 
 	fname = g_build_filename (directory, filename, NULL);
 #ifdef G_OS_WIN32
-	fd = g_open (fname, O_WRONLY | O_CREAT | O_TRUNC,
-		     S_IRUSR | S_IWUSR);
+	fd = fopen (fname, "a+");
 #else
 	fd = g_open (fname, O_WRONLY | O_CREAT | O_NOCTTY | O_TRUNC,
 		     S_IRUSR | S_IWUSR);
 #endif
-	if (fd == -1) {
+	if (fd == NULL) {
 		g_free (fname);
 		return NULL;
 	}
-	close (fd);
+	fclose (fd);
 
 	tmp1 = gda_rfc1738_encode (directory);
 	tmp2 = gda_rfc1738_encode (filename);

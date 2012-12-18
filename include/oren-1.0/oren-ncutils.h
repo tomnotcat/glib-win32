@@ -38,6 +38,11 @@ void oren_ncbuffer_write_data (OrenNCBuffer *self,
                                gconstpointer buffer,
                                gsize size);
 
+void oren_ncbuffer_write_buffer (OrenNCBuffer *self,
+                                 OrenNCBuffer *buffer,
+                                 gsize offset,
+                                 gsize length);
+
 void oren_ncbuffer_write_string (OrenNCBuffer *self,
                                  const gchar *string);
 

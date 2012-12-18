@@ -103,6 +103,7 @@ Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
     <None Include="libgda.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="dir-blob-op-vs10.c" />
     <ClCompile Include="gda-attributes-manager-vs10.c" />
     <ClCompile Include="gda-config-vs10.c" />
     <ClCompile Include="gda-connection-vs10.c" />
@@ -155,7 +156,6 @@ Copy "..\Release\$(TargetName).lib"  "..\..\lib\$(TargetName).lib"
     <ClCompile Include="gda-vprovider-data-model-vs10.c" />
     <ClCompile Include="gda-xa-transaction-vs10.c" />
     <ClCompile Include="libgda-5.1.1\libgda\binreloc\gda-binreloc.c" />
-    <ClCompile Include="libgda-5.1.1\libgda\dir-blob-op.c" />
     <ClCompile Include="libgda-5.1.1\libgda\gda-batch.c" />
     <ClCompile Include="libgda-5.1.1\libgda\gda-blob-op.c" />
     <ClCompile Include="libgda-5.1.1\libgda\gda-column.c" />

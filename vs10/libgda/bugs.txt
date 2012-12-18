@@ -1,0 +1,5 @@
+=======================================================================
+dir-blob-op.c
+=======================================================================
+fopen (dirop->priv->complete_filename, "r"); /* Flawfinder: ignore */
+fopen (dirop->priv->complete_filename, "rb"); /* Flawfinder: ignore */

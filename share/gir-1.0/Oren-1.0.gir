@@ -5610,6 +5610,22 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="write_buffer" c:identifier="oren_ncbuffer_write_buffer">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+          <parameter name="offset" transfer-ownership="none">
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+          <parameter name="length" transfer-ownership="none">
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="write_checksum"
               c:identifier="oren_ncbuffer_write_checksum">
         <return-value transfer-ownership="none">

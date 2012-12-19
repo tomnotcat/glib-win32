@@ -43,11 +43,32 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
+      <method name="get_image"
+              c:identifier="uu_resource_manager_get_image"
+              throws="1">
+        <doc xml:whitespace="preserve">Get an image from the database.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GdkPixbuf</doc>
+          <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+        </return-value>
+        <parameters>
+          <parameter name="name" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the image name</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
       <property name="database"
                 writable="1"
                 construct-only="1"
                 transfer-ownership="none">
         <type name="Gda.Connection"/>
+      </property>
+      <property name="refdb"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="gboolean"/>
       </property>
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>

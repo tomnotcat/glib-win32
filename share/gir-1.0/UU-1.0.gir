@@ -156,6 +156,26 @@ and/or use gtk-doc annotations.  -->
         </parameter>
       </parameters>
     </function>
+    <function name="get_cpu_id" c:identifier="uu_get_cpu_id">
+      <return-value transfer-ownership="none">
+        <type name="utf8" c:type="const gchar*"/>
+      </return-value>
+    </function>
+    <function name="get_disk_id" c:identifier="uu_get_disk_id">
+      <return-value transfer-ownership="none">
+        <type name="utf8" c:type="const gchar*"/>
+      </return-value>
+    </function>
+    <function name="get_mac_address" c:identifier="uu_get_mac_address">
+      <return-value transfer-ownership="none">
+        <type name="utf8" c:type="const gchar*"/>
+      </return-value>
+    </function>
+    <function name="get_machine_id" c:identifier="uu_get_machine_id">
+      <return-value transfer-ownership="none">
+        <type name="utf8" c:type="const gchar*"/>
+      </return-value>
+    </function>
     <function name="get_resource_manager"
               c:identifier="uu_get_resource_manager">
       <doc xml:whitespace="preserve">Get the resource manager for the specified database.</doc>
@@ -193,6 +213,16 @@ and/or use gtk-doc annotations.  -->
         </parameter>
         <parameter name="show_hand" transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="sha1sum" c:identifier="uu_sha1sum">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="data" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
         </parameter>
       </parameters>
     </function>

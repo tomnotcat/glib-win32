@@ -1609,7 +1609,11 @@ gda_connection_open_sqlite (const gchar *directory, const gchar *filename, gbool
 
 	fname = g_build_filename (directory, filename, NULL);
 #ifdef G_OS_WIN32
-	fd = fopen (fname, "a+");
+    {
+        gchar *tmp_fname = g_locale_from_utf8 (fname, -1, NULL, NULL, NULL);
+	    fd = fopen (tmp_fname, "a+");
+        g_free (tmp_fname);
+    }
 #else
 	fd = g_open (fname, O_WRONLY | O_CREAT | O_NOCTTY | O_TRUNC,
 		     S_IRUSR | S_IWUSR);

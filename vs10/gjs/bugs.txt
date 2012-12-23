@@ -1,0 +1,12 @@
+=======================================================================
+jsapi-util.c
+=======================================================================
+gjs_define_string_array:
+====>
+element = STRING_TO_JSVAL(JS_NewStringCopyZ(context, array_values[i]));
+====
+gunichar2 *s2 = g_utf8_to_utf16 (array_values[i], -1, NULL, NULL, NULL);
+element = STRING_TO_JSVAL(JS_NewUCStringCopyZ(context, s2));
+g_free (s2);
+<====
+

@@ -226,6 +226,16 @@ and/or use gtk-doc annotations.  -->
         </parameter>
       </parameters>
     </function>
+    <function name="unify_combobox" c:identifier="uu_unify_combobox">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="combobox" transfer-ownership="none">
+          <type name="Gtk.ComboBox" c:type="GtkComboBox*"/>
+        </parameter>
+      </parameters>
+    </function>
     <function name="write_pixbuf" c:identifier="uu_write_pixbuf">
       <return-value transfer-ownership="none">
         <type name="gboolean" c:type="gboolean"/>

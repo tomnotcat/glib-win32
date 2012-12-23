@@ -723,8 +723,16 @@ gjs_define_string_array(JSContext   *context,
     elems = g_array_sized_new(FALSE, FALSE, sizeof(jsval), array_length);
 
     for (i = 0; i < array_length; ++i) {
+
         jsval element;
-        element = STRING_TO_JSVAL(JS_NewStringCopyZ(context, array_values[i]));
+        if (1) {
+            gunichar2 *s2 = g_utf8_to_utf16 (array_values[i], -1, NULL, NULL, NULL);
+            element = STRING_TO_JSVAL(JS_NewUCStringCopyZ(context, s2));
+            g_free (s2);
+        }
+        else {
+            element = STRING_TO_JSVAL(JS_NewStringCopyZ(context, array_values[i]));
+        }
         g_array_append_val(elems, element);
     }
 

@@ -103,13 +103,18 @@ and/or use gtk-doc annotations.  -->
       </constructor>
       <method name="attach" c:identifier="uu_window_decorator_attach">
         <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
+          <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
-          <parameter name="window" transfer-ownership="none">
-            <type name="Gtk.Window" c:type="GtkWindow*"/>
+          <parameter name="widget" transfer-ownership="none">
+            <type name="Gtk.Widget" c:type="GtkWidget*"/>
           </parameter>
         </parameters>
+      </method>
+      <method name="detach" c:identifier="uu_window_decorator_detach">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
       </method>
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>

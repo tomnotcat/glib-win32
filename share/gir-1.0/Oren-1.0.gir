@@ -4317,6 +4317,16 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
+      <method name="escape" c:identifier="oren_http_request_escape">
+        <return-value transfer-ownership="full">
+          <type name="utf8" c:type="gchar*"/>
+        </return-value>
+        <parameters>
+          <parameter name="string" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="get_bus" c:identifier="oren_http_request_get_bus">
         <doc xml:whitespace="preserve">Get signal bus of the object.</doc>
         <return-value transfer-ownership="none">
@@ -4339,6 +4349,16 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
+      </method>
+      <method name="unescape" c:identifier="oren_http_request_unescape">
+        <return-value transfer-ownership="full">
+          <type name="utf8" c:type="gchar*"/>
+        </return-value>
+        <parameters>
+          <parameter name="string" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
       </method>
       <property name="raw"
                 writable="1"

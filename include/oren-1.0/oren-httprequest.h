@@ -58,6 +58,12 @@ const gchar* oren_http_request_get_url (OrenHttpRequest *self);
 
 gboolean oren_http_request_perform (OrenHttpRequest *self);
 
+gchar* oren_http_request_escape (OrenHttpRequest *self,
+                                 const gchar *string);
+
+gchar* oren_http_request_unescape (OrenHttpRequest *self,
+                                   const gchar *string);
+
 G_END_DECLS
 
 #endif /* __OREN_HTTP_REQUEST_H__ */

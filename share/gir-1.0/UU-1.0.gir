@@ -26,6 +26,10 @@ and/or use gtk-doc annotations.  -->
              shared-library="uutk.dll"
              c:identifier-prefixes="UU"
              c:symbol-prefixes="uu">
+    <record name="DecoratorButton" c:type="UUDecoratorButton" disguised="1">
+    </record>
+    <record name="DecoratorWidget" c:type="UUDecoratorWidget" disguised="1">
+    </record>
     <class name="ResourceManager"
            c:symbol-prefix="resource_manager"
            c:type="UUResourceManager"
@@ -101,6 +105,40 @@ and/or use gtk-doc annotations.  -->
           <type name="WindowDecorator" c:type="UUWindowDecorator*"/>
         </return-value>
       </constructor>
+      <method name="add_tool" c:identifier="uu_window_decorator_add_tool">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="tool" transfer-ownership="none">
+            <type name="DecoratorWidget" c:type="UUDecoratorWidget*"/>
+          </parameter>
+          <parameter name="x" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="y" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="width" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="height" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="left" transfer-ownership="none">
+            <type name="gfloat" c:type="gfloat"/>
+          </parameter>
+          <parameter name="top" transfer-ownership="none">
+            <type name="gfloat" c:type="gfloat"/>
+          </parameter>
+          <parameter name="right" transfer-ownership="none">
+            <type name="gfloat" c:type="gfloat"/>
+          </parameter>
+          <parameter name="bottom" transfer-ownership="none">
+            <type name="gfloat" c:type="gfloat"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="attach" c:identifier="uu_window_decorator_attach">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
@@ -115,6 +153,22 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
+      </method>
+      <method name="get_allocation"
+              c:identifier="uu_window_decorator_get_allocation">
+        <doc xml:whitespace="preserve">Retrieves the decorator's allocation.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="allocation"
+                     direction="out"
+                     caller-allocates="1"
+                     transfer-ownership="none">
+            <doc xml:whitespace="preserve">a pointer to a #GtkAllocation to copy to</doc>
+            <type name="Gtk.Allocation" c:type="GtkAllocation*"/>
+          </parameter>
+        </parameters>
       </method>
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>

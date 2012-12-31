@@ -249,6 +249,11 @@ and/or use gtk-doc annotations.  -->
         </parameter>
       </parameters>
     </function>
+    <function name="is_win7" c:identifier="uu_is_win7">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+    </function>
     <function name="read_pixbuf" c:identifier="uu_read_pixbuf">
       <doc xml:whitespace="preserve">Read an pixbuf from the buffer.</doc>
       <return-value transfer-ownership="full">

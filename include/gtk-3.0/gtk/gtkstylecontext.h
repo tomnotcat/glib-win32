@@ -1009,6 +1009,9 @@ AtkAttributeSet *_gtk_style_context_get_attributes (AtkAttributeSet *attributes,
                                                     GtkStyleContext *context,
                                                     GtkStateFlags    flags);
 
+void _gtk_style_context_set_widget (GtkStyleContext *context,
+                                    GtkWidget       *widget);
+
 G_END_DECLS
 
 #endif /* __GTK_STYLE_CONTEXT_H__ */

@@ -53,6 +53,8 @@ struct _GimoContextClass {
                            GimoPluginState new_state);
     void (*async_run) (GimoContext *self,
                        GimoRunnable *run);
+    void (*call_gc) (GimoContext *self,
+                     gboolean full_gc);
     void (*destroy) (GimoContext *self);
 };
 
@@ -93,6 +95,9 @@ void gimo_context_run_plugins (GimoContext *self);
 
 void gimo_context_async_run (GimoContext *self,
                              GimoRunnable *run);
+
+void gimo_context_call_gc (GimoContext *self,
+                           gboolean full_gc);
 
 void gimo_context_destroy (GimoContext *self);
 

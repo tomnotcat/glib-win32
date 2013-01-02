@@ -179,6 +179,16 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
+      <virtual-method name="call_gc" invoker="call_gc">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="full_gc" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
       <virtual-method name="destroy" invoker="destroy">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -219,6 +229,16 @@ and/or use gtk-doc annotations.  -->
         <parameters>
           <parameter name="run" transfer-ownership="none">
             <type name="Runnable" c:type="GimoRunnable*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="call_gc" c:identifier="gimo_context_call_gc">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="full_gc" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
           </parameter>
         </parameters>
       </method>
@@ -359,6 +379,16 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </glib:signal>
+      <glib:signal name="call-gc" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gboolean"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
       <glib:signal name="destroy" when="first">
         <return-value transfer-ownership="none">
           <type name="none"/>
@@ -419,6 +449,21 @@ and/or use gtk-doc annotations.  -->
             </parameter>
             <parameter name="run" transfer-ownership="none">
               <type name="Runnable" c:type="GimoRunnable*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="call_gc">
+        <callback name="call_gc">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Context" c:type="GimoContext*"/>
+            </parameter>
+            <parameter name="full_gc" transfer-ownership="none">
+              <type name="gboolean" c:type="gboolean"/>
             </parameter>
           </parameters>
         </callback>

@@ -75,7 +75,7 @@ void gimo_context_add_paths (GimoContext *self,
 guint gimo_context_load_plugin (GimoContext *self,
                                 const gchar *file_path,
                                 GCancellable *cancellable,
-                                gboolean start);
+                                GPtrArray **array);
 
 GimoPlugin* gimo_context_query_plugin (GimoContext *self,
                                        const gchar *plugin_id);

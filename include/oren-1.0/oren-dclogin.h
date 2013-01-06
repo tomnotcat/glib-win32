@@ -83,6 +83,8 @@ OrenCMClient* oren_dclogin_get_cmclient (OrenDCLogin *self);
 
 OrenDCClient* oren_dclogin_get_dcclient (OrenDCLogin *self);
 
+GPtrArray* oren_dclogin_query_cmslaves (OrenDCLogin *self);
+
 #define oren_dclogin_is_online(_self) \
     (oren_dclogin_get_state (_self) == OREN_NCONLINE_STATE_ONLINE)
 

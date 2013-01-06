@@ -267,18 +267,30 @@ and/or use gtk-doc annotations.  -->
       <method name="load_plugin"
               c:identifier="gimo_context_load_plugin"
               introspectable="0">
+        <doc xml:whitespace="preserve">Load plugins from the specified path.</doc>
         <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the number of loaded plugins.</doc>
           <type name="guint" c:type="guint"/>
         </return-value>
         <parameters>
           <parameter name="file_path" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the plugin file path</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="cancellable" transfer-ownership="none">
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">a #GCancellable</doc>
             <type c:type="GCancellable*"/>
           </parameter>
-          <parameter name="start" transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
+          <parameter name="array"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:whitespace="preserve">return the loaded plugins</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray**">
+              <type name="Plugin"/>
+            </array>
           </parameter>
         </parameters>
       </method>
@@ -1600,6 +1612,16 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
+      </method>
+      <method name="upgrade" c:identifier="gimo_plugin_upgrade">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="new_plugin" transfer-ownership="none">
+            <type name="Plugin" c:type="GimoPlugin*"/>
+          </parameter>
+        </parameters>
       </method>
       <property name="extensions"
                 writable="1"

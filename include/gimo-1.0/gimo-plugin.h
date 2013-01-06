@@ -118,6 +118,9 @@ gboolean gimo_plugin_start (GimoPlugin *self,
 
 void gimo_plugin_stop (GimoPlugin *self);
 
+void gimo_plugin_upgrade (GimoPlugin *self,
+                          GimoPlugin *new_plugin);
+
 G_END_DECLS
 
 #endif /* __GIMO_PLUGIN_H__ */

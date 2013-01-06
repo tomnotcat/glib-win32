@@ -2692,6 +2692,15 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="query_cmslaves" c:identifier="oren_dclogin_query_cmslaves">
+        <doc xml:whitespace="preserve">Query CMSlaves list returned by CMServer.</doc>
+        <return-value transfer-ownership="container">
+          <doc xml:whitespace="preserve">an array of #OrenCMItem.</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="CMItem"/>
+          </array>
+        </return-value>
+      </method>
       <field name="parent_instance">
         <type name="NCHandler" c:type="OrenNCHandler"/>
       </field>

@@ -18,6 +18,7 @@
 #ifndef __OREN_SIGNALBUS_H__
 #define __OREN_SIGNALBUS_H__
 
+#include "oren-cmtypes.h"
 #include "oren-dctypes.h"
 #include "oren-nctypes.h"
 #include <gimo.h>

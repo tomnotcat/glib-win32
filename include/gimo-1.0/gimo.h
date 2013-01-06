@@ -23,7 +23,7 @@
 #include <gimo-types.h>
 #include <gimo-enums.h>
 #include <gimo-error.h>
-#include <gimo-binding.h>
+#include <gimo-datastore.h>
 #include <gimo-context.h>
 #include <gimo-plugin.h>
 #include <gimo-require.h>

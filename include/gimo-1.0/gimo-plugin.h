@@ -48,6 +48,8 @@ struct _GimoPluginClass {
     GimoRunnableClass parent_class;
     gboolean (*start) (GimoPlugin *self);
     void (*stop) (GimoPlugin *self);
+    void (*save) (GimoPlugin *self, GimoDataStore *store);
+    void (*restore) (GimoPlugin *self, GimoDataStore *store);
 };
 
 GType gimo_plugin_get_type (void) G_GNUC_CONST;
@@ -118,9 +120,11 @@ gboolean gimo_plugin_start (GimoPlugin *self,
 
 void gimo_plugin_stop (GimoPlugin *self);
 
-void gimo_plugin_upgrade (GimoPlugin *self,
-                          GimoPlugin *new_plugin);
+void gimo_plugin_save (GimoPlugin *self,
+                       GimoDataStore *store);
 
+void gimo_plugin_restore (GimoPlugin *self,
+                          GimoDataStore *store);
 G_END_DECLS
 
 #endif /* __GIMO_PLUGIN_H__ */

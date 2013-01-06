@@ -99,6 +99,12 @@ void gimo_context_async_run (GimoContext *self,
 void gimo_context_call_gc (GimoContext *self,
                            gboolean full_gc);
 
+void gimo_context_save (GimoContext *self,
+                        GimoDataStore *store);
+
+void gimo_context_restore (GimoContext *self,
+                           GimoDataStore *store);
+
 void gimo_context_destroy (GimoContext *self);
 
 G_END_DECLS

@@ -45,105 +45,60 @@ struct _OrenSMClient {
 
 struct _OrenSMClientClass {
     OrenDCClientClass parent_class;
-    void (*source) (OrenSMClient *self, OrenNCBuffer *param);
-    void (*accept) (OrenSMClient *self, gboolean accept);
-    void (*media_format) (OrenSMClient *self, OrenNCBuffer *format);
-    void (*media_data) (OrenSMClient *self,
-                        guint max_retry,
-                        OrenNCBuffer *buffer);
+    void (*start) (OrenSMClient *self,
+                   guint line_number,
+                   OrenNCBuffer *param);
+    void (*stop) (OrenSMClient *self,
+                  guint line_number);
+    void (*refuse) (OrenSMClient *self,
+                    guint line_number,
+                    guint data_types);
+    void (*meta) (OrenSMClient *self,
+                  guint line_number,
+                  OrenNCBuffer *meta);
+    void (*data) (OrenSMClient *self,
+                  guint line_number,
+                  guint data_type,
+                  guint max_retry,
+                  OrenNCBuffer *buffer);
 };
 
 GType oren_smclient_get_type (void) G_GNUC_CONST;
 
-OrenSMClient* oren_smclient_new (void);
+OrenSMClient* oren_smclient_new (gboolean pack_data);
 
-gboolean oren_smclient_open (OrenSMClient *self,
-                             OrenNCReactor *reactor,
-                             const gchar *signature,
-                             gboolean statistics,
-                             gboolean pack_data);
-
-void oren_smclient_set_source (OrenSMClient *self,
+void oren_smclient_start_line (OrenSMClient *self,
+                               guint line_number,
                                gconstpointer param,
                                gsize size);
 
-void oren_smclient_send_format (OrenSMClient *self,
-                                gconstpointer data,
-                                gsize size);
+void oren_smclient_stop_line (OrenSMClient *self,
+                              guint line_number);
+
+void oren_smclient_send_meta (OrenSMClient *self,
+                              guint line_number,
+                              gconstpointer data,
+                              gsize size);
 
 void oren_smclient_send_data (OrenSMClient *self,
+                              guint line_number,
+                              guint data_type,
                               gconstpointer data,
                               gsize size,
                               guint max_retry);
 
-void oren_smclient_accept_data (OrenSMClient *self,
-                                gboolean accept);
+void oren_smclient_send_refuse (OrenSMClient *self,
+                                guint line_number,
+                                guint data_types);
 
-const gchar* oren_smclient_get_source_name (OrenSMClient *self);
+gchar* oren_smclient_dup_source_name (OrenSMClient *self,
+                                      guint line_number);
 
-guint32 oren_smclient_get_source_id (OrenSMClient *self);
+guint32 oren_smclient_get_source_id (OrenSMClient *self,
+                                     guint line_number);
 
-gboolean oren_smclient_is_source (OrenSMClient *self);
-
-#define oren_smclient_close(_self) \
-    oren_dcclient_close (OREN_DCCLIENT (_self))
-
-#define oren_smclient_ping(_self, _info, _timeout) \
-    oren_dcclient_ping (OREN_DCCLIENT (_self), _info, _timeout)
-
-#define oren_smclient_login(_self, _login_time, _address, \
-                            _channel_name, _user_name, _network_type)  \
-    oren_dcclient_login (OREN_DCCLIENT (_self), _login_time, _address, \
-                         _channel_name, _user_name, _network_type)
-
-#define oren_smclient_logout(_self) \
-    oren_dcclient_logout (OREN_DCCLIENT (_self))
-
-#define oren_smclient_get_state(_self) \
-    oren_dcclient_get_state (OREN_DCCLIENT (_self))
-
-#define oren_smclient_set_quality(_self, _send, _receive) \
-    oren_dcclient_set_quality (OREN_DCCLIENT (_self), _send, _receive)
-
-#define oren_smclient_enable_p2p(_self, _enable) \
-    oren_dcclient_enable_p2p (OREN_DCCLIENT (_self), _enable)
-
-#define oren_smclient_get_mtpeer(_self) \
-    _oren_dcclient_get_mtpeer (OREN_DCCLIENT (_self))
-
-#define oren_smclient_server_name(_self) \
-    oren_dcclient_server_name (OREN_DCCLIENT (_self))
-
-#define oren_smclient_server_version(_self) \
-    oren_dcclient_server_version (OREN_DCCLIENT (_self))
-
-#define oren_smclient_get_signature(_self) \
-    oren_dcclient_get_signature (OREN_DCCLIENT (_self))
-
-#define oren_smclient_get_channel_name(_self) \
-    oren_dcclient_get_channel_name (OREN_DCCLIENT (_self))
-
-#define oren_smclient_get_user_name(_self) \
-    oren_dcclient_get_user_name (OREN_DCCLIENT (_self))
-
-#define oren_smclient_get_user_id(_self) \
-    oren_dcclient_get_user_id (OREN_DCCLIENT (_self))
-
-#define oren_smclient_is_alone(_self) \
-    oren_dcclient_is_alone (OREN_DCCLIENT (_self))
-
-#define oren_smclient_get_transfer_status(_self, _status) \
-    oren_dcclient_get_transfer_status (OREN_DCCLIENT (_self), _status)
-
-#define oren_smclient_set_test_params(_self, _send_lost, _recv_lost) \
-    oren_dcclient_set_test_params (OREN_DCCLIENT (_self), \
-                                   _send_lost, _recv_lost)
-
-#define oren_smclient_is_online(_self) \
-    oren_dcclient_is_online (OREN_DCCLIENT (_self))
-
-#define oren_smclient_is_offline(_self) \
-    oren_dcclient_is_offline (OREN_DCCLIENT (_self))
+gboolean oren_smclient_is_source (OrenSMClient *self,
+                                  guint line_number);
 
 G_END_DECLS
 

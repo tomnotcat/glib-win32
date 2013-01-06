@@ -59,38 +59,38 @@ gboolean oren_smchannel_open (OrenSMChannel *self,
                               const gchar *channel_name,
                               gboolean enable_p2p);
 
-guint32 oren_smchannel_get_source_id (OrenSMChannel *self);
+guint32 oren_smchannel_get_source_id (OrenSMChannel *self,
+                                      guint line_number);
 
-const gchar* oren_smchannel_get_source_name (OrenSMChannel *self);
+guint8 oren_smchannel_get_source_code (OrenSMChannel *self,
+                                       guint line_number);
 
-guint8 oren_smchannel_get_source_code (OrenSMChannel *self);
-
-void _oren_smchannel_set_source (OrenSMChannel *self,
+void _oren_smchannel_start_line (OrenSMChannel *self,
                                  OrenSMUser *user,
+                                 guint line_number,
                                  guint8 source_code,
                                  gconstpointer param,
                                  gsize param_size);
 
-void _oren_smchannel_set_format (OrenSMChannel *self,
-                                 OrenSMUser *from,
-                                 gconstpointer data,
-                                 gsize size);
+void _oren_smchannel_send_meta (OrenSMChannel *self,
+                                OrenSMUser *from,
+                                guint line_number,
+                                gconstpointer data,
+                                gsize size);
 
 void _oren_smchannel_send_data (OrenSMChannel *self,
                                 OrenSMUser *from,
+                                guint line_number,
+                                guint data_type,
                                 guint8 max_retry,
                                 guint8 source_code,
                                 gconstpointer data,
                                 gsize size);
 
-void _oren_smchannel_accept_data (OrenSMChannel *self,
-                                  OrenSMUser *user);
-
-#define oren_smchannel_get_name(_self) \
-    oren_dcchannel_get_name (OREN_DCCHANNEL (_self))
-
-#define oren_smchannel_get_parent(_self) \
-    oren_dcchannel_get_parent (OREN_DCCHANNEL (_self))
+void _oren_smchannel_send_refuse (OrenSMChannel *self,
+                                  OrenSMUser *user,
+                                  guint line_number,
+                                  guint data_types);
 
 G_END_DECLS
 

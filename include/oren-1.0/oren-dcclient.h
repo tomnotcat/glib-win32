@@ -51,6 +51,7 @@ struct _OrenDCClientClass {
     void (*login) (OrenDCClient *self, OrenDCLoginResult result);
     void (*logout) (OrenDCClient *self, OrenDCLogoutReason reason);
     void (*packet) (OrenDCClient *self, guint msg, OrenNCBuffer *buffer);
+    void (*mtpacket) (OrenDCClient *self, guint msg, OrenNCBuffer *buffer);
     void (*alone) (OrenDCClient *self, gboolean alone);
     void (*p2p) (OrenDCClient *self, gboolean enable);
     void (*work) (OrenDCClient *self);
@@ -87,7 +88,7 @@ void oren_dcclient_ping (OrenDCClient *self,
                          gint timeout);
 
 void oren_dcclient_login (OrenDCClient *self,
-                          guint32 login_time,
+                          guint32 server_id,
                           OrenNCSockaddr *address,
                           const gchar *channel_name,
                           const gchar *user_name,
@@ -133,6 +134,8 @@ gboolean _oren_dcclient_real_send (OrenDCClient *self,
                                    OrenNCBuffer *buffer,
                                    guint max_retry,
                                    gboolean flush);
+
+guint _oren_dcclient_get_capacity (OrenDCClient *self);
 
 OrenMTPeer* _oren_dcclient_get_mtpeer (OrenDCClient *self);
 

@@ -60,30 +60,9 @@ OrenSMUser* oren_smuser_new (OrenDCChannel *channel,
                              guint32 login_code,
                              guint protocol_version);
 
-gboolean oren_smuser_is_source (OrenSMUser *self);
-
-gboolean oren_smuser_accept_data (OrenSMUser *self);
-
-#define oren_smuser_get_id(_self) \
-    oren_dcuser_get_id (OREN_DCUSER (_self))
-
-#define oren_smuser_get_login_code(_self) \
-    oren_dcuser_get_login_code (OREN_DCUSER (_self))
-
-#define oren_smuser_protocol_version(_self) \
-    oren_dcuser_protocol_version (OREN_DCUSER (_self))
-
-#define oren_smuser_client_version(_self) \
-    oren_dcuser_client_version (OREN_DCUSER (_self))
-
-#define oren_smuser_network_type(_self) \
-    oren_dcuser_network_type (OREN_DCUSER (_self))
-
-#define oren_smuser_get_name(_self) \
-    oren_dcuser_get_name (OREN_DCUSER (_self))
-
-#define oren_smuser_get_address(_self) \
-    oren_dcuser_get_address (OREN_DCUSER (_self))
+gboolean oren_smuser_refuse_data (OrenSMUser *self,
+                                  guint line_number,
+                                  guint data_type);
 
 G_END_DECLS
 

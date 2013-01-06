@@ -359,10 +359,30 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="restore" c:identifier="gimo_context_restore">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="store" transfer-ownership="none">
+            <type name="DataStore" c:type="GimoDataStore*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="run_plugins" c:identifier="gimo_context_run_plugins">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
+      </method>
+      <method name="save" c:identifier="gimo_context_save">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="store" transfer-ownership="none">
+            <type name="DataStore" c:type="GimoDataStore*"/>
+          </parameter>
+        </parameters>
       </method>
       <method name="uninstall_plugin"
               c:identifier="gimo_context_uninstall_plugin">
@@ -494,6 +514,141 @@ and/or use gtk-doc annotations.  -->
       </field>
     </record>
     <record name="ContextPrivate" c:type="GimoContextPrivate" disguised="1">
+    </record>
+    <class name="DataStore"
+           c:symbol-prefix="data_store"
+           c:type="GimoDataStore"
+           parent="GObject.Object"
+           glib:type-name="GimoDataStore"
+           glib:get-type="gimo_data_store_get_type"
+           glib:type-struct="DataStoreClass">
+      <constructor name="new" c:identifier="gimo_data_store_new">
+        <return-value transfer-ownership="full">
+          <type name="DataStore" c:type="GimoDataStore*"/>
+        </return-value>
+      </constructor>
+      <method name="foreach"
+              c:identifier="gimo_data_store_foreach"
+              introspectable="0">
+        <doc xml:whitespace="preserve">Calls the given function for each of the key/value pairs in the store.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="func" transfer-ownership="none" closure="1">
+            <doc xml:whitespace="preserve">the function to call for each data visited. If this function returns %TRUE, the traversal is stopped.</doc>
+            <type name="GLib.TraverseFunc" c:type="GTraverseFunc"/>
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none">
+            <doc xml:whitespace="preserve">user data to pass to the function.</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get" c:identifier="gimo_data_store_get">
+        <doc xml:whitespace="preserve">Retrieve a data from the data store.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GValue containing the value stored in the given key, or %NULL on error.</doc>
+          <type name="GObject.Value" c:type="const GValue*"/>
+        </return-value>
+        <parameters>
+          <parameter name="key" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the data key</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_object" c:identifier="gimo_data_store_get_object">
+        <doc xml:whitespace="preserve">Retrieve an object from the data store.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the object stored in the given key, or %NULL on error.</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </return-value>
+        <parameters>
+          <parameter name="key" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the object key</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_string" c:identifier="gimo_data_store_get_string">
+        <doc xml:whitespace="preserve">Retrieve a string from the data store.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">the string stored in the given key, or %NULL on error.</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+        <parameters>
+          <parameter name="key" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the string key</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set" c:identifier="gimo_data_store_set">
+        <doc xml:whitespace="preserve">Store a data to the data store.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="key" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the data key</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="value" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the data value</doc>
+            <type name="GObject.Value" c:type="const GValue*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_object" c:identifier="gimo_data_store_set_object">
+        <doc xml:whitespace="preserve">Store a object to the data store.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="key" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the data key</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="value" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the data value</doc>
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_string" c:identifier="gimo_data_store_set_string">
+        <doc xml:whitespace="preserve">Store a string to the data store.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="key" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the data key</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="value" transfer-ownership="none" allow-none="1">
+            <doc xml:whitespace="preserve">the data value</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="DataStorePrivate" c:type="GimoDataStorePrivate*"/>
+      </field>
+    </class>
+    <record name="DataStoreClass"
+            c:type="GimoDataStoreClass"
+            glib:is-gtype-struct-for="DataStore">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="DataStorePrivate"
+            c:type="GimoDataStorePrivate"
+            disguised="1">
     </record>
     <class name="Dlmodule"
            c:symbol-prefix="dlmodule"
@@ -1401,6 +1556,26 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
+      <virtual-method name="restore" invoker="restore">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="store" transfer-ownership="none">
+            <type name="DataStore" c:type="GimoDataStore*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="save" invoker="save">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="store" transfer-ownership="none">
+            <type name="DataStore" c:type="GimoDataStore*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
       <virtual-method name="start">
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
@@ -1504,7 +1679,7 @@ and/or use gtk-doc annotations.  -->
       </method>
       <method name="get_object" c:identifier="gimo_plugin_get_object">
         <doc xml:whitespace="preserve">Get a previously defined object.</doc>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="none">
           <doc xml:whitespace="preserve">a #GObject</doc>
           <type name="GObject.Object" c:type="GObject*"/>
         </return-value>
@@ -1595,6 +1770,26 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="restore" c:identifier="gimo_plugin_restore">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="store" transfer-ownership="none">
+            <type name="DataStore" c:type="GimoDataStore*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="save" c:identifier="gimo_plugin_save">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="store" transfer-ownership="none">
+            <type name="DataStore" c:type="GimoDataStore*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="start" c:identifier="gimo_plugin_start">
         <doc xml:whitespace="preserve">Start the plugin runtime.</doc>
         <return-value transfer-ownership="none">
@@ -1612,16 +1807,6 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
-      </method>
-      <method name="upgrade" c:identifier="gimo_plugin_upgrade">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="new_plugin" transfer-ownership="none">
-            <type name="Plugin" c:type="GimoPlugin*"/>
-          </parameter>
-        </parameters>
       </method>
       <property name="extensions"
                 writable="1"
@@ -1689,6 +1874,26 @@ and/or use gtk-doc annotations.  -->
       <field name="priv">
         <type name="PluginPrivate" c:type="GimoPluginPrivate*"/>
       </field>
+      <glib:signal name="restore" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="DataStore"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="save" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="DataStore"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
       <glib:signal name="start" when="last">
         <return-value transfer-ownership="none">
           <type name="gboolean"/>
@@ -1726,6 +1931,36 @@ and/or use gtk-doc annotations.  -->
           <parameters>
             <parameter name="self" transfer-ownership="none">
               <type name="Plugin" c:type="GimoPlugin*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="save">
+        <callback name="save">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Plugin" c:type="GimoPlugin*"/>
+            </parameter>
+            <parameter name="store" transfer-ownership="none">
+              <type name="DataStore" c:type="GimoDataStore*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="restore">
+        <callback name="restore">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Plugin" c:type="GimoPlugin*"/>
+            </parameter>
+            <parameter name="store" transfer-ownership="none">
+              <type name="DataStore" c:type="GimoDataStore*"/>
             </parameter>
           </parameters>
         </callback>
@@ -1961,8 +2196,8 @@ and/or use gtk-doc annotations.  -->
             c:type="GimoXmlArchivePrivate"
             disguised="1">
     </record>
-    <function name="bind_object" c:identifier="gimo_bind_object">
-      <doc xml:whitespace="preserve">Binding an object to the object.</doc>
+    <function name="bind" c:identifier="gimo_bind">
+      <doc xml:whitespace="preserve">Bind a data to the specified object.</doc>
       <return-value transfer-ownership="none">
         <type name="none" c:type="void"/>
       </return-value>
@@ -1972,17 +2207,37 @@ and/or use gtk-doc annotations.  -->
           <type name="GObject.Object" c:type="GObject*"/>
         </parameter>
         <parameter name="key" transfer-ownership="none">
-          <doc xml:whitespace="preserve">the binding key</doc>
+          <doc xml:whitespace="preserve">the data key</doc>
           <type name="utf8" c:type="const gchar*"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none" allow-none="1">
-          <doc xml:whitespace="preserve">the binding data</doc>
+        <parameter name="value" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the data value</doc>
+          <type name="GObject.Value" c:type="const GValue*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="bind_object" c:identifier="gimo_bind_object">
+      <doc xml:whitespace="preserve">Bind an object to the specified object.</doc>
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GObject</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the data key</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="value" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the data value</doc>
           <type name="GObject.Object" c:type="GObject*"/>
         </parameter>
       </parameters>
     </function>
     <function name="bind_string" c:identifier="gimo_bind_string">
-      <doc xml:whitespace="preserve">Binding a string to the object.</doc>
+      <doc xml:whitespace="preserve">Bind a string to the specified object.</doc>
       <return-value transfer-ownership="none">
         <type name="none" c:type="void"/>
       </return-value>
@@ -1992,32 +2247,12 @@ and/or use gtk-doc annotations.  -->
           <type name="GObject.Object" c:type="GObject*"/>
         </parameter>
         <parameter name="key" transfer-ownership="none">
-          <doc xml:whitespace="preserve">the binding key</doc>
+          <doc xml:whitespace="preserve">the data key</doc>
           <type name="utf8" c:type="const gchar*"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none" allow-none="1">
-          <doc xml:whitespace="preserve">the binding data</doc>
+        <parameter name="value" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the data value</doc>
           <type name="utf8" c:type="const gchar*"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="binding_lock" c:identifier="gimo_binding_lock">
-      <return-value transfer-ownership="none">
-        <type name="none" c:type="void"/>
-      </return-value>
-      <parameters>
-        <parameter name="object" transfer-ownership="none">
-          <type name="GObject.Object" c:type="GObject*"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="binding_unlock" c:identifier="gimo_binding_unlock">
-      <return-value transfer-ownership="none">
-        <type name="none" c:type="void"/>
-      </return-value>
-      <parameters>
-        <parameter name="object" transfer-ownership="none">
-          <type name="GObject.Object" c:type="GObject*"/>
         </parameter>
       </parameters>
     </function>
@@ -2046,10 +2281,27 @@ and/or use gtk-doc annotations.  -->
         <type name="gint" c:type="gint"/>
       </return-value>
     </function>
-    <function name="lookup_object" c:identifier="gimo_lookup_object">
-      <doc xml:whitespace="preserve">Lookup a binded object, must hold binding lock.</doc>
+    <function name="lookup" c:identifier="gimo_lookup">
+      <doc xml:whitespace="preserve">Lookup a previous bind data from the specified object.</doc>
       <return-value transfer-ownership="none">
-        <doc xml:whitespace="preserve">a #GObject</doc>
+        <doc xml:whitespace="preserve">a #GValue containing the value bind to the given key, or %NULL on error.</doc>
+        <type name="GObject.Value" c:type="const GValue*"/>
+      </return-value>
+      <parameters>
+        <parameter name="object" transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GObject</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+        <parameter name="key" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the data key</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="lookup_object" c:identifier="gimo_lookup_object">
+      <doc xml:whitespace="preserve">Lookup a previous bind object from the specified object.</doc>
+      <return-value transfer-ownership="none">
+        <doc xml:whitespace="preserve">the object bind to the given key, or %NULL on error.</doc>
         <type name="GObject.Object" c:type="GObject*"/>
       </return-value>
       <parameters>
@@ -2058,29 +2310,16 @@ and/or use gtk-doc annotations.  -->
           <type name="GObject.Object" c:type="GObject*"/>
         </parameter>
         <parameter name="key" transfer-ownership="none">
-          <doc xml:whitespace="preserve">the binding key</doc>
+          <doc xml:whitespace="preserve">the data key</doc>
           <type name="utf8" c:type="const gchar*"/>
         </parameter>
       </parameters>
     </function>
     <function name="lookup_string" c:identifier="gimo_lookup_string">
+      <doc xml:whitespace="preserve">Lookup a previous bind string from the specified object.</doc>
       <return-value transfer-ownership="none">
+        <doc xml:whitespace="preserve">the string bind to the given key, or %NULL on error.</doc>
         <type name="utf8" c:type="const gchar*"/>
-      </return-value>
-      <parameters>
-        <parameter name="object" transfer-ownership="none">
-          <type name="GObject.Object" c:type="GObject*"/>
-        </parameter>
-        <parameter name="key" transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="query_object" c:identifier="gimo_query_object">
-      <doc xml:whitespace="preserve">Query a binded object.</doc>
-      <return-value transfer-ownership="full">
-        <doc xml:whitespace="preserve">a #GObject</doc>
-        <type name="GObject.Object" c:type="GObject*"/>
       </return-value>
       <parameters>
         <parameter name="object" transfer-ownership="none">
@@ -2088,20 +2327,7 @@ and/or use gtk-doc annotations.  -->
           <type name="GObject.Object" c:type="GObject*"/>
         </parameter>
         <parameter name="key" transfer-ownership="none">
-          <doc xml:whitespace="preserve">the binding key</doc>
-          <type name="utf8" c:type="const gchar*"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="query_string" c:identifier="gimo_query_string">
-      <return-value transfer-ownership="full">
-        <type name="utf8" c:type="gchar*"/>
-      </return-value>
-      <parameters>
-        <parameter name="object" transfer-ownership="none">
-          <type name="GObject.Object" c:type="GObject*"/>
-        </parameter>
-        <parameter name="key" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the data key</doc>
           <type name="utf8" c:type="const gchar*"/>
         </parameter>
       </parameters>

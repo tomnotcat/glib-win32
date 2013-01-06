@@ -48,6 +48,7 @@ struct _OrenDCServerClass {
     void (*recv_ping) (OrenDCServer *self, OrenNCSockaddr *from);
     void (*add_channel) (OrenDCServer *self, OrenDCChannel *channel);
     void (*remove_channel) (OrenDCServer *self, OrenDCChannel *channel);
+    void (*upgrade) (OrenDCServer *self);
 };
 
 GType oren_dcserver_get_type (void) G_GNUC_CONST;
@@ -74,6 +75,8 @@ gboolean oren_dcserver_open (OrenDCServer *self,
                              gboolean auto_freeze);
 
 void oren_dcserver_close (OrenDCServer *self);
+
+void oren_dcserver_upgrade (OrenDCServer *self);
 
 const gchar* oren_dcserver_get_parent_group (OrenDCServer *self);
 

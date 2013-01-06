@@ -53,6 +53,7 @@ OrenCMItem* oren_cmitem_new (const gchar *slave_name,
                              const gchar *slave_group,
                              const gchar *channel,
                              const gchar *place,
+                             guint32 server_id,
                              GPtrArray *service_addr,
                              guint16 service_port);
 
@@ -63,6 +64,8 @@ const gchar* oren_cmitem_get_group (OrenCMItem *self);
 const gchar* oren_cmitem_get_channel (OrenCMItem *self);
 
 const gchar* oren_cmitem_get_place (OrenCMItem *item);
+
+guint32 oren_cmitem_get_server_id (OrenCMItem *self);
 
 GPtrArray* oren_cmitem_get_service_addr (OrenCMItem *self);
 

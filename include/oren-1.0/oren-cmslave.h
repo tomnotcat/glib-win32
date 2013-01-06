@@ -88,6 +88,8 @@ OrenNCOnlineState oren_cmslave_get_state (OrenCMSlave *self);
 
 const gchar* oren_cmslave_server_version (OrenCMSlave *self);
 
+guint32 oren_cmslave_get_id (OrenCMSlave *self);
+
 const gchar* oren_cmslave_get_name (OrenCMSlave *self);
 
 const gchar* oren_cmslave_get_group (OrenCMSlave *self);

@@ -50,6 +50,7 @@ struct _OrenDCChannelClass {
     void (*alone) (OrenDCChannel *self, gboolean alone);
     void (*open) (OrenDCChannel *self);
     void (*close) (OrenDCChannel *self);
+    void (*upgrade) (OrenDCChannel *self);
 };
 
 /**
@@ -77,6 +78,8 @@ gboolean oren_dcchannel_open (OrenDCChannel *self,
                               gboolean enable_p2p);
 
 void oren_dcchannel_close (OrenDCChannel *self);
+
+void oren_dcchannel_upgrade (OrenDCChannel *self);
 
 const gchar* oren_dcchannel_get_name (OrenDCChannel *self);
 

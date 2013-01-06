@@ -35,8 +35,7 @@ class OREN_PUBLIC COrenClient
 {
 public:
     enum Consts {
-        PingTimeout = -1,
-        PacketSize = 1200
+        PingTimeout = -1
     };
 
     enum OnlineState {
@@ -98,6 +97,8 @@ public:
         unsigned int generate;
         unsigned int send_data;
         unsigned int recv_data;
+        unsigned int send_packet;
+        unsigned int recv_packet;
         unsigned int send_retry;
         unsigned int recv_retry;
         unsigned int send_lost;
@@ -112,18 +113,22 @@ public:
     void Ping (const char *smaddr, const char *channel, int timeout);
 
     // cm://127.0.0.1:7474 OR dc://127.0.0.1:9001
-    void Login (const char *address, const char *channel, const char *user);
+    void Login (const char *address,
+                const char *group,
+                const char *channel,
+                const char *user);
 
     // 127.0.0.1:7474
     void ReqServers (const char *cmaddr, const char *channel);
 
-    void SetSource (const void *param, size_t size);
+    void SendStart (unsigned int line, const void *param, size_t size);
 
-    void SendFormat (const void *format, size_t size);
+    void SendMeta (unsigned int line, const void *format, size_t size);
 
-    void TurnRecv (bool accept_data);
+    void SendRefuse (unsigned int line, unsigned int data_types);
 
-    void SendData (const void *data, size_t size, int max_retry);
+    void SendData (unsigned int line, unsigned int data_type,
+                   const void *data, size_t size, int max_retry);
 
     void Logout (void);
 
@@ -150,17 +155,19 @@ public:
 
     virtual void OnServerList (const ServerList &list);
 
-    virtual void OnSource (const char *source_name,
-                           const void *param,
-                           size_t size);
+    virtual void OnStart (unsigned int line,
+                          const char *source_name,
+                          const void *param,
+                          size_t size);
 
-    virtual void OnFormat (const void *format, size_t size);
+    virtual void OnMeta (unsigned int line, const void *format, size_t size);
 
-    virtual void OnTurnSend (bool turn);
+    virtual void OnAlone (bool alone);
 
-    virtual void OnTurnRecv (bool turn);
+    virtual void OnRefuse (unsigned int line, unsigned int data_types);
 
-    virtual void OnData (const void *data, size_t size);
+    virtual void OnData (unsigned int line, unsigned int data_type,
+                         const void *data, size_t size);
 
 public:
     COrenClient (const char *signature = "");

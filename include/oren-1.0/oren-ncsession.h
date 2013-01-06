@@ -68,13 +68,12 @@ struct _OrenNCSessionClass {
 
 GType oren_ncsession_get_type (void) G_GNUC_CONST;
 
-OrenNCSession* oren_ncsession_new (guint16 init_seq,
-                                   gboolean full_fail,
-                                   gboolean fifo);
+OrenNCSession* oren_ncsession_new (void);
 
 void oren_ncsession_reset (OrenNCSession *self,
-                           guint16 init_seq,
-                           gboolean reset_pps);
+                           guint16 data_seq);
+
+guint oren_ncsession_get_capacity (OrenNCSession *self);
 
 void oren_ncsession_clear_send (OrenNCSession *self);
 
@@ -88,10 +87,6 @@ void oren_ncsession_set_buffer (OrenNCSession *self,
                                 gsize head_reserve);
 
 OrenNCBuffer* oren_ncsession_get_buffer (OrenNCSession *self);
-
-void oren_ncsession_set_pps (OrenNCSession *self, guint pps);
-
-guint oren_ncsession_get_pps (OrenNCSession *self);
 
 void oren_ncsession_set_rtt (OrenNCSession *self, guint rtt);
 

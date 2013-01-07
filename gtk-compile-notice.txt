@@ -2,3 +2,21 @@ GtkEntry can't receive mouse event:
     gtkentry.c:gtk_entry_realize
         GDK_INPUT_ONLY -> GDK_INPUT_OUTPUT
         add GDK_EXPOSURE_MASK to event_mask
+GtkWin32EnbedWidget
+    gdkwindow-win32.c:gdk_win32_window_foreign_new_for_display
+        add impl->handle = (HWND) anid;
+    gtkwin32embedwidget.c:gtk_win32_embed_widget_show
+        _gtk_widget_set_visible_flag (widget, TRUE);
+    gtkwin32embedwidget.c:gtk_win32_embed_widget_hide
+        _gtk_widget_set_visible_flag (widget, FALSE);
+gtk.symbol:
+    _gtk_style_context_set_widget
+    _gtk_win32_embed_message_type
+    _gtk_win32_embed_push_message
+    _gtk_win32_embed_pop_message
+    _gtk_win32_embed_send
+    _gtk_win32_embed_send_focus_message
+    _gtk_win32_embed_set_focus_wrapped
+    _gtk_win32_embed_get_focus_wrapped
+    _gtk_win32_embed_widget_new
+    _gtk_win32_embed_widget_dialog_procedure

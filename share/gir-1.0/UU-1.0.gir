@@ -93,6 +93,118 @@ and/or use gtk-doc annotations.  -->
             c:type="UUResourceManagerPrivate"
             disguised="1">
     </record>
+    <class name="Win32EmbedWidget"
+           c:symbol-prefix="win32_embed_widget"
+           c:type="UUWin32EmbedWidget"
+           parent="Gtk.Window"
+           glib:type-name="UUWin32EmbedWidget"
+           glib:get-type="uu_win32_embed_widget_get_type"
+           glib:type-struct="Win32EmbedWidgetClass">
+      <implements name="Atk.ImplementorIface"/>
+      <implements name="Gtk.Buildable"/>
+      <constructor name="new" c:identifier="uu_win32_embed_widget_new">
+        <return-value transfer-ownership="none">
+          <type name="Gtk.Widget" c:type="GtkWidget*"/>
+        </return-value>
+        <parameters>
+          <parameter name="host_hwnd" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <property name="host-hwnd"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="guint"/>
+      </property>
+      <field name="window">
+        <type name="Gtk.Window" c:type="GtkWindow"/>
+      </field>
+      <field name="priv">
+        <type name="Win32EmbedWidgetPrivate"
+              c:type="UUWin32EmbedWidgetPrivate*"/>
+      </field>
+    </class>
+    <record name="Win32EmbedWidgetClass"
+            c:type="UUWin32EmbedWidgetClass"
+            glib:is-gtype-struct-for="Win32EmbedWidget">
+      <field name="parent_class">
+        <type name="Gtk.WindowClass" c:type="GtkWindowClass"/>
+      </field>
+    </record>
+    <record name="Win32EmbedWidgetPrivate"
+            c:type="UUWin32EmbedWidgetPrivate"
+            disguised="1">
+    </record>
+    <class name="Win32HostWidget"
+           c:symbol-prefix="win32_host_widget"
+           c:type="UUWin32HostWidget"
+           parent="Gtk.Window"
+           glib:type-name="UUWin32HostWidget"
+           glib:get-type="uu_win32_host_widget_get_type"
+           glib:type-struct="Win32HostWidgetClass">
+      <implements name="Atk.ImplementorIface"/>
+      <implements name="Gtk.Buildable"/>
+      <constructor name="new" c:identifier="uu_win32_host_widget_new">
+        <return-value transfer-ownership="none">
+          <type name="Gtk.Widget" c:type="GtkWidget*"/>
+        </return-value>
+      </constructor>
+      <virtual-method name="embed_close">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <method name="load" c:identifier="uu_win32_host_widget_load">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="application" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="command_line" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="window">
+        <type name="Gtk.Window" c:type="GtkWindow"/>
+      </field>
+      <field name="priv">
+        <type name="Win32HostWidgetPrivate"
+              c:type="UUWin32HostWidgetPrivate*"/>
+      </field>
+      <glib:signal name="embed-close" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
+    </class>
+    <record name="Win32HostWidgetClass"
+            c:type="UUWin32HostWidgetClass"
+            glib:is-gtype-struct-for="Win32HostWidget">
+      <field name="parent_class">
+        <type name="Gtk.WindowClass" c:type="GtkWindowClass"/>
+      </field>
+      <field name="embed_close">
+        <callback name="embed_close">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Win32HostWidget" c:type="UUWin32HostWidget*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="Win32HostWidgetPrivate"
+            c:type="UUWin32HostWidgetPrivate"
+            disguised="1">
+    </record>
     <class name="WindowDecorator"
            c:symbol-prefix="window_decorator"
            c:type="UUWindowDecorator"

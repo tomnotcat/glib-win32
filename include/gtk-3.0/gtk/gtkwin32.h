@@ -30,6 +30,9 @@
 #include <gdk/gdkwin32.h>
 #include <gtk/gtkwin32embed.h>
 #include <gtk/gtkwin32embedwidget.h>
+#include <gtk/gtkwidgetprivate.h>
+#include <gtk/gtkwindowprivate.h>
+#include <gtk/gtkcontainerprivate.h>
 
 #undef __GTK_H_INSIDE__
 

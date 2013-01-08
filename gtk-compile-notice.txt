@@ -20,3 +20,7 @@ gtk.symbol:
     _gtk_win32_embed_get_focus_wrapped
     _gtk_win32_embed_widget_new
     _gtk_win32_embed_widget_dialog_procedure
+    _gtk_container_queue_resize
+    _gtk_window_get_wmclass
+    _gtk_widget_set_visible_flag
+    _gtk_widget_set_is_toplevel

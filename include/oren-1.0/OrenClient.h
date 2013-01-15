@@ -76,6 +76,19 @@ public:
         LogoutFrozen         // ÆµµÀ×Ü½á
     };
 
+    enum DataTypes {
+        AudioData = 0,
+        VideoData = 1,
+        UserData
+    };
+
+    enum RefuseMode {
+        RefuseAudio = 1,
+        RefuseVideo = 2,
+        RefuseAudioVideo = 3,
+        RefuseAll = 0xFFFFFFFF
+    };
+
     struct ServerInfo {
     public:
         ServerInfo (const char *n, const char *g, const char *a)

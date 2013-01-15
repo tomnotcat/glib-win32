@@ -26,6 +26,23 @@ and/or use gtk-doc annotations.  -->
              shared-library="uutk.dll"
              c:identifier-prefixes="UU"
              c:symbol-prefixes="uu">
+    <enumeration name="CloseMode"
+                 glib:type-name="UUCloseMode"
+                 glib:get-type="uu_close_mode_get_type"
+                 c:type="UUCloseMode">
+      <member name="NONE"
+              value="0"
+              c:identifier="UU_CLOSE_MODE_NONE"
+              glib:nick="NONE"/>
+      <member name="LOST_FOCUS"
+              value="1"
+              c:identifier="UU_CLOSE_MODE_LOST_FOCUS"
+              glib:nick="LOST_FOCUS"/>
+      <member name="MOUSE_LEAVE"
+              value="2"
+              c:identifier="UU_CLOSE_MODE_MOUSE_LEAVE"
+              glib:nick="MOUSE_LEAVE"/>
+    </enumeration>
     <record name="DecoratorButton" c:type="UUDecoratorButton" disguised="1">
     </record>
     <record name="DecoratorWidget" c:type="UUDecoratorWidget" disguised="1">
@@ -140,7 +157,7 @@ and/or use gtk-doc annotations.  -->
     <class name="Win32HostWidget"
            c:symbol-prefix="win32_host_widget"
            c:type="UUWin32HostWidget"
-           parent="Gtk.Window"
+           parent="Gtk.Bin"
            glib:type-name="UUWin32HostWidget"
            glib:get-type="uu_win32_host_widget_get_type"
            glib:type-struct="Win32HostWidgetClass">
@@ -170,7 +187,7 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </method>
       <field name="window">
-        <type name="Gtk.Window" c:type="GtkWindow"/>
+        <type name="Gtk.Bin" c:type="GtkBin"/>
       </field>
       <field name="priv">
         <type name="Win32HostWidgetPrivate"
@@ -186,7 +203,7 @@ and/or use gtk-doc annotations.  -->
             c:type="UUWin32HostWidgetClass"
             glib:is-gtype-struct-for="Win32HostWidget">
       <field name="parent_class">
-        <type name="Gtk.WindowClass" c:type="GtkWindowClass"/>
+        <type name="Gtk.BinClass" c:type="GtkBinClass"/>
       </field>
       <field name="embed_close">
         <callback name="embed_close">
@@ -282,6 +299,20 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="set_close_mode"
+              c:identifier="uu_window_decorator_set_close_mode">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="mode" transfer-ownership="none">
+            <type name="CloseMode" c:type="UUCloseMode"/>
+          </parameter>
+          <parameter name="time" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>
       </field>
@@ -365,6 +396,16 @@ and/or use gtk-doc annotations.  -->
       <return-value transfer-ownership="none">
         <type name="gboolean" c:type="gboolean"/>
       </return-value>
+    </function>
+    <function name="md5sum" c:identifier="uu_md5sum">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="data" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
     </function>
     <function name="read_pixbuf" c:identifier="uu_read_pixbuf">
       <doc xml:whitespace="preserve">Read an pixbuf from the buffer.</doc>

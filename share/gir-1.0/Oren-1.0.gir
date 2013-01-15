@@ -4408,6 +4408,19 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
+      <constructor name="new_post" c:identifier="oren_http_request_new_post">
+        <return-value transfer-ownership="full">
+          <type name="HttpRequest" c:type="OrenHttpRequest*"/>
+        </return-value>
+        <parameters>
+          <parameter name="url" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="data" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </constructor>
       <constructor name="new_raw" c:identifier="oren_http_request_new_raw">
         <return-value transfer-ownership="full">
           <type name="HttpRequest" c:type="OrenHttpRequest*"/>
@@ -4481,6 +4494,12 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <property name="post"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="NCBuffer"/>
+      </property>
       <property name="raw"
                 writable="1"
                 construct-only="1"
@@ -5923,7 +5942,7 @@ and/or use gtk-doc annotations.  -->
           <type name="NCHandler" c:type="OrenNCHandler*"/>
         </return-value>
       </constructor>
-      <virtual-method name="handle_input" invoker="handle_input">
+      <virtual-method name="handle_input">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5949,7 +5968,7 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
-      <virtual-method name="handle_timer" invoker="handle_timer">
+      <virtual-method name="handle_timer">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5959,7 +5978,7 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
-      <method name="handle_input" c:identifier="oren_nchandler_handle_input">
+      <virtual-method name="remove_input">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5968,8 +5987,8 @@ and/or use gtk-doc annotations.  -->
             <type name="NCSocket" c:type="OrenNCSocket*"/>
           </parameter>
         </parameters>
-      </method>
-      <method name="handle_timer" c:identifier="oren_nchandler_handle_timer">
+      </virtual-method>
+      <virtual-method name="remove_timer">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5978,7 +5997,7 @@ and/or use gtk-doc annotations.  -->
             <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
-      </method>
+      </virtual-method>
       <property name="handle-packet"
                 writable="1"
                 construct-only="1"
@@ -6018,6 +6037,26 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </glib:signal>
       <glib:signal name="handle-timer" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="guint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="remove-input" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="NCSocket"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="remove-timer" when="first">
         <return-value transfer-ownership="none">
           <type name="none"/>
         </return-value>
@@ -6072,6 +6111,36 @@ and/or use gtk-doc annotations.  -->
       </field>
       <field name="handle_timer">
         <callback name="handle_timer">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="NCHandler" c:type="OrenNCHandler*"/>
+            </parameter>
+            <parameter name="timer_id" transfer-ownership="none">
+              <type name="guint" c:type="guint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="remove_input">
+        <callback name="remove_input">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="NCHandler" c:type="OrenNCHandler*"/>
+            </parameter>
+            <parameter name="socket" transfer-ownership="none">
+              <type name="NCSocket" c:type="OrenNCSocket*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="remove_timer">
+        <callback name="remove_timer">
           <return-value transfer-ownership="none">
             <type name="none" c:type="void"/>
           </return-value>
@@ -7748,6 +7817,11 @@ source address of the received packet.
             c:type="OrenNCUnpackerPrivate"
             disguised="1">
     </record>
+    <constant name="SIGNATURE_LENGTH"
+              value="20"
+              c:type="OREN_SIGNATURE_LENGTH">
+      <type name="gint" c:type="gint"/>
+    </constant>
     <class name="SMChannel"
            c:symbol-prefix="smchannel"
            c:type="OrenSMChannel"
@@ -8627,6 +8701,16 @@ source address of the received packet.
       </return-value>
       <parameters>
         <parameter name="str" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="md5sum" c:identifier="oren_md5sum">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="data" transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </parameter>
       </parameters>

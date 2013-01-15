@@ -52,17 +52,15 @@ struct _OrenNCHandlerClass {
                            OrenNCBuffer *buffer);
     void (*handle_timer)(OrenNCHandler *self,
                          guint timer_id);
+    void (*remove_input)(OrenNCHandler *self,
+                      OrenNCSocket *socket);
+    void (*remove_timer)(OrenNCHandler *self,
+                         guint timer_id);
 };
 
 GType oren_nchandler_get_type (void) G_GNUC_CONST;
 
 OrenNCHandler* oren_nchandler_new (void);
-
-void oren_nchandler_handle_input (OrenNCHandler *self,
-                                  OrenNCSocket *socket);
-
-void oren_nchandler_handle_timer (OrenNCHandler *self,
-                                  guint timer_id);
 
 G_END_DECLS
 

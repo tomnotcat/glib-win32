@@ -34,6 +34,8 @@ gpointer _oren_signature_hex2bin (gpointer buffer,
                                   const gchar *string,
                                   gsize length);
 
+gchar* oren_md5sum (const gchar *data);
+
 G_END_DECLS
 
 #endif /* __OREN_CRYPTO_H__ */

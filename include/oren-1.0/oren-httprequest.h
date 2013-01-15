@@ -54,6 +54,9 @@ OrenHttpRequest* oren_http_request_new (const gchar *url);
 
 OrenHttpRequest* oren_http_request_new_raw (const gchar *url);
 
+OrenHttpRequest* oren_http_request_new_post (const gchar *url,
+                                             OrenNCBuffer *data);
+
 const gchar* oren_http_request_get_url (OrenHttpRequest *self);
 
 gboolean oren_http_request_perform (OrenHttpRequest *self);

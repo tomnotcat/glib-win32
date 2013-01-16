@@ -3,6 +3,8 @@ GtkEntry can't receive mouse event:
         GDK_INPUT_ONLY -> GDK_INPUT_OUTPUT
         add GDK_EXPOSURE_MASK to event_mask
 
+    Add prelight flags based on GtkButton
+
 GtkWin32EnbedWidget
     gdkwindow-win32.c:gdk_win32_window_foreign_new_for_display
         add impl->handle = (HWND) anid;

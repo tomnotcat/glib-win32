@@ -142,6 +142,10 @@ const gchar * gtk_combo_box_get_active_id        (GtkComboBox *combo_box);
 gboolean      gtk_combo_box_set_active_id        (GtkComboBox *combo_box,
                                                   const gchar *active_id);
 
+void gtk_combo_box_set_popup_list (GtkComboBox *combo_box,
+                                   gboolean appears_as_list,
+                                   gint list_height);
+
 G_END_DECLS
 
 #endif /* __GTK_COMBO_BOX_H__ */

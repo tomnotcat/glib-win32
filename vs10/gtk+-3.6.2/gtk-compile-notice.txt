@@ -13,11 +13,18 @@ GtkWin32EnbedWidget
     gtkwin32embedwidget.c:gtk_win32_embed_widget_hide
         _gtk_widget_set_visible_flag (widget, FALSE);
 
+GtkEventBox
+    Add prelight flags to GtkEventBox
+
+GtkComboBox
+    Add gtk_combo_box_set_popup_list
+
 Embedded widget move focus error
    gdkevents-win32.c:gdk_event_prepare
 	GetQueueStatus (QS_ALLINPUT) != 0  -> PeekMessageW (&msg, NULL, 0, 0, PM_NOREMOVE)
 
 gtk.symbol:
+    gtk_combo_box_set_popup_list
     _gtk_style_context_set_widget
     _gtk_win32_embed_message_type
     _gtk_win32_embed_push_message

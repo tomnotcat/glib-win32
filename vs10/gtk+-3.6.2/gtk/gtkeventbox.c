@@ -85,22 +85,6 @@ static void     gtk_event_box_get_property  (GObject          *object,
 
 G_DEFINE_TYPE (GtkEventBox, gtk_event_box, GTK_TYPE_BIN)
 
-static void
-gtk_event_box_update_state (GtkEventBox *event_box)
-{
-  GtkEventBoxPrivate *priv = event_box->priv;
-  GtkStateFlags new_state;
-  gboolean depressed;
-
-  new_state = gtk_widget_get_state_flags (GTK_WIDGET (event_box)) &
-    ~(GTK_STATE_FLAG_PRELIGHT);
-
-  if (priv->in_event_box)
-    new_state |= GTK_STATE_FLAG_PRELIGHT;
-
-  gtk_widget_set_state_flags (GTK_WIDGET (event_box), new_state, TRUE);
-}
-
 static gint
 gtk_event_box_enter_notify (GtkWidget *widget,
                         GdkEventCrossing *event)
@@ -110,7 +94,6 @@ gtk_event_box_enter_notify (GtkWidget *widget,
 
     if (event->detail != GDK_NOTIFY_INFERIOR) {
         priv->in_event_box = TRUE;
-        gtk_event_box_update_state (event_box);
     }
     return FALSE;
 }
@@ -124,7 +107,6 @@ gtk_event_box_leave_notify (GtkWidget        *widget,
 
   if (event->detail != GDK_NOTIFY_INFERIOR) {
       priv->in_event_box = FALSE;
-    gtk_event_box_update_state (event_box);
   }
   return FALSE;
 }
@@ -642,13 +624,23 @@ gtk_event_box_draw (GtkWidget *widget,
   if (gtk_widget_get_has_window (widget) &&
       !gtk_widget_get_app_paintable (widget))
     {
+       GtkEventBox *event_box = GTK_EVENT_BOX (widget);
+       GtkEventBoxPrivate *priv = event_box->priv;
       GtkStyleContext *context;
-
+    GtkStateFlags old_state = 0;
+    
       context = gtk_widget_get_style_context (widget);
-
+      
+    if (priv->in_event_box) {
+        old_state = gtk_style_context_get_state (context);
+        gtk_style_context_set_state (context, old_state | GTK_STATE_FLAG_PRELIGHT);
+    }
+        
       gtk_render_background (context, cr, 0, 0,
                              gtk_widget_get_allocated_width (widget),
                              gtk_widget_get_allocated_height (widget));
+    if (priv->in_event_box)
+        gtk_style_context_set_state (context, old_state);
     }
 
   GTK_WIDGET_CLASS (gtk_event_box_parent_class)->draw (widget, cr);

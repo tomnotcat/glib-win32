@@ -101,7 +101,7 @@ and/or use gtk-doc annotations.  -->
           <parameter name="mode" transfer-ownership="none">
             <type name="CloseMode" c:type="UUCloseMode"/>
           </parameter>
-          <parameter name="time" transfer-ownership="none">
+          <parameter name="timeout" transfer-ownership="none">
             <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
@@ -187,6 +187,20 @@ and/or use gtk-doc annotations.  -->
           <type name="BubbleDecorator" c:type="UUBubbleDecorator*"/>
         </return-value>
       </constructor>
+      <method name="set_target_pos"
+              c:identifier="uu_bubble_decorator_set_target_pos">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="x" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="y" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
       <field name="parent_instance">
         <type name="BaseDecorator" c:type="UUBaseDecorator"/>
       </field>
@@ -555,6 +569,37 @@ and/or use gtk-doc annotations.  -->
       <parameters>
         <parameter name="data" transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="open_single_file" c:identifier="uu_open_single_file">
+      <doc xml:whitespace="preserve">Display a file choose dialog to choose a single file.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">the selected file name or %NULL</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="parent" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">a #GtkWidget</doc>
+          <type name="Gtk.Widget" c:type="GtkWidget*"/>
+        </parameter>
+        <parameter name="name" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the initial file name</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="dir" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the initial directory</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="title" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the dialog title</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="filters" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">a %NULL-terminated array of strings holding filters</doc>
+          <array c:type="gchar**">
+            <type name="utf8" c:type="gchar*"/>
+          </array>
         </parameter>
       </parameters>
     </function>

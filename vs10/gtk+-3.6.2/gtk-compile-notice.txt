@@ -13,11 +13,10 @@ GtkWin32EnbedWidget
     gtkwin32embedwidget.c:gtk_win32_embed_widget_hide
         _gtk_widget_set_visible_flag (widget, FALSE);
 
-GtkEventBox
-    Add prelight flags to GtkEventBox
-
 GtkComboBox
     Add gtk_combo_box_set_popup_list
+    fix a bug in gtk_combo_box_size_allocate
+        child.y += border_width + frame_padding.top;
 
 Embedded widget move focus error
    gdkevents-win32.c:gdk_event_prepare

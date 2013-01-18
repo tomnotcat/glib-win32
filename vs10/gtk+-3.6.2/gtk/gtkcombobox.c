@@ -2725,7 +2725,7 @@ gtk_combo_box_size_allocate (GtkWidget     *widget,
               get_widget_padding_and_border (priv->cell_view_frame, &frame_padding);
 
               child.x += border_width + frame_padding.left;
-              child.y += border_width + frame_padding.right;
+              child.y += border_width + frame_padding.top;
               child.width -= (2 * border_width) + frame_padding.left + frame_padding.right;
               child.height -= (2 * border_width) + frame_padding.top + frame_padding.bottom;
             }

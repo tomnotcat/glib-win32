@@ -54,10 +54,20 @@ OrenHttpRequest* oren_http_request_new (const gchar *url);
 
 OrenHttpRequest* oren_http_request_new_raw (const gchar *url);
 
-OrenHttpRequest* oren_http_request_new_post (const gchar *url,
-                                             OrenNCBuffer *data);
-
 const gchar* oren_http_request_get_url (OrenHttpRequest *self);
+
+void oren_http_request_add_header (OrenHttpRequest *self,
+                                   const gchar *header);
+
+gboolean oren_http_request_form_add_content (OrenHttpRequest *self,
+                                             const gchar *name,
+                                             const gchar *content);
+
+gboolean oren_http_request_form_add_buffer (OrenHttpRequest *self,
+                                            const gchar *name,
+                                            const gchar *filename,
+                                            const gchar *content_type,
+                                            OrenNCBuffer *buffer);
 
 gboolean oren_http_request_perform (OrenHttpRequest *self);
 

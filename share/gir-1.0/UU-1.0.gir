@@ -572,6 +572,48 @@ and/or use gtk-doc annotations.  -->
         </parameter>
       </parameters>
     </function>
+    <function name="new_blob_from_buffer"
+              c:identifier="uu_new_blob_from_buffer">
+      <doc xml:whitespace="preserve">Create a Gda blob value from the buffer.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">the newly created #GValue.  Free-function: gda_value_free</doc>
+        <type name="GObject.Value" c:type="GValue*"/>
+      </return-value>
+      <parameters>
+        <parameter name="buffer" transfer-ownership="none">
+          <doc xml:whitespace="preserve">an #OrenNCBuffer.</doc>
+          <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="new_buffer_from_pixbuf"
+              c:identifier="uu_new_buffer_from_pixbuf">
+      <doc xml:whitespace="preserve">Create a buffer from the pixbuf.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">an #OrenNCBuffer or %NULL on error. Free the returned object with g_object_unref().</doc>
+        <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
+      </return-value>
+      <parameters>
+        <parameter name="pixbuf" transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GdkPixbuf.</doc>
+          <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="new_pixbuf_from_buffer"
+              c:identifier="uu_new_pixbuf_from_buffer">
+      <doc xml:whitespace="preserve">Create a pixbuf from the buffer.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">a #GdkPixbuf or %NULL on error. Free the returned object with g_object_unref().</doc>
+        <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+      </return-value>
+      <parameters>
+        <parameter name="buffer" transfer-ownership="none">
+          <doc xml:whitespace="preserve">an #OrenNCBuffer.</doc>
+          <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
+        </parameter>
+      </parameters>
+    </function>
     <function name="open_single_file" c:identifier="uu_open_single_file">
       <doc xml:whitespace="preserve">Display a file choose dialog to choose a single file.</doc>
       <return-value transfer-ownership="full">
@@ -604,14 +646,14 @@ and/or use gtk-doc annotations.  -->
       </parameters>
     </function>
     <function name="read_pixbuf" c:identifier="uu_read_pixbuf">
-      <doc xml:whitespace="preserve">Read an pixbuf from the buffer.</doc>
+      <doc xml:whitespace="preserve">Read a pixbuf from the buffer.</doc>
       <return-value transfer-ownership="full">
         <doc xml:whitespace="preserve">a #GdkPixbuf or %NULL on error. Free the returned object with g_object_unref().</doc>
         <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
       </return-value>
       <parameters>
         <parameter name="buffer" transfer-ownership="none">
-          <doc xml:whitespace="preserve">a #OrenNCBuffer.</doc>
+          <doc xml:whitespace="preserve">an #OrenNCBuffer.</doc>
           <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
         </parameter>
       </parameters>

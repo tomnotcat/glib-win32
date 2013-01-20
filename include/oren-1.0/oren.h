@@ -66,5 +66,6 @@
 #include <oren-taskbase.h>
 #include <oren-task.h>
 #include <oren-crypto.h>
+#include <oren-md5.h>
 
 #endif /* __OREN_H__ */

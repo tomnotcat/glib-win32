@@ -4408,19 +4408,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
-      <constructor name="new_post" c:identifier="oren_http_request_new_post">
-        <return-value transfer-ownership="full">
-          <type name="HttpRequest" c:type="OrenHttpRequest*"/>
-        </return-value>
-        <parameters>
-          <parameter name="url" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="data" transfer-ownership="none">
-            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
-          </parameter>
-        </parameters>
-      </constructor>
       <constructor name="new_raw" c:identifier="oren_http_request_new_raw">
         <return-value transfer-ownership="full">
           <type name="HttpRequest" c:type="OrenHttpRequest*"/>
@@ -4451,12 +4438,56 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </virtual-method>
+      <method name="add_header" c:identifier="oren_http_request_add_header">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="header" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="escape" c:identifier="oren_http_request_escape">
         <return-value transfer-ownership="full">
           <type name="utf8" c:type="gchar*"/>
         </return-value>
         <parameters>
           <parameter name="string" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="form_add_buffer"
+              c:identifier="oren_http_request_form_add_buffer">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="filename" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="content_type" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="form_add_content"
+              c:identifier="oren_http_request_form_add_content">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="content" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -4494,12 +4525,6 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
-      <property name="post"
-                writable="1"
-                construct-only="1"
-                transfer-ownership="none">
-        <type name="NCBuffer"/>
-      </property>
       <property name="raw"
                 writable="1"
                 construct-only="1"
@@ -5534,6 +5559,69 @@ and/or use gtk-doc annotations.  -->
     </record>
     <record name="MTTreePrivate" c:type="OrenMTTreePrivate" disguised="1">
     </record>
+    <class name="Md5"
+           c:symbol-prefix="md5"
+           c:type="OrenMd5"
+           parent="GObject.Object"
+           glib:type-name="OrenMd5"
+           glib:get-type="oren_md5_get_type"
+           glib:type-struct="Md5Class">
+      <constructor name="new" c:identifier="oren_md5_new">
+        <return-value transfer-ownership="full">
+          <type name="Md5" c:type="OrenMd5*"/>
+        </return-value>
+      </constructor>
+      <method name="append_buffer" c:identifier="oren_md5_append_buffer">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="buffer" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="append_string" c:identifier="oren_md5_append_string">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="string" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="dup_digest" c:identifier="oren_md5_dup_digest">
+        <return-value transfer-ownership="full">
+          <type name="utf8" c:type="gchar*"/>
+        </return-value>
+      </method>
+      <method name="get_digest" c:identifier="oren_md5_get_digest">
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="reset" c:identifier="oren_md5_reset">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="Md5Private" c:type="OrenMd5Private*"/>
+      </field>
+    </class>
+    <record name="Md5Class"
+            c:type="OrenMd5Class"
+            glib:is-gtype-struct-for="Md5">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="Md5Private" c:type="OrenMd5Private" disguised="1">
+    </record>
     <callback name="MulticastFilter" c:type="OrenMulticastFilter">
       <return-value transfer-ownership="none">
         <type name="gboolean" c:type="gboolean"/>
@@ -5652,6 +5740,16 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </method>
+      <method name="load_file" c:identifier="oren_ncbuffer_load_file">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="filename" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="lock" c:identifier="oren_ncbuffer_lock">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -5689,7 +5787,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
       </method>
       <method name="read_sockaddr" c:identifier="oren_ncbuffer_read_sockaddr">
-        <doc xml:whitespace="preserve">Read an socket address from the buffer.</doc>
+        <doc xml:whitespace="preserve">Read a socket address from the buffer.</doc>
         <return-value transfer-ownership="full">
           <doc xml:whitespace="preserve">a #OrenNCSockaddr or %NULL on error. Free the returned object with g_object_unref().</doc>
           <type name="NCSockaddr" c:type="OrenNCSockaddr*"/>
@@ -5698,6 +5796,13 @@ and/or use gtk-doc annotations.  -->
       <method name="read_string" c:identifier="oren_ncbuffer_read_string">
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+      </method>
+      <method name="read_subbuf" c:identifier="oren_ncbuffer_read_subbuf">
+        <doc xml:whitespace="preserve">Read a sub buffer from the buffer.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:whitespace="preserve">an #OrenNCBuffer or %NULL on error. Free the returned object with g_object_unref().</doc>
+          <type name="NCBuffer" c:type="OrenNCBuffer*"/>
         </return-value>
       </method>
       <method name="read_u16" c:identifier="oren_ncbuffer_read_u16">
@@ -5724,6 +5829,16 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
+      </method>
+      <method name="save_file" c:identifier="oren_ncbuffer_save_file">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="filename" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
       </method>
       <method name="set_read" c:identifier="oren_ncbuffer_set_read">
         <return-value transfer-ownership="none">
@@ -5854,6 +5969,16 @@ and/or use gtk-doc annotations.  -->
         <parameters>
           <parameter name="string" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="write_subbuf" c:identifier="oren_ncbuffer_write_subbuf">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="subbuf" transfer-ownership="none">
+            <type name="NCBuffer" c:type="OrenNCBuffer*"/>
           </parameter>
         </parameters>
       </method>

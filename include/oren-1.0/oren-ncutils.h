@@ -58,6 +58,17 @@ OrenNCInetAddress* oren_ncbuffer_read_inetaddr (OrenNCBuffer *self);
 
 OrenNCSockaddr* oren_ncbuffer_read_sockaddr (OrenNCBuffer *self);
 
+void oren_ncbuffer_write_subbuf (OrenNCBuffer *self,
+                                 OrenNCBuffer *subbuf);
+
+OrenNCBuffer* oren_ncbuffer_read_subbuf (OrenNCBuffer *self);
+
+gboolean oren_ncbuffer_load_file (OrenNCBuffer *self,
+                                  const gchar *filename);
+
+gboolean oren_ncbuffer_save_file (OrenNCBuffer *self,
+                                  const gchar *filename);
+
 void oren_ncbuffer_write_checksum (OrenNCBuffer *self,
                                    gsize offset);
 

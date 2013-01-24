@@ -658,6 +658,22 @@ and/or use gtk-doc annotations.  -->
         </parameter>
       </parameters>
     </function>
+    <function name="set_auto_startup" c:identifier="uu_set_auto_startup">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="key_name" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="app_path" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="setup" transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </parameter>
+      </parameters>
+    </function>
     <function name="set_hand_cursor" c:identifier="uu_set_hand_cursor">
       <return-value transfer-ownership="none">
         <type name="none" c:type="void"/>

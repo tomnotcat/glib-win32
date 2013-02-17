@@ -86,3 +86,8 @@ EXPORTS
 	gjs_object_from_g_object
 	gjs_g_object_from_object
 	gjs_typecheck_object
+    
+    gjs_struct_foreign_register
+    gjs_struct_foreign_convert_to_g_argument
+    gjs_struct_foreign_convert_from_g_argument
+    gjs_struct_foreign_release_g_argument

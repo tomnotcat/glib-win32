@@ -220,6 +220,115 @@ and/or use gtk-doc annotations.  -->
             c:type="UUBubbleDecoratorPrivate"
             disguised="1">
     </record>
+    <class name="CellRendererData"
+           c:symbol-prefix="cell_renderer_data"
+           c:type="UUCellRendererData"
+           parent="Gtk.CellRenderer"
+           glib:type-name="UUCellRendererData"
+           glib:get-type="uu_cell_renderer_data_get_type"
+           glib:type-struct="CellRendererDataClass">
+      <constructor name="new" c:identifier="uu_cell_renderer_data_new">
+        <return-value transfer-ownership="none">
+          <type name="Gtk.CellRenderer" c:type="GtkCellRenderer*"/>
+        </return-value>
+      </constructor>
+      <virtual-method name="render_data">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="data" transfer-ownership="none">
+            <type name="Gimo.DataStore" c:type="GimoDataStore*"/>
+          </parameter>
+          <parameter name="cr" transfer-ownership="none">
+            <type name="cairo.Context" c:type="cairo_t*"/>
+          </parameter>
+          <parameter name="width" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="height" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="flags" transfer-ownership="none">
+            <type name="Gtk.CellRendererState" c:type="GtkCellRendererState"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <property name="data-store" writable="1" transfer-ownership="none">
+        <type name="Gimo.DataStore"/>
+      </property>
+      <field name="parent_instance">
+        <type name="Gtk.CellRenderer" c:type="GtkCellRenderer"/>
+      </field>
+      <field name="priv">
+        <type name="CellRendererDataPrivate"
+              c:type="UUCellRendererDataPrivate*"/>
+      </field>
+      <glib:signal name="render-data" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="Gimo.DataStore"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="cairo.Context"/>
+          </parameter>
+          <parameter name="p1" transfer-ownership="none">
+            <type name="Gtk.Widget"/>
+          </parameter>
+          <parameter name="p2" transfer-ownership="none">
+            <type name="cairo.RectangleInt"/>
+          </parameter>
+          <parameter name="p3" transfer-ownership="none">
+            <type name="cairo.RectangleInt"/>
+          </parameter>
+          <parameter name="p4" transfer-ownership="none">
+            <type name="Gtk.CellRendererState"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="CellRendererDataClass"
+            c:type="UUCellRendererDataClass"
+            glib:is-gtype-struct-for="CellRendererData">
+      <field name="parent_class">
+        <type name="Gtk.CellRendererClass" c:type="GtkCellRendererClass"/>
+      </field>
+      <field name="render_data">
+        <callback name="render_data">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="CellRendererData" c:type="UUCellRendererData*"/>
+            </parameter>
+            <parameter name="data" transfer-ownership="none">
+              <type name="Gimo.DataStore" c:type="GimoDataStore*"/>
+            </parameter>
+            <parameter name="cr" transfer-ownership="none">
+              <type name="cairo.Context" c:type="cairo_t*"/>
+            </parameter>
+            <parameter name="width" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+            <parameter name="height" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+            <parameter name="flags" transfer-ownership="none">
+              <type name="Gtk.CellRendererState"
+                    c:type="GtkCellRendererState"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="CellRendererDataPrivate"
+            c:type="UUCellRendererDataPrivate"
+            disguised="1">
+    </record>
     <enumeration name="CloseMode"
                  glib:type-name="UUCloseMode"
                  glib:get-type="uu_close_mode_get_type"
@@ -523,6 +632,48 @@ and/or use gtk-doc annotations.  -->
         </parameter>
       </parameters>
     </function>
+    <function name="create_blob_from_buffer"
+              c:identifier="uu_create_blob_from_buffer">
+      <doc xml:whitespace="preserve">Create a Gda blob value from the buffer.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">the newly created #GValue.  Free-function: gda_value_free</doc>
+        <type name="GObject.Value" c:type="GValue*"/>
+      </return-value>
+      <parameters>
+        <parameter name="buffer" transfer-ownership="none">
+          <doc xml:whitespace="preserve">an #OrenNCBuffer.</doc>
+          <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="create_buffer_from_pixbuf"
+              c:identifier="uu_create_buffer_from_pixbuf">
+      <doc xml:whitespace="preserve">Create a buffer from the pixbuf.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">an #OrenNCBuffer or %NULL on error. Free the returned object with g_object_unref().</doc>
+        <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
+      </return-value>
+      <parameters>
+        <parameter name="pixbuf" transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GdkPixbuf.</doc>
+          <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="create_pixbuf_from_buffer"
+              c:identifier="uu_create_pixbuf_from_buffer">
+      <doc xml:whitespace="preserve">Create a pixbuf from the buffer.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">a #GdkPixbuf or %NULL on error. Free the returned object with g_object_unref().</doc>
+        <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+      </return-value>
+      <parameters>
+        <parameter name="buffer" transfer-ownership="none">
+          <doc xml:whitespace="preserve">an #OrenNCBuffer.</doc>
+          <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
+        </parameter>
+      </parameters>
+    </function>
     <function name="get_cpu_id" c:identifier="uu_get_cpu_id">
       <return-value transfer-ownership="none">
         <type name="utf8" c:type="const gchar*"/>
@@ -569,48 +720,6 @@ and/or use gtk-doc annotations.  -->
       <parameters>
         <parameter name="data" transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="new_blob_from_buffer"
-              c:identifier="uu_new_blob_from_buffer">
-      <doc xml:whitespace="preserve">Create a Gda blob value from the buffer.</doc>
-      <return-value transfer-ownership="full">
-        <doc xml:whitespace="preserve">the newly created #GValue.  Free-function: gda_value_free</doc>
-        <type name="GObject.Value" c:type="GValue*"/>
-      </return-value>
-      <parameters>
-        <parameter name="buffer" transfer-ownership="none">
-          <doc xml:whitespace="preserve">an #OrenNCBuffer.</doc>
-          <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="new_buffer_from_pixbuf"
-              c:identifier="uu_new_buffer_from_pixbuf">
-      <doc xml:whitespace="preserve">Create a buffer from the pixbuf.</doc>
-      <return-value transfer-ownership="full">
-        <doc xml:whitespace="preserve">an #OrenNCBuffer or %NULL on error. Free the returned object with g_object_unref().</doc>
-        <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
-      </return-value>
-      <parameters>
-        <parameter name="pixbuf" transfer-ownership="none">
-          <doc xml:whitespace="preserve">a #GdkPixbuf.</doc>
-          <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="new_pixbuf_from_buffer"
-              c:identifier="uu_new_pixbuf_from_buffer">
-      <doc xml:whitespace="preserve">Create a pixbuf from the buffer.</doc>
-      <return-value transfer-ownership="full">
-        <doc xml:whitespace="preserve">a #GdkPixbuf or %NULL on error. Free the returned object with g_object_unref().</doc>
-        <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
-      </return-value>
-      <parameters>
-        <parameter name="buffer" transfer-ownership="none">
-          <doc xml:whitespace="preserve">an #OrenNCBuffer.</doc>
-          <type name="Oren.NCBuffer" c:type="OrenNCBuffer*"/>
         </parameter>
       </parameters>
     </function>

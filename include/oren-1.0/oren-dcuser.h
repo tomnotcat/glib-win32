@@ -60,9 +60,11 @@ OrenDCUser* oren_dcuser_new (OrenDCChannel *channel,
                              const gchar *user_name,
                              const gchar *client_version,
                              const gchar *network_type,
+                             const gchar *machine_code,
                              guint32 user_id,
                              guint32 login_code,
-                             guint protocol_version);
+                             guint protocol_version,
+                             gboolean is_channel);
 
 OrenNCBuffer* oren_dcuser_make_packet (OrenDCUser *self,
                                        guint msg);
@@ -83,9 +85,13 @@ const gchar* oren_dcuser_client_version (OrenDCUser *self);
 
 const gchar* oren_dcuser_network_type (OrenDCUser *self);
 
+const gchar* oren_dcuser_machine_code (OrenDCUser *self);
+
 const gchar* oren_dcuser_get_name (OrenDCUser *self);
 
 gboolean oren_dcuser_enable_p2p (OrenDCUser *self);
+
+gboolean oren_dcuser_is_channel (OrenDCUser *self);
 
 void oren_dcuser_set_address (OrenDCUser *self,
                               OrenNCSockaddr *addr);

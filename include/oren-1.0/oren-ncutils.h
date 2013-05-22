@@ -75,6 +75,10 @@ void oren_ncbuffer_write_checksum (OrenNCBuffer *self,
 gboolean oren_ncbuffer_check_checksum (OrenNCBuffer *self,
                                        gsize offset);
 
+const gchar* oren_get_machine_code (void);
+
+gchar* oren_escape_brackets (const gchar *str);
+
 guint16 _oren_ncutils_calc_checksum (const guint16 *data,
                                      gsize count);
 
@@ -85,6 +89,11 @@ gint _oren_ncutils_int_compare (gconstpointer a,
 gint _oren_ncutils_string_compare (gconstpointer a,
                                    gconstpointer b,
                                    gpointer user_data);
+
+guint _oren_ncutils_int_hash (gconstpointer v);
+
+gboolean _oren_ncutils_int_equal (gconstpointer v1,
+                                  gconstpointer v2);
 
 GPtrArray* _oren_clone_object_array (GPtrArray *array, GType type);
 

@@ -32,19 +32,17 @@ G_BEGIN_DECLS
 
 typedef struct _OrenTaskBaseInterface OrenTaskBaseInterface;
 
-typedef void (*OrenTaskBaseFunc) (OrenTaskBase *self);
-
 struct _OrenTaskBaseInterface {
     GTypeInterface base_iface;
-    void (*start) (OrenTaskBase *self);
-    void (*stop) (OrenTaskBase *self);
+    void (*run) (OrenTaskBase *self);
+    void (*cancel) (OrenTaskBase *self);
 };
 
 GType oren_task_base_get_type (void) G_GNUC_CONST;
 
-void oren_task_base_start (OrenTaskBase *self);
+void oren_task_base_run (OrenTaskBase *self);
 
-void oren_task_base_stop (OrenTaskBase *self);
+void oren_task_base_cancel (OrenTaskBase *self);
 
 G_END_DECLS
 

@@ -35,7 +35,7 @@ G_BEGIN_DECLS
 #define OREN_CMSLAVE_GET_CLASS(obj) \
     (G_TYPE_INSTANCE_GET_CLASS((obj), OREN_TYPE_CMSLAVE, OrenCMSlaveClass))
 
-#define OREN_CMSLAVE_HEAD_SIZE (sizeof (guint32))
+#define OREN_CMSLAVE_HEAD_SIZE (sizeof (guint16) + sizeof (guint32))
 
 typedef struct _OrenCMSlavePrivate OrenCMSlavePrivate;
 typedef struct _OrenCMSlaveClass OrenCMSlaveClass;
@@ -88,7 +88,7 @@ OrenNCOnlineState oren_cmslave_get_state (OrenCMSlave *self);
 
 const gchar* oren_cmslave_server_version (OrenCMSlave *self);
 
-guint32 oren_cmslave_get_id (OrenCMSlave *self);
+guint oren_cmslave_get_id (OrenCMSlave *self);
 
 const gchar* oren_cmslave_get_name (OrenCMSlave *self);
 
@@ -97,6 +97,9 @@ const gchar* oren_cmslave_get_group (OrenCMSlave *self);
 const gchar* oren_cmslave_get_place (OrenCMSlave *self);
 
 GSList* _oren_cmslave_create_channels_list (gboolean dup, ...);
+
+#define oren_cmslave_is_online(_self) \
+    (oren_cmslave_get_state (_self) == OREN_NCONLINE_STATE_ONLINE)
 
 G_END_DECLS
 

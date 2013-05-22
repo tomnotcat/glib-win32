@@ -37,12 +37,14 @@ typedef struct _OrenNCReactor OrenNCReactor;
 typedef struct _OrenNCSession OrenNCSession;
 typedef struct _OrenNCAQueue OrenNCAQueue;
 typedef struct _OrenNCUdproxy OrenNCUdproxy;
+typedef struct _OrenRateStat OrenRateStat;
 typedef struct _OrenNCStatistics OrenNCStatistics;
 typedef struct _OrenHttpRequest OrenHttpRequest;
 typedef struct _OrenTaskBase OrenTaskBase;
 typedef struct _OrenTask OrenTask;
 typedef struct _OrenThreadPool OrenThreadPool;
 typedef struct _OrenMd5 OrenMd5;
+struct timeval;
 
 G_END_DECLS
 

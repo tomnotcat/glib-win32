@@ -54,12 +54,26 @@ void oren_thread_pool_set_queue_size (OrenThreadPool *self,
                                       guint size);
 
 gboolean oren_thread_pool_add_task (OrenThreadPool *self,
-                                    OrenTaskBase *task);
+                                    OrenTaskBase *task,
+                                    gboolean important);
 
-void oren_thread_pool_remove_task (OrenThreadPool *self,
-                                   OrenTaskBase *task);
+gboolean oren_thread_pool_remove_task (OrenThreadPool *self,
+                                       OrenTaskBase *task,
+                                       gboolean running);
+
+void oren_thread_pool_remove_tasks (OrenThreadPool *self,
+                                    GCompareFunc func,
+                                    gconstpointer data,
+                                    gboolean running);
+
+void oren_thread_pool_clear_tasks (OrenThreadPool *self,
+                                   gboolean running);
 
 void oren_thread_pool_wait_for_finish (OrenThreadPool *self);
+
+GQueue* oren_thread_pool_lock_tasks (OrenThreadPool *self);
+
+void oren_thread_pool_unlock_tasks (OrenThreadPool *self);
 
 G_END_DECLS
 

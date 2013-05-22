@@ -37,14 +37,6 @@ G_BEGIN_DECLS
 typedef struct _OrenTaskPrivate OrenTaskPrivate;
 typedef struct _OrenTaskClass OrenTaskClass;
 
-/**
- * OrenTaskFunc:
- * @user_data: (closure): user data to pass to the function
- *
- * Task start/stop function.
- */
-typedef void (*OrenTaskFunc) (gpointer user_data);
-
 struct _OrenTask {
     GObject parent_instance;
     OrenTaskPrivate *priv;
@@ -52,15 +44,16 @@ struct _OrenTask {
 
 struct _OrenTaskClass {
     GObjectClass parent_class;
-    void (*start) (OrenTask *self);
-    void (*stop) (OrenTask *self);
+    void (*run) (OrenTask *self);
+    void (*cancelled) (OrenTask *self);
+    void (*finished) (OrenTask *self);
 };
 
 GType oren_task_get_type (void) G_GNUC_CONST;
 
-OrenTask* oren_task_new (OrenTaskFunc start,
-                         OrenTaskFunc stop,
-                         gpointer user_data);
+OrenTask* oren_task_new (void);
+
+gboolean oren_task_is_cancelled (OrenTask *self);
 
 G_END_DECLS
 

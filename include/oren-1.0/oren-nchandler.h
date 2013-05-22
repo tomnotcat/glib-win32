@@ -53,7 +53,7 @@ struct _OrenNCHandlerClass {
     void (*handle_timer)(OrenNCHandler *self,
                          guint timer_id);
     void (*remove_input)(OrenNCHandler *self,
-                      OrenNCSocket *socket);
+                         OrenNCSocket *socket);
     void (*remove_timer)(OrenNCHandler *self,
                          guint timer_id);
 };

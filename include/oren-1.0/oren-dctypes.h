@@ -25,6 +25,7 @@ G_BEGIN_DECLS
 typedef struct _OrenDCFactory OrenDCFactory;
 typedef struct _OrenDCClient OrenDCClient;
 typedef struct _OrenDCPingResult OrenDCPingResult;
+typedef struct _OrenDCRouteInfo OrenDCRouteInfo;
 typedef struct _OrenDCLogin OrenDCLogin;
 typedef struct _OrenDCTransferStatus OrenDCTransferStatus;
 typedef struct _OrenDCServer OrenDCServer;

@@ -54,6 +54,11 @@ struct _OrenDCClientClass {
     void (*mtpacket) (OrenDCClient *self, guint msg, OrenNCBuffer *buffer);
     void (*alone) (OrenDCClient *self, gboolean alone);
     void (*p2p) (OrenDCClient *self, gboolean enable);
+    void (*route) (OrenDCClient *self,
+                   guint seq,
+                   guint timeout,
+                   const gchar *target);
+    void (*route_back) (OrenDCClient *self, guint seq, GSList *routes);
     void (*work) (OrenDCClient *self);
     void (*close) (OrenDCClient *self);
 };
@@ -92,7 +97,9 @@ void oren_dcclient_login (OrenDCClient *self,
                           OrenNCSockaddr *address,
                           const gchar *channel_name,
                           const gchar *user_name,
-                          const gchar *network_type);
+                          const gchar *network_type,
+                          OrenNCBuffer *auth_data,
+                          gboolean is_channel);
 
 void oren_dcclient_logout (OrenDCClient *self);
 
@@ -108,6 +115,11 @@ void oren_dcclient_send_packet (OrenDCClient *self,
                                 OrenNCBuffer *buffer,
                                 guint max_retry);
 
+void oren_dcclient_trace_route (OrenDCClient *self,
+                                guint seq,
+                                const gchar *target,
+                                gint timeout);
+
 const gchar* oren_dcclient_server_name (OrenDCClient *self);
 
 const gchar* oren_dcclient_server_version (OrenDCClient *self);
@@ -120,7 +132,7 @@ const gchar* oren_dcclient_get_channel_name (OrenDCClient *self);
 
 const gchar* oren_dcclient_get_user_name (OrenDCClient *self);
 
-guint32 oren_dcclient_get_user_id (OrenDCClient *self);
+guint oren_dcclient_get_user_id (OrenDCClient *self);
 
 gboolean oren_dcclient_is_alone (OrenDCClient *self);
 
@@ -129,6 +141,10 @@ void oren_dcclient_get_transfer_status (OrenDCClient *self,
 
 void _oren_dcclient_real_enable_p2p (OrenDCClient *self,
                                      gboolean enable);
+
+void _oren_dcclient_route_back (OrenDCClient *self,
+                                guint seq,
+                                GSList *routes);
 
 gboolean _oren_dcclient_real_send (OrenDCClient *self,
                                    OrenNCBuffer *buffer,

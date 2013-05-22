@@ -74,7 +74,8 @@ void oren_dclogin_login (OrenDCLogin *self,
                          const gchar *channel_name,
                          const gchar *user_name,
                          const gchar *network_type,
-                         const gchar *place);
+                         const gchar *place,
+                         gboolean is_channel);
 
 void oren_dclogin_logout (OrenDCLogin *self);
 

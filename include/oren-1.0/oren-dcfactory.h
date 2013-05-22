@@ -59,9 +59,11 @@ struct _OrenDCFactoryClass {
                               const gchar *user_name,
                               const gchar *client_version,
                               const gchar *network_type,
+                              const gchar *machine_code,
                               guint32 user_id,
                               guint32 login_code,
-                              guint protocol_version);
+                              guint protocol_version,
+                              gboolean is_channel);
     OrenDCClient* (*make_client) (OrenDCFactory *self,
                                   OrenNCReactor *reactor,
                                   const gchar *signature,
@@ -92,9 +94,11 @@ OrenDCUser* oren_dcfactory_make_user (OrenDCFactory *self,
                                       const gchar *user_name,
                                       const gchar *client_version,
                                       const gchar *network_type,
+                                      const gchar *machine_code,
                                       guint32 user_id,
                                       guint32 login_code,
-                                      guint protocol_version);
+                                      guint protocol_version,
+                                      gboolean is_channel);
 
 OrenDCClient* oren_dcfactory_make_client (OrenDCFactory *self,
                                           OrenNCReactor *reactor,

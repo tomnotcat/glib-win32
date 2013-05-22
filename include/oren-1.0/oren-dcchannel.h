@@ -45,6 +45,9 @@ struct _OrenDCChannel {
 
 struct _OrenDCChannelClass {
     OrenNCHandlerClass parent_class;
+    gboolean (*auth_user) (OrenDCChannel *self,
+                           OrenDCUser *user,
+                           OrenNCBuffer *data);
     void (*add_user) (OrenDCChannel *self, OrenDCUser *user);
     void (*remove_user) (OrenDCChannel *self, OrenDCUser *user);
     void (*alone) (OrenDCChannel *self, gboolean alone);
@@ -72,9 +75,12 @@ OrenDCChannel* oren_dcchannel_new (void);
 gboolean oren_dcchannel_open (OrenDCChannel *self,
                               OrenDCServer *server,
                               OrenNCReactor *reactor,
+                              OrenDCFactory *factory,
                               GPtrArray *address,
+                              guint16 port,
                               OrenNCSockaddr *parent_addr,
                               const gchar *channel_name,
+                              const gchar *signature,
                               gboolean enable_p2p);
 
 void oren_dcchannel_close (OrenDCChannel *self);
@@ -89,21 +95,30 @@ OrenNCReactor* oren_dcchannel_get_reactor (OrenDCChannel *self);
 
 OrenDCServer* oren_dcchannel_get_server (OrenDCChannel *self);
 
+OrenDCFactory* oren_dcchannel_get_factory (OrenDCChannel *self);
+
 OrenDCClient* oren_dcchannel_get_parent (OrenDCChannel *self);
 
 guint oren_dcchannel_get_user_count (OrenDCChannel *self);
 
 void oren_dcchannel_add_user (OrenDCChannel *self,
                               guint8 protocol_version,
+                              gboolean is_channel,
                               const gchar *client_version,
                               const gchar *network_type,
+                              const gchar *machine_code,
                               OrenNCSocket *socket,
                               OrenNCSockaddr *from,
                               const gchar *user_name,
-                              guint32 login_code);
+                              guint32 login_code,
+                              OrenNCBuffer *auth_data);
 
 void oren_dcchannel_remove_user (OrenDCChannel *self,
                                  guint32 user_id);
+
+void oren_dcchannel_change_parent (OrenDCChannel *self,
+                                   OrenNCSockaddr *addr,
+                                   gboolean reconnect);
 
 OrenDCUser* oren_dcchannel_get_user (OrenDCChannel *self,
                                      guint32 user_id);
@@ -143,6 +158,18 @@ void _oren_dcchannel_remove_user (OrenDCChannel *self,
 void _oren_dcchannel_enable_p2p (OrenDCChannel *self,
                                  OrenDCUser *user);
 
+void _oren_dcchannel_trace_route (OrenDCChannel *self,
+                                  OrenDCUser *user,
+                                  guint32 seq,
+                                  const gchar *target,
+                                  gint timeout,
+                                  gboolean from_parent);
+
+void _oren_dcchannel_route_back (OrenDCChannel *self,
+                                 OrenDCUser *from,
+                                 guint32 seq,
+                                 GSList *routes);
+
 void _oren_dcchannel_send_packet_to (OrenDCChannel *self,
                                      OrenNCSocket *socket,
                                      OrenNCSockaddr *address,
@@ -162,6 +189,10 @@ void _oren_dcchannel_add_send_lost (OrenDCChannel *self,
                                     guint32 count);
 
 gboolean _oren_dcchannel_check_expire (OrenDCChannel *self);
+
+void _oren_dcchannel_async_call (OrenDCChannel *self,
+                                 void (*func) (gpointer, gboolean),
+                                 gpointer user_data);
 
 G_END_DECLS
 

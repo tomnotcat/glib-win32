@@ -105,6 +105,17 @@ public:
         std::string address;
     };
 
+    struct RouteInfo {
+    public:
+        RouteInfo (const char *n)
+            : name (n)
+        {
+        }
+
+    public:
+        std::string name;
+    };
+
     struct Statistics {
         unsigned int ping;
         unsigned int generate;
@@ -120,6 +131,7 @@ public:
     };
 
     typedef std::list<ServerInfo> ServerList;
+    typedef std::list<RouteInfo> RouteList;
 
 public:
     // 127.0.0.1:9001
@@ -133,6 +145,8 @@ public:
 
     // 127.0.0.1:7474
     void ReqServers (const char *cmaddr, const char *channel);
+
+    void TraceRoute (const char *target, int timeout);
 
     void SendStart (unsigned int line, const void *param, size_t size);
 
@@ -157,6 +171,8 @@ public:
     // 127.0.0.1:9001
     virtual void OnPing (const char *address, int rtt,
                          const char *channel, int user_count);
+
+    virtual void OnRoute (const RouteList &list);
 
     virtual void OnChoose (const char *server_name);
 
@@ -184,12 +200,12 @@ public:
 
 public:
     COrenClient (const char *signature = "");
-    ~COrenClient (void);
+    virtual ~COrenClient (void);
 
     static void Initialize (const char *app_path,
                             const char *log_path,
                             int log_level,
-                            int log_max_rps);
+                            int log_size);
 
     static void Uninitialize (void);
 

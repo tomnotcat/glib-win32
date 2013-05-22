@@ -56,9 +56,11 @@ OrenSMUser* oren_smuser_new (OrenDCChannel *channel,
                              const gchar *user_name,
                              const gchar *client_version,
                              const gchar *network_type,
+                             const gchar *machine_code,
                              guint32 user_id,
                              guint32 login_code,
-                             guint protocol_version);
+                             guint protocol_version,
+                             gboolean is_channel);
 
 gboolean oren_smuser_refuse_data (OrenSMUser *self,
                                   guint line_number,

@@ -48,7 +48,6 @@ struct _OrenDCServerClass {
     void (*recv_ping) (OrenDCServer *self, OrenNCSockaddr *from);
     void (*add_channel) (OrenDCServer *self, OrenDCChannel *channel);
     void (*remove_channel) (OrenDCServer *self, OrenDCChannel *channel);
-    void (*upgrade) (OrenDCServer *self);
 };
 
 GType oren_dcserver_get_type (void) G_GNUC_CONST;
@@ -76,8 +75,6 @@ gboolean oren_dcserver_open (OrenDCServer *self,
 
 void oren_dcserver_close (OrenDCServer *self);
 
-void oren_dcserver_upgrade (OrenDCServer *self);
-
 const gchar* oren_dcserver_get_parent_group (OrenDCServer *self);
 
 const gchar* oren_dcserver_get_name (OrenDCServer *self);
@@ -96,6 +93,22 @@ OrenDCChannel* oren_dcserver_get_channel (OrenDCServer *self,
                                           const gchar *channel_name,
                                           gboolean create_it);
 
+void oren_dcserver_change_cluster (OrenDCServer *self,
+                                   OrenNCSockaddr *addr);
+
+void oren_dcserver_change_parent (OrenDCServer *self,
+                                  OrenNCSockaddr *addr,
+                                  gboolean reconnect);
+
+void _oren_dcserver_handle_login_packet (OrenDCServer *self,
+                                         OrenDCChannel *channel,
+                                         OrenNCSocket *socket,
+                                         OrenNCSockaddr *from,
+                                         OrenNCBuffer *buffer,
+                                         OrenNCBuffer *send_buffer,
+                                         const gchar *server_name,
+                                         const gchar *signature);
+
 void _oren_dcserver_send_login_result (OrenDCServer *self,
                                        OrenNCSocket *socket,
                                        guint8 version,
@@ -104,6 +117,7 @@ void _oren_dcserver_send_login_result (OrenDCServer *self,
                                        guint32 user_id,
                                        guint32 login_code,
                                        OrenNCSockaddr *user_addr,
+                                       const gchar *signature,
                                        guint16 channel_port,
                                        OrenDCLoginResult result);
 

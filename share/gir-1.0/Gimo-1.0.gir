@@ -277,6 +277,10 @@ and/or use gtk-doc annotations.  -->
             <doc xml:whitespace="preserve">the plugin file path</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
+          <parameter name="recursive" transfer-ownership="none">
+            <doc xml:whitespace="preserve">load sub directories recursively</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
           <parameter name="cancellable"
                      transfer-ownership="none"
                      allow-none="1">

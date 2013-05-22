@@ -22,17 +22,20 @@
 
 G_BEGIN_DECLS
 
-#define OREN_SIGNATURE_LENGTH (20)
+#define OREN_SHA1_LENGTH (20)
+#define OREN_MD5_LENGTH (16)
 
-void _oren_write_signature (gpointer buffer, gsize length, ...);
+void _oren_make_sha1 (gpointer buffer, gsize length, ...);
 
-gchar* _oren_signature_bin2hex (gchar *stringbuf,
-                                gconstpointer buffer,
-                                gsize length);
+void _oren_make_md5 (gpointer buffer, gsize length, ...);
 
-gpointer _oren_signature_hex2bin (gpointer buffer,
-                                  const gchar *string,
-                                  gsize length);
+gchar* _oren_bin2hex (gchar *stringbuf,
+                      gconstpointer buffer,
+                      gsize length);
+
+gpointer _oren_hex2bin (gpointer buffer,
+                        const gchar *string,
+                        gsize length);
 
 gchar* oren_md5sum (const gchar *data);
 

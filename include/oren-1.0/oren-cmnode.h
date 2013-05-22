@@ -35,7 +35,7 @@ G_BEGIN_DECLS
 #define OREN_CMNODE_GET_CLASS(obj) \
     (G_TYPE_INSTANCE_GET_CLASS((obj), OREN_TYPE_CMNODE, OrenCMNodeClass))
 
-#define OREN_CMNODE_HEAD_SIZE  (sizeof (guint32))
+#define OREN_CMNODE_HEAD_SIZE  (sizeof (guint16) + sizeof (guint32))
 #define OREN_CMNODE_LOST_LIMIT (500) /* 500/10000 */
 #define OREN_CMNODE_LOST_DIFF  (300) /* 300/10000 */
 #define OREN_CMNODE_USER_LIMIT (100)

@@ -61,8 +61,8 @@ OrenDCUser* oren_dcuser_new (OrenDCChannel *channel,
                              const gchar *client_version,
                              const gchar *network_type,
                              const gchar *machine_code,
-                             guint32 user_id,
-                             guint32 login_code,
+                             guint user_id,
+                             guint login_code,
                              guint protocol_version,
                              gboolean is_channel);
 
@@ -75,9 +75,9 @@ gboolean oren_dcuser_send_packet (OrenDCUser *self,
 
 OrenDCChannel* oren_dcuser_get_channel (OrenDCUser *self);
 
-guint32 oren_dcuser_get_id (OrenDCUser *self);
+guint oren_dcuser_get_id (OrenDCUser *self);
 
-guint32 oren_dcuser_get_login_code (OrenDCUser *self);
+guint oren_dcuser_get_login_code (OrenDCUser *self);
 
 guint oren_dcuser_protocol_version (OrenDCUser *self);
 

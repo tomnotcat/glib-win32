@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive version="1.0">
+  <object class="GimoPlugin">
+    <id>org.clue.backend.pdf</id>
+    <name>Clue PDF Backend</name>
+    <version>1.0</version>
+    <provider>clue</provider>
+    <module>clue-pdf-1.0.so</module>
+    <extensions class="GimoExtension">
+      <extension id="backend" name="PDF backend"
+                 point="org.clue.backend">
+        <configs class="GimoExtConfig">
+          <config name="mime-type" value="application/pdf;application/x-bzpdf;application/x-gzpdf;application/x-xzpdf;application/x-ext-pdf;"/>
+        </configs>
+      </extension>
+    </extensions>
+  </object>
+</archive>

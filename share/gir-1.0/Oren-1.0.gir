@@ -1391,7 +1391,7 @@ and/or use gtk-doc annotations.  -->
         <parameters>
           <parameter name="user_id" transfer-ownership="none">
             <doc xml:whitespace="preserve">the user id</doc>
-            <type name="guint32" c:type="guint32"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </method>
@@ -1547,7 +1547,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
         <parameters>
           <parameter name="user_id" transfer-ownership="none">
-            <type name="guint32" c:type="guint32"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
         </parameters>
       </method>
@@ -2478,11 +2478,11 @@ and/or use gtk-doc annotations.  -->
           </parameter>
           <parameter name="user_id" transfer-ownership="none">
             <doc xml:whitespace="preserve">the user ID</doc>
-            <type name="guint32" c:type="guint32"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
           <parameter name="login_code" transfer-ownership="none">
             <doc xml:whitespace="preserve">the login code</doc>
-            <type name="guint32" c:type="guint32"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
           <parameter name="protocol_version" transfer-ownership="none">
             <doc xml:whitespace="preserve">the client protocol version</doc>
@@ -2601,11 +2601,11 @@ and/or use gtk-doc annotations.  -->
           </parameter>
           <parameter name="user_id" transfer-ownership="none">
             <doc xml:whitespace="preserve">the user ID</doc>
-            <type name="guint32" c:type="guint32"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
           <parameter name="login_code" transfer-ownership="none">
             <doc xml:whitespace="preserve">the login code</doc>
-            <type name="guint32" c:type="guint32"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
           <parameter name="protocol_version" transfer-ownership="none">
             <doc xml:whitespace="preserve">the client protocol version</doc>
@@ -2740,11 +2740,11 @@ and/or use gtk-doc annotations.  -->
             </parameter>
             <parameter name="user_id" transfer-ownership="none">
               <doc xml:whitespace="preserve">the user ID</doc>
-              <type name="guint32" c:type="guint32"/>
+              <type name="guint" c:type="guint"/>
             </parameter>
             <parameter name="login_code" transfer-ownership="none">
               <doc xml:whitespace="preserve">the login code</doc>
-              <type name="guint32" c:type="guint32"/>
+              <type name="guint" c:type="guint"/>
             </parameter>
             <parameter name="protocol_version" transfer-ownership="none">
               <doc xml:whitespace="preserve">the client protocol version</doc>
@@ -3737,10 +3737,10 @@ and/or use gtk-doc annotations.  -->
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="user_id" transfer-ownership="none">
-            <type name="guint32" c:type="guint32"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
           <parameter name="login_code" transfer-ownership="none">
-            <type name="guint32" c:type="guint32"/>
+            <type name="guint" c:type="guint"/>
           </parameter>
           <parameter name="protocol_version" transfer-ownership="none">
             <type name="guint" c:type="guint"/>
@@ -3799,12 +3799,12 @@ and/or use gtk-doc annotations.  -->
       </method>
       <method name="get_id" c:identifier="oren_dcuser_get_id">
         <return-value transfer-ownership="none">
-          <type name="guint32" c:type="guint32"/>
+          <type name="guint" c:type="guint"/>
         </return-value>
       </method>
       <method name="get_login_code" c:identifier="oren_dcuser_get_login_code">
         <return-value transfer-ownership="none">
-          <type name="guint32" c:type="guint32"/>
+          <type name="guint" c:type="guint"/>
         </return-value>
       </method>
       <method name="get_name" c:identifier="oren_dcuser_get_name">
@@ -8358,6 +8358,9 @@ source address of the received packet.
           <parameter name="max_retry" transfer-ownership="none">
             <type name="guint" c:type="guint"/>
           </parameter>
+          <parameter name="data_hops" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
           <parameter name="buffer" transfer-ownership="none">
             <type name="NCBuffer" c:type="OrenNCBuffer*"/>
           </parameter>
@@ -8463,6 +8466,9 @@ source address of the received packet.
           <parameter name="max_retry" transfer-ownership="none">
             <type name="guint" c:type="guint"/>
           </parameter>
+          <parameter name="data_hops" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
         </parameters>
       </method>
       <method name="send_meta" c:identifier="oren_smclient_send_meta">
@@ -8551,6 +8557,9 @@ source address of the received packet.
             <type name="guint"/>
           </parameter>
           <parameter name="p2" transfer-ownership="none">
+            <type name="guint"/>
+          </parameter>
+          <parameter name="p3" transfer-ownership="none">
             <type name="NCBuffer"/>
           </parameter>
         </parameters>
@@ -8696,6 +8705,9 @@ source address of the received packet.
               <type name="guint" c:type="guint"/>
             </parameter>
             <parameter name="max_retry" transfer-ownership="none">
+              <type name="guint" c:type="guint"/>
+            </parameter>
+            <parameter name="data_hops" transfer-ownership="none">
               <type name="guint" c:type="guint"/>
             </parameter>
             <parameter name="buffer" transfer-ownership="none">

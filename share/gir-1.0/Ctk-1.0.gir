@@ -1,0 +1,2025 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="Atk" version="1.0"/>
+  <include name="GLib" version="2.0"/>
+  <include name="GModule" version="2.0"/>
+  <include name="GObject" version="2.0"/>
+  <include name="Gda" version="5.0"/>
+  <include name="Gdk" version="3.0"/>
+  <include name="GdkPixbuf" version="2.0"/>
+  <include name="Gimo" version="1.0"/>
+  <include name="Gio" version="2.0"/>
+  <include name="Gtk" version="3.0"/>
+  <include name="Oren" version="1.0"/>
+  <include name="Pango" version="1.0"/>
+  <include name="cairo" version="1.0"/>
+  <include name="libxml2" version="2.0"/>
+  <package name="Ctk-1.0"/>
+  <namespace name="Ctk"
+             version="1.0"
+             shared-library="ctk-1.0.dll"
+             c:identifier-prefixes="Ctk"
+             c:symbol-prefixes="ctk">
+    <class name="BaseDecorator"
+           c:symbol-prefix="base_decorator"
+           c:type="CtkBaseDecorator"
+           parent="GObject.Object"
+           glib:type-name="CtkBaseDecorator"
+           glib:get-type="ctk_base_decorator_get_type"
+           glib:type-struct="BaseDecoratorClass">
+      <constructor name="new" c:identifier="ctk_base_decorator_new">
+        <return-value transfer-ownership="full">
+          <type name="BaseDecorator" c:type="CtkBaseDecorator*"/>
+        </return-value>
+      </constructor>
+      <virtual-method name="attach">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="detach" invoker="detach">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="proc" introspectable="0">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="hwnd" transfer-ownership="none">
+            <type c:type="HWND"/>
+          </parameter>
+          <parameter name="msg" transfer-ownership="none">
+            <type c:type="UINT"/>
+          </parameter>
+          <parameter name="wparam" transfer-ownership="none">
+            <type c:type="WPARAM"/>
+          </parameter>
+          <parameter name="lparam" transfer-ownership="none">
+            <type c:type="LPARAM"/>
+          </parameter>
+          <parameter name="result" transfer-ownership="none">
+            <type c:type="LRESULT*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="attach" c:identifier="ctk_base_decorator_attach">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="widget" transfer-ownership="none">
+            <type name="Gtk.Widget" c:type="GtkWidget*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="detach" c:identifier="ctk_base_decorator_detach">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <method name="get_window" c:identifier="ctk_base_decorator_get_window">
+        <doc xml:whitespace="preserve">Get the attached window.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GtkWidget</doc>
+          <type name="Gtk.Widget" c:type="GtkWidget*"/>
+        </return-value>
+      </method>
+      <method name="set_close_mode"
+              c:identifier="ctk_base_decorator_set_close_mode">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="mode" transfer-ownership="none">
+            <type name="CloseMode" c:type="CtkCloseMode"/>
+          </parameter>
+          <parameter name="timeout" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="BaseDecoratorPrivate" c:type="CtkBaseDecoratorPrivate*"/>
+      </field>
+    </class>
+    <record name="BaseDecoratorClass"
+            c:type="CtkBaseDecoratorClass"
+            glib:is-gtype-struct-for="BaseDecorator">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="attach">
+        <callback name="attach">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="BaseDecorator" c:type="CtkBaseDecorator*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="detach">
+        <callback name="detach">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="BaseDecorator" c:type="CtkBaseDecorator*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="proc" introspectable="0">
+        <callback name="proc" introspectable="0">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="BaseDecorator" c:type="CtkBaseDecorator*"/>
+            </parameter>
+            <parameter name="hwnd" transfer-ownership="none">
+              <type c:type="HWND"/>
+            </parameter>
+            <parameter name="msg" transfer-ownership="none">
+              <type c:type="UINT"/>
+            </parameter>
+            <parameter name="wparam" transfer-ownership="none">
+              <type c:type="WPARAM"/>
+            </parameter>
+            <parameter name="lparam" transfer-ownership="none">
+              <type c:type="LPARAM"/>
+            </parameter>
+            <parameter name="result" transfer-ownership="none">
+              <type c:type="LRESULT*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="BaseDecoratorPrivate"
+            c:type="CtkBaseDecoratorPrivate"
+            disguised="1">
+    </record>
+    <record name="BubbleDecorator" c:type="CtkBubbleDecorator" disguised="1">
+    </record>
+    <enumeration name="CloseMode"
+                 glib:type-name="CtkCloseMode"
+                 glib:get-type="ctk_close_mode_get_type"
+                 c:type="CtkCloseMode">
+      <member name="NONE"
+              value="0"
+              c:identifier="CTK_CLOSE_MODE_NONE"
+              glib:nick="NONE"/>
+      <member name="LOST_FOCUS"
+              value="1"
+              c:identifier="CTK_CLOSE_MODE_LOST_FOCUS"
+              glib:nick="LOST_FOCUS"/>
+      <member name="MOUSE_LEAVE"
+              value="2"
+              c:identifier="CTK_CLOSE_MODE_MOUSE_LEAVE"
+              glib:nick="MOUSE_LEAVE"/>
+    </enumeration>
+    <class name="DecoratorButton"
+           c:symbol-prefix="decorator_button"
+           c:type="CtkDecoratorButton"
+           parent="DecoratorWidget"
+           glib:type-name="CtkDecoratorButton"
+           glib:get-type="ctk_decorator_button_get_type"
+           glib:type-struct="DecoratorButtonClass">
+      <constructor name="new" c:identifier="ctk_decorator_button_new">
+        <return-value transfer-ownership="full">
+          <type name="DecoratorWidget" c:type="CtkDecoratorWidget*"/>
+        </return-value>
+        <parameters>
+          <parameter name="window" transfer-ownership="none">
+            <type name="Gtk.Widget" c:type="GtkWidget*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="clicked">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <field name="parent_instance">
+        <type name="DecoratorWidget" c:type="CtkDecoratorWidget"/>
+      </field>
+      <field name="priv">
+        <type name="DecoratorButtonPrivate"
+              c:type="CtkDecoratorButtonPrivate*"/>
+      </field>
+      <glib:signal name="clicked" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
+    </class>
+    <record name="DecoratorButtonClass"
+            c:type="CtkDecoratorButtonClass"
+            glib:is-gtype-struct-for="DecoratorButton">
+      <field name="parent_class">
+        <type name="DecoratorWidgetClass" c:type="CtkDecoratorWidgetClass"/>
+      </field>
+      <field name="clicked">
+        <callback name="clicked">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DecoratorButton" c:type="CtkDecoratorButton*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="DecoratorButtonPrivate"
+            c:type="CtkDecoratorButtonPrivate"
+            disguised="1">
+    </record>
+    <class name="DecoratorWidget"
+           c:symbol-prefix="decorator_widget"
+           c:type="CtkDecoratorWidget"
+           parent="GObject.Object"
+           glib:type-name="CtkDecoratorWidget"
+           glib:get-type="ctk_decorator_widget_get_type"
+           glib:type-struct="DecoratorWidgetClass">
+      <constructor name="new" c:identifier="ctk_decorator_widget_new">
+        <return-value transfer-ownership="full">
+          <type name="DecoratorWidget" c:type="CtkDecoratorWidget*"/>
+        </return-value>
+        <parameters>
+          <parameter name="window" transfer-ownership="none">
+            <type name="Gtk.Widget" c:type="GtkWidget*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="button_press">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="x" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="y" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="button_release">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="x" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="y" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="draw">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="cr" transfer-ownership="none">
+            <type name="cairo.Context" c:type="cairo_t*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="enter_notify">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="leave_notify">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="motion_notify">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="x" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="y" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="get_allocation"
+              c:identifier="ctk_decorator_widget_get_allocation">
+        <doc xml:whitespace="preserve">Retrieves the widget's allocation.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="allocation"
+                     direction="out"
+                     caller-allocates="1"
+                     transfer-ownership="none">
+            <doc xml:whitespace="preserve">a pointer to a #GtkAllocation to copy to</doc>
+            <type name="Gtk.Allocation" c:type="GtkAllocation*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_style_context"
+              c:identifier="ctk_decorator_widget_get_style_context">
+        <doc xml:whitespace="preserve">Returns the style context associated to @widget.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #GtkStyleContext. This memory is owned by @widget and must not be freed.</doc>
+          <type name="Gtk.StyleContext" c:type="GtkStyleContext*"/>
+        </return-value>
+      </method>
+      <property name="window"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="Gtk.Widget"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="DecoratorWidgetPrivate"
+              c:type="CtkDecoratorWidgetPrivate*"/>
+      </field>
+      <glib:signal name="button-press" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="button-release" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="draw" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="cairo.Context"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="enter-notify" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="leave-notify" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="motion-notify" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="DecoratorWidgetClass"
+            c:type="CtkDecoratorWidgetClass"
+            glib:is-gtype-struct-for="DecoratorWidget">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="draw">
+        <callback name="draw">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DecoratorWidget" c:type="CtkDecoratorWidget*"/>
+            </parameter>
+            <parameter name="cr" transfer-ownership="none">
+              <type name="cairo.Context" c:type="cairo_t*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="button_press">
+        <callback name="button_press">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DecoratorWidget" c:type="CtkDecoratorWidget*"/>
+            </parameter>
+            <parameter name="x" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+            <parameter name="y" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="button_release">
+        <callback name="button_release">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DecoratorWidget" c:type="CtkDecoratorWidget*"/>
+            </parameter>
+            <parameter name="x" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+            <parameter name="y" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="motion_notify">
+        <callback name="motion_notify">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DecoratorWidget" c:type="CtkDecoratorWidget*"/>
+            </parameter>
+            <parameter name="x" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+            <parameter name="y" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="enter_notify">
+        <callback name="enter_notify">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DecoratorWidget" c:type="CtkDecoratorWidget*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="leave_notify">
+        <callback name="leave_notify">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DecoratorWidget" c:type="CtkDecoratorWidget*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="DecoratorWidgetPrivate" c:type="CtkDecoratorWidgetPrivate">
+      <field name="window" writable="1">
+        <type name="Gtk.Widget" c:type="GtkWidget*"/>
+      </field>
+      <field name="context" writable="1">
+        <type name="Gtk.StyleContext" c:type="GtkStyleContext*"/>
+      </field>
+      <field name="init_border" introspectable="0" writable="1">
+        <type c:type="RECT"/>
+      </field>
+      <field name="init_rect" introspectable="0" writable="1">
+        <type c:type="RECT"/>
+      </field>
+      <field name="rect" introspectable="0" writable="1">
+        <type c:type="RECT"/>
+      </field>
+      <field name="left" writable="1">
+        <type name="gfloat" c:type="gfloat"/>
+      </field>
+      <field name="top" writable="1">
+        <type name="gfloat" c:type="gfloat"/>
+      </field>
+      <field name="right" writable="1">
+        <type name="gfloat" c:type="gfloat"/>
+      </field>
+      <field name="bottom" writable="1">
+        <type name="gfloat" c:type="gfloat"/>
+      </field>
+    </record>
+    <class name="DocModel"
+           c:symbol-prefix="doc_model"
+           c:type="CtkDocModel"
+           parent="GObject.Object"
+           glib:type-name="CtkDocModel"
+           glib:get-type="ctk_doc_model_get_type"
+           glib:type-struct="DocModelClass">
+      <constructor name="new" c:identifier="ctk_doc_model_new">
+        <return-value transfer-ownership="full">
+          <type name="DocModel" c:type="CtkDocModel*"/>
+        </return-value>
+      </constructor>
+      <constructor name="new_with_document"
+                   c:identifier="ctk_doc_model_new_with_document">
+        <return-value transfer-ownership="full">
+          <type name="DocModel" c:type="CtkDocModel*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="Document" c:type="CtkDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="page_changed">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="old_page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="new_page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="get_continuous"
+              c:identifier="ctk_doc_model_get_continuous">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="get_document" c:identifier="ctk_doc_model_get_document">
+        <doc xml:whitespace="preserve">Get the document of the model.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #CtkDocument</doc>
+          <type name="Document" c:type="CtkDocument*"/>
+        </return-value>
+      </method>
+      <method name="get_dual_page" c:identifier="ctk_doc_model_get_dual_page">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="get_dual_page_odd_pages_left"
+              c:identifier="ctk_doc_model_get_dual_page_odd_pages_left">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="get_max_scale" c:identifier="ctk_doc_model_get_max_scale">
+        <return-value transfer-ownership="none">
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+      </method>
+      <method name="get_min_scale" c:identifier="ctk_doc_model_get_min_scale">
+        <return-value transfer-ownership="none">
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+      </method>
+      <method name="get_page" c:identifier="ctk_doc_model_get_page">
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+      </method>
+      <method name="get_rotation" c:identifier="ctk_doc_model_get_rotation">
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+      </method>
+      <method name="get_scale" c:identifier="ctk_doc_model_get_scale">
+        <return-value transfer-ownership="none">
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+      </method>
+      <method name="get_sizing_mode"
+              c:identifier="ctk_doc_model_get_sizing_mode">
+        <return-value transfer-ownership="none">
+          <type name="SizingMode" c:type="CtkSizingMode"/>
+        </return-value>
+      </method>
+      <method name="set_continuous"
+              c:identifier="ctk_doc_model_set_continuous">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="continuous" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_document" c:identifier="ctk_doc_model_set_document">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="Document" c:type="CtkDocument*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_dual_page" c:identifier="ctk_doc_model_set_dual_page">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="dual_page" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_dual_page_odd_pages_left"
+              c:identifier="ctk_doc_model_set_dual_page_odd_pages_left">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="odd_left" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_max_scale" c:identifier="ctk_doc_model_set_max_scale">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="max_scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_min_scale" c:identifier="ctk_doc_model_set_min_scale">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="min_scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_page" c:identifier="ctk_doc_model_set_page">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_rotation" c:identifier="ctk_doc_model_set_rotation">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_scale" c:identifier="ctk_doc_model_set_scale">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_sizing_mode"
+              c:identifier="ctk_doc_model_set_sizing_mode">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="mode" transfer-ownership="none">
+            <type name="SizingMode" c:type="CtkSizingMode"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="continuous" writable="1" transfer-ownership="none">
+        <type name="gboolean"/>
+      </property>
+      <property name="document" writable="1" transfer-ownership="none">
+        <type name="Document"/>
+      </property>
+      <property name="dual-odd-left" writable="1" transfer-ownership="none">
+        <type name="gboolean"/>
+      </property>
+      <property name="dual-page" writable="1" transfer-ownership="none">
+        <type name="gboolean"/>
+      </property>
+      <property name="page" writable="1" transfer-ownership="none">
+        <type name="gint"/>
+      </property>
+      <property name="rotation" writable="1" transfer-ownership="none">
+        <type name="gint"/>
+      </property>
+      <property name="scale" writable="1" transfer-ownership="none">
+        <type name="gdouble"/>
+      </property>
+      <property name="sizing-mode" writable="1" transfer-ownership="none">
+        <type name="SizingMode"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="DocModelPrivate" c:type="CtkDocModelPrivate*"/>
+      </field>
+      <glib:signal name="page-changed" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="DocModelClass"
+            c:type="CtkDocModelClass"
+            glib:is-gtype-struct-for="DocModel">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="page_changed">
+        <callback name="page_changed">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DocModel" c:type="CtkDocModel*"/>
+            </parameter>
+            <parameter name="old_page" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+            <parameter name="new_page" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="DocModelPrivate" c:type="CtkDocModelPrivate" disguised="1">
+    </record>
+    <class name="DocPage"
+           c:symbol-prefix="doc_page"
+           c:type="CtkDocPage"
+           parent="GObject.Object"
+           abstract="1"
+           glib:type-name="CtkDocPage"
+           glib:get-type="ctk_doc_page_get_type"
+           glib:type-struct="DocPageClass">
+      <virtual-method name="close">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="extract_text" invoker="extract_text">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="texts" transfer-ownership="none">
+            <type name="utf8" c:type="gchar*"/>
+          </parameter>
+          <parameter name="rects" transfer-ownership="none">
+            <type name="cairo.RectangleInt" c:type="cairo_rectangle_int_t*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="get_matrix" invoker="get_matrix">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="ctm" transfer-ownership="none">
+            <type name="cairo.Matrix" c:type="cairo_matrix_t*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="get_size" invoker="get_size">
+        <doc xml:whitespace="preserve">Get the page size.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="width"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">location to store the page width</doc>
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+          <parameter name="height"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">location to store the page height</doc>
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="render" invoker="render">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="surface" transfer-ownership="none">
+            <type name="cairo.Surface" c:type="cairo_surface_t*"/>
+          </parameter>
+          <parameter name="ctm" transfer-ownership="none">
+            <type name="cairo.Matrix" c:type="const cairo_matrix_t*"/>
+          </parameter>
+          <parameter name="area" transfer-ownership="none">
+            <type name="cairo.RectangleInt"
+                  c:type="const cairo_rectangle_int_t*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="text_length" invoker="text_length">
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+      </virtual-method>
+      <method name="extract_text" c:identifier="ctk_doc_page_extract_text">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="texts" transfer-ownership="none">
+            <type name="utf8" c:type="gchar*"/>
+          </parameter>
+          <parameter name="rects" transfer-ownership="none">
+            <type name="cairo.RectangleInt" c:type="cairo_rectangle_int_t*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_document" c:identifier="ctk_doc_page_get_document">
+        <doc xml:whitespace="preserve">Get the document of the page.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #CtkDocument</doc>
+          <type name="Document" c:type="CtkDocument*"/>
+        </return-value>
+      </method>
+      <method name="get_index" c:identifier="ctk_doc_page_get_index">
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+      </method>
+      <method name="get_matrix" c:identifier="ctk_doc_page_get_matrix">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="ctm" transfer-ownership="none">
+            <type name="cairo.Matrix" c:type="cairo_matrix_t*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_size" c:identifier="ctk_doc_page_get_size">
+        <doc xml:whitespace="preserve">Get the page size.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="width"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">location to store the page width</doc>
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+          <parameter name="height"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     allow-none="1">
+            <doc xml:whitespace="preserve">location to store the page height</doc>
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="render" c:identifier="ctk_doc_page_render">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="surface" transfer-ownership="none">
+            <type name="cairo.Surface" c:type="cairo_surface_t*"/>
+          </parameter>
+          <parameter name="ctm" transfer-ownership="none">
+            <type name="cairo.Matrix" c:type="const cairo_matrix_t*"/>
+          </parameter>
+          <parameter name="area" transfer-ownership="none">
+            <type name="cairo.RectangleInt"
+                  c:type="const cairo_rectangle_int_t*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="text_length" c:identifier="ctk_doc_page_text_length">
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+      </method>
+      <property name="document"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="Document"/>
+      </property>
+      <property name="index"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="gint"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="DocPagePrivate" c:type="CtkDocPagePrivate*"/>
+      </field>
+    </class>
+    <record name="DocPageClass"
+            c:type="CtkDocPageClass"
+            glib:is-gtype-struct-for="DocPage">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="get_size">
+        <callback name="get_size">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DocPage" c:type="CtkDocPage*"/>
+            </parameter>
+            <parameter name="width"
+                       direction="out"
+                       caller-allocates="0"
+                       transfer-ownership="full"
+                       allow-none="1">
+              <doc xml:whitespace="preserve">location to store the page width</doc>
+              <type name="gdouble" c:type="gdouble*"/>
+            </parameter>
+            <parameter name="height"
+                       direction="out"
+                       caller-allocates="0"
+                       transfer-ownership="full"
+                       allow-none="1">
+              <doc xml:whitespace="preserve">location to store the page height</doc>
+              <type name="gdouble" c:type="gdouble*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="get_matrix">
+        <callback name="get_matrix">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DocPage" c:type="CtkDocPage*"/>
+            </parameter>
+            <parameter name="scale" transfer-ownership="none">
+              <type name="gdouble" c:type="gdouble"/>
+            </parameter>
+            <parameter name="rotation" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+            <parameter name="ctm" transfer-ownership="none">
+              <type name="cairo.Matrix" c:type="cairo_matrix_t*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="text_length">
+        <callback name="text_length">
+          <return-value transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DocPage" c:type="CtkDocPage*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="extract_text">
+        <callback name="extract_text">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DocPage" c:type="CtkDocPage*"/>
+            </parameter>
+            <parameter name="texts" transfer-ownership="none">
+              <type name="utf8" c:type="gchar*"/>
+            </parameter>
+            <parameter name="rects" transfer-ownership="none">
+              <type name="cairo.RectangleInt" c:type="cairo_rectangle_int_t*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="render">
+        <callback name="render">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DocPage" c:type="CtkDocPage*"/>
+            </parameter>
+            <parameter name="surface" transfer-ownership="none">
+              <type name="cairo.Surface" c:type="cairo_surface_t*"/>
+            </parameter>
+            <parameter name="ctm" transfer-ownership="none">
+              <type name="cairo.Matrix" c:type="const cairo_matrix_t*"/>
+            </parameter>
+            <parameter name="area" transfer-ownership="none">
+              <type name="cairo.RectangleInt"
+                    c:type="const cairo_rectangle_int_t*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="close">
+        <callback name="close">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DocPage" c:type="CtkDocPage*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="DocPagePrivate" c:type="CtkDocPagePrivate" disguised="1">
+    </record>
+    <class name="DocRenderCache"
+           c:symbol-prefix="doc_render_cache"
+           c:type="CtkDocRenderCache"
+           parent="GObject.Object"
+           glib:type-name="CtkDocRenderCache"
+           glib:get-type="ctk_doc_render_cache_get_type"
+           glib:type-struct="DocRenderCacheClass">
+      <constructor name="new" c:identifier="ctk_doc_render_cache_new">
+        <return-value transfer-ownership="full">
+          <type name="DocRenderCache" c:type="CtkDocRenderCache*"/>
+        </return-value>
+        <parameters>
+          <parameter name="model" transfer-ownership="none">
+            <type name="DocModel" c:type="CtkDocModel*"/>
+          </parameter>
+          <parameter name="pool" transfer-ownership="none">
+            <type name="Oren.ThreadPool" c:type="OrenThreadPool*"/>
+          </parameter>
+          <parameter name="max_size" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="task_finished">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="clear" c:identifier="ctk_doc_render_cache_clear">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <method name="get_surface"
+              c:identifier="ctk_doc_render_cache_get_surface">
+        <doc xml:whitespace="preserve">Get the rendered pixbuf of the specified page.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #cairo_surface_t</doc>
+          <type name="cairo.Surface" c:type="cairo_surface_t*"/>
+        </return-value>
+        <parameters>
+          <parameter name="page" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the page index</doc>
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_max_size"
+              c:identifier="ctk_doc_render_cache_set_max_size">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="max_size" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_page_range"
+              c:identifier="ctk_doc_render_cache_set_page_range">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="begin_page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="end_page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="max-size" writable="1" transfer-ownership="none">
+        <type name="guint"/>
+      </property>
+      <property name="model"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="DocModel"/>
+      </property>
+      <property name="thread-pool"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="Oren.ThreadPool"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="DocRenderCachePrivate" c:type="CtkDocRenderCachePrivate*"/>
+      </field>
+      <glib:signal name="task-finished" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="DocRenderCacheClass"
+            c:type="CtkDocRenderCacheClass"
+            glib:is-gtype-struct-for="DocRenderCache">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="task_finished">
+        <callback name="task_finished">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="DocRenderCache" c:type="CtkDocRenderCache*"/>
+            </parameter>
+            <parameter name="page" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <record name="DocRenderCachePrivate"
+            c:type="CtkDocRenderCachePrivate"
+            disguised="1">
+    </record>
+    <class name="DocRenderTask"
+           c:symbol-prefix="doc_render_task"
+           c:type="CtkDocRenderTask"
+           parent="Oren.Task"
+           glib:type-name="CtkDocRenderTask"
+           glib:get-type="ctk_doc_render_task_get_type"
+           glib:type-struct="DocRenderTaskClass">
+      <implements name="Oren.TaskBase"/>
+      <constructor name="new" c:identifier="ctk_doc_render_task_new">
+        <return-value transfer-ownership="full">
+          <type name="DocRenderTask" c:type="CtkDocRenderTask*"/>
+        </return-value>
+        <parameters>
+          <parameter name="page" transfer-ownership="none">
+            <type name="DocPage" c:type="CtkDocPage*"/>
+          </parameter>
+          <parameter name="scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_page" c:identifier="ctk_doc_render_task_get_page">
+        <doc xml:whitespace="preserve">Get the document page of the task.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #CtkDocPage</doc>
+          <type name="DocPage" c:type="CtkDocPage*"/>
+        </return-value>
+      </method>
+      <method name="get_surface"
+              c:identifier="ctk_doc_render_task_get_surface">
+        <doc xml:whitespace="preserve">Get the rendered pixbuf of the task.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #cairo_surface_t</doc>
+          <type name="cairo.Surface" c:type="cairo_surface_t*"/>
+        </return-value>
+      </method>
+      <property name="page"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="DocPage"/>
+      </property>
+      <property name="rotation" writable="1" transfer-ownership="none">
+        <type name="gint"/>
+      </property>
+      <property name="scale" writable="1" transfer-ownership="none">
+        <type name="gdouble"/>
+      </property>
+      <field name="parent_instance">
+        <type name="Oren.Task" c:type="OrenTask"/>
+      </field>
+      <field name="priv">
+        <type name="DocRenderTaskPrivate" c:type="CtkDocRenderTaskPrivate*"/>
+      </field>
+    </class>
+    <record name="DocRenderTaskClass"
+            c:type="CtkDocRenderTaskClass"
+            glib:is-gtype-struct-for="DocRenderTask">
+      <field name="parent_class">
+        <type name="Oren.TaskClass" c:type="OrenTaskClass"/>
+      </field>
+    </record>
+    <record name="DocRenderTaskPrivate"
+            c:type="CtkDocRenderTaskPrivate"
+            disguised="1">
+    </record>
+    <class name="DocView"
+           c:symbol-prefix="doc_view"
+           c:type="CtkDocView"
+           parent="Gtk.Container"
+           glib:type-name="CtkDocView"
+           glib:get-type="ctk_doc_view_get_type"
+           glib:type-struct="DocViewClass">
+      <implements name="Atk.ImplementorIface"/>
+      <implements name="Gtk.Buildable"/>
+      <implements name="Gtk.Scrollable"/>
+      <constructor name="new" c:identifier="ctk_doc_view_new">
+        <return-value transfer-ownership="none">
+          <type name="DocView" c:type="CtkDocView*"/>
+        </return-value>
+        <parameters>
+          <parameter name="pool" transfer-ownership="none">
+            <type name="Oren.ThreadPool" c:type="OrenThreadPool*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="can_zoom_in" c:identifier="ctk_doc_view_can_zoom_in">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="can_zoom_out" c:identifier="ctk_doc_view_can_zoom_out">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="get_model" c:identifier="ctk_doc_view_get_model">
+        <doc xml:whitespace="preserve">Returns the #CtkDocModel referenced by the view.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #CtkDocModel</doc>
+          <type name="DocModel" c:type="CtkDocModel*"/>
+        </return-value>
+      </method>
+      <method name="next_page" c:identifier="ctk_doc_view_next_page">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="previous_page" c:identifier="ctk_doc_view_previous_page">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+      <method name="set_model" c:identifier="ctk_doc_view_set_model">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="model" transfer-ownership="none">
+            <type name="DocModel" c:type="CtkDocModel*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_render_cache_size"
+              c:identifier="ctk_doc_view_set_render_cache_size">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="cache_size" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="zoom_in" c:identifier="ctk_doc_view_zoom_in">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <method name="zoom_out" c:identifier="ctk_doc_view_zoom_out">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <property name="thread-pool"
+                readable="0"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="Oren.ThreadPool"/>
+      </property>
+      <field name="parent_instance">
+        <type name="Gtk.Container" c:type="GtkContainer"/>
+      </field>
+      <field name="priv">
+        <type name="DocViewPrivate" c:type="CtkDocViewPrivate*"/>
+      </field>
+    </class>
+    <record name="DocViewClass"
+            c:type="CtkDocViewClass"
+            glib:is-gtype-struct-for="DocView">
+      <field name="parent_class">
+        <type name="Gtk.ContainerClass" c:type="GtkContainerClass"/>
+      </field>
+    </record>
+    <record name="DocViewPrivate" c:type="CtkDocViewPrivate" disguised="1">
+    </record>
+    <class name="Document"
+           c:symbol-prefix="document"
+           c:type="CtkDocument"
+           parent="GObject.Object"
+           abstract="1"
+           glib:type-name="CtkDocument"
+           glib:get-type="ctk_document_get_type"
+           glib:type-struct="DocumentClass">
+      <function name="error_quark" c:identifier="ctk_document_error_quark">
+        <return-value transfer-ownership="none">
+          <type name="GLib.Quark" c:type="GQuark"/>
+        </return-value>
+      </function>
+      <virtual-method name="close" invoker="close">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="count_pages" invoker="count_pages">
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+      </virtual-method>
+      <virtual-method name="get_page" invoker="get_page">
+        <doc xml:whitespace="preserve">Get a page object from the document.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #CtkPage</doc>
+          <type name="DocPage" c:type="CtkDocPage*"/>
+        </return-value>
+        <parameters>
+          <parameter name="index" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the page index</doc>
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="load" invoker="load" throws="1">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="stream" transfer-ownership="none">
+            <type name="Gio.InputStream" c:type="GInputStream*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="close" c:identifier="ctk_document_close">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <method name="count_pages" c:identifier="ctk_document_count_pages">
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+      </method>
+      <method name="get_max_page_size"
+              c:identifier="ctk_document_get_max_page_size">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="width" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+          <parameter name="height" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_min_page_size"
+              c:identifier="ctk_document_get_min_page_size">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="width" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+          <parameter name="height" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_page" c:identifier="ctk_document_get_page">
+        <doc xml:whitespace="preserve">Get a page object from the document.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:whitespace="preserve">a #CtkPage</doc>
+          <type name="DocPage" c:type="CtkDocPage*"/>
+        </return-value>
+        <parameters>
+          <parameter name="index" transfer-ownership="none">
+            <doc xml:whitespace="preserve">the page index</doc>
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_uniform_page_size"
+              c:identifier="ctk_document_get_uniform_page_size">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="width" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+          <parameter name="height" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="load" c:identifier="ctk_document_load" throws="1">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="stream" transfer-ownership="none">
+            <type name="Gio.InputStream" c:type="GInputStream*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="load_from_file"
+              c:identifier="ctk_document_load_from_file"
+              throws="1">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="filename" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv">
+        <type name="DocumentPrivate" c:type="CtkDocumentPrivate*"/>
+      </field>
+    </class>
+    <record name="DocumentClass"
+            c:type="CtkDocumentClass"
+            glib:is-gtype-struct-for="Document">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="load">
+        <callback name="load" throws="1">
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Document" c:type="CtkDocument*"/>
+            </parameter>
+            <parameter name="stream" transfer-ownership="none">
+              <type name="Gio.InputStream" c:type="GInputStream*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="close">
+        <callback name="close">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Document" c:type="CtkDocument*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="count_pages">
+        <callback name="count_pages">
+          <return-value transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Document" c:type="CtkDocument*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="get_page">
+        <callback name="get_page">
+          <return-value transfer-ownership="none">
+            <doc xml:whitespace="preserve">a #CtkPage</doc>
+            <type name="DocPage" c:type="CtkDocPage*"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Document" c:type="CtkDocument*"/>
+            </parameter>
+            <parameter name="index" transfer-ownership="none">
+              <doc xml:whitespace="preserve">the page index</doc>
+              <type name="gint" c:type="gint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <enumeration name="DocumentError" c:type="CtkDocumentError">
+      <member name="document_error_invalid"
+              value="0"
+              c:identifier="CTK_DOCUMENT_ERROR_INVALID"/>
+    </enumeration>
+    <record name="DocumentPrivate" c:type="CtkDocumentPrivate" disguised="1">
+    </record>
+    <enumeration name="MouseMessage" c:type="CtkMouseMessage">
+      <member name="mousemove"
+              value="3138"
+              c:identifier="CTK_MOUSE_MSG_MOUSEMOVE"/>
+      <member name="lbuttondown"
+              value="3139"
+              c:identifier="CTK_MOUSE_MSG_LBUTTONDOWN"/>
+      <member name="lbuttonup"
+              value="3140"
+              c:identifier="CTK_MOUSE_MSG_LBUTTONUP"/>
+      <member name="lbuttondblclk"
+              value="3141"
+              c:identifier="CTK_MOUSE_MSG_LBUTTONDBLCLK"/>
+      <member name="rbuttondown"
+              value="3142"
+              c:identifier="CTK_MOUSE_MSG_RBUTTONDOWN"/>
+      <member name="rbuttonup"
+              value="3143"
+              c:identifier="CTK_MOUSE_MSG_RBUTTONUP"/>
+      <member name="rbuttondblclk"
+              value="3144"
+              c:identifier="CTK_MOUSE_MSG_RBUTTONDBLCLK"/>
+      <member name="mbuttondown"
+              value="3145"
+              c:identifier="CTK_MOUSE_MSG_MBUTTONDOWN"/>
+      <member name="mbuttonup"
+              value="3146"
+              c:identifier="CTK_MOUSE_MSG_MBUTTONUP"/>
+      <member name="mbuttondblclk"
+              value="3147"
+              c:identifier="CTK_MOUSE_MSG_MBUTTONDBLCLK"/>
+      <member name="ncmousemove"
+              value="3148"
+              c:identifier="CTK_MOUSE_MSG_NCMOUSEMOVE"/>
+      <member name="nclbuttondown"
+              value="3149"
+              c:identifier="CTK_MOUSE_MSG_NCLBUTTONDOWN"/>
+      <member name="nclbuttonup"
+              value="3150"
+              c:identifier="CTK_MOUSE_MSG_NCLBUTTONUP"/>
+      <member name="nclbuttondblclk"
+              value="3151"
+              c:identifier="CTK_MOUSE_MSG_NCLBUTTONDBLCLK"/>
+      <member name="ncrbuttondown"
+              value="3152"
+              c:identifier="CTK_MOUSE_MSG_NCRBUTTONDOWN"/>
+      <member name="ncrbuttonup"
+              value="3153"
+              c:identifier="CTK_MOUSE_MSG_NCRBUTTONUP"/>
+      <member name="ncrbuttondblclk"
+              value="3154"
+              c:identifier="CTK_MOUSE_MSG_NCRBUTTONDBLCLK"/>
+      <member name="ncmbuttondown"
+              value="3155"
+              c:identifier="CTK_MOUSE_MSG_NCMBUTTONDOWN"/>
+      <member name="ncmbuttonup"
+              value="3156"
+              c:identifier="CTK_MOUSE_MSG_NCMBUTTONUP"/>
+      <member name="ncmbuttondblclk"
+              value="3157"
+              c:identifier="CTK_MOUSE_MSG_NCMBUTTONDBLCLK"/>
+      <member name="mouseleave"
+              value="3158"
+              c:identifier="CTK_MOUSE_MSG_MOUSELEAVE"/>
+    </enumeration>
+    <bitfield name="MouseTrackFlags" c:type="CtkMouseTrackFlags">
+      <member name="mousemove"
+              value="1"
+              c:identifier="CTK_MOUSE_TRACK_MOUSEMOVE"/>
+      <member name="lbuttondown"
+              value="2"
+              c:identifier="CTK_MOUSE_TRACK_LBUTTONDOWN"/>
+      <member name="lbuttonup"
+              value="4"
+              c:identifier="CTK_MOUSE_TRACK_LBUTTONUP"/>
+      <member name="lbuttondblclk"
+              value="8"
+              c:identifier="CTK_MOUSE_TRACK_LBUTTONDBLCLK"/>
+      <member name="rbuttondown"
+              value="16"
+              c:identifier="CTK_MOUSE_TRACK_RBUTTONDOWN"/>
+      <member name="rbuttonup"
+              value="32"
+              c:identifier="CTK_MOUSE_TRACK_RBUTTONUP"/>
+      <member name="rbuttondblclk"
+              value="64"
+              c:identifier="CTK_MOUSE_TRACK_RBUTTONDBLCLK"/>
+      <member name="mbuttondown"
+              value="128"
+              c:identifier="CTK_MOUSE_TRACK_MBUTTONDOWN"/>
+      <member name="mbuttonup"
+              value="256"
+              c:identifier="CTK_MOUSE_TRACK_MBUTTONUP"/>
+      <member name="mbuttondblclk"
+              value="512"
+              c:identifier="CTK_MOUSE_TRACK_MBUTTONDBLCLK"/>
+      <member name="ncmousemove"
+              value="1024"
+              c:identifier="CTK_MOUSE_TRACK_NCMOUSEMOVE"/>
+      <member name="nclbuttondown"
+              value="2048"
+              c:identifier="CTK_MOUSE_TRACK_NCLBUTTONDOWN"/>
+      <member name="nclbuttonup"
+              value="4096"
+              c:identifier="CTK_MOUSE_TRACK_NCLBUTTONUP"/>
+      <member name="nclbuttondblclk"
+              value="8192"
+              c:identifier="CTK_MOUSE_TRACK_NCLBUTTONDBLCLK"/>
+      <member name="ncrbuttondown"
+              value="16384"
+              c:identifier="CTK_MOUSE_TRACK_NCRBUTTONDOWN"/>
+      <member name="ncrbuttonup"
+              value="32768"
+              c:identifier="CTK_MOUSE_TRACK_NCRBUTTONUP"/>
+      <member name="ncrbuttondblclk"
+              value="65536"
+              c:identifier="CTK_MOUSE_TRACK_NCRBUTTONDBLCLK"/>
+      <member name="ncmbuttondown"
+              value="131072"
+              c:identifier="CTK_MOUSE_TRACK_NCMBUTTONDOWN"/>
+      <member name="ncmbuttonup"
+              value="262144"
+              c:identifier="CTK_MOUSE_TRACK_NCMBUTTONUP"/>
+      <member name="ncmbuttondblclk"
+              value="524288"
+              c:identifier="CTK_MOUSE_TRACK_NCMBUTTONDBLCLK"/>
+    </bitfield>
+    <record name="ResourceManager" c:type="CtkResourceManager" disguised="1">
+    </record>
+    <enumeration name="SizingMode"
+                 glib:type-name="CtkSizingMode"
+                 glib:get-type="ctk_sizing_mode_get_type"
+                 c:type="CtkSizingMode">
+      <member name="BEST_FIT"
+              value="0"
+              c:identifier="CTK_SIZING_BEST_FIT"
+              glib:nick="BEST_FIT"/>
+      <member name="FIT_WIDTH"
+              value="1"
+              c:identifier="CTK_SIZING_FIT_WIDTH"
+              glib:nick="FIT_WIDTH"/>
+      <member name="FREE"
+              value="2"
+              c:identifier="CTK_SIZING_FREE"
+              glib:nick="FREE"/>
+    </enumeration>
+    <class name="WindowDecorator"
+           c:symbol-prefix="window_decorator"
+           c:type="CtkWindowDecorator"
+           parent="BaseDecorator"
+           glib:type-name="CtkWindowDecorator"
+           glib:get-type="ctk_window_decorator_get_type"
+           glib:type-struct="WindowDecoratorClass">
+      <constructor name="new" c:identifier="ctk_window_decorator_new">
+        <return-value transfer-ownership="full">
+          <type name="WindowDecorator" c:type="CtkWindowDecorator*"/>
+        </return-value>
+      </constructor>
+      <method name="add_tool" c:identifier="ctk_window_decorator_add_tool">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="tool" transfer-ownership="none">
+            <type name="DecoratorWidget" c:type="CtkDecoratorWidget*"/>
+          </parameter>
+          <parameter name="x" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="y" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="width" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="height" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="left" transfer-ownership="none">
+            <type name="gfloat" c:type="gfloat"/>
+          </parameter>
+          <parameter name="top" transfer-ownership="none">
+            <type name="gfloat" c:type="gfloat"/>
+          </parameter>
+          <parameter name="right" transfer-ownership="none">
+            <type name="gfloat" c:type="gfloat"/>
+          </parameter>
+          <parameter name="bottom" transfer-ownership="none">
+            <type name="gfloat" c:type="gfloat"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_allocation"
+              c:identifier="ctk_window_decorator_get_allocation">
+        <doc xml:whitespace="preserve">Retrieves the decorator's allocation.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="allocation"
+                     direction="out"
+                     caller-allocates="1"
+                     transfer-ownership="none">
+            <doc xml:whitespace="preserve">a pointer to a #GtkAllocation to copy to</doc>
+            <type name="Gtk.Allocation" c:type="GtkAllocation*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance">
+        <type name="BaseDecorator" c:type="CtkBaseDecorator"/>
+      </field>
+      <field name="priv">
+        <type name="WindowDecoratorPrivate"
+              c:type="CtkWindowDecoratorPrivate*"/>
+      </field>
+    </class>
+    <record name="WindowDecoratorClass"
+            c:type="CtkWindowDecoratorClass"
+            glib:is-gtype-struct-for="WindowDecorator">
+      <field name="parent_class">
+        <type name="BaseDecoratorClass" c:type="CtkBaseDecoratorClass"/>
+      </field>
+    </record>
+    <record name="WindowDecoratorPrivate"
+            c:type="CtkWindowDecoratorPrivate"
+            disguised="1">
+    </record>
+    <function name="file_get_mime_type"
+              c:identifier="ctk_file_get_mime_type"
+              throws="1">
+      <doc xml:whitespace="preserve">Note: on unknown MIME types, this may return NULL without @error
+being filled in.
+-</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">a newly allocated string with the MIME type of the file at @uri, or %NULL on error or if the MIME type could not be determined</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="uri" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the URI</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="fast" transfer-ownership="none">
+          <doc xml:whitespace="preserve">whether to use fast MIME type detection</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="is_win7" c:identifier="ctk_is_win7">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+    </function>
+    <function name="load_document_from_file"
+              c:identifier="ctk_load_document_from_file"
+              throws="1">
+      <doc xml:whitespace="preserve">Load the document from local file.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">a #CtkDocument</doc>
+        <type name="Document" c:type="CtkDocument*"/>
+      </return-value>
+      <parameters>
+        <parameter name="context" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the plugin context</doc>
+          <type name="Gimo.Context" c:type="gpointer"/>
+        </parameter>
+        <parameter name="filename" transfer-ownership="none">
+          <doc xml:whitespace="preserve">the document file name</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="marshal_VOID__INT_INT"
+              c:identifier="ctk_marshal_VOID__INT_INT">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="closure" transfer-ownership="none">
+          <type name="GObject.Closure" c:type="GClosure*"/>
+        </parameter>
+        <parameter name="return_value" transfer-ownership="none">
+          <type name="GObject.Value" c:type="GValue*"/>
+        </parameter>
+        <parameter name="n_param_values" transfer-ownership="none">
+          <type name="guint" c:type="guint"/>
+        </parameter>
+        <parameter name="param_values" transfer-ownership="none">
+          <type name="GObject.Value" c:type="const GValue*"/>
+        </parameter>
+        <parameter name="invocation_hint" transfer-ownership="none">
+          <type name="gpointer" c:type="gpointer"/>
+        </parameter>
+        <parameter name="marshal_data" transfer-ownership="none">
+          <type name="gpointer" c:type="gpointer"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="mouse_manager_add_track"
+              c:identifier="ctk_mouse_manager_add_track"
+              introspectable="0">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="hwnd" transfer-ownership="none">
+          <type c:type="HWND"/>
+        </parameter>
+        <parameter name="mask" transfer-ownership="none">
+          <type name="MouseTrackFlags" c:type="CtkMouseTrackFlags"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="mouse_manager_remove_track"
+              c:identifier="ctk_mouse_manager_remove_track"
+              introspectable="0">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="hwnd" transfer-ownership="none">
+          <type c:type="HWND"/>
+        </parameter>
+        <parameter name="mask" transfer-ownership="none">
+          <type name="MouseTrackFlags" c:type="CtkMouseTrackFlags"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="mouse_manager_track_leave"
+              c:identifier="ctk_mouse_manager_track_leave"
+              introspectable="0">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="hwnd" transfer-ownership="none">
+          <type c:type="HWND"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="open_single_file" c:identifier="ctk_open_single_file">
+      <doc xml:whitespace="preserve">Display a file choose dialog to choose a single file.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:whitespace="preserve">the selected file name or %NULL</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="parent" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">a #GtkWidget</doc>
+          <type name="Gtk.Widget" c:type="GtkWidget*"/>
+        </parameter>
+        <parameter name="name" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the initial file name</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="dir" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the initial directory</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="title" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">the dialog title</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="filters" transfer-ownership="none" allow-none="1">
+          <doc xml:whitespace="preserve">a %NULL-terminated array of strings holding filters</doc>
+          <array c:type="gchar**">
+            <type name="utf8" c:type="gchar*"/>
+          </array>
+        </parameter>
+      </parameters>
+    </function>
+  </namespace>
+</repository>

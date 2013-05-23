@@ -60,6 +60,7 @@ struct _OrenSMClientClass {
                   guint line_number,
                   guint data_type,
                   guint max_retry,
+                  guint data_hops,
                   OrenNCBuffer *buffer);
 };
 
@@ -85,7 +86,8 @@ void oren_smclient_send_data (OrenSMClient *self,
                               guint data_type,
                               gconstpointer data,
                               gsize size,
-                              guint max_retry);
+                              guint max_retry,
+                              guint data_hops);
 
 void oren_smclient_send_refuse (OrenSMClient *self,
                                 guint line_number,
@@ -99,6 +101,9 @@ guint32 oren_smclient_get_source_id (OrenSMClient *self,
 
 gboolean oren_smclient_is_source (OrenSMClient *self,
                                   guint line_number);
+
+guint8 _oren_smclient_make_data_msg (guint data_type,
+                                     guint data_hops);
 
 G_END_DECLS
 

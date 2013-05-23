@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive version="1.0">
+  <object class="GimoPlugin">
+    <id>org.clue.backend.txt</id>
+    <name>Clue TXT Backend</name>
+    <version>1.0</version>
+    <provider>clue</provider>
+    <module>clue-txt-1.0.so</module>
+    <extensions class="GimoExtension">
+      <extension id="backend" name="TXT backend"
+                 point="org.clue.backend">
+        <configs class="GimoExtConfig">
+          <config name="mime-type" value="text/plain;"/>
+        </configs>
+      </extension>
+    </extensions>
+  </object>
+</archive>

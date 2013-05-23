@@ -15,6 +15,19 @@ EXPORTS
 	gjs_context_gc
 	gjs_dumpstack
 
+    gjs_closure_new
+    gjs_closure_invoke
+    gjs_closure_get_runtime
+    gjs_closure_is_valid
+    gjs_closure_get_callable
+    gjs_closure_trace
+
+    gjs_value_to_g_value
+    gjs_value_to_g_value_no_copy
+    gjs_value_from_g_value
+    gjs_closure_new_marshaled
+    gjs_closure_new_for_signal
+
 	gjs_init_context_standard
 	gjs_runtime_init
 	gjs_runtime_destroy

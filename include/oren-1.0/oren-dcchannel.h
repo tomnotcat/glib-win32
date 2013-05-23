@@ -114,14 +114,14 @@ void oren_dcchannel_add_user (OrenDCChannel *self,
                               OrenNCBuffer *auth_data);
 
 void oren_dcchannel_remove_user (OrenDCChannel *self,
-                                 guint32 user_id);
+                                 guint user_id);
 
 void oren_dcchannel_change_parent (OrenDCChannel *self,
                                    OrenNCSockaddr *addr,
                                    gboolean reconnect);
 
 OrenDCUser* oren_dcchannel_get_user (OrenDCChannel *self,
-                                     guint32 user_id);
+                                     guint user_id);
 
 void oren_dcchannel_get_transfer_status (OrenDCChannel *self,
                                          OrenDCTransferStatus *status);

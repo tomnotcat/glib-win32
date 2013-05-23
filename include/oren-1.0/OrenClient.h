@@ -213,12 +213,14 @@ public:
 
     static const char* LogoutReasonToString (LogoutReason reason);
 
+public:
+    class COrenClientImpl;
+
 private:
     COrenClient (const COrenClient&);
     COrenClient& operator= (const COrenClient&);
 
 private:
-    class COrenClientImpl;
     COrenClientImpl *m_impl;
 };
 

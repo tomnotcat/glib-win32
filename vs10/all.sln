@@ -45,6 +45,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gjs-module-gettextNative", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gjs-module-cairoNative", "gjs\gjs-module-cairoNative.vcxproj", "{1D1AA3DB-FB11-4640-A455-50276A9949F7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gjs-module-gtkbuilder", "gjs\gjs-module-gtkbuilder.vcxproj", "{72C5647A-1FA6-4A37-9388-B7456D94DD58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -139,6 +141,10 @@ Global
 		{1D1AA3DB-FB11-4640-A455-50276A9949F7}.Debug|Win32.Build.0 = Debug|Win32
 		{1D1AA3DB-FB11-4640-A455-50276A9949F7}.Release|Win32.ActiveCfg = Release|Win32
 		{1D1AA3DB-FB11-4640-A455-50276A9949F7}.Release|Win32.Build.0 = Release|Win32
+		{72C5647A-1FA6-4A37-9388-B7456D94DD58}.Debug|Win32.ActiveCfg = Debug|Win32
+		{72C5647A-1FA6-4A37-9388-B7456D94DD58}.Debug|Win32.Build.0 = Debug|Win32
+		{72C5647A-1FA6-4A37-9388-B7456D94DD58}.Release|Win32.ActiveCfg = Release|Win32
+		{72C5647A-1FA6-4A37-9388-B7456D94DD58}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
